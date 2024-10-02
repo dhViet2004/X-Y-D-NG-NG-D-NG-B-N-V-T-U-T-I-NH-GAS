@@ -2,7 +2,7 @@ package Entity;
 
 import java.time.LocalTime;
 
-public class Entity_LichLamViec {
+public class LichLamViec {
     private String maLichLamViec;
     private String maNV;
     private LocalTime gioBatDau;
@@ -10,7 +10,7 @@ public class Entity_LichLamViec {
     private String trangThai;
     private String tenCa;
 
-    public Entity_LichLamViec(String maLichLamViec, String maNV, LocalTime gioBatDau, LocalTime gioKetThuc, String trangThai, String tenCa) {
+    public LichLamViec(String maLichLamViec, String maNV, LocalTime gioBatDau, LocalTime gioKetThuc, String trangThai, String tenCa) {
         this.maLichLamViec = maLichLamViec;
         this.maNV = maNV;
         this.gioBatDau = gioBatDau;

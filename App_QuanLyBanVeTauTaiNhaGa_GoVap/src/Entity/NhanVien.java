@@ -3,7 +3,7 @@ package Entity;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Entity_NhanVien {
+public class NhanVien {
     private String maNV;
     private String tenNV;
     private String soDT;
@@ -81,7 +81,7 @@ public class Entity_NhanVien {
         if (this == o) {
             return true;
         } else if (o != null && this.getClass() == o.getClass()) {
-            Entity_NhanVien that = (Entity_NhanVien)o;
+            NhanVien that = (NhanVien)o;
             return Objects.equals(this.maNV, that.maNV);
         } else {
             return false;
@@ -92,7 +92,7 @@ public class Entity_NhanVien {
         return Objects.hashCode(this.maNV);
     }
 
-    public Entity_NhanVien(String maNV, String tenNV, String soDT, String trangThai, String CCCD, String diaChi, LocalDate ngayVaoLam, String chucVu) {
+    public NhanVien(String maNV, String tenNV, String soDT, String trangThai, String CCCD, String diaChi, LocalDate ngayVaoLam, String chucVu) {
         this.maNV = maNV;
         this.tenNV = tenNV;
         this.soDT = soDT;
@@ -103,8 +103,18 @@ public class Entity_NhanVien {
         this.ChucVu = chucVu;
     }
 
+    @Override
     public String toString() {
-        String var10000 = this.maNV;
-        return "Entity_NhanVien{maNV='" + var10000 + "', tenNV='" + this.tenNV + "', soDT='" + this.soDT + "', trangThai='" + this.trangThai + "', CCCD='" + this.CCCD + "', diaChi='" + this.diaChi + "', ngayVaoLam=" + String.valueOf(this.ngayVaoLam) + ", ChucVu='" + this.ChucVu + "'}";
+        return "NhanVien{" +
+                "maNV='" + maNV + '\'' +
+                ", tenNV='" + tenNV + '\'' +
+                ", soDT='" + soDT + '\'' +
+                ", trangThai='" + trangThai + '\'' +
+                ", CCCD='" + CCCD + '\'' +
+                ", diaChi='" + diaChi + '\'' +
+                ", ngayVaoLam=" + ngayVaoLam +
+                ", ChucVu='" + ChucVu + '\'' +
+                '}';
     }
+
 }

@@ -1,10 +1,10 @@
 package Entity;
 
-public class Entity_TaiKhoan {
+public class TaiKhoan {
     private String maNV;
     private String password;
 
-    public Entity_TaiKhoan(String maNV, String password) {
+    public TaiKhoan(String maNV, String password) {
         this.maNV = maNV;
         this.password = password;
     }

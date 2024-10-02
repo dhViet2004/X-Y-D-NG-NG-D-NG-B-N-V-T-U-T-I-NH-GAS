@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="60ff4686-a3c8-4531-9ca9-3fc1b514e368" name="Changes" comment="add libaries">
-      <change beforePath="$PROJECT_DIR$/../hihi/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../hihi/.idea/vcs.xml" afterDir="false" />
-    </list>
+    <list default="true" id="60ff4686-a3c8-4531-9ca9-3fc1b514e368" name="Changes" comment="add libaries" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,6 +33,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Main.Main.executor": "Run",
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -104,6 +103,7 @@
       <workItem from="1727873091253" duration="475000" />
       <workItem from="1727883710157" duration="880000" />
       <workItem from="1727884752514" duration="334000" />
+      <workItem from="1727889573771" duration="303000" />
     </task>
     <task id="LOCAL-00001" summary="new project">
       <option name="closed" value="true" />
