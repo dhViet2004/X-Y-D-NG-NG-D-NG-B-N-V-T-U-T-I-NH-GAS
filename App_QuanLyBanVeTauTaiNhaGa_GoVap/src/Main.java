@@ -1,6 +1,6 @@
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main extends javax.swing.JFrame {
+public class Main {
     public static void main(String[] args) {
         //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
         // to see how IntelliJ IDEA suggests fixing it.
@@ -11,9 +11,5 @@ public class Main extends javax.swing.JFrame {
             // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
             System.out.println("i = " + i);
         }
-        entity HoangViet = new entity();
-        HoangViet.setName("Hoang Viet");
-        HoangViet.setId(11);
-        System.out.println(HoangViet);
     }
 }
