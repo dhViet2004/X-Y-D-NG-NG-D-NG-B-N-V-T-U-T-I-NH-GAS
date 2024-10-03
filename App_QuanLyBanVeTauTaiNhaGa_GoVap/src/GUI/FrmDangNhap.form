@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="GUI.FrmDangNhap">
+  <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties>
+      <enabled value="true"/>
+      <preferredSize width="900" height="900"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="80af6" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints border-constraint="South"/>
+        <properties>
+          <background color="-16737483"/>
+          <minimumSize width="200" height="200"/>
+          <preferredSize width="200" height="200"/>
+        </properties>
+        <border type="none" title="Đăng nhập">
+          <title-color color="-16777216"/>
+        </border>
+        <children>
+          <grid id="e804a" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints/>
+            <properties>
+              <background color="-337320"/>
+              <maximumSize width="100" height="50"/>
+              <minimumSize width="100" height="30"/>
+              <preferredSize width="300" height="60"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="ea876" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="North"/>
+                <properties>
+                  <background color="-197121"/>
+                  <foreground color="-197121"/>
+                  <inheritsPopupMenu value="false"/>
+                  <preferredSize width="24" height="30"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="47f86" class="javax.swing.JLabel">
+                    <constraints border-constraint="West"/>
+                    <properties>
+                      <text value="Tên đăng nhập:"/>
+                    </properties>
+                  </component>
+                  <component id="60aa5" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+                    <constraints border-constraint="East"/>
+                    <properties>
+                      <preferredSize width="200" height="34"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="80e64" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="South"/>
+                <properties>
+                  <preferredSize width="24" height="30"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="a6b1e" class="javax.swing.JLabel">
+                    <constraints border-constraint="Center"/>
+                    <properties>
+                      <text value="Mật khẩu:"/>
+                    </properties>
+                  </component>
+                  <component id="e0b7a" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+                    <constraints border-constraint="East"/>
+                    <properties>
+                      <preferredSize width="200" height="34"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </grid>
+          <grid id="d2afa" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints/>
+            <properties>
+              <preferredSize width="300" height="100"/>
+            </properties>
+            <border type="none">
+              <font/>
+              <title-color color="-16777216"/>
+            </border>
+            <children>
+              <component id="544a8" class="javax.swing.JButton" binding="button1" default-binding="true">
+                <constraints/>
+                <properties>
+                  <text value="Button"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <grid id="5bf6d" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints border-constraint="Center"/>
+        <properties>
+          <background color="-330695"/>
+        </properties>
+        <border type="none"/>
+        <children/>
+      </grid>
+    </children>
+  </grid>
+</form>
