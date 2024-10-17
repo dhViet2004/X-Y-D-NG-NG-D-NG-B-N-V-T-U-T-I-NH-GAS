@@ -2,28 +2,34 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class FrmDangNhap extends JDialog {
+public class FrmDangNhap extends JFrame implements ActionListener {
     private JPanel contentPane;
     private JLabel banner;
     private JPanel jPanel_Submit;
-    private JButton dangNhapButton;
+    private JButton btnDangNhap;
     private JPanel Jpanel_Input;
-    private JTextField textField1;
-    private JTextField textField2;
-
-    public FrmDangNhap (JFrame parent){
-        super(parent);
+    private JTextField txtMaNhanVien;
+    private JPasswordField txtMatKhau;
+    public FrmDangNhap() {
         setContentPane(contentPane);
         setTitle("Đăng nhập");
-        setMinimumSize(new Dimension(850, 462));
-        setModal(true);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(contentPane);
-        setVisible(true);
+        setMinimumSize(new Dimension(800, 462));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        // Thêm ActionListener cho nút đăng nhập
+        btnDangNhap.addActionListener(this);
+
+
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
     }
 
     public static void main(String[] args) {
-        FrmDangNhap frmDangNhap = new FrmDangNhap(null);
+        FrmDangNhap fm = new FrmDangNhap();
+        fm.setVisible(true);
     }
 }

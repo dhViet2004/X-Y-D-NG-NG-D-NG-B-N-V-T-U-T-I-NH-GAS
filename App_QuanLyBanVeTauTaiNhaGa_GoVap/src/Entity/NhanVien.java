@@ -87,7 +87,6 @@ public class NhanVien {
             return false;
         }
     }
-
     public int hashCode() {
         return Objects.hashCode(this.maNV);
     }

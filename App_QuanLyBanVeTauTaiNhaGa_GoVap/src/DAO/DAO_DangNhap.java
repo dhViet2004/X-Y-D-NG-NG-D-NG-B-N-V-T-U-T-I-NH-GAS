@@ -1,5 +1,8 @@
 package DAO;
 
-public class DAO_DangNhap {
 
+import Entity.TaiKhoan;
+
+public class DAO_DangNhap {
+  TaiKhoan tk = new TaiKhoan();
 }

@@ -11,7 +11,6 @@ public class ConnectDatabase {
     public static ConnectDatabase getInstance() {
         return instance;
     }
-
     public void connect()  {
         String url = "jdbc:sqlserver://localhost:1433;DatabaseName=UngDungQuanLyBanVeTauTaiGaGoVap";
         String user = "sa";
