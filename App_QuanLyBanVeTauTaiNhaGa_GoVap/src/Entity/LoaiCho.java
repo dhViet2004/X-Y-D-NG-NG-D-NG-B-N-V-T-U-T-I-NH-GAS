@@ -1,23 +1,39 @@
 package Entity;
 
 public class LoaiCho {
-    private String MaLoai;
-    private String TenLoai;
+    private String maLoai;
+    private String tenLoai;
 
     public LoaiCho(String maLoai, String tenLoai) {
-        MaLoai = maLoai;
-        TenLoai = tenLoai;
+        this.maLoai = maLoai;
+        this.tenLoai = tenLoai;
+    }
+
+    public LoaiCho(String maLoai) {
+        this.maLoai = maLoai;
+    }
+
+    public String getMaLoai() {
+        return maLoai;
     }
 
     public void setMaLoai(String maLoai) {
-        MaLoai = maLoai;
+        this.maLoai = maLoai;
     }
 
     public String getTenLoai() {
-        return TenLoai;
+        return tenLoai;
     }
 
     public void setTenLoai(String tenLoai) {
-        TenLoai = tenLoai;
+        this.tenLoai = tenLoai;
+    }
+
+    @Override
+    public String toString() {
+        return "LoaiCho{" +
+                "maLoai='" + maLoai + '\'' +
+                ", tenLoai='" + tenLoai + '\'' +
+                '}';
     }
 }

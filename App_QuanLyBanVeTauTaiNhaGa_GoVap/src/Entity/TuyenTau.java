@@ -3,65 +3,64 @@ package Entity;
 import java.util.Objects;
 
 public class TuyenTau {
-    private String MaTuyen;
-    private String TenTuyen;
-    private String GaDi;
-    private String GaDen;
-    private String DiaDiemDi;
-    private String DiaDiemDen;
+    private String maTuyen;
+    private String tenTuyen;
+    private String gaDi;
+    private String gaDen;
+    private String diaDiemDi;
+    private String diaDiemDen;
 
     public TuyenTau(String tenTuyen, String maTuyen, String gaDi, String gaDen, String diaDiemDi, String diaDiemDen) {
-        TenTuyen = tenTuyen;
-        MaTuyen = maTuyen;
-        GaDi = gaDi;
-        GaDen = gaDen;
-        DiaDiemDi = diaDiemDi;
-        DiaDiemDen = diaDiemDen;
+        this.tenTuyen = tenTuyen;
+        this.maTuyen = maTuyen;
+        this.gaDi = gaDi;
+        this.gaDen = gaDen;
+        this.diaDiemDi = diaDiemDi;
+        this.diaDiemDen = diaDiemDen;
     }
 
     public String getMaTuyen() {
-        return MaTuyen;
+        return maTuyen;
     }
 
-
     public String getTenTuyen() {
-        return TenTuyen;
+        return tenTuyen;
     }
 
     public void setTenTuyen(String tenTuyen) {
-        TenTuyen = tenTuyen;
+        this.tenTuyen = tenTuyen;
     }
 
     public String getGaDi() {
-        return GaDi;
+        return gaDi;
     }
 
     public void setGaDi(String gaDi) {
-        GaDi = gaDi;
+        this.gaDi = gaDi;
     }
 
     public String getGaDen() {
-        return GaDen;
+        return gaDen;
     }
 
     public void setGaDen(String gaDen) {
-        GaDen = gaDen;
+        this.gaDen = gaDen;
     }
 
     public String getDiaDiemDi() {
-        return DiaDiemDi;
+        return diaDiemDi;
     }
 
     public void setDiaDiemDi(String diaDiemDi) {
-        DiaDiemDi = diaDiemDi;
+        this.diaDiemDi = diaDiemDi;
     }
 
     public String getDiaDiemDen() {
-        return DiaDiemDen;
+        return diaDiemDen;
     }
 
     public void setDiaDiemDen(String diaDiemDen) {
-        DiaDiemDen = diaDiemDen;
+        this.diaDiemDen = diaDiemDen;
     }
 
     @Override
@@ -69,16 +68,23 @@ public class TuyenTau {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TuyenTau tuyenTau = (TuyenTau) o;
-        return Objects.equals(MaTuyen, tuyenTau.MaTuyen);
+        return Objects.equals(maTuyen, tuyenTau.maTuyen);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(MaTuyen);
+        return Objects.hashCode(maTuyen);
     }
 
     @Override
     public String toString() {
-        return "TuyenTau{" + "MaTuyen='" + MaTuyen + '\'' + ", TenTuyen='" + TenTuyen + '\'' + ", GaDi='" + GaDi + '\'' + ", GaDen='" + GaDen + '\'' + ", DiaDiemDi='" + DiaDiemDi + '\'' + ", DiaDiemDen='" + DiaDiemDen + '\'' + '}';
+        return "TuyenTau{" +
+                "maTuyen='" + maTuyen + '\'' +
+                ", tenTuyen='" + tenTuyen + '\'' +
+                ", gaDi='" + gaDi + '\'' +
+                ", gaDen='" + gaDen + '\'' +
+                ", diaDiemDi='" + diaDiemDi + '\'' +
+                ", diaDiemDen='" + diaDiemDen + '\'' +
+                '}';
     }
 }

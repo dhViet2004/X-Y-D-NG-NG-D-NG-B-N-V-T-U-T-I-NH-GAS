@@ -1,10 +1,7 @@
 package DAO;
 
 import Database.ConnectDatabase;
-import Entity.LoaiToa;
-import Entity.Tau;
-import Entity.ToaTau;
-import Entity.TuyenTau;
+import Entity.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,6 +9,7 @@ import java.util.List;
 
 public class DAO_BanVe {
     private Connection con;
+    private LoaiCho loaiCho;
 
     public DAO_BanVe() {
         con = ConnectDatabase.getConnection();
@@ -117,5 +115,51 @@ public class DAO_BanVe {
         }
         return toaList;
     }
+
+
+
+    public List<ChoNgoi> getSeatsByMaToa(String maToa) throws SQLException {
+        List<ChoNgoi> seatsList = new ArrayList<>();
+
+        // Câu truy vấn SQL
+        String sql = "SELECT cho.MaCho, cho.LoaiChoMaLoai, toa.MaToa, cho.TenCho, cho.TinhTrang, cho.GiaTien " +
+                "FROM ChoNgoi cho " +
+                "JOIN LoaiCho loai ON cho.LoaiChoMaLoai = loai.MaLoai " +
+                "JOIN ToaTau toa ON cho.LoaiToaMaToa = toa.MaToa " +
+                "WHERE toa.MaToa = ?";
+
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, maToa); // Gán tham số mã toa vào câu truy vấn
+            ResultSet rs = pstmt.executeQuery();
+
+            // Lặp qua kết quả trả về từ câu truy vấn
+            while (rs.next()) {
+                String maCho = rs.getString("MaCho");
+                String maLoai = rs.getString("LoaiChoMaLoai");
+                String maToaTau  = rs.getString("MaToa");
+                String tenCho = rs.getString("TenCho");
+                Boolean tinhTrang = rs.getBoolean("TinhTrang");
+                float gia = rs.getFloat("GiaTien");
+
+                // Tạo đối tượng LoaiCho
+                LoaiCho loaiCho = new LoaiCho(maLoai);
+                ToaTau toaTau = new ToaTau(maToaTau);
+                // Tạo đối tượng ChoNgoi và thêm vào danh sách
+                ChoNgoi choNgoi = new ChoNgoi(maCho, loaiCho, toaTau, tenCho, tinhTrang, gia);
+                seatsList.add(choNgoi);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error fetching ChoNgoi data", e);
+        }
+
+        return seatsList;
+    }
+
+
+
+
+
+
 
 }

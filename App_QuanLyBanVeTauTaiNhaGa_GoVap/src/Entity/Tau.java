@@ -3,45 +3,44 @@ package Entity;
 import java.util.Objects;
 
 public class Tau {
-    private String MaTau;
-    private TuyenTau TuyenTau;
-    private String TenTau;
-    private int SoToa;
+    private String maTau;
+    private TuyenTau tuyenTau;
+    private String tenTau;
+    private int soToa;
 
     public Tau(Entity.TuyenTau tuyenTau, String tenTau, String maTau, int soToa) {
-        TuyenTau = tuyenTau;
-        TenTau = tenTau;
-        MaTau = maTau;
-        SoToa = soToa;
+        this.tuyenTau = tuyenTau;
+        this.tenTau = tenTau;
+        this.maTau = maTau;
+        this.soToa = soToa;
     }
 
     public Entity.TuyenTau getTuyenTau() {
-        return TuyenTau;
+        return tuyenTau;
     }
 
-
     public String getTenTau() {
-        return TenTau;
+        return tenTau;
     }
 
     public void setTenTau(String tenTau) {
-        TenTau = tenTau;
+        this.tenTau = tenTau;
     }
 
     public String getMaTau() {
-        return MaTau;
+        return maTau;
     }
 
     public void setMaTau(String maTau) {
-        MaTau = maTau;
+        this.maTau = maTau;
     }
 
     public int getSoToa() {
-        return SoToa;
+        return soToa;
     }
 
     public void setSoToa(int soToa) {
-        SoToa = soToa;
+        this.soToa = soToa;
     }
 
     @Override
@@ -49,16 +48,21 @@ public class Tau {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Tau tau = (Tau) o;
-        return Objects.equals(MaTau, tau.MaTau);
+        return Objects.equals(maTau, tau.maTau);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(MaTau);
+        return Objects.hashCode(maTau);
     }
 
     @Override
     public String toString() {
-        return "Tau{" + "MaTau='" + MaTau + '\'' + ", TuyenTau=" + TuyenTau + ", TenTau='" + TenTau + '\'' + ", SoToa=" + SoToa + '}';
+        return "Tau{" +
+                "maTau='" + maTau + '\'' +
+                ", tuyenTau=" + tuyenTau +
+                ", tenTau='" + tenTau + '\'' +
+                ", soToa=" + soToa +
+                '}';
     }
 }

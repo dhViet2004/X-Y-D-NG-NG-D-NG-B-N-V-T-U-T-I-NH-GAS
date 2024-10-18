@@ -3,85 +3,79 @@ package Entity;
 import java.util.Objects;
 
 public class ChoNgoi {
-    private String MaCho;
-    private LoaiCho LoaiCho;
-    private LoaiToa LoaiToa;
-    private String TenCho;
-    private Boolean TinhTrang;
-    private Double Gia;
+    private String maCho;
+    private LoaiCho loaiCho;
+    private ToaTau toaTau;
+    private String tenCho;
+    private Boolean tinhTrang;
+    private float gia;
 
-    public ChoNgoi(String maCho, Entity.LoaiCho loaiCho, Entity.LoaiToa loaiToa, String tenCho, Boolean tinhTrang, Double gia) {
-        MaCho = maCho;
-        LoaiCho = loaiCho;
-        LoaiToa = loaiToa;
-        TenCho = tenCho;
-        TinhTrang = tinhTrang;
-        Gia = gia;
+    public ChoNgoi(String maCho, LoaiCho loaiCho, ToaTau toaTau, String tenCho, Boolean tinhTrang, float gia) {
+        this.maCho = maCho;
+        this.loaiCho = loaiCho;
+        this.toaTau = toaTau;
+        this.tenCho = tenCho;
+        this.tinhTrang = tinhTrang;
+        this.gia = gia;
     }
 
     public String getMaCho() {
-        return MaCho;
+        return maCho;
     }
 
     public void setMaCho(String maCho) {
-        MaCho = maCho;
+        this.maCho = maCho;
     }
 
-    public Entity.LoaiCho getLoaiCho() {
-        return LoaiCho;
+    public LoaiCho getLoaiCho() {
+        return loaiCho;
     }
 
-    public void setLoaiCho(Entity.LoaiCho loaiCho) {
-        LoaiCho = loaiCho;
+    public void setLoaiCho(LoaiCho loaiCho) {
+        this.loaiCho = loaiCho;
+    }
+
+    public ToaTau getToaTau() {
+        return toaTau;
+    }
+
+    public void setToaTau(ToaTau toaTau) {
+        this.toaTau = toaTau;
     }
 
     public String getTenCho() {
-        return TenCho;
+        return tenCho;
     }
 
     public void setTenCho(String tenCho) {
-        TenCho = tenCho;
-    }
-
-    public Entity.LoaiToa getLoaiToa() {
-        return LoaiToa;
-    }
-
-    public void setLoaiToa(Entity.LoaiToa loaiToa) {
-        LoaiToa = loaiToa;
+        this.tenCho = tenCho;
     }
 
     public Boolean getTinhTrang() {
-        return TinhTrang;
+        return tinhTrang;
     }
 
     public void setTinhTrang(Boolean tinhTrang) {
-        TinhTrang = tinhTrang;
+        this.tinhTrang = tinhTrang;
     }
 
-    public Double getGia() {
-        return Gia;
+    public float getGia() {
+        return gia;
     }
 
-    public void setGia(Double gia) {
-        Gia = gia;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ChoNgoi choNgoi = (ChoNgoi) o;
-        return Objects.equals(MaCho, choNgoi.MaCho);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(MaCho);
+    public void setGia(float gia) {
+        this.gia = gia;
     }
 
     @Override
     public String toString() {
-        return "ChoNgoi{" + "MaCho='" + MaCho + '\'' + ", LoaiCho=" + LoaiCho + ", LoaiToa=" + LoaiToa + ", TenCho='" + TenCho + '\'' + ", TinhTrang=" + TinhTrang + ", Gia=" + Gia + '}';
+        return "ChoNgoi{" +
+                "maCho='" + maCho + '\'' +
+                ", loaiCho=" + loaiCho +
+                ", toaTau=" + toaTau +
+                ", tenCho='" + tenCho + '\'' +
+                ", tinhTrang=" + tinhTrang +
+                ", gia=" + gia +
+                '}';
     }
 }
