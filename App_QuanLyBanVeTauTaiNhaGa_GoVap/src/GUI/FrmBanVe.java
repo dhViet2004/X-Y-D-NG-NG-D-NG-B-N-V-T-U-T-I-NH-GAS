@@ -2,6 +2,7 @@ package GUI;
 
 import DAO.DAO_BanVe;
 import Database.ConnectDatabase;
+import Entity.ChoNgoi;
 import Entity.Tau;
 import Entity.ToaTau;
 import com.toedter.calendar.JDateChooser;
@@ -13,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FrmBanVe extends JFrame implements ActionListener {
@@ -33,6 +35,11 @@ public class FrmBanVe extends JFrame implements ActionListener {
     private JPanel JPanelTau;  // JPanel để hiển thị các nút chuyến tàu
     private JPanel JPanel_Toa;
     private JPanel JPanel_ChoNgoi;
+    private JPanel JPanel_ChoNgoi_A;
+    private JPanel JPanel_ChoNgoi_B;
+    private JPanel JPanel_ChoNgoi_C;
+    private JPanel JPanel_ChoNgoi_D;
+    private JPanel JPanel_ChoNgoi_E;
     private JDateChooser dateChooserNgayDi = new JDateChooser();
     private JDateChooser dateChooserNgayVe = new JDateChooser();
     private DAO_BanVe daoBanVe;
@@ -171,6 +178,113 @@ public class FrmBanVe extends JFrame implements ActionListener {
                                             toaButton.setOpaque(false); // Xóa màu nền khi không hover
                                         }
                                     });
+
+                                    // Thêm ActionListener cho mỗi nút toa
+                                    toaButton.addActionListener(new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent event) {
+                                            DAO_BanVe daoBanVe = new DAO_BanVe();
+                                            List<ChoNgoi> danhSachChoNgoi = null;
+
+                                            try {
+                                                // Gọi DAO để tìm các chỗ ngồi của toa
+                                                danhSachChoNgoi = daoBanVe.getSeatsByMaToa(toaTau.getMaToa());
+                                            } catch (SQLException ex) {
+                                                throw new RuntimeException(ex);
+                                            }
+
+                                            // Hiển thị chỗ ngồi trong JPanel_ChoNgoi
+                                            JPanel_ChoNgoi_A.removeAll();
+                                            JPanel_ChoNgoi_A.setLayout(new FlowLayout()); // Sử dụng GridLayout để hiển thị chỗ ngồi
+                                            JPanel_ChoNgoi_B.removeAll();
+                                            JPanel_ChoNgoi_B.setLayout(new FlowLayout());
+                                            JPanel_ChoNgoi_C.removeAll();
+                                            JPanel_ChoNgoi_C.setLayout(new FlowLayout());
+                                            JPanel_ChoNgoi_D.removeAll();
+                                            JPanel_ChoNgoi_D.setLayout(new FlowLayout());
+                                            JPanel_ChoNgoi_E.removeAll();
+                                            JPanel_ChoNgoi_E.setLayout(new FlowLayout());
+                                            if (danhSachChoNgoi.isEmpty()) {
+                                                JOptionPane.showMessageDialog(null, "Không tìm thấy chỗ ngồi.");
+                                            } else {
+                                                for (ChoNgoi choNgoi : danhSachChoNgoi) {
+                                                    String choInfo = choNgoi.getTenCho();
+
+                                                    JButton choButton = new JButton();
+                                                    choButton.setText(choNgoi.getTenCho()); // Gán tên chỗ
+                                                    choButton.setPreferredSize(new Dimension(100, 100)); // Kích thước nút hình vuông
+
+                                                    // Thay đổi màu nền dựa trên tình trạng
+                                                    if (choNgoi.getTinhTrang()) {
+                                                        choButton.setBackground(Color.WHITE); // Đã đặt
+                                                    } else {
+                                                        choButton.setBackground(Color.PINK); // Còn trống
+                                                    }
+
+                                                    choButton.setOpaque(true);
+//                                                    choButton.setBorderPainted(false); // Không viền
+
+                                                    // Khóa nút nếu chỗ ngồi không còn trống
+                                                    if (!choNgoi.getTinhTrang()) {
+                                                        choButton.setForeground(new Color(255, 215, 0));
+                                                        choButton.setEnabled(false); // Khóa nút
+                                                        choButton.setText("Đã đặt"); // Thay đổi văn bản để thể hiện trạng thái đã đặt
+//                                                        choButton.setFont(new Font("Arial", Font.BOLD, 16)); // Thay đổi kích thước (16) theo nhu cầu
+                                                    } else {
+                                                        // Thêm ActionListener cho nút chỗ ngồi
+                                                        choButton.addActionListener(new ActionListener() {
+                                                            @Override
+                                                            public void actionPerformed(ActionEvent e) {
+                                                                // Xử lý khi click vào chỗ ngồi
+                                                                JOptionPane.showMessageDialog(null, "Bạn đã chọn chỗ: " + choNgoi.getTenCho());
+                                                            }
+                                                        });
+                                                    }
+
+                                                    // Gán chỗ ngồi vào JPanel tương ứng dựa trên ký tự cuối cùng
+                                                    String tenCho = choNgoi.getTenCho(); // Lấy tên chỗ
+                                                    if (tenCho != null && !tenCho.isEmpty()) {
+                                                        char cuoi = tenCho.charAt(tenCho.length() - 1); // Lấy ký tự cuối cùng
+                                                        switch (cuoi) {
+                                                            case 'A':
+                                                                JPanel_ChoNgoi_A.add(choButton);
+                                                                break;
+                                                            case 'B':
+                                                                JPanel_ChoNgoi_B.add(choButton);
+                                                                break;
+                                                            case 'C':
+                                                                JPanel_ChoNgoi_C.add(choButton);
+                                                                break;
+                                                            case 'D':
+                                                                JPanel_ChoNgoi_D.add(choButton);
+                                                                break;
+                                                            case 'E':
+                                                                JPanel_ChoNgoi_E.add(choButton);
+                                                                break;
+                                                            default:
+                                                                // Nếu không khớp với các ký tự A, B, C, D, E thì có thể bỏ qua hoặc xử lý tùy ý
+                                                                break;
+                                                        }
+                                                    }
+                                                }
+
+                                                // Cập nhật giao diện cho các JPanel
+                                                JPanel_ChoNgoi_A.revalidate();
+                                                JPanel_ChoNgoi_A.repaint();
+                                                JPanel_ChoNgoi_B.revalidate();
+                                                JPanel_ChoNgoi_B.repaint();
+                                                JPanel_ChoNgoi_C.revalidate();
+                                                JPanel_ChoNgoi_C.repaint();
+                                                JPanel_ChoNgoi_D.revalidate();
+                                                JPanel_ChoNgoi_D.repaint();
+                                                JPanel_ChoNgoi_E.revalidate();
+                                                JPanel_ChoNgoi_E.repaint();
+                                            }
+                                        }
+                                    });
+
+
+
 
                                     // Thêm nút toa vào JPanel_Toa
                                     JPanel_Toa.add(toaButton);
