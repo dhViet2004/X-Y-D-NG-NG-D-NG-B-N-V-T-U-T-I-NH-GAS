@@ -81,12 +81,13 @@ public class NhanVien {
         if (this == o) {
             return true;
         } else if (o != null && this.getClass() == o.getClass()) {
-            NhanVien that = (NhanVien)o;
+            NhanVien that = (NhanVien) o;
             return Objects.equals(this.maNV, that.maNV);
         } else {
             return false;
         }
     }
+
     public int hashCode() {
         return Objects.hashCode(this.maNV);
     }

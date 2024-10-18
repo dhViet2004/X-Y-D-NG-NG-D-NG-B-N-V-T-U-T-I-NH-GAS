@@ -13,6 +13,7 @@ public class TaiKhoan {
         this.maNV = maNV;
         this.password = password;
     }
+
     public String getMaNV() {
         return this.maNV;
     }

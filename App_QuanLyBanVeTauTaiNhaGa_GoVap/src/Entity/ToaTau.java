@@ -2,7 +2,7 @@ package Entity;
 
 import java.util.Objects;
 
-public class ToaTau{
+public class ToaTau {
     private String MaToa;
     private LoaiToa LoaiToa;
     private Tau Tau;
@@ -73,13 +73,6 @@ public class ToaTau{
 
     @Override
     public String toString() {
-        return "ToaTau{" +
-                "MaToa='" + MaToa + '\'' +
-                ", LoaiToa=" + LoaiToa +
-                ", Tau=" + Tau +
-                ", TenToa='" + TenToa + '\'' +
-                ", SoGhe=" + SoGhe +
-                ", ThuTu=" + ThuTu +
-                '}';
+        return "ToaTau{" + "MaToa='" + MaToa + '\'' + ", LoaiToa=" + LoaiToa + ", Tau=" + Tau + ", TenToa='" + TenToa + '\'' + ", SoGhe=" + SoGhe + ", ThuTu=" + ThuTu + '}';
     }
 }

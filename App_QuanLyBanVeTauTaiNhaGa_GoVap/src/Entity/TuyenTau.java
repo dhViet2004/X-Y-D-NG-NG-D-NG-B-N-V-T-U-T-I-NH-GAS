@@ -3,7 +3,7 @@ package Entity;
 import java.util.Objects;
 
 public class TuyenTau {
-    private  String MaTuyen;
+    private String MaTuyen;
     private String TenTuyen;
     private String GaDi;
     private String GaDen;
@@ -79,13 +79,6 @@ public class TuyenTau {
 
     @Override
     public String toString() {
-        return "TuyenTau{" +
-                "MaTuyen='" + MaTuyen + '\'' +
-                ", TenTuyen='" + TenTuyen + '\'' +
-                ", GaDi='" + GaDi + '\'' +
-                ", GaDen='" + GaDen + '\'' +
-                ", DiaDiemDi='" + DiaDiemDi + '\'' +
-                ", DiaDiemDen='" + DiaDiemDen + '\'' +
-                '}';
+        return "TuyenTau{" + "MaTuyen='" + MaTuyen + '\'' + ", TenTuyen='" + TenTuyen + '\'' + ", GaDi='" + GaDi + '\'' + ", GaDen='" + GaDen + '\'' + ", DiaDiemDi='" + DiaDiemDi + '\'' + ", DiaDiemDen='" + DiaDiemDen + '\'' + '}';
     }
 }

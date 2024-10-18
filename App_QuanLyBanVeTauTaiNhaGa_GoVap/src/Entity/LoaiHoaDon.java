@@ -4,24 +4,15 @@ import java.util.Objects;
 
 public class LoaiHoaDon {
     private String maLoaiHoaDon;
-    private  String tenLoaiHoaDon;
-    private String theLoaiHoaDon;
+    private String tenLoaiHoaDon;
 
-    LoaiHoaDon(){
-        this("","","");
-    }
-
-    LoaiHoaDon(String maLoaiHoaDon, String tenLoaiHoaDon, String theLoaiHoaDon){
+    public LoaiHoaDon(String maLoaiHoaDon, String tenLoaiHoaDon) {
         this.maLoaiHoaDon = maLoaiHoaDon;
         this.tenLoaiHoaDon = tenLoaiHoaDon;
-        this.theLoaiHoaDon = theLoaiHoaDon;
-    }
-    public String getMaLoaiHoaDon() {
-        return maLoaiHoaDon;
     }
 
-    public void setMaLoaiHoaDon(String maLoaiHoaDon) {
-        this.maLoaiHoaDon = maLoaiHoaDon;
+    public String getMaLoaiHoaDon() {
+        return maLoaiHoaDon;
     }
 
     public String getTenLoaiHoaDon() {
@@ -30,14 +21,6 @@ public class LoaiHoaDon {
 
     public void setTenLoaiHoaDon(String tenLoaiHoaDon) {
         this.tenLoaiHoaDon = tenLoaiHoaDon;
-    }
-
-    public String getTheLoaiHoaDon() {
-        return theLoaiHoaDon;
-    }
-
-    public void setTheLoaiHoaDon(String theLoaiHoaDon) {
-        this.theLoaiHoaDon = theLoaiHoaDon;
     }
 
     @Override
@@ -55,10 +38,6 @@ public class LoaiHoaDon {
 
     @Override
     public String toString() {
-        return "LoaiHoaDon{" +
-                "maLoaiHoaDon='" + maLoaiHoaDon + '\'' +
-                ", tenLoaiHoaDon='" + tenLoaiHoaDon + '\'' +
-                ", theLoaiHoaDon='" + theLoaiHoaDon + '\'' +
-                '}';
+        return "LoaiHoaDon{" + "maLoaiHoaDon='" + maLoaiHoaDon + '\'' + ", tenLoaiHoaDon='" + tenLoaiHoaDon + '\'' + '}';
     }
 }

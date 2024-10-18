@@ -1,74 +1,91 @@
 package Entity;
 
 import java.time.LocalTime;
+import java.util.Objects;
 
 public class LichLamViec {
-    private String maLichLamViec;
-    private String maNV;
-    private LocalTime gioBatDau;
-    private LocalTime gioKetThuc;
-    private String trangThai;
-    private String tenCa;
+    private String MaLichLamViec;
+    private String MaNV;
+    private LocalTime GioBatDau;
+    private LocalTime GioKetThuc;
+    private String TrangThai;
+    private String TenCa;
 
     public LichLamViec(String maLichLamViec, String maNV, LocalTime gioBatDau, LocalTime gioKetThuc, String trangThai, String tenCa) {
-        this.maLichLamViec = maLichLamViec;
-        this.maNV = maNV;
-        this.gioBatDau = gioBatDau;
-        this.gioKetThuc = gioKetThuc;
-        this.trangThai = trangThai;
-        this.tenCa = tenCa;
+        MaLichLamViec = maLichLamViec;
+        MaNV = maNV;
+        GioBatDau = gioBatDau;
+        GioKetThuc = gioKetThuc;
+        TrangThai = trangThai;
+        TenCa = tenCa;
     }
 
     public String getMaLichLamViec() {
-        return this.maLichLamViec;
+        return MaLichLamViec;
     }
 
     public void setMaLichLamViec(String maLichLamViec) {
-        this.maLichLamViec = maLichLamViec;
+        MaLichLamViec = maLichLamViec;
     }
 
     public String getMaNV() {
-        return this.maNV;
-    }
-
-    public void setMaNV(String maNV) {
-        this.maNV = maNV;
+        return MaNV;
     }
 
     public LocalTime getGioBatDau() {
-        return this.gioBatDau;
+        return GioBatDau;
     }
 
     public void setGioBatDau(LocalTime gioBatDau) {
-        this.gioBatDau = gioBatDau;
+        GioBatDau = gioBatDau;
     }
 
     public LocalTime getGioKetThuc() {
-        return this.gioKetThuc;
+        return GioKetThuc;
     }
 
     public void setGioKetThuc(LocalTime gioKetThuc) {
-        this.gioKetThuc = gioKetThuc;
+        GioKetThuc = gioKetThuc;
     }
 
     public String getTrangThai() {
-        return this.trangThai;
+        return TrangThai;
     }
 
     public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
+        TrangThai = trangThai;
     }
 
     public String getTenCa() {
-        return this.tenCa;
+        return TenCa;
     }
 
     public void setTenCa(String tenCa) {
-        this.tenCa = tenCa;
+        TenCa = tenCa;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LichLamViec that = (LichLamViec) o;
+        return Objects.equals(MaLichLamViec, that.MaLichLamViec);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(MaLichLamViec);
+    }
+
+    @Override
     public String toString() {
-        String var10000 = this.maLichLamViec;
-        return "Entity_LichLamViec{maLichLamViec='" + var10000 + "', maNV='" + this.maNV + "', gioBatDau=" + String.valueOf(this.gioBatDau) + ", gioKetThuc=" + String.valueOf(this.gioKetThuc) + ", trangThai='" + this.trangThai + "', tenCa='" + this.tenCa + "'}";
+        return "LichLamViec{" +
+                "MaLichLamViec='" + MaLichLamViec + '\'' +
+                ", MaNV='" + MaNV + '\'' +
+                ", GioBatDau=" + GioBatDau +
+                ", GioKetThuc=" + GioKetThuc +
+                ", TrangThai='" + TrangThai + '\'' +
+                ", TenCa='" + TenCa + '\'' +
+                '}';
     }
 }

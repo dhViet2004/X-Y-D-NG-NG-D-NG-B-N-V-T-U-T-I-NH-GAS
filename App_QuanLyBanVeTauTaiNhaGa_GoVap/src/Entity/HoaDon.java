@@ -5,44 +5,34 @@ import java.util.Objects;
 
 public class HoaDon {
     private String maHD;
-    private LocalDate ngayLap;
-    private  KhachHang khachHang;
+    private KhachHang khachHang;
     private KhuyenMai khuyenMai;
     private NhanVien nv;
-    private String maLoaiHD;
+    private LoaiHoaDon LoaiHoaDon;
+    private LocalDate ngayLap;
+    private double TienGiam;
+    private double TongTien;
 
-    HoaDon(){
-        this("",LocalDate.now(),null,null,null,"");
-    }
-
-    HoaDon(String maHD, LocalDate ngayLap,KhachHang kh, KhuyenMai km, NhanVien nv, String maLoaiHD){
+    public HoaDon(String maHD, KhachHang khachHang, KhuyenMai khuyenMai, NhanVien nv, Entity.LoaiHoaDon loaiHoaDon, LocalDate ngayLap, double tienGiam, double tongTien) {
         this.maHD = maHD;
-        this.ngayLap = ngayLap;
-        this.khachHang = kh;
-        this.khuyenMai = km;
+        this.khachHang = khachHang;
+        this.khuyenMai = khuyenMai;
         this.nv = nv;
-        this.maLoaiHD = maLoaiHD;
+        LoaiHoaDon = loaiHoaDon;
+        this.ngayLap = ngayLap;
+        TienGiam = tienGiam;
+        TongTien = tongTien;
     }
 
     public String getMaHD() {
         return maHD;
     }
 
-    public LocalDate getNgayLap() {
-        return ngayLap;
-    }
-
-    public void setNgayLap(LocalDate ngayLap) {
-        this.ngayLap = ngayLap;
-    }
 
     public KhachHang getKhachHang() {
         return khachHang;
     }
 
-    public void setKhachHang(KhachHang khachHang) {
-        this.khachHang = khachHang;
-    }
 
     public KhuyenMai getKhuyenMai() {
         return khuyenMai;
@@ -56,16 +46,21 @@ public class HoaDon {
         return nv;
     }
 
-    public void setNv(NhanVien nv) {
-        this.nv = nv;
+    public Entity.LoaiHoaDon getLoaiHoaDon() {
+        return LoaiHoaDon;
     }
 
-    public String getMaLoaiHD() {
-        return maLoaiHD;
+
+    public LocalDate getNgayLap() {
+        return ngayLap;
     }
 
-    public void setMaLoaiHD(String maLoaiHD) {
-        this.maLoaiHD = maLoaiHD;
+    public double getTienGiam() {
+        return TienGiam;
+    }
+
+    public double getTongTien() {
+        return TongTien;
     }
 
     @Override
@@ -85,11 +80,13 @@ public class HoaDon {
     public String toString() {
         return "HoaDon{" +
                 "maHD='" + maHD + '\'' +
-                ", ngayLap=" + ngayLap +
                 ", khachHang=" + khachHang +
                 ", khuyenMai=" + khuyenMai +
                 ", nv=" + nv +
-                ", maLoaiHD='" + maLoaiHD + '\'' +
+                ", LoaiHoaDon=" + LoaiHoaDon +
+                ", ngayLap=" + ngayLap +
+                ", TienGiam=" + TienGiam +
+                ", TongTien=" + TongTien +
                 '}';
     }
 }

@@ -59,11 +59,6 @@ public class Tau {
 
     @Override
     public String toString() {
-        return "Tau{" +
-                "MaTau='" + MaTau + '\'' +
-                ", TuyenTau=" + TuyenTau +
-                ", TenTau='" + TenTau + '\'' +
-                ", SoToa=" + SoToa +
-                '}';
+        return "Tau{" + "MaTau='" + MaTau + '\'' + ", TuyenTau=" + TuyenTau + ", TenTau='" + TenTau + '\'' + ", SoToa=" + SoToa + '}';
     }
 }

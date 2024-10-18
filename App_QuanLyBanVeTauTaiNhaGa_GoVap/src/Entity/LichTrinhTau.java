@@ -55,11 +55,6 @@ public class LichTrinhTau {
 
     @Override
     public String toString() {
-        return "LichTrinhTau{" +
-                "MaLich='" + MaLich + '\'' +
-                ", MaTau='" + MaTau + '\'' +
-                ", GioDi='" + GioDi + '\'' +
-                ", NgayDi=" + NgayDi +
-                '}';
+        return "LichTrinhTau{" + "MaLich='" + MaLich + '\'' + ", MaTau='" + MaTau + '\'' + ", GioDi='" + GioDi + '\'' + ", NgayDi=" + NgayDi + '}';
     }
 }
