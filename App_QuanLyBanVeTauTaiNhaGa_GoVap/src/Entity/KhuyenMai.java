@@ -4,68 +4,68 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class KhuyenMai {
-    private String MaKM;
-    private LocalDate ThoiGianBatDau;
-    private LocalDate ThoiGianKetThuc;
-    private String NoiDungKM;
-    private double ChietKhau;
-    private String DoiTuongApDung;
+    private String maKM;
+    private LocalDate thoiGianBatDau;
+    private LocalDate thoiGianKetThuc;
+    private String noiDungKM;
+    private double chietKhau;
+    private String doiTuongApDung;
 
     public KhuyenMai(String maKM, LocalDate thoiGianBatDau, LocalDate thoiGianKetThuc, String noiDungKM, double chietKhau, String doiTuongApDung) {
-        MaKM = maKM;
-        ThoiGianBatDau = thoiGianBatDau;
-        ThoiGianKetThuc = thoiGianKetThuc;
-        NoiDungKM = noiDungKM;
-        ChietKhau = chietKhau;
-        DoiTuongApDung = doiTuongApDung;
+        this.maKM = maKM;
+        this.thoiGianBatDau = thoiGianBatDau;
+        this.thoiGianKetThuc = thoiGianKetThuc;
+        this.noiDungKM = noiDungKM;
+        this.chietKhau = chietKhau;
+        this.doiTuongApDung = doiTuongApDung;
     }
 
     public String getMaKM() {
-        return MaKM;
+        return maKM;
     }
 
     public void setMaKM(String maKM) {
-        MaKM = maKM;
+        this.maKM = maKM;
     }
 
     public LocalDate getThoiGianBatDau() {
-        return ThoiGianBatDau;
+        return thoiGianBatDau;
     }
 
     public void setThoiGianBatDau(LocalDate thoiGianBatDau) {
-        ThoiGianBatDau = thoiGianBatDau;
+        this.thoiGianBatDau = thoiGianBatDau;
     }
 
     public LocalDate getThoiGianKetThuc() {
-        return ThoiGianKetThuc;
+        return thoiGianKetThuc;
     }
 
     public void setThoiGianKetThuc(LocalDate thoiGianKetThuc) {
-        ThoiGianKetThuc = thoiGianKetThuc;
+        this.thoiGianKetThuc = thoiGianKetThuc;
     }
 
     public String getNoiDungKM() {
-        return NoiDungKM;
+        return noiDungKM;
     }
 
     public void setNoiDungKM(String noiDungKM) {
-        NoiDungKM = noiDungKM;
+        this.noiDungKM = noiDungKM;
     }
 
     public double getChietKhau() {
-        return ChietKhau;
+        return chietKhau;
     }
 
     public void setChietKhau(double chietKhau) {
-        ChietKhau = chietKhau;
+        this.chietKhau = chietKhau;
     }
 
     public String getDoiTuongApDung() {
-        return DoiTuongApDung;
+        return doiTuongApDung;
     }
 
     public void setDoiTuongApDung(String doiTuongApDung) {
-        DoiTuongApDung = doiTuongApDung;
+        this.doiTuongApDung = doiTuongApDung;
     }
 
     @Override
@@ -73,23 +73,23 @@ public class KhuyenMai {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         KhuyenMai khuyenMai = (KhuyenMai) o;
-        return Objects.equals(MaKM, khuyenMai.MaKM);
+        return Objects.equals(maKM, khuyenMai.maKM);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(MaKM);
+        return Objects.hashCode(maKM);
     }
 
     @Override
     public String toString() {
         return "KhuyenMai{" +
-                "MaKM='" + MaKM + '\'' +
-                ", ThoiGianBatDau=" + ThoiGianBatDau +
-                ", ThoiGianKetThuc=" + ThoiGianKetThuc +
-                ", NoiDungKM='" + NoiDungKM + '\'' +
-                ", ChietKhau=" + ChietKhau +
-                ", DoiTuongApDung='" + DoiTuongApDung + '\'' +
+                "maKM='" + maKM + '\'' +
+                ", thoiGianBatDau=" + thoiGianBatDau +
+                ", thoiGianKetThuc=" + thoiGianKetThuc +
+                ", noiDungKM='" + noiDungKM + '\'' +
+                ", chietKhau=" + chietKhau +
+                ", doiTuongApDung='" + doiTuongApDung + '\'' +
                 '}';
     }
 }

@@ -3,37 +3,44 @@ package Entity;
 import java.util.Objects;
 
 public class ChiTietHoaDon {
-    private final String MaVe;
-    private final String MaHD;
-    private int SoLuong;
+    private String maVe;
+    private String maHD;
+    private int soLuong;
     private double VAT;
-    private double ThanhTien;
-    private double TienThue;
+    private double thanhTien;
+    private double tienThue;
 
     public ChiTietHoaDon(String maVe, String maHD, int soLuong, double VAT, double thanhTien, double tienThue) {
-        MaVe = maVe;
-        MaHD = maHD;
-        SoLuong = soLuong;
+        this.maVe = maVe;
+        this.maHD = maHD;
+        this.soLuong = soLuong;
         this.VAT = VAT;
-        ThanhTien = thanhTien;
-        TienThue = tienThue;
+        this.thanhTien = thanhTien;
+        this.tienThue = tienThue;
     }
 
     public String getMaVe() {
-        return MaVe;
+        return maVe;
+    }
+
+    public void setMaVe(String maVe) {
+        this.maVe = maVe;
     }
 
     public String getMaHD() {
-        return MaHD;
+        return maHD;
     }
 
+    public void setMaHD(String maHD) {
+        this.maHD = maHD;
+    }
 
     public int getSoLuong() {
-        return SoLuong;
+        return soLuong;
     }
 
     public void setSoLuong(int soLuong) {
-        SoLuong = soLuong;
+        this.soLuong = soLuong;
     }
 
     public double getVAT() {
@@ -45,19 +52,19 @@ public class ChiTietHoaDon {
     }
 
     public double getThanhTien() {
-        return ThanhTien;
+        return thanhTien;
     }
 
     public void setThanhTien(double thanhTien) {
-        ThanhTien = thanhTien;
+        this.thanhTien = thanhTien;
     }
 
     public double getTienThue() {
-        return TienThue;
+        return tienThue;
     }
 
     public void setTienThue(double tienThue) {
-        TienThue = tienThue;
+        this.tienThue = tienThue;
     }
 
     @Override
@@ -65,16 +72,16 @@ public class ChiTietHoaDon {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ChiTietHoaDon that = (ChiTietHoaDon) o;
-        return Objects.equals(MaVe, that.MaVe) && Objects.equals(MaHD, that.MaHD);
+        return Objects.equals(maVe, that.maVe);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(MaVe, MaHD);
+        return Objects.hashCode(maVe);
     }
 
     @Override
     public String toString() {
-        return "ChiTietHoaDon{" + "MaVe='" + MaVe + '\'' + ", MaHD='" + MaHD + '\'' + ", SoLuong=" + SoLuong + ", VAT=" + VAT + ", ThanhTien=" + ThanhTien + ", TienThue=" + TienThue + '}';
+        return "ChiTietHoaDon{" + "maVe='" + maVe + '\'' + ", maHD='" + maHD + '\'' + ", soLuong=" + soLuong + ", VAT=" + VAT + ", thanhTien=" + thanhTien + ", tienThue=" + tienThue + '}';
     }
 }

@@ -4,40 +4,48 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class LichTrinhTau {
-    private String MaLich;
-    private String MaTau;
-    private String GioDi;
-    private LocalDate NgayDi;
+    private String maLich;
+    private String maTau;
+    private String gioDi;
+    private LocalDate ngayDi;
 
     public LichTrinhTau(String maLich, String maTau, String gioDi, LocalDate ngayDi) {
-        MaLich = maLich;
-        MaTau = maTau;
-        GioDi = gioDi;
-        NgayDi = ngayDi;
-    }
-
-    public String getMaTau() {
-        return MaTau;
-    }
-
-    public String getGioDi() {
-        return GioDi;
-    }
-
-    public void setGioDi(String gioDi) {
-        GioDi = gioDi;
+        this.maLich = maLich;
+        this.maTau = maTau;
+        this.gioDi = gioDi;
+        this.ngayDi = ngayDi;
     }
 
     public String getMaLich() {
-        return MaLich;
+        return maLich;
+    }
+
+    public void setMaLich(String maLich) {
+        this.maLich = maLich;
+    }
+
+    public String getMaTau() {
+        return maTau;
+    }
+
+    public void setMaTau(String maTau) {
+        this.maTau = maTau;
+    }
+
+    public String getGioDi() {
+        return gioDi;
+    }
+
+    public void setGioDi(String gioDi) {
+        this.gioDi = gioDi;
     }
 
     public LocalDate getNgayDi() {
-        return NgayDi;
+        return ngayDi;
     }
 
     public void setNgayDi(LocalDate ngayDi) {
-        NgayDi = ngayDi;
+        this.ngayDi = ngayDi;
     }
 
     @Override
@@ -45,16 +53,21 @@ public class LichTrinhTau {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LichTrinhTau that = (LichTrinhTau) o;
-        return Objects.equals(MaLich, that.MaLich) && Objects.equals(MaTau, that.MaTau);
+        return Objects.equals(maLich, that.maLich);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(MaLich, MaTau);
+        return Objects.hashCode(maLich);
     }
 
     @Override
     public String toString() {
-        return "LichTrinhTau{" + "MaLich='" + MaLich + '\'' + ", MaTau='" + MaTau + '\'' + ", GioDi='" + GioDi + '\'' + ", NgayDi=" + NgayDi + '}';
+        return "LichTrinhTau{" +
+                "maLich='" + maLich + '\'' +
+                ", maTau='" + maTau + '\'' +
+                ", gioDi='" + gioDi + '\'' +
+                ", ngayDi=" + ngayDi +
+                '}';
     }
 }

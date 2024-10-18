@@ -4,34 +4,34 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class VeTau {
-    private String MaVe;
+    private String maVe;
     private LichTrinhTau lichTrinhTau;
     private ChoNgoi choNgoi;
-    private String TenKhachHang;
-    private String GiayTo;
-    private LocalDate NgayDi;
-    private String DoiTuong;
-    private double GiaVe;
-    private String TrangThai;
+    private String tenKhachHang;
+    private String giayTo;
+    private LocalDate ngayDi;
+    private String doiTuong;
+    private double giaVe;
+    private String trangThai;
 
     public VeTau(String maVe, LichTrinhTau lichTrinhTau, ChoNgoi choNgoi, String tenKhachHang, String giayTo, LocalDate ngayDi, String doiTuong, double giaVe, String trangThai) {
-        MaVe = maVe;
+        this.maVe = maVe;
         this.lichTrinhTau = lichTrinhTau;
         this.choNgoi = choNgoi;
-        TenKhachHang = tenKhachHang;
-        GiayTo = giayTo;
-        NgayDi = ngayDi;
-        DoiTuong = doiTuong;
-        GiaVe = giaVe;
-        TrangThai = trangThai;
+        this.tenKhachHang = tenKhachHang;
+        this.giayTo = giayTo;
+        this.ngayDi = ngayDi;
+        this.doiTuong = doiTuong;
+        this.giaVe = giaVe;
+        this.trangThai = trangThai;
     }
 
     public String getMaVe() {
-        return MaVe;
+        return maVe;
     }
 
     public void setMaVe(String maVe) {
-        MaVe = maVe;
+        this.maVe = maVe;
     }
 
     public LichTrinhTau getLichTrinhTau() {
@@ -51,51 +51,51 @@ public class VeTau {
     }
 
     public String getTenKhachHang() {
-        return TenKhachHang;
+        return tenKhachHang;
     }
 
     public void setTenKhachHang(String tenKhachHang) {
-        TenKhachHang = tenKhachHang;
+        this.tenKhachHang = tenKhachHang;
     }
 
     public String getGiayTo() {
-        return GiayTo;
+        return giayTo;
     }
 
     public void setGiayTo(String giayTo) {
-        GiayTo = giayTo;
+        this.giayTo = giayTo;
     }
 
     public LocalDate getNgayDi() {
-        return NgayDi;
+        return ngayDi;
     }
 
     public void setNgayDi(LocalDate ngayDi) {
-        NgayDi = ngayDi;
+        this.ngayDi = ngayDi;
     }
 
     public String getDoiTuong() {
-        return DoiTuong;
+        return doiTuong;
     }
 
     public void setDoiTuong(String doiTuong) {
-        DoiTuong = doiTuong;
+        this.doiTuong = doiTuong;
     }
 
     public double getGiaVe() {
-        return GiaVe;
+        return giaVe;
     }
 
     public void setGiaVe(double giaVe) {
-        GiaVe = giaVe;
+        this.giaVe = giaVe;
     }
 
     public String getTrangThai() {
-        return TrangThai;
+        return trangThai;
     }
 
     public void setTrangThai(String trangThai) {
-        TrangThai = trangThai;
+        this.trangThai = trangThai;
     }
 
     @Override
@@ -103,16 +103,26 @@ public class VeTau {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VeTau veTau = (VeTau) o;
-        return Objects.equals(MaVe, veTau.MaVe);
+        return Objects.equals(maVe, veTau.maVe);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(MaVe);
+        return Objects.hashCode(maVe);
     }
 
     @Override
     public String toString() {
-        return "VeTau{" + "MaVe='" + MaVe + '\'' + ", lichTrinhTau=" + lichTrinhTau + ", choNgoi=" + choNgoi + ", TenKhachHang='" + TenKhachHang + '\'' + ", GiayTo='" + GiayTo + '\'' + ", NgayDi=" + NgayDi + ", DoiTuong='" + DoiTuong + '\'' + ", GiaVe=" + GiaVe + ", TrangThai='" + TrangThai + '\'' + '}';
+        return "VeTau{" +
+                "maVe='" + maVe + '\'' +
+                ", lichTrinhTau=" + lichTrinhTau +
+                ", choNgoi=" + choNgoi +
+                ", tenKhachHang='" + tenKhachHang + '\'' +
+                ", giayTo='" + giayTo + '\'' +
+                ", ngayDi=" + ngayDi +
+                ", doiTuong='" + doiTuong + '\'' +
+                ", giaVe=" + giaVe +
+                ", trangThai='" + trangThai + '\'' +
+                '}';
     }
 }

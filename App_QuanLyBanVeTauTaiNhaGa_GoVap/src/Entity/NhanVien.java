@@ -11,7 +11,7 @@ public class NhanVien {
     private String CCCD;
     private String diaChi;
     private LocalDate ngayVaoLam;
-    private String ChucVu;
+    private String chucVu;
 
     public String getMaNV() {
         return this.maNV;
@@ -42,7 +42,7 @@ public class NhanVien {
     }
 
     public String getChucVu() {
-        return this.ChucVu;
+        return this.chucVu;
     }
 
     public void setMaNV(String maNV) {
@@ -74,7 +74,7 @@ public class NhanVien {
     }
 
     public void setChucVu(String chucVu) {
-        this.ChucVu = chucVu;
+        this.chucVu = chucVu;
     }
 
     public boolean equals(Object o) {
@@ -100,7 +100,7 @@ public class NhanVien {
         this.CCCD = CCCD;
         this.diaChi = diaChi;
         this.ngayVaoLam = ngayVaoLam;
-        this.ChucVu = chucVu;
+        this.chucVu = chucVu;
     }
 
     @Override
@@ -113,7 +113,7 @@ public class NhanVien {
                 ", CCCD='" + CCCD + '\'' +
                 ", diaChi='" + diaChi + '\'' +
                 ", ngayVaoLam=" + ngayVaoLam +
-                ", ChucVu='" + ChucVu + '\'' +
+                ", ChucVu='" + chucVu + '\'' +
                 '}';
     }
 

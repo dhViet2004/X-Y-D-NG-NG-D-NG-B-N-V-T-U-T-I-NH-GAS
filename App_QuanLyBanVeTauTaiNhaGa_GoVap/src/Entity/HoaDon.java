@@ -8,31 +8,33 @@ public class HoaDon {
     private KhachHang khachHang;
     private KhuyenMai khuyenMai;
     private NhanVien nv;
-    private LoaiHoaDon LoaiHoaDon;
+    private LoaiHoaDon loaiHoaDon;
     private LocalDate ngayLap;
-    private double TienGiam;
-    private double TongTien;
+    private double tienGiam;
+    private double tongTien;
 
-    public HoaDon(String maHD, KhachHang khachHang, KhuyenMai khuyenMai, NhanVien nv, Entity.LoaiHoaDon loaiHoaDon, LocalDate ngayLap, double tienGiam, double tongTien) {
+    public HoaDon(String maHD, KhachHang khachHang, KhuyenMai khuyenMai, NhanVien nv, LoaiHoaDon loaiHoaDon, LocalDate ngayLap, double tienGiam, double tongTien) {
         this.maHD = maHD;
         this.khachHang = khachHang;
         this.khuyenMai = khuyenMai;
         this.nv = nv;
-        LoaiHoaDon = loaiHoaDon;
+        this.loaiHoaDon = loaiHoaDon;
         this.ngayLap = ngayLap;
-        TienGiam = tienGiam;
-        TongTien = tongTien;
+        this.tienGiam = tienGiam;
+        this.tongTien = tongTien;
     }
 
     public String getMaHD() {
         return maHD;
     }
 
-
     public KhachHang getKhachHang() {
         return khachHang;
     }
 
+    public void setKhachHang(KhachHang khachHang) {
+        this.khachHang = khachHang;
+    }
 
     public KhuyenMai getKhuyenMai() {
         return khuyenMai;
@@ -46,21 +48,40 @@ public class HoaDon {
         return nv;
     }
 
-    public Entity.LoaiHoaDon getLoaiHoaDon() {
-        return LoaiHoaDon;
+    public void setNv(NhanVien nv) {
+        this.nv = nv;
     }
 
+    public LoaiHoaDon getLoaiHoaDon() {
+        return loaiHoaDon;
+    }
+
+    public void setLoaiHoaDon(LoaiHoaDon loaiHoaDon) {
+        this.loaiHoaDon = loaiHoaDon;
+    }
 
     public LocalDate getNgayLap() {
         return ngayLap;
     }
 
+    public void setNgayLap(LocalDate ngayLap) {
+        this.ngayLap = ngayLap;
+    }
+
     public double getTienGiam() {
-        return TienGiam;
+        return tienGiam;
+    }
+
+    public void setTienGiam(double tienGiam) {
+        this.tienGiam = tienGiam;
     }
 
     public double getTongTien() {
-        return TongTien;
+        return tongTien;
+    }
+
+    public void setTongTien(double tongTien) {
+        this.tongTien = tongTien;
     }
 
     @Override
@@ -83,10 +104,10 @@ public class HoaDon {
                 ", khachHang=" + khachHang +
                 ", khuyenMai=" + khuyenMai +
                 ", nv=" + nv +
-                ", LoaiHoaDon=" + LoaiHoaDon +
+                ", loaiHoaDon=" + loaiHoaDon +
                 ", ngayLap=" + ngayLap +
-                ", TienGiam=" + TienGiam +
-                ", TongTien=" + TongTien +
+                ", tienGiam=" + tienGiam +
+                ", tongTien=" + tongTien +
                 '}';
     }
 }
