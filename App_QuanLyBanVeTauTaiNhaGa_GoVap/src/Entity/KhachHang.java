@@ -4,132 +4,107 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class KhachHang {
-    private String MaKhachHang;
-    private LoaiKhachHang LoaiKhachHang;
-    private String SoDienThoai;
-    private String TenKhachHang;
+    private String maKhachHang;
+    private LoaiKhachHang loaiKhachHang;
+    private String soDienThoai;
+    private String tenKhachHang;
     private String CCCD;
-    private String DiaChi;
-    private double DiemTichLuy;
-    private LocalDate NgaySinh;
-    private LocalDate NgayThamgGia;
-    private String HangThanhVien;
+    private String diaChi;
+    private double diemTichLuy;
+    private LocalDate ngaySinh;
+    private LocalDate ngayThamgGia;
+    private String hangThanhVien;
 
-    public KhachHang(String maKhachHang, Entity.LoaiKhachHang loaiKhachHang, String soDienThoai, String tenKhachHang, String CCCD, String diaChi, double diemTichLuy, LocalDate ngaySinh, LocalDate ngayThamgGia, String hangThanhVien) {
-        MaKhachHang = maKhachHang;
-        LoaiKhachHang = loaiKhachHang;
-        SoDienThoai = soDienThoai;
-        TenKhachHang = tenKhachHang;
+    public KhachHang(String maKhachHang, LoaiKhachHang loaiKhachHang, String soDienThoai, String tenKhachHang, String CCCD, String diaChi, double diemTichLuy, LocalDate ngaySinh, LocalDate ngayThamgGia, String hangThanhVien) {
+        this.maKhachHang = maKhachHang;
+        this.loaiKhachHang = loaiKhachHang;
+        this.soDienThoai = soDienThoai;
+        this.tenKhachHang = tenKhachHang;
         this.CCCD = CCCD;
-        DiaChi = diaChi;
-        DiemTichLuy = diemTichLuy;
-        NgaySinh = ngaySinh;
-        NgayThamgGia = ngayThamgGia;
-        HangThanhVien = hangThanhVien;
-    }
-
-    public Entity.LoaiKhachHang getLoaiKhachHang() {
-        return LoaiKhachHang;
-    }
-
-    public String getSoDienThoai() {
-        return SoDienThoai;
+        this.diaChi = diaChi;
+        this.diemTichLuy = diemTichLuy;
+        this.ngaySinh = ngaySinh;
+        this.ngayThamgGia = ngayThamgGia;
+        this.hangThanhVien = hangThanhVien;
     }
 
     public String getMaKhachHang() {
-        return MaKhachHang;
+        return maKhachHang;
+    }
+
+    public void setMaKhachHang(String maKhachHang) {
+        this.maKhachHang = maKhachHang;
+    }
+
+    public LoaiKhachHang getLoaiKhachHang() {
+        return loaiKhachHang;
+    }
+
+    public void setLoaiKhachHang(LoaiKhachHang loaiKhachHang) {
+        this.loaiKhachHang = loaiKhachHang;
+    }
+
+    public String getSoDienThoai() {
+        return soDienThoai;
+    }
+
+    public void setSoDienThoai(String soDienThoai) {
+        this.soDienThoai = soDienThoai;
     }
 
     public String getTenKhachHang() {
-        return TenKhachHang;
+        return tenKhachHang;
+    }
+
+    public void setTenKhachHang(String tenKhachHang) {
+        this.tenKhachHang = tenKhachHang;
     }
 
     public String getCCCD() {
         return CCCD;
     }
 
-    public double getDiemTichLuy() {
-        return DiemTichLuy;
-    }
-
-    public String getDiaChi() {
-        return DiaChi;
-    }
-
-    public LocalDate getNgaySinh() {
-        return NgaySinh;
-    }
-
-    public LocalDate getNgayThamgGia() {
-        return NgayThamgGia;
-    }
-
-    public String getHangThanhVien() {
-        return HangThanhVien;
-    }
-
-    public void setLoaiKhachHang(Entity.LoaiKhachHang loaiKhachHang) {
-        LoaiKhachHang = loaiKhachHang;
-    }
-
-    public void setSoDienThoai(String soDienThoai) {
-        SoDienThoai = soDienThoai;
-    }
-
-    public void setTenKhachHang(String tenKhachHang) {
-        TenKhachHang = tenKhachHang;
-    }
-
     public void setCCCD(String CCCD) {
         this.CCCD = CCCD;
     }
 
+    public String getDiaChi() {
+        return diaChi;
+    }
+
     public void setDiaChi(String diaChi) {
-        DiaChi = diaChi;
+        this.diaChi = diaChi;
+    }
+
+    public double getDiemTichLuy() {
+        return diemTichLuy;
     }
 
     public void setDiemTichLuy(double diemTichLuy) {
-        DiemTichLuy = diemTichLuy;
+        this.diemTichLuy = diemTichLuy;
+    }
+
+    public LocalDate getNgaySinh() {
+        return ngaySinh;
     }
 
     public void setNgaySinh(LocalDate ngaySinh) {
-        NgaySinh = ngaySinh;
+        this.ngaySinh = ngaySinh;
+    }
+
+    public LocalDate getNgayThamgGia() {
+        return ngayThamgGia;
     }
 
     public void setNgayThamgGia(LocalDate ngayThamgGia) {
-        NgayThamgGia = ngayThamgGia;
+        this.ngayThamgGia = ngayThamgGia;
+    }
+
+    public String getHangThanhVien() {
+        return hangThanhVien;
     }
 
     public void setHangThanhVien(String hangThanhVien) {
-        HangThanhVien = hangThanhVien;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        KhachHang khachHang = (KhachHang) o;
-        return Objects.equals(MaKhachHang, khachHang.MaKhachHang);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(MaKhachHang);
-    }
-
-    @Override
-    public String toString() {
-        return "KhachHang{" +
-                "MaKhachHang='" + MaKhachHang + '\'' +
-                ", LoaiKhachHang=" + LoaiKhachHang +
-                ", SoDienThoai='" + SoDienThoai + '\'' +
-                ", TenKhachHang='" + TenKhachHang + '\'' +
-                ", CCCD='" + CCCD + '\'' +
-                ", DiaChi='" + DiaChi + '\'' +
-                ", DiemTichLuy=" + DiemTichLuy +
-                ", NgaySinh=" + NgaySinh +
-                ", NgayThamgGia=" + NgayThamgGia +
-                ", HangThanhVien='" + HangThanhVien + '\'' +
-                '}';
+        this.hangThanhVien = hangThanhVien;
     }
 }

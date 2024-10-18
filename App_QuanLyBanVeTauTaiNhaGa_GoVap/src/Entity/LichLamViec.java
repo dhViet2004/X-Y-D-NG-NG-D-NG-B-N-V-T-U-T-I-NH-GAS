@@ -4,64 +4,68 @@ import java.time.LocalTime;
 import java.util.Objects;
 
 public class LichLamViec {
-    private String MaLichLamViec;
-    private String MaNV;
-    private LocalTime GioBatDau;
-    private LocalTime GioKetThuc;
-    private String TrangThai;
-    private String TenCa;
+    private String maLichLamViec;
+    private String maNV;
+    private LocalTime gioBatDau;
+    private LocalTime gioKetThuc;
+    private String trangThai;
+    private String tenCa;
 
     public LichLamViec(String maLichLamViec, String maNV, LocalTime gioBatDau, LocalTime gioKetThuc, String trangThai, String tenCa) {
-        MaLichLamViec = maLichLamViec;
-        MaNV = maNV;
-        GioBatDau = gioBatDau;
-        GioKetThuc = gioKetThuc;
-        TrangThai = trangThai;
-        TenCa = tenCa;
+        this.maLichLamViec = maLichLamViec;
+        this.maNV = maNV;
+        this.gioBatDau = gioBatDau;
+        this.gioKetThuc = gioKetThuc;
+        this.trangThai = trangThai;
+        this.tenCa = tenCa;
     }
 
     public String getMaLichLamViec() {
-        return MaLichLamViec;
+        return maLichLamViec;
     }
 
     public void setMaLichLamViec(String maLichLamViec) {
-        MaLichLamViec = maLichLamViec;
+        this.maLichLamViec = maLichLamViec;
     }
 
     public String getMaNV() {
-        return MaNV;
+        return maNV;
+    }
+
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
     }
 
     public LocalTime getGioBatDau() {
-        return GioBatDau;
+        return gioBatDau;
     }
 
     public void setGioBatDau(LocalTime gioBatDau) {
-        GioBatDau = gioBatDau;
+        this.gioBatDau = gioBatDau;
     }
 
     public LocalTime getGioKetThuc() {
-        return GioKetThuc;
+        return gioKetThuc;
     }
 
     public void setGioKetThuc(LocalTime gioKetThuc) {
-        GioKetThuc = gioKetThuc;
+        this.gioKetThuc = gioKetThuc;
     }
 
     public String getTrangThai() {
-        return TrangThai;
+        return trangThai;
     }
 
     public void setTrangThai(String trangThai) {
-        TrangThai = trangThai;
+        this.trangThai = trangThai;
     }
 
     public String getTenCa() {
-        return TenCa;
+        return tenCa;
     }
 
     public void setTenCa(String tenCa) {
-        TenCa = tenCa;
+        this.tenCa = tenCa;
     }
 
     @Override
@@ -69,23 +73,23 @@ public class LichLamViec {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LichLamViec that = (LichLamViec) o;
-        return Objects.equals(MaLichLamViec, that.MaLichLamViec);
+        return Objects.equals(maLichLamViec, that.maLichLamViec);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(MaLichLamViec);
+        return Objects.hashCode(maLichLamViec);
     }
 
     @Override
     public String toString() {
         return "LichLamViec{" +
-                "MaLichLamViec='" + MaLichLamViec + '\'' +
-                ", MaNV='" + MaNV + '\'' +
-                ", GioBatDau=" + GioBatDau +
-                ", GioKetThuc=" + GioKetThuc +
-                ", TrangThai='" + TrangThai + '\'' +
-                ", TenCa='" + TenCa + '\'' +
+                "maLichLamViec='" + maLichLamViec + '\'' +
+                ", maNV='" + maNV + '\'' +
+                ", gioBatDau=" + gioBatDau +
+                ", gioKetThuc=" + gioKetThuc +
+                ", trangThai='" + trangThai + '\'' +
+                ", tenCa='" + tenCa + '\'' +
                 '}';
     }
 }
