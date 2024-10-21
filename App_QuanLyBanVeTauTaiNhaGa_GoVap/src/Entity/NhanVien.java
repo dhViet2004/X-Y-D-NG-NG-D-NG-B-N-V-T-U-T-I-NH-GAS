@@ -103,6 +103,10 @@ public class NhanVien {
         this.chucVu = chucVu;
     }
 
+    public NhanVien(String maNV){
+        this.maNV=maNV;
+    }
+
     @Override
     public String toString() {
         return "NhanVien{" +

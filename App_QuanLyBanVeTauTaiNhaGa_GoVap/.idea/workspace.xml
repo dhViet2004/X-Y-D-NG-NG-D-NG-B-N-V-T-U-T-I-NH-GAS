@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="60ff4686-a3c8-4531-9ca9-3fc1b514e368" name="Changes" comment="add libaries" />
+    <list default="true" id="60ff4686-a3c8-4531-9ca9-3fc1b514e368" name="Changes" comment="add libaries">
+      <change beforePath="$PROJECT_DIR$/../SQL/SQLQuery_UngDungBanVeTauTaiNhaGaGoVap.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../SQL/SQLQuery_UngDungBanVeTauTaiNhaGaGoVap.sql" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,10 +36,14 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.ConnectDatabase.executor": "Run",
+    "Application.DAO_BanVe.executor": "Run",
     "Application.DAO_DangNhap.executor": "Run",
+    "Application.DAO_KhuyenMai.executor": "Run",
     "Application.DynamicLabelDemo.executor": "Debug",
     "Application.FrmBanVe.executor": "Run",
     "Application.FrmDangNhap.executor": "Run",
+    "Application.FrmKhuyenMai.executor": "Run",
     "Application.ImageDisplayFrame.executor": "Run",
     "Application.Loading.executor": "Run",
     "Application.Loading_GUI.executor": "Run",
@@ -45,15 +51,16 @@
     "Application.Main.executor": "Run",
     "Application.ToggleAnimationDemo.executor": "Run",
     "Application.ToggleDemo.executor": "Run",
+    "Application.connectDB.executor": "Run",
     "Application.test.executor": "Run",
     "JAR Application.jcalendar-1.4.jar.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH": "247",
-    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "255",
+    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "437",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "T:/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap/src",
+    "last_opened_file_path": "D:/NAM_BA/HK1/PTUD/PROJECT/tmp/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -82,7 +89,33 @@
       <recent name="test" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.FrmKhuyenMai">
+    <configuration name="DAO_BanVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DAO.DAO_BanVe" />
+      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="DAO.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DAO_KhuyenMai" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DAO.DAO_KhuyenMai" />
+      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="DAO.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="FrmBanVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -96,12 +129,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main.Main" />
+    <configuration name="FrmKhuyenMai" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.FrmKhuyenMai" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Main.*" />
+          <option name="PATTERN" value="GUI.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -109,15 +142,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="jcalendar-1.4.jar" type="JarApplication" temporary="true">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/jar Libraries/jcalendar-1.4.jar" />
-      <method v="2" />
+    <configuration name="connectDB" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Database.connectDB" />
+      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Database.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.FrmKhuyenMai" />
+        <item itemvalue="Application.DAO_KhuyenMai" />
         <item itemvalue="Application.FrmBanVe" />
-        <item itemvalue="JAR Application.jcalendar-1.4.jar" />
+        <item itemvalue="Application.connectDB" />
+        <item itemvalue="Application.DAO_BanVe" />
       </list>
     </recent_temporary>
   </component>
@@ -164,6 +208,13 @@
       <workItem from="1729238899730" duration="2362000" />
       <workItem from="1729245414815" duration="4680000" />
       <workItem from="1729262570837" duration="6301000" />
+      <workItem from="1729271906665" duration="275000" />
+      <workItem from="1729272332229" duration="20454000" />
+      <workItem from="1729438012555" duration="1567000" />
+      <workItem from="1729439713979" duration="45000" />
+      <workItem from="1729439770970" duration="20622000" />
+      <workItem from="1729518342772" duration="17000" />
+      <workItem from="1729518381191" duration="8000" />
     </task>
     <task id="LOCAL-00001" summary="new project">
       <option name="closed" value="true" />

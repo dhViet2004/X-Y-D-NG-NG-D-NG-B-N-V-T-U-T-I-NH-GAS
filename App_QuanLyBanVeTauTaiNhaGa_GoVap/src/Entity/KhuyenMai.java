@@ -20,6 +20,9 @@ public class KhuyenMai {
         this.doiTuongApDung = doiTuongApDung;
     }
 
+    public KhuyenMai(String maKM) {
+        this.maKM = maKM;
+    }
     public String getMaKM() {
         return maKM;
     }
@@ -92,4 +95,6 @@ public class KhuyenMai {
                 ", doiTuongApDung='" + doiTuongApDung + '\'' +
                 '}';
     }
+
+
 }
