@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="60ff4686-a3c8-4531-9ca9-3fc1b514e368" name="Changes" comment="add libaries">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/../SQL/SQLQuery_UngDungBanVeTauTaiNhaGaGoVap.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../SQL/SQLQuery_UngDungBanVeTauTaiNhaGaGoVap.sql" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/../SQL/UngDungQuanLyBanVeTaiGaGoVap.bacpac" beforeDir="false" afterPath="$PROJECT_DIR$/../SQL/UngDungQuanLyBanVeTaiGaGoVap.bacpac" afterDir="false" />
+>>>>>>> 37f2ac278ccd932f53be71bcf8aedf31572db410
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +38,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.ConnectDatabase.executor": "Run",
@@ -71,8 +76,42 @@
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
     "vue.rearranger.settings.migration": "true"
+=======
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.DAO_DangNhap.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DynamicLabelDemo.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.FrmBanVe.executor&quot;: &quot;Run&quot;,
+    &quot;Application.FrmDangNhap.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ImageDisplayFrame.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Loading.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Loading_GUI.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ToggleAnimationDemo.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ToggleDemo.executor&quot;: &quot;Run&quot;,
+    &quot;Application.test.executor&quot;: &quot;Run&quot;,
+    &quot;JAR Application.jcalendar-1.4.jar.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH&quot;: &quot;247&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;255&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;T:/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap/src&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;T:/Tài liệu IT/Phát triển ứng dụng/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap/src/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+>>>>>>> 37f2ac278ccd932f53be71bcf8aedf31572db410
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="Entity" />
@@ -89,6 +128,7 @@
       <recent name="test" />
     </key>
   </component>
+<<<<<<< HEAD
   <component name="RunManager" selected="Application.FrmKhuyenMai">
     <configuration name="DAO_BanVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DAO.DAO_BanVe" />
@@ -116,6 +156,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+=======
+  <component name="RunManager" selected="Application.FrmBanVe">
+>>>>>>> 37f2ac278ccd932f53be71bcf8aedf31572db410
     <configuration name="FrmBanVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -157,11 +200,17 @@
     </configuration>
     <recent_temporary>
       <list>
+<<<<<<< HEAD
         <item itemvalue="Application.FrmKhuyenMai" />
         <item itemvalue="Application.DAO_KhuyenMai" />
         <item itemvalue="Application.FrmBanVe" />
         <item itemvalue="Application.connectDB" />
         <item itemvalue="Application.DAO_BanVe" />
+=======
+        <item itemvalue="Application.FrmBanVe" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="JAR Application.jcalendar-1.4.jar" />
+>>>>>>> 37f2ac278ccd932f53be71bcf8aedf31572db410
       </list>
     </recent_temporary>
   </component>
@@ -207,6 +256,7 @@
       <workItem from="1729236001897" duration="1085000" />
       <workItem from="1729238899730" duration="2362000" />
       <workItem from="1729245414815" duration="4680000" />
+<<<<<<< HEAD
       <workItem from="1729262570837" duration="6301000" />
       <workItem from="1729271906665" duration="275000" />
       <workItem from="1729272332229" duration="20454000" />
@@ -215,6 +265,10 @@
       <workItem from="1729439770970" duration="20622000" />
       <workItem from="1729518342772" duration="17000" />
       <workItem from="1729518381191" duration="8000" />
+=======
+      <workItem from="1729262570837" duration="12177000" />
+      <workItem from="1729275136771" duration="31000" />
+>>>>>>> 37f2ac278ccd932f53be71bcf8aedf31572db410
     </task>
     <task id="LOCAL-00001" summary="new project">
       <option name="closed" value="true" />
