@@ -495,7 +495,6 @@ INSERT INTO KhuyenMai (MaKM, ThoiGianBatDau, ThoiGianKetThuc, NoiDungKM, ChietKh
 ('KM004', '2024-04-01', '2024-04-30', 'Giảm 20% cho đơn hàng trên 500.000 VNĐ', 20.0, 'Tất cả khách hàng'),
 ('KM005', '2024-05-01', '2024-05-31', 'Mua 2 tặng 1 cho vé tàu', 100.0, 'Tất cả khách hàng');
 select * from KhuyenMai
-select * from KhuyenMai where ThoiGianBatDau <= '2024-10-21' and ThoiGianKetThuc >= '2024-10-21'
 INSERT INTO TaiKhoan (MaNV, Password) VALUES
 ('NV001', 'password123'),
 ('QL001', 'admin123'),
