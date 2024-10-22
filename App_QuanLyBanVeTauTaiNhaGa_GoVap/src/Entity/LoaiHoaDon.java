@@ -11,6 +11,10 @@ public class LoaiHoaDon {
         this.tenLoaiHoaDon = tenLoaiHoaDon;
     }
 
+    public LoaiHoaDon(String maLoaiHoaDon) {
+        this.maLoaiHoaDon = maLoaiHoaDon;
+    }
+
     public String getMaLoaiHoaDon() {
         return maLoaiHoaDon;
     }

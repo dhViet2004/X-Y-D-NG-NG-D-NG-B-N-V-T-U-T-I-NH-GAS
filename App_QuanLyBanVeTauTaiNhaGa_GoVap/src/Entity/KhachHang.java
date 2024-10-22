@@ -28,6 +28,9 @@ public class KhachHang {
         this.hangThanhVien = hangThanhVien;
     }
 
+    public KhachHang(String maKhachHang){
+        this.maKhachHang = maKhachHang;
+    }
     public String getMaKhachHang() {
         return maKhachHang;
     }

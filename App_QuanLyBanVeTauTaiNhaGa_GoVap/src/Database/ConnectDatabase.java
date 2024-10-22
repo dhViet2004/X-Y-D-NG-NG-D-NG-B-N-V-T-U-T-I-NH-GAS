@@ -13,26 +13,30 @@ public class ConnectDatabase {
     }
 
     public void connect() {
-        String url = "jdbc:sqlserver://localhost:1433;databasename=UngDungQuanLyBanVeTaiGaGoVap";
+        String url = "jdbc:sqlserver://localhost:1433;databaseName=UngDungQuanLyBanVeTaiGaGoVap";
         String user = "sa";
         String password = "sapassword";
         try {
             con = DriverManager.getConnection(url, user, password);
+            if(con != null) {
+                System.out.println("Connected to database");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
     public static Connection getConnection() {
         return con;
     }
 
     public static void disconnect() {
-        if(con != null)
-            try {
-                con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        if (con != null) try {
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
 
 }
