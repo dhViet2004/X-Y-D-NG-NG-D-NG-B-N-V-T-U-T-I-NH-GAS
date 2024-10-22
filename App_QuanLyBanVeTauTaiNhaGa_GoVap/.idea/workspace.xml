@@ -4,14 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="c4b4da9d-11b0-4940-8640-a322de0d808c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../SQL/UngDungQuanLyBanVeTaiGaGoVap_v2.bacpac" beforeDir="false" />
+=======
+    <list default="true" id="3fa946b0-e0af-47ce-a7b7-b62f5c6859fe" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../SQL/UngDungQuanLyBanVeTaiGaGoVap.bacpac" beforeDir="false" afterPath="$PROJECT_DIR$/../SQL/UngDungQuanLyBanVeTaiGaGoVap.bacpac" afterDir="false" />
+>>>>>>> 2e607e7d2804c52bb2dbb51465bb9a750e28c1cd
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< HEAD
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -48,6 +54,37 @@
   }
 }</component>
   <component name="RunManager" selected="Application.Frm_KhachHang">
+=======
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.FrmBanVe.executor": "Run",
+    "Application.FrmKhuyenMai.executor": "Run",
+    "git-widget-placeholder": "Merging master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)"
+  }
+}]]></component>
+  <component name="RunManager" selected="Application.FrmBanVe">
+    <configuration name="FrmBanVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
+      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+>>>>>>> 2e607e7d2804c52bb2dbb51465bb9a750e28c1cd
     <configuration name="FrmKhuyenMai" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmKhuyenMai" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -61,6 +98,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< HEAD
     <configuration name="Frm_KhachHang" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.Frm_KhachHang" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -77,20 +115,17 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Frm_KhachHang" />
+=======
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.FrmBanVe" />
+>>>>>>> 2e607e7d2804c52bb2dbb51465bb9a750e28c1cd
         <item itemvalue="Application.FrmKhuyenMai" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
-      </set>
-    </attachedChunks>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+<<<<<<< HEAD
     <task active="true" id="Default" summary="Default task">
       <changelist id="c4b4da9d-11b0-4940-8640-a322de0d808c" name="Changes" comment="" />
       <created>1729519547254</created>
@@ -119,4 +154,8 @@
       </map>
     </option>
   </component>
+=======
+    <servers />
+  </component>
+>>>>>>> 2e607e7d2804c52bb2dbb51465bb9a750e28c1cd
 </project>

@@ -4,6 +4,8 @@ import Database.ConnectDatabase;
 import Entity.*;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,28 +16,22 @@ public class DAO_BanVe {
     public DAO_BanVe() {
         con = ConnectDatabase.getConnection();
     }
+    public Tau getThongTin(String maTau) throws SQLException {
+        Tau tau = null;
 
-    // Phương thức lấy thông tin tàu từ ngày đi và ga đến
-    public List<Tau> getTrainsByDateAndDestination(String destination, String date) throws SQLException {
-        List<Tau> trainList = new ArrayList<>();
-
-        // Câu truy vấn SQL
+        // Câu truy vấn SQL để lấy thông tin tàu dựa vào mã tàu
         String sql = "SELECT t.MaTau, t.TenTau, t.SoToa, tt.MaTuyen, tt.TenTuyen, tt.GaDi, tt.GaDen, tt.DiaDiemDi, tt.DiaDiemDen " +
                 "FROM Tau t " +
                 "JOIN TuyenTau tt ON t.MaTuyen = tt.MaTuyen " +
-                "JOIN LichTrinhTau lt ON t.MaTau = lt.MaTau " +
-                "WHERE tt.GaDen LIKE ? " +
-                "AND lt.NgayDi = ?";
+                "WHERE t.MaTau = ?";
 
-        try {
-            PreparedStatement pstmt = con.prepareStatement(sql);
-            pstmt.setString(1, "%" + destination + "%");
-            pstmt.setString(2, date);
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, maTau); // Gán tham số mã tàu vào câu truy vấn
             ResultSet rs = pstmt.executeQuery();
 
-            // Lưu thông tin tàu vào danh sách
-            while (rs.next()) {
-                String maTau = rs.getString("MaTau");
+            // Kiểm tra nếu có kết quả trả về
+            if (rs.next()) {
+                // Lấy thông tin từ kết quả truy vấn
                 String tenTau = rs.getString("TenTau");
                 int soToa = rs.getInt("SoToa");
 
@@ -50,16 +46,103 @@ public class DAO_BanVe {
                 // Tạo đối tượng TuyenTau
                 TuyenTau tuyenTau = new TuyenTau(tenTuyen, maTuyen, gaDi, gaDen, diaDiemDi, diaDiemDen);
 
-                // Tạo đối tượng Tau và thêm vào danh sách
-                Tau tau = new Tau(tuyenTau, tenTau, maTau, soToa);
-                trainList.add(tau);
+                // Tạo đối tượng Tau
+                tau = new Tau(tuyenTau, tenTau, maTau, soToa);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new SQLException("Error fetching train information", e);
         }
 
-        return trainList; // Trả về danh sách các chuyến tàu
+        return tau; // Trả về đối tượng Tau hoặc null nếu không tìm thấy
+    }
+
+    public VeTau getVeTaubyLichTrinhTauandMaCho(String lichTrinhTau, String maCho) {
+        VeTau veTau = null;
+
+        // Câu lệnh truy vấn
+        String sql = "SELECT vt.MaVe, lt.MaLich, lt.MaTau, lt.GioDi, lt.NgayDi, vt.ChoNgoiMaCho, vt.TenKH, vt.GiayTo, vt.DoiTuong, vt.GiaVe, vt.TrangThai " +
+                "FROM VeTau vt " +
+                "JOIN LichTrinhTau lt ON vt.LichTrinhTauMaLich = lt.MaLich " +
+                "WHERE vt.LichTrinhTauMaLich = ? AND vt.ChoNgoiMaCho = ?";
+
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, lichTrinhTau);
+            pstmt.setString(2, maCho);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                String maVe = rs.getString("MaVe");
+                String tenKH = rs.getString("TenKH");
+                String giayTo = rs.getString("GiayTo");
+                LocalDate ngayDi = rs.getDate("NgayDi").toLocalDate(); // Thay đổi nếu ngày di là cột khác
+                String doiTuong = rs.getString("DoiTuong");
+                double giaVe = rs.getDouble("GiaVe");
+                String trangThai = rs.getString("TrangThai");
+
+                // Tạo đối tượng LichTrinhTau
+                String maLich = rs.getString("MaLich");
+                String maTau = rs.getString("MaTau");
+                String gioDi = rs.getString("GioDi");
+                LocalDate ngayDiLichTau = rs.getDate("NgayDi").toLocalDate(); // Thay đổi nếu ngày đi lịch tàu là cột khác
+
+                LichTrinhTau lichTrinhTau1 = new LichTrinhTau(maLich, maTau, gioDi, ngayDiLichTau);
+
+                // Tạo đối tượng ChoNgoi
+                ChoNgoi choNgoi = new ChoNgoi(maCho);
+
+                // Tạo đối tượng VeTau
+                veTau = new VeTau(maVe, lichTrinhTau1, choNgoi, tenKH, giayTo, ngayDi, doiTuong, giaVe, trangThai);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching ticket information", e);
+        }
+
+        return veTau;
+    }
+
+    // Phương thức lấy thông tin tàu từ ngày đi và ga đến, lưu vào entity LichTrinhTau
+    public List<LichTrinhTau> getTrainsByDateAndDestination(String destination, String date) throws SQLException {
+        List<LichTrinhTau> lichTrinhList = new ArrayList<>();
+
+        // Câu truy vấn SQL
+        String sql = "SELECT lt.MaLich, t.MaTau, lt.GioDi, lt.NgayDi, t.TenTau, t.SoToa, tt.MaTuyen, tt.TenTuyen, tt.GaDi, tt.GaDen, tt.DiaDiemDi, tt.DiaDiemDen " +
+                "FROM Tau t " +
+                "JOIN TuyenTau tt ON t.MaTuyen = tt.MaTuyen " +
+                "JOIN LichTrinhTau lt ON t.MaTau = lt.MaTau " +
+                "WHERE tt.GaDen LIKE ? " +
+                "AND lt.NgayDi = ?";
+
+        try {
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, "%" + destination + "%");
+            pstmt.setString(2, date);
+            ResultSet rs = pstmt.executeQuery();
+
+            // Lưu thông tin lịch trình tàu vào danh sách
+            while (rs.next()) {
+                // Lấy thông tin lịch trình
+                String maLich = rs.getString("MaLich");
+                String maTau = rs.getString("MaTau");
+                String gioDi = rs.getString("GioDi");
+                LocalDate ngayDi = rs.getDate("NgayDi").toLocalDate(); // Chuyển đổi từ java.sql.Date sang java.time.LocalDate
+
+                // Tạo đối tượng LichTrinhTau
+                LichTrinhTau lichTrinhTau = new LichTrinhTau(maLich, maTau, gioDi, ngayDi);
+
+                // Thêm đối tượng LichTrinhTau vào danh sách
+                lichTrinhList.add(lichTrinhTau);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error fetching train schedule data", e);
+        }
+
+        return lichTrinhList; // Trả về danh sách các lịch trình tàu
     }
 
 

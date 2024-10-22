@@ -6,9 +6,10 @@ public class LoaiToa {
     private String maLoai;
     private String tenLoai;
 
-    public LoaiToa(String tenLoai, String maLoai) {
-        this.tenLoai = tenLoai;
+    public LoaiToa( String maLoai,String tenLoai) {
         this.maLoai = maLoai;
+        this.tenLoai = tenLoai;
+
     }
 
     public String getMaLoai() {
