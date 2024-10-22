@@ -1,6 +1,7 @@
 package DAO;
 
 import Database.ConnectDatabase;
+import Entity.KhachHang;
 import Entity.KhuyenMai;
 
 import java.sql.*;
@@ -94,8 +95,18 @@ public class DAO_KhuyenMai {
 
     }
     public static void main(String[] args) {
-        String sql = "select * from KhuyenMai where  ThoiGianBatDau <= ? and ThoiGianKetThuc >= ?";
-        System.out.println(sql);
+        DAO_KhachHang dao_khachHang= null;
+        List<KhachHang> ds = new ArrayList<>();
+        try {
+             dao_khachHang = new DAO_KhachHang();
+             ds = dao_khachHang.getAllList();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        for (KhachHang khachHang : ds) {
+            System.out.println(khachHang.toString());
+        }
     }
 }
 

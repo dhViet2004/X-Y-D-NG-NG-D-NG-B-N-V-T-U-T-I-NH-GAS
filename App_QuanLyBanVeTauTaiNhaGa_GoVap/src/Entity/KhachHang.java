@@ -2,6 +2,7 @@ package Entity;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class KhachHang {
     private String maKhachHang;
@@ -15,6 +16,7 @@ public class KhachHang {
     private LocalDate ngayThamgGia;
     private String hangThanhVien;
 
+    // Constructor
     public KhachHang(String maKhachHang, LoaiKhachHang loaiKhachHang, String soDienThoai, String tenKhachHang, String CCCD, String diaChi, double diemTichLuy, LocalDate ngaySinh, LocalDate ngayThamgGia, String hangThanhVien) {
         this.maKhachHang = maKhachHang;
         this.loaiKhachHang = loaiKhachHang;
@@ -31,6 +33,7 @@ public class KhachHang {
     public KhachHang(String maKhachHang){
         this.maKhachHang = maKhachHang;
     }
+
     public String getMaKhachHang() {
         return maKhachHang;
     }
@@ -52,6 +55,10 @@ public class KhachHang {
     }
 
     public void setSoDienThoai(String soDienThoai) {
+        // Kiểm tra định dạng số điện thoại
+        if (!isValidPhoneNumber(soDienThoai)) {
+            throw new IllegalArgumentException("Số điện thoại không hợp lệ.");
+        }
         this.soDienThoai = soDienThoai;
     }
 
@@ -60,6 +67,10 @@ public class KhachHang {
     }
 
     public void setTenKhachHang(String tenKhachHang) {
+        // Kiểm tra tên không rỗng
+        if (tenKhachHang == null || tenKhachHang.trim().isEmpty()) {
+            throw new IllegalArgumentException("Tên khách hàng không được để trống.");
+        }
         this.tenKhachHang = tenKhachHang;
     }
 
@@ -68,6 +79,10 @@ public class KhachHang {
     }
 
     public void setCCCD(String CCCD) {
+        // Kiểm tra định dạng CCCD
+        if (!isValidCCCD(CCCD)) {
+            throw new IllegalArgumentException("CCCD không hợp lệ.");
+        }
         this.CCCD = CCCD;
     }
 
@@ -76,6 +91,10 @@ public class KhachHang {
     }
 
     public void setDiaChi(String diaChi) {
+        // Kiểm tra địa chỉ không rỗng
+        if (diaChi == null || diaChi.trim().isEmpty()) {
+            throw new IllegalArgumentException("Địa chỉ không được để trống.");
+        }
         this.diaChi = diaChi;
     }
 
@@ -92,6 +111,10 @@ public class KhachHang {
     }
 
     public void setNgaySinh(LocalDate ngaySinh) {
+        // Kiểm tra ngày sinh trước ngày hiện tại
+        if (ngaySinh.isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("Ngày sinh phải trước ngày hiện tại.");
+        }
         this.ngaySinh = ngaySinh;
     }
 
@@ -109,5 +132,31 @@ public class KhachHang {
 
     public void setHangThanhVien(String hangThanhVien) {
         this.hangThanhVien = hangThanhVien;
+    }
+
+    private boolean isValidPhoneNumber(String phoneNumber) {
+        // Định dạng số điện thoại (ví dụ: 0xxxxxxxxx hoặc +84xxxxxxxxx)
+        return Pattern.matches("(0[0-9]{9}|\\+84[0-9]{9})", phoneNumber);
+    }
+
+    private boolean isValidCCCD(String cccd) {
+        // Định dạng CCCD (ví dụ: 12 số)
+        return Pattern.matches("[0-9]{12}", cccd);
+    }
+
+    @Override
+    public String toString() {
+        return "KhachHang{" +
+                "maKhachHang='" + maKhachHang + '\'' +
+                ", loaiKhachHang=" + loaiKhachHang +
+                ", soDienThoai='" + soDienThoai + '\'' +
+                ", tenKhachHang='" + tenKhachHang + '\'' +
+                ", CCCD='" + CCCD + '\'' +
+                ", diaChi='" + diaChi + '\'' +
+                ", diemTichLuy=" + diemTichLuy +
+                ", ngaySinh=" + ngaySinh +
+                ", ngayThamgGia=" + ngayThamgGia +
+                ", hangThanhVien='" + hangThanhVien + '\'' +
+                '}';
     }
 }
