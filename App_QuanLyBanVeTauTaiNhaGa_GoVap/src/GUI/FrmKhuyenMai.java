@@ -125,7 +125,11 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
         btnThemCTKM = new JButton("Thêm", iconThemNew);
         btnThemCTKM.setHorizontalTextPosition(SwingConstants.LEFT);
         ImageIcon iconAdd = new ImageIcon(getClass().getResource("/Anh_HeThong/plus.png"));
-
+        // chỉnh sửa kích thước nút thêm
+        Dimension buttonSizeThem = new Dimension(150, 40);
+        btnThemCTKM.setPreferredSize(buttonSizeThem);
+        btnThemCTKM.setMaximumSize(buttonSizeThem);
+        btnThemCTKM.setMinimumSize(buttonSizeThem);
         // 2 tạo icon cho nút sửa
         ImageIcon iconSua = new ImageIcon(getClass().getResource("/Anh_HeThong/edit.png"));
         Image imgSua = iconSua.getImage();
@@ -133,6 +137,11 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
         ImageIcon iconSuaNew = new ImageIcon(scaleSua);
         btnSuaCTKM = new JButton("Sửa", iconSuaNew);
         btnSuaCTKM.setHorizontalTextPosition(SwingConstants.LEFT);
+        // chỉnh sửa kích thước nút sửa
+        Dimension buttonSizeSua = new Dimension(150, 40);
+        btnSuaCTKM.setPreferredSize(buttonSizeSua);
+        btnSuaCTKM.setMaximumSize(buttonSizeSua);
+        btnSuaCTKM.setMinimumSize(buttonSizeSua);
 
         // 3 tạo icon cho nút làm mới bảng khuyến mãi
         ImageIcon iconLamMoiKM = new ImageIcon(getClass().getResource("/Anh_HeThong/rotate.png"));
@@ -141,6 +150,12 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
         ImageIcon iconLamMoiKMNew = new ImageIcon(scaleLamMoiKM);
         btnLamMoiKM = new JButton("Làm mới", iconLamMoiKMNew);
         btnLamMoiKM.setHorizontalTextPosition(SwingConstants.LEFT);
+        // chỉnh sửa kích thước nút làm mới khuyến mãi
+        Dimension buttonSizeReFresh = new Dimension(150, 40);
+        btnLamMoiKM.setPreferredSize(buttonSizeReFresh);
+        btnLamMoiKM.setMaximumSize(buttonSizeReFresh);
+        btnLamMoiKM.setMinimumSize(buttonSizeReFresh);
+
 
         Box themSua = Box.createHorizontalBox();
         JPanel_Right_Bottom.add(themSua, BorderLayout.SOUTH);
