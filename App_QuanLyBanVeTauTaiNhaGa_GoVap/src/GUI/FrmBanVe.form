@@ -149,6 +149,7 @@
                                 <properties>
                                   <columns value="5"/>
                                   <font size="20"/>
+                                  <text value="Sài Gòn"/>
                                 </properties>
                               </component>
                             </children>
@@ -391,16 +392,7 @@
                                 <constraints border-constraint="West"/>
                                 <properties/>
                                 <border type="none"/>
-                                <children>
-                                  <component id="11cfe" class="javax.swing.JButton" binding="btnChonTatCa">
-                                    <constraints>
-                                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                                    </constraints>
-                                    <properties>
-                                      <text value="Chọn tất cả"/>
-                                    </properties>
-                                  </component>
-                                </children>
+                                <children/>
                               </grid>
                               <component id="6e700" class="javax.swing.JButton" binding="btnTiepTheo">
                                 <constraints border-constraint="Center"/>
@@ -474,24 +466,24 @@
               </grid>
             </children>
           </grid>
-        </children>
-      </grid>
-      <grid id="6c8f4" binding="JPanel_XacNhanCho" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="0" bottom="0" right="0"/>
-        <constraints border-constraint="East"/>
-        <properties>
-          <preferredSize width="400" height="24"/>
-        </properties>
-        <border type="bevel-raised" title="Giỏ vé" title-justification="2">
-          <font size="28" style="1"/>
-          <title-color color="-16743614"/>
-        </border>
-        <children>
-          <hspacer id="d1b93">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-          </hspacer>
+          <grid id="1d384" binding="JPanel_XacNhanCho" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints border-constraint="East"/>
+            <properties>
+              <preferredSize width="400" height="24"/>
+            </properties>
+            <border type="bevel-raised" title="Giỏ vé" title-justification="2">
+              <font size="28" style="1"/>
+              <title-color color="-16743614"/>
+            </border>
+            <children>
+              <hspacer id="cb495">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+            </children>
+          </grid>
         </children>
       </grid>
     </children>

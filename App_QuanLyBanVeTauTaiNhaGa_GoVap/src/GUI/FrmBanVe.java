@@ -6,6 +6,7 @@ import Entity.*;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
@@ -19,10 +20,8 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 public class FrmBanVe extends JFrame implements ActionListener {
     private final JButton btnBanVe;
@@ -128,7 +127,12 @@ public class FrmBanVe extends JFrame implements ActionListener {
         // Calendar
         JPanel_NgayDi.add(dateChooserNgayDi);
         JPanel_NgayVe.add(dateChooserNgayVe);
+        // Lấy ngày hiện tại
+        Date today = new Date();
 
+        // Thiết lập ngày tối đa cho date chooser
+        dateChooserNgayDi.setMinSelectableDate(today); // Chỉ cho phép chọn ngày bằng hoặc trước hôm nay
+        dateChooserNgayVe.setMinSelectableDate(today); // Tương tự cho ngày về
         // RadioGroup
         btnGroup = new ButtonGroup();
         btnGroup.add(btnRadio_MotChieu);
@@ -150,6 +154,7 @@ public class FrmBanVe extends JFrame implements ActionListener {
         btnTimChuyen.addActionListener(this); // Thêm sự kiện cho nút tìm tàu
         btnRadio_KhuHoi.addActionListener(this);
         btnTiepTheo.addActionListener(this);
+
 
         btnBanVe.addActionListener(this);
         btnTraCuu.addActionListener(this);
@@ -585,9 +590,7 @@ public class FrmBanVe extends JFrame implements ActionListener {
                 JPanelTau.revalidate(); // Cập nhật giao diện
                 JPanelTau.repaint();
             }
-        } else if (e.getSource() == btnRadio_MotChieu) {
-
-        } else if (e.getSource() == btnRadio_KhuHoi) {
+        }  else if (e.getSource() == btnRadio_KhuHoi) {
 
         } else if (e.getSource() == btnTiepTheo) {
             // Kiểm tra xem danh sách chỗ ngồi đã chọn có trống không
@@ -598,7 +601,7 @@ public class FrmBanVe extends JFrame implements ActionListener {
 
             // Tạo cửa sổ mới để hiển thị danh sách chỗ ngồi đã chọn
             JDialog dialog = new JDialog(this, "Danh sách chỗ ngồi đã chọn", true);
-            dialog.setSize(1000, 700); // Kích thước của cửa sổ
+            dialog.setSize(1050, 700); // Kích thước của cửa sổ
             dialog.setLocationRelativeTo(this); // Hiển thị ở giữa màn hình
 
             // Tạo tiêu đề các cột
@@ -681,19 +684,27 @@ public class FrmBanVe extends JFrame implements ActionListener {
 
             buyerInfoPanel.add(JpanelThanhTien, BorderLayout.NORTH);
 
-            JPanel thongTinNguoiMua = new JPanel(new GridLayout(4, 2, 10, 10));
+            JPanel thongTinNguoiMua = new JPanel(new GridLayout(4, 2, 5, 5));
             // Tạo các label và text field cho thông tin người mua
             JLabel lblHoTenNguoiMua = new JLabel("Họ tên người mua:");
-            JTextField txtHoTenNguoiMua = new JTextField(20);
+            lblHoTenNguoiMua.setFont(new Font("Arial", Font.BOLD, 16)); // Tăng cỡ chữ
+            JTextField txtHoTenNguoiMua = new JTextField();
+            txtHoTenNguoiMua.setPreferredSize(new Dimension(200, 30)); // Tăng kích thước text field
 
             JLabel lblCCCDNguoiMua = new JLabel("CCCD người mua:");
-            JTextField txtCCCDNguoiMua = new JTextField(20);
+            lblCCCDNguoiMua.setFont(new Font("Arial", Font.BOLD, 16)); // Tăng cỡ chữ
+            JTextField txtCCCDNguoiMua = new JTextField();
+            txtCCCDNguoiMua.setPreferredSize(new Dimension(200, 30)); // Tăng kích thước text field
 
             JLabel lblSoDienThoai = new JLabel("Số điện thoại:");
-            JTextField txtSoDienThoai = new JTextField(20);
+            lblSoDienThoai.setFont(new Font("Arial", Font.BOLD, 16)); // Tăng cỡ chữ
+            JTextField txtSoDienThoai = new JTextField();
+            txtSoDienThoai.setPreferredSize(new Dimension(200, 30)); // Tăng kích thước text field
 
             JLabel lblDiaChi = new JLabel("Địa chỉ:");
-            JTextField txtDiaChi = new JTextField(20);
+            lblDiaChi.setFont(new Font("Arial", Font.BOLD, 16)); // Tăng cỡ chữ
+            JTextField txtDiaChi = new JTextField();
+            txtDiaChi.setPreferredSize(new Dimension(200, 30)); // Tăng kích thước text field
 
             // Thêm các label và text field vào panel
             thongTinNguoiMua.add(lblHoTenNguoiMua);

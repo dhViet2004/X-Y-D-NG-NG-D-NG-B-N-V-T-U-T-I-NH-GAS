@@ -16,6 +16,48 @@ public class DAO_BanVe {
     public DAO_BanVe() {
         con = ConnectDatabase.getConnection();
     }
+    public Tau getTauByMaToa(String maToa) throws SQLException {
+        Tau tau = null;
+
+        // Câu truy vấn SQL
+        String sql = "SELECT t.MaTau, t.TenTau, t.SoToa, tt.MaTuyen, tt.TenTuyen, tt.GaDi, tt.GaDen, tt.DiaDiemDi, tt.DiaDiemDen " +
+                "FROM Tau t " +
+                "JOIN ToaTau toa ON t.MaTau = toa.TauMaTau " +
+                "JOIN TuyenTau tt ON t.MaTuyen = tt.MaTuyen " +
+                "WHERE toa.MaToa = ?";
+
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, maToa); // Gán tham số mã toa vào câu truy vấn
+            ResultSet rs = pstmt.executeQuery();
+
+            // Kiểm tra nếu có kết quả trả về
+            if (rs.next()) {
+                String maTau = rs.getString("MaTau");
+                String tenTau = rs.getString("TenTau");
+                int soToa = rs.getInt("SoToa");
+
+                // Lấy thông tin tuyến tàu
+                String maTuyen = rs.getString("MaTuyen");
+                String tenTuyen = rs.getString("TenTuyen");
+                String gaDi = rs.getString("GaDi");
+                String gaDen = rs.getString("GaDen");
+                String diaDiemDi = rs.getString("DiaDiemDi");
+                String diaDiemDen = rs.getString("DiaDiemDen");
+
+                // Tạo đối tượng TuyenTau
+                TuyenTau tuyenTau = new TuyenTau(tenTuyen, maTuyen, gaDi, gaDen, diaDiemDi, diaDiemDen);
+
+                // Tạo đối tượng Tau
+                tau = new Tau(tuyenTau, tenTau, maTau, soToa);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error fetching train information by MaToa", e);
+        }
+
+        return tau; // Trả về đối tượng Tau hoặc null nếu không tìm thấy
+    }
 
     public TuyenTau getTuyenTauByMaCho(String maCho) throws SQLException {
         TuyenTau tuyenTau = null;
