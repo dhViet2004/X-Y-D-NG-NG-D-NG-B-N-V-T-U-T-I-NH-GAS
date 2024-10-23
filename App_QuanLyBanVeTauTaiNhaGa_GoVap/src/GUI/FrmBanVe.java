@@ -6,12 +6,16 @@ import Entity.*;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,6 +57,8 @@ public class FrmBanVe extends JFrame implements ActionListener {
     private ButtonGroup btnGroup;
     private List<ChoNgoi> danhSachChoDaChon = new ArrayList<>();
     private Map<String, JButton> buttonMap = new HashMap<>(); // Để lưu trữ mối quan hệ giữa mã chỗ ngồi và JButton
+    private List<LichTrinhTau> lichTrinhTaus = null;
+    private LichTrinhTau lichKhiChonTau = null;
 
     public FrmBanVe() {
         setTitle("Bán Vé");
@@ -74,14 +80,13 @@ public class FrmBanVe extends JFrame implements ActionListener {
 
         // Tạo URL cho biểu tượng của nút btnTiepTheo
         URL imageUrlBuocTiepTheo = getClass().getResource("/Anh_HeThong/Next.png");
-        setButtonIcon(btnTiepTheo,imageUrlBuocTiepTheo,100,100);
+        setButtonIcon(btnTiepTheo, imageUrlBuocTiepTheo, 100, 100);
         btnTiepTheo.setVerticalTextPosition(SwingConstants.CENTER);
 
         URL imageUrlTimChuyen = getClass().getResource("/Anh_HeThong/search_Train.png");
         setButtonIcon(btnTimChuyen, imageUrlTimChuyen, 50, 50); // Gọi phương thức với kích thước tùy chọn
         btnTimChuyen.setVerticalTextPosition(SwingConstants.CENTER);
         btnTimChuyen.setHorizontalTextPosition(SwingConstants.RIGHT);
-
 
 
         ConnectDatabase.getInstance().connect(); // Kết nối database
@@ -91,13 +96,13 @@ public class FrmBanVe extends JFrame implements ActionListener {
         btnRadio_KhuHoi.addActionListener(this);
         btnTiepTheo.addActionListener(this);
 
-
     }
 
     public static void main(String[] args) {
         FrmBanVe frm = new FrmBanVe();
         frm.setVisible(true);
     }
+
     public void setButtonIcon(JButton button, URL imageUrl, int width, int height) {
         if (imageUrl != null) {
             ImageIcon icon = new ImageIcon(imageUrl); // Tạo ImageIcon từ URL
@@ -133,9 +138,11 @@ public class FrmBanVe extends JFrame implements ActionListener {
 
                 // Tạo JLabel hiển thị thông tin chỗ ngồi
                 JLabel choLabel = new JLabel("| Chỗ ngồi: " + choNgoi.getTenCho());
-                JLabel gaDiLabel = new JLabel("| Ga đi: " + tau.getTuyenTau().getDiaDiemDi()+"              | "+"Ga đến: "+tau.getTuyenTau().getDiaDiemDen());
-                JLabel ngayDiLabel = new JLabel("| Ngày đi: " + lichTrinhTau.getNgayDi()+"   |   "+ "Giờ đi: "+ lichTrinhTau.getGioDi());
-
+                JLabel gaDiLabel = new JLabel("| Ga đi: " + tau.getTuyenTau().getDiaDiemDi() + "  | " + "Ga đến: " + tau.getTuyenTau().getDiaDiemDen());
+                JLabel ngayDiLabel = new JLabel("| Ngày đi: " + lichTrinhTau.getNgayDi() + " | " + "Giờ đi: " + lichTrinhTau.getGioDi());
+                choLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+                gaDiLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+                ngayDiLabel.setFont(new Font("Arial", Font.PLAIN, 20));
                 // Thêm các JLabel vào panel
                 choPanel.add(choLabel);
                 choPanel.add(gaDiLabel);
@@ -173,7 +180,7 @@ public class FrmBanVe extends JFrame implements ActionListener {
                 // Tạo JLabel hiển thị bộ đếm ngược
                 JLabel countdownLabel = new JLabel("Thời gian còn lại: 500 giây");
                 choPanel.add(countdownLabel);
-                JLabel lineBot= new JLabel("|-------------------------------------------------------------|");
+                JLabel lineBot = new JLabel("|------------------------------------------------------------------------------------");
                 choPanel.add(lineBot);
                 // Khởi tạo bộ đếm ngược
                 int countdownTime = 500; // Thời gian đếm ngược (500 giây)
@@ -186,7 +193,7 @@ public class FrmBanVe extends JFrame implements ActionListener {
                             timeLeft--;
                             countdownLabel.setText("Thời gian còn lại: " + timeLeft + " giây");
                         } else {
-                            ((Timer)e.getSource()).stop(); // Dừng timer
+                            ((Timer) e.getSource()).stop(); // Dừng timer
 
                             // Tự động nhấn nút "Xóa" cho chỗ ngồi hiện tại
                             deleteButton.doClick(); // Gọi hành động nút xóa
@@ -202,13 +209,10 @@ public class FrmBanVe extends JFrame implements ActionListener {
     }
 
 
-
     // Hàm để lấy nút tương ứng với chỗ ngồi
     private JButton getButtonForSeat(ChoNgoi choNgoi) {
         return buttonMap.get(choNgoi.getMaCho()); // Trả về nút tương ứng
     }
-
-
 
 
     @Override
@@ -232,7 +236,7 @@ public class FrmBanVe extends JFrame implements ActionListener {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String ngayDi = sdf.format(dateChooserNgayDi.getDate());
             // Gọi DAO để tìm các chuyến tàu
-            List<LichTrinhTau> lichTrinhTaus = null;
+
             try {
                 lichTrinhTaus = daoBanVe.getTrainsByDateAndDestination(gaDen, ngayDi);
 
@@ -328,6 +332,7 @@ public class FrmBanVe extends JFrame implements ActionListener {
                                             toaButton.setBackground(hoverBackground); // Đổi màu khi hover
                                             toaButton.setOpaque(true); // Đảm bảo màu được hiển thị
                                         }
+
                                         @Override
                                         public void mouseExited(java.awt.event.MouseEvent evt) {
                                             toaButton.setBackground(originalBackground); // Trả lại màu nền ban đầu
@@ -342,6 +347,7 @@ public class FrmBanVe extends JFrame implements ActionListener {
                                             lab_TenToaTau.setText("Toa tàu số " + toaTau.getThuTu() + ": " + toaTau.getLoaiToa().getTenLoai());
                                             DAO_BanVe daoBanVe = new DAO_BanVe();
                                             List<ChoNgoi> danhSachChoNgoi = null;
+                                            lichKhiChonTau = lichTrinhTau;
 
                                             try {
                                                 // Gọi DAO để tìm các chỗ ngồi của toa
@@ -505,22 +511,119 @@ public class FrmBanVe extends JFrame implements ActionListener {
             dialog.setSize(1000, 700); // Kích thước của cửa sổ
             dialog.setLocationRelativeTo(this); // Hiển thị ở giữa màn hình
 
-            // Tạo JPanel để chứa danh sách chỗ ngồi
-            JPanel panel = new JPanel();
-            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+            // Tạo tiêu đề các cột
+            String[] columnNames = {"Họ tên", "Thông tin chỗ ngồi", "Giá vé", "Giảm đối tượng", "Khuyến mại", "Thành tiền"};
 
-            // Thêm các chỗ ngồi đã chọn vào JPanel
+            // Tạo mô hình bảng
+            DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+            // Tạo danh sách lưu trữ các CustomPanel cho từng hàng trong bảng
+            List<CustomPanel> danhSachPanel = new ArrayList<>();
+
+            // Trong vòng lặp thêm hàng vào bảng
             for (ChoNgoi choNgoi : danhSachChoDaChon) {
-                JLabel choLabel = new JLabel("Chỗ ngồi: " + choNgoi.getTenCho());
-                panel.add(choLabel);
+                CustomPanel panel = new CustomPanel();
+                panel.setHoTen(""); // Thiết lập các thuộc tính cần thiết
+                panel.setTrangThai("Chưa xác nhận", choNgoi.getGia());
+                panel.setCCCD("");
+                panel.setGiaVe(choNgoi.getGia());
+
+                danhSachPanel.add(panel); // Lưu lại panel này vào danh sách
+
+                // Cập nhật discount và tính toán thành tiền
+                double discount = (double) panel.getDiscount(); // Sửa lại việc chuyển kiểu dữ liệu cho discount
+                double thanhTien = choNgoi.getGia() - discount;
+
+                Object[] rowData = new Object[]{
+                        panel, // Đưa panel vào bảng
+                        choNgoi.getMaCho(),
+                        choNgoi.getGia(),
+                        discount,
+                        "", // Khuyến mại
+                        thanhTien
+                };
+                model.addRow(rowData);
             }
 
-            // Thêm JPanel vào cửa sổ
-            dialog.add(new JScrollPane(panel)); // Sử dụng JScrollPane để hỗ trợ cuộn nếu danh sách quá dài
+// Tạo bảng với mô hình dữ liệu
+            JTable table = new JTable(model);
+
+// Thiết lập renderer và editor cho cột đầu tiên
+            table.getColumnModel().getColumn(0).setCellRenderer(new CustomCellRenderer());
+            table.getColumnModel().getColumn(0).setCellEditor(new CustomCellEditor());
+
+// Tùy chỉnh chiều cao các hàng
+            table.setRowHeight(120); // Chiều cao mỗi hàng
+
+// Tùy chỉnh chiều rộng các cột
+            table.getColumnModel().getColumn(0).setPreferredWidth(200); // Họ tên
+            table.getColumnModel().getColumn(1).setPreferredWidth(200); // Thông tin chỗ ngồi
+            table.getColumnModel().getColumn(2).setPreferredWidth(100); // Giá vé
+            table.getColumnModel().getColumn(3).setPreferredWidth(100); // Giảm đối tượng
+            table.getColumnModel().getColumn(4).setPreferredWidth(100); // Khuyến mại
+            table.getColumnModel().getColumn(5).setPreferredWidth(100); // Thành tiền
+
+// Tạo JScrollPane cho bảng
+            JScrollPane scrollPane = new JScrollPane(table);
+            dialog.add(scrollPane, BorderLayout.CENTER); // Thêm JScrollPane vào cửa sổ
+
+// Tạo nút In
+            JButton btnIn = new JButton("In");
+            dialog.add(btnIn, BorderLayout.SOUTH); // Thêm nút In vào phía dưới cùng
+
+// Lắng nghe sự kiện khi nhấn nút "In"
+            btnIn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Tạo danh sách lưu trữ các vé
+                    List<VeTau> ticketsToSave = new ArrayList<>();
+
+                    // Lặp qua tất cả các hàng trong bảng
+                    for (int row = 0; row < table.getRowCount(); row++) {
+                        CustomPanel customPanel = (CustomPanel) table.getValueAt(row, 0);
+                        String hoTen = customPanel.getHoTen();
+                        String doiTuong = customPanel.getTrangThai();
+                        String cccd = customPanel.getCCCD();
+                        String thongTinChoNgoi = (String) table.getValueAt(row, 1);
+                        float giaVe = (float) table.getValueAt(row, 2);
+                        double giamDoiTuong = (double) table.getValueAt(row, 3);
+                        String khuyenMai = (String) table.getValueAt(row, 4);
+                        double thanhTien = (double) table.getValueAt(row, 5);
+
+                        // Tạo mã vé
+                        String maVe = generateTicketCode();
+                        ChoNgoi cn = new ChoNgoi(thongTinChoNgoi);
+
+                        // Tạo đối tượng VeTau và thêm vào danh sách
+                        VeTau ticket = new VeTau(maVe,lichKhiChonTau,cn, hoTen, cccd,lichKhiChonTau.getNgayDi(), doiTuong, giaVe,"Đã thanh toán");
+                        ticketsToSave.add(ticket);
+                    }
+                    // Lưu vé vào cơ sở dữ liệu
+                    try {
+                        DAO_BanVe daoBanVe = new DAO_BanVe();
+                        daoBanVe.saveTickets(ticketsToSave);
+                        JOptionPane.showMessageDialog(dialog, "Lưu vé thành công!");
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(dialog, "Lỗi khi lưu vé: " + ex.getMessage());
+                    }
+                }
+            });
             dialog.setVisible(true); // Hiển thị cửa sổ
         }
     }
 
+    private String generateTicketCode() {
+        // Lấy ngày hiện tại
+        LocalDate currentDate = LocalDate.now();
+        String datePart = currentDate.format(DateTimeFormatter.ofPattern("yyyyMMdd")); // Định dạng ngày
+
+        // Tạo một số ngẫu nhiên từ 0001 đến 9999
+        int randomNumber = (int) (Math.random() * 10000); // Sinh số ngẫu nhiên
+        String randomPart = String.format("%04d", randomNumber); // Đảm bảo có 4 chữ số
+
+        // Tạo mã vé
+        return "TAU001-" + datePart + "-" + randomPart; // Chỉnh sửa "TAU001" theo ý muốn
+    }
 
 
 }

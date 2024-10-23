@@ -16,6 +16,66 @@ public class DAO_BanVe {
     public DAO_BanVe() {
         con = ConnectDatabase.getConnection();
     }
+
+    public TuyenTau getTuyenTauByMaCho(String maCho) throws SQLException {
+        TuyenTau tuyenTau = null;
+
+        // Câu lệnh truy vấn SQL
+        String sql = "SELECT tt.MaTuyen, tt.TenTuyen, tt.GaDi, tt.GaDen, tt.DiaDiemDi, tt.DiaDiemDen " +
+                "FROM ChoNgoi cho " +
+                "JOIN ToaTau toa ON cho.LoaiToaMaToa = toa.MaToa " +
+                "JOIN Tau tau ON toa.TauMaTau = tau.MaTau " +
+                "JOIN TuyenTau tt ON tau.MaTuyen = tt.MaTuyen " +
+                "WHERE cho.MaCho = ?";
+
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, maCho); // Gán tham số mã chỗ vào câu truy vấn
+            ResultSet rs = pstmt.executeQuery();
+
+            // Kiểm tra nếu có kết quả trả về
+            if (rs.next()) {
+                String maTuyen = rs.getString("MaTuyen");
+                String tenTuyen = rs.getString("TenTuyen");
+                String gaDi = rs.getString("GaDi");
+                String gaDen = rs.getString("GaDen");
+                String diaDiemDi = rs.getString("DiaDiemDi");
+                String diaDiemDen = rs.getString("DiaDiemDen");
+
+                // Tạo đối tượng TuyenTau
+                tuyenTau = new TuyenTau(tenTuyen, maTuyen, gaDi, gaDen, diaDiemDi, diaDiemDen);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error fetching train line information", e);
+        }
+
+        return tuyenTau; // Trả về đối tượng TuyenTau hoặc null nếu không tìm thấy
+    }
+
+
+    public void saveTickets(List<VeTau> tickets) throws SQLException {
+        String sql = "INSERT INTO VeTau (MaVe, LichTrinhTauMaLich, ChoNgoiMaCho, TenKH, GiayTo, NgayDi, DoiTuong, GiaVe, TrangThai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            for (VeTau ticket : tickets) {
+                pstmt.setString(1, ticket.getMaVe());
+                pstmt.setString(2, ticket.getLichTrinhTau().getMaLich());
+                pstmt.setString(3, ticket.getChoNgoi().getMaCho());
+                pstmt.setString(4, ticket.getTenKhachHang());
+                pstmt.setString(5, ticket.getGiayTo());
+                pstmt.setDate(6, Date.valueOf(ticket.getNgayDi()));
+                pstmt.setString(7, ticket.getDoiTuong());
+                pstmt.setDouble(8, ticket.getGiaVe());
+                pstmt.setString(9, ticket.getTrangThai());
+                pstmt.addBatch(); // Thêm vào batch
+            }
+            pstmt.executeBatch(); // Thực hiện batch
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error saving tickets to the database", e);
+        }
+    }
+
     public Tau getThongTin(String maTau) throws SQLException {
         Tau tau = null;
 
