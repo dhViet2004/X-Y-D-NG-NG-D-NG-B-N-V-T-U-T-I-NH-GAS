@@ -19,6 +19,14 @@ import java.util.Date;
 import java.util.List;
 
 public class Frm_KhachHang extends JFrame implements ActionListener, MouseListener {
+    private final JButton btnBanVe;
+    private final JButton btnTraCuu;
+    private final JButton btnThongKeTheoCa;
+    private final JButton btnQuanLyKhachHang;
+    private final JButton btnQuanLyNhanVien;
+    private final JButton btnQuanLyChuyenTau;
+    private final JButton btnQuanLyKhuyenMai;
+    private final JButton btnQuanLyDoanhThu;
     private final JButton btnThemKH;
     private final JButton btnSuaKH;
     private final JButton btnLuu;
@@ -77,21 +85,21 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
         JPanel_Menu.add(Box.createRigidArea(new Dimension(0, 20))); // Khoảng cách dọc (10px)
 
         // Tạo các nút cho từng phần quản lý
-        JButton btnBanVe = createButton("Bán vé");
-        JButton btnTraCuu = createButton("Tra cứu");
-        JButton btnQuanLyKhachHang = createButton("Quản lý khách hàng");
-        JButton btnThongKeTheoCa = createButton("Thống kê theo ca");
-        JButton btnQuanLyChuyenTau = createButton("Quản lý chuyến tàu");
-        JButton btnQuanLyKhuyenMai = createButton("Quản lý chương trình khuyến mãi");
-        JButton btnQuanLyDoanhThu = createButton("Quản lý doanh thu");
-        JButton btnQuanLyNhanVien = createButton("Quản lý nhân viên");
+        btnBanVe = createButton("Bán vé");
+        btnTraCuu = createButton("Tra cứu");
+        btnQuanLyKhachHang = createButton("Quản lý khách hàng");
+        btnThongKeTheoCa = createButton("Thống kê theo ca");
+        btnQuanLyChuyenTau = createButton("Quản lý chuyến tàu");
+        btnQuanLyKhuyenMai = createButton("Quản lý chương trình khuyến mãi");
+        btnQuanLyDoanhThu = createButton("Quản lý doanh thu");
+        btnQuanLyNhanVien = createButton("Quản lý nhân viên");
 
         // Format nút với cùng kích thước, phông chữ và căn chỉnh
         Dimension buttonMenuSize = new Dimension(200, 60); // Tăng kích thước chiều cao của nút lên 60px
         Font fontMenu = new Font("Arial", Font.PLAIN, 16); // Đặt font chung cho tất cả các nút
 
         // Định dạng cho từng nút
-        JButton[] buttons = {btnBanVe, btnTraCuu,btnThongKeTheoCa,btnQuanLyChuyenTau, btnQuanLyKhachHang, btnQuanLyKhuyenMai, btnQuanLyDoanhThu, btnQuanLyNhanVien};
+        JButton[] buttons = {btnBanVe, btnTraCuu, btnThongKeTheoCa, btnQuanLyChuyenTau, btnQuanLyKhachHang, btnQuanLyKhuyenMai, btnQuanLyDoanhThu, btnQuanLyNhanVien};
         for (JButton btn : buttons) {
             btn.setPreferredSize(buttonMenuSize); // Đặt kích thước cố định cho nút
             btn.setFont(fontMenu); // Đặt font
@@ -268,7 +276,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
         lblNgayThamGia.setForeground(btnTextColor);
 
         String tieuDeTableHeader[] = {"Hóa đơn", "Ngày lặp", "Khuyến mãi", "Chiếc khấu(%)", "Tiền giảm(vnd)"};
-        modelNoiDung = new DefaultTableModel(tieuDeTableHeader,0);
+        modelNoiDung = new DefaultTableModel(tieuDeTableHeader, 0);
         tableNoiDung = new JTable(modelNoiDung);
         JScrollPane scrollNoiDung = new JScrollPane(tableNoiDung);
 
@@ -346,6 +354,14 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
                 }
             }
         });
+        btnBanVe.addActionListener(this);
+        btnTraCuu.addActionListener(this);
+        btnThongKeTheoCa.addActionListener(this);
+        btnQuanLyChuyenTau.addActionListener(this);
+        btnQuanLyKhuyenMai.addActionListener(this);
+        btnQuanLyKhachHang.addActionListener(this);
+        btnQuanLyDoanhThu.addActionListener(this);
+        btnQuanLyNhanVien.addActionListener(this);
     }
     // gõ sdt, dò trong ds khách hàng load lên, nếu trùng, load khách hàng lên txt
 
@@ -413,6 +429,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
             JOptionPane.showMessageDialog(this, "Không tìm thấy", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }
+
     private JButton createButton(String text) {
         JButton button = new JButton(text);
         button.setFont(new Font("Arial", Font.PLAIN, 20)); // Đặt font
@@ -433,7 +450,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
 //        button.setFocusable(false); // Tắt chế độ focus
         return button;
     }
-    @Override
+
     public void actionPerformed(ActionEvent e) {
         Object obj = e.getSource();
         if (obj == btnThemKH) {
@@ -460,7 +477,14 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
             } else {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin cần thiết trước khi lưu.", "Thông báo", JOptionPane.WARNING_MESSAGE);
             }
+        } else if (obj == btnBanVe) {
+            FrmBanVe frmBanVe = new FrmBanVe();
+            frmBanVe.setVisible(true);
+        } else if (obj == btnQuanLyKhuyenMai) {
+            FrmKhuyenMai frmKhuyenMai = new FrmKhuyenMai();
+            frmKhuyenMai.setVisible(true);
         }
+
     }
 
     private void saveCustomer() throws SQLException {

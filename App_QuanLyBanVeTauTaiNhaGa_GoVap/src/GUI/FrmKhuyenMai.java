@@ -407,6 +407,9 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
         } else if (o == btnBanVe) {
             FrmBanVe frm = new FrmBanVe();
             frm.setVisible(true);
+        } else if (o == btnQuanLyKhachHang) {
+            Frm_KhachHang frmKhachHang = new Frm_KhachHang();
+            frmKhachHang.setVisible(true);
         }
 
     }
