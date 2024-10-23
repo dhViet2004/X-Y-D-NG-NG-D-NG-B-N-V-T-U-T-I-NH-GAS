@@ -29,7 +29,6 @@ public class KhachHang {
         this.ngayThamgGia = ngayThamgGia;
         this.hangThanhVien = hangThanhVien;
     }
-
     public KhachHang(String maKhachHang){
         this.maKhachHang = maKhachHang;
     }

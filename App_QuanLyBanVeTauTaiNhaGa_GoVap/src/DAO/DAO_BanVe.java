@@ -48,7 +48,7 @@ public class DAO_BanVe {
                 TuyenTau tuyenTau = new TuyenTau(tenTuyen, maTuyen, gaDi, gaDen, diaDiemDi, diaDiemDen);
 
                 // Tạo đối tượng Tau
-                tau = new Tau(tuyenTau, tenTau, maTau, soToa);
+                tau = new Tau(maTau, tuyenTau, tenTau, soToa);
             }
 
         } catch (SQLException e) {
@@ -94,14 +94,118 @@ public class DAO_BanVe {
         return tuyenTau; // Trả về đối tượng TuyenTau hoặc null nếu không tìm thấy
     }
 
+    public void saveInvoice(HoaDon hoaDon) throws SQLException {
+        // Đảm bảo mã loại hóa đơn tồn tại
+        String checkSql = "SELECT COUNT(*) FROM LoaiHoaDon WHERE MaLoai = ?";
+        try (PreparedStatement checkStmt = con.prepareStatement(checkSql)) {
+            checkStmt.setString(1, hoaDon.getLoaiHoaDon().getMaLoaiHoaDon());
+            ResultSet rs = checkStmt.executeQuery();
+            if (rs.next() && rs.getInt(1) == 0) {
+                // Nếu mã loại hóa đơn không tồn tại, thêm nó
+                String insertSql = "INSERT INTO LoaiHoaDon (MaLoai, TenLoai) VALUES (?, ?)";
+                try (PreparedStatement insertStmt = con.prepareStatement(insertSql)) {
+                    insertStmt.setString(1, hoaDon.getLoaiHoaDon().getMaLoaiHoaDon());
+                    insertStmt.setString(2, "Tên loại hóa đơn"); // Đặt tên loại hóa đơn cho phù hợp
+                    insertStmt.executeUpdate();
+                }
+            }
+        }
 
+        // Tiến hành lưu hóa đơn
+        String sql = "INSERT INTO HoaDon (MaHD, MaKH, KhuyenMaiMaKM, NhanVienMaNV, MaLoai, NgayHoaDon, TienKhuyenMai, TongTien) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, hoaDon.getMaHD());
+            pstmt.setString(2, hoaDon.getKhachHang().getMaKhachHang());
+            pstmt.setString(3, hoaDon.getKhuyenMai() != null ? hoaDon.getKhuyenMai().getMaKM() : null);
+            pstmt.setString(4, hoaDon.getNv() != null ? hoaDon.getNv().getMaNV() : null);
+            pstmt.setString(5, hoaDon.getLoaiHoaDon().getMaLoaiHoaDon());
+            pstmt.setDate(6, Date.valueOf(hoaDon.getNgayLap()));
+            pstmt.setDouble(7, hoaDon.getTienGiam());
+            pstmt.setDouble(8, hoaDon.getTongTien());
+            pstmt.executeUpdate();
+        }
+    }
+
+
+
+
+    public void saveInvoiceDetail(ChiTietHoaDon chiTiet) throws SQLException {
+        String sql = "INSERT INTO ChiTietHoaDon (MaVe, MaHD, SoLuong, VAT, ThanhTien, TenThue) VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, chiTiet.getMaVe());
+            pstmt.setString(2, chiTiet.getMaHD()); // Đảm bảo MaHD đã được lưu trước
+            pstmt.setInt(3, chiTiet.getSoLuong());
+            pstmt.setDouble(4, chiTiet.getVAT());
+            pstmt.setDouble(5, chiTiet.getThanhTien());
+            pstmt.setDouble(6, chiTiet.getTienThue());
+            pstmt.executeUpdate();
+        }
+    }
+    // Thêm khách hàng mới
+    public boolean saveCustomer(KhachHang kh) throws SQLException {
+        String sql = "INSERT INTO KhachHang (MaKH, LoaiKhachHangMaLoaiKH, SoDT, TenKH, CCCD, DiaChi, DiemTichLuy, NgaySinh, NgayThamGia, HangThanhVien) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, kh.getMaKhachHang());
+            pstmt.setString(2, kh.getLoaiKhachHang().getMaLoaiKhachHang());
+            pstmt.setString(3, kh.getSoDienThoai());
+            pstmt.setString(4, kh.getTenKhachHang());
+            pstmt.setString(5, kh.getCCCD());
+            pstmt.setString(6, kh.getDiaChi());
+            pstmt.setDouble(7, kh.getDiemTichLuy());
+            pstmt.setDate(8, Date.valueOf(kh.getNgaySinh()));
+            pstmt.setDate(9, Date.valueOf(kh.getNgayThamgGia()));
+            pstmt.setString(10, kh.getHangThanhVien());
+            return pstmt.executeUpdate() > 0;
+        }
+    }
+
+    // Lấy thông tin khách hàng theo mã
+    public KhachHang getCustomerById(String maKH) throws SQLException {
+        String sql = "SELECT * FROM KhachHang WHERE MaKH = ?";
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, maKH);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    LoaiKhachHang loaiKH = new LoaiKhachHang(rs.getString("LoaiKhachHangMaLoaiKH"));
+                    return new KhachHang(
+                            rs.getString("MaKH"),
+                            loaiKH,
+                            rs.getString("SoDT"),
+                            rs.getString("TenKH"),
+                            rs.getString("CCCD"),
+                            rs.getString("DiaChi"),
+                            rs.getDouble("DiemTichLuy"),
+                            rs.getDate("NgaySinh").toLocalDate(),
+                            rs.getDate("NgayThamGia").toLocalDate(),
+                            rs.getString("HangThanhVien")
+                    );
+                }
+            }
+        }
+        return null; // Nếu không tìm thấy khách hàng
+    }
+
+    // Kiểm tra khách hàng có tồn tại hay không
+    public boolean checkCustomerExists(String maKH) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM KhachHang WHERE MaKH = ?";
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, maKH);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        }
+        return false;
+    }
     public void saveTickets(List<VeTau> tickets) throws SQLException {
         String sql = "INSERT INTO VeTau (MaVe, LichTrinhTauMaLich, ChoNgoiMaCho, TenKH, GiayTo, NgayDi, DoiTuong, GiaVe, TrangThai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
             for (VeTau ticket : tickets) {
                 pstmt.setString(1, ticket.getMaVe());
-                pstmt.setString(2, ticket.getLichTrinhTau().getMaLich());
+                pstmt.setString(2, ticket.getLichTrinhTau().getMaLichTrinh());
                 pstmt.setString(3, ticket.getChoNgoi().getMaCho());
                 pstmt.setString(4, ticket.getTenKhachHang());
                 pstmt.setString(5, ticket.getGiayTo());
@@ -149,7 +253,7 @@ public class DAO_BanVe {
                 TuyenTau tuyenTau = new TuyenTau(tenTuyen, maTuyen, gaDi, gaDen, diaDiemDi, diaDiemDen);
 
                 // Tạo đối tượng Tau
-                tau = new Tau(tuyenTau, tenTau, maTau, soToa);
+                tau = new Tau(maTau, tuyenTau, tenTau, soToa);
             }
 
         } catch (SQLException e) {
@@ -187,10 +291,10 @@ public class DAO_BanVe {
                 // Tạo đối tượng LichTrinhTau
                 String maLich = rs.getString("MaLich");
                 String maTau = rs.getString("MaTau");
-                String gioDi = rs.getString("GioDi");
+                LocalTime gioDi = rs.getTimestamp("GioDi").toLocalDateTime().toLocalTime();
                 LocalDate ngayDiLichTau = rs.getDate("NgayDi").toLocalDate(); // Thay đổi nếu ngày đi lịch tàu là cột khác
 
-                LichTrinhTau lichTrinhTau1 = new LichTrinhTau(maLich, maTau, gioDi, ngayDiLichTau);
+                LichTrinhTau lichTrinhTau1 = new LichTrinhTau(maLich,gioDi,ngayDiLichTau,new Tau(maTau,null,null,0),null );
 
                 // Tạo đối tượng ChoNgoi
                 ChoNgoi choNgoi = new ChoNgoi(maCho);
@@ -227,13 +331,14 @@ public class DAO_BanVe {
             // Lưu thông tin lịch trình tàu vào danh sách
             while (rs.next()) {
                 // Lấy thông tin lịch trình
+                String tenTau = rs.getString("TenTau");
                 String maLich = rs.getString("MaLich");
                 String maTau = rs.getString("MaTau");
-                String gioDi = rs.getString("GioDi");
+                LocalTime gioDi = rs.getTimestamp("GioDi").toLocalDateTime().toLocalTime();
                 LocalDate ngayDi = rs.getDate("NgayDi").toLocalDate(); // Chuyển đổi từ java.sql.Date sang java.time.LocalDate
 
                 // Tạo đối tượng LichTrinhTau
-                LichTrinhTau lichTrinhTau = new LichTrinhTau(maLich, maTau, gioDi, ngayDi);
+                LichTrinhTau lichTrinhTau = new LichTrinhTau(maLich,gioDi, ngayDi,new Tau(maTau,null,tenTau,0),null );
 
                 // Thêm đối tượng LichTrinhTau vào danh sách
                 lichTrinhList.add(lichTrinhTau);
@@ -282,7 +387,7 @@ public class DAO_BanVe {
                 TuyenTau tuyenTau = new TuyenTau(tenTuyen, maTuyen, null, null, null, null); // Các thông tin khác của tuyến tàu có thể bỏ qua
 
                 // Tạo đối tượng Tau
-                Tau tau = new Tau(tuyenTau, tenTau, maTauResult, soToa);
+                Tau tau = new Tau(maTau,tuyenTau,tenTau, soToa);
 
                 // Lấy thông tin toa tàu
                 String maToa = rs.getString("MaToa");

@@ -13,7 +13,7 @@ public class ConnectDatabase {
     }
 
     public void connect() {
-        String url = "jdbc:sqlserver://localhost:1433;databaseName=UngDungQuanLyBanVeTaiGaGoVap";
+        String url = "jdbc:sqlserver://localhost:1433;databaseName=UngDungQuanLyBanVeTaiGoVap";
         String user = "sa";
         String password = "sapassword";
         try {

@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
@@ -72,7 +73,7 @@ public class FrmBanVe extends JFrame implements ActionListener {
     private double tongThanhTien = 0.0; // Biến để lưu tổng thành tiền
     private static int ticketCount = 0; // Số vé đã tạo trong ngày
     private static LocalDate lastDate = LocalDate.now(); // Ngày cuối cùng đã tạo vé
-
+    private int customerCount = 0; // Biến đếm số khách hàng
     public FrmBanVe() {
         setTitle("Bán Vé");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -220,7 +221,7 @@ public class FrmBanVe extends JFrame implements ActionListener {
             JLabel label = new JLabel("Bạn chưa chọn chỗ ngồi nào.");
             JPanel_XacNhanCho.add(label);
         } else {
-            Tau tau = daoBanVe.getThongTin(lichTrinhTau.getMaTau());
+            Tau tau = daoBanVe.getThongTin(lichTrinhTau.getTau().getMaTau());
 
             for (ChoNgoi choNgoi : danhSachChoDaChon) {
                 // Tạo một panel cho từng chỗ ngồi
@@ -343,7 +344,7 @@ public class FrmBanVe extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Không tìm thấy chuyến tàu nào.");
             } else {
                 for (LichTrinhTau lichTrinhTau : lichTrinhTaus) {
-                    String tauInfo = "Mã tàu: " + lichTrinhTau.getMaTau() + ", Giờ chạy: " + lichTrinhTau.getGioDi();
+                    String tauInfo = "Tên tàu: " + lichTrinhTau.getTau().getTenTau() + ", Giờ chạy: " + lichTrinhTau.getGioDi();
                     JButton tauButton = new JButton(tauInfo);
 
                     // Thêm hình ảnh đại diện cho nút
@@ -368,7 +369,7 @@ public class FrmBanVe extends JFrame implements ActionListener {
                                 // Gọi DAO để tìm các toa của tàu
                                 List<ToaTau> danhSachToa = null;
                                 try {
-                                    danhSachToa = daoBanVe.getToaByMaTau(lichTrinhTau.getMaTau());
+                                    danhSachToa = daoBanVe.getToaByMaTau(lichTrinhTau.getTau().getMaTau());
                                 } catch (SQLException ex) {
                                     throw new RuntimeException(ex);
                                 }
@@ -387,7 +388,7 @@ public class FrmBanVe extends JFrame implements ActionListener {
                                         Image img = icon.getImage();
                                         Image resizedImage = img.getScaledInstance(100, 50, Image.SCALE_SMOOTH); // Tăng kích thước hình ảnh
                                         icon = new ImageIcon(resizedImage);
-                                        JButton DautoaButton = new JButton(lichTrinhTau.getMaTau());
+                                        JButton DautoaButton = new JButton(lichTrinhTau.getTau().getMaTau());
                                         DautoaButton.setIcon(icon);
                                         JPanel_Toa.add(DautoaButton);
                                         //Căng chỉnh btn
@@ -485,7 +486,7 @@ public class FrmBanVe extends JFrame implements ActionListener {
                                                         choButton.setOpaque(true);
 
                                                         // Kiểm tra vé cho mã chỗ ngồi
-                                                        VeTau veTau = daoBanVe.getVeTaubyLichTrinhTauandMaCho(lichTrinhTau.getMaLich(), choNgoi.getMaCho());
+                                                        VeTau veTau = daoBanVe.getVeTaubyLichTrinhTauandMaCho(lichTrinhTau.getMaLichTrinh(), choNgoi.getMaCho());
                                                         if (veTau != null) {
                                                             // Nếu có vé, khóa nút và đổi màu
                                                             choButton.setEnabled(false); // Khóa nút
@@ -754,43 +755,90 @@ public class FrmBanVe extends JFrame implements ActionListener {
                     String soDienThoai = txtSoDienThoai.getText();
                     String diaChi = txtDiaChi.getText();
 
-                    // Kiểm tra xem thông tin đã được điền đầy đủ chưa
+// Kiểm tra xem thông tin đã được điền đầy đủ chưa
                     if (hoTenNguoiMua.isEmpty() || cccdNguoiMua.isEmpty() || soDienThoai.isEmpty() || diaChi.isEmpty()) {
                         JOptionPane.showMessageDialog(dialog, "Vui lòng điền đầy đủ thông tin người mua.");
                         return;
                     }
 
-                    // Tạo danh sách lưu trữ các vé
-                    List<VeTau> ticketsToSave = new ArrayList<>();
+// Tạo mã khách hàng và đối tượng KhachHang
+                    String maKH = generateCustomerCode(); // Sinh mã khách hàng mới
+                    KhachHang khachHang = new KhachHang(
+                            maKH,
+                            new LoaiKhachHang("KH001"), // Mã loại khách hàng mặc định
+                            soDienThoai,
+                            hoTenNguoiMua,
+                            cccdNguoiMua,
+                            diaChi,
+                            0.0, // Điểm tích lũy ban đầu
+                            LocalDate.of(1990, 1, 1), // Ngày sinh mẫu
+                            LocalDate.now(), // Ngày tham gia
+                            "Silver" // Hạng thành viên mặc định
+                    );
 
-                    // Lặp qua tất cả các hàng trong bảng
-                    for (int row = 0; row < table.getRowCount(); row++) {
-                        CustomPanel customPanel = (CustomPanel) table.getValueAt(row, 0);
-                        String hoTen = customPanel.getHoTen();
-                        String doiTuong = customPanel.getTrangThai();
-                        String cccd = customPanel.getCCCD();
-                        String thongTinChoNgoi = (String) table.getValueAt(row, 1);
-                        float giaVe = (float) table.getValueAt(row, 2);
-                        double giamDoiTuong = (double) table.getValueAt(row, 3);
-                        String khuyenMai = (String) table.getValueAt(row, 4);
-                        double thanhTien = (double) table.getValueAt(row, 5);
-                        // Tạo mã vé
-                        String maVe = generateTicketCode(lichKhiChonTau.getMaTau());
-                        ChoNgoi cn = new ChoNgoi(thongTinChoNgoi);
-
-                        // Tạo đối tượng VeTau và thêm vào danh sách
-                        VeTau ticket = new VeTau(maVe, lichKhiChonTau, cn, hoTen, cccd, lichKhiChonTau.getNgayDi(), doiTuong, giaVe, "Đã thanh toán");
-                        ticketsToSave.add(ticket);
-                    }
-
-                    // Lưu vé vào cơ sở dữ liệu
                     try {
-                        DAO_BanVe daoBanVe = new DAO_BanVe();
-                        daoBanVe.saveTickets(ticketsToSave);
-                        JOptionPane.showMessageDialog(dialog, "Lưu vé thành công!");
+                        DAO_BanVe daoBanVe = new DAO_BanVe(); // Tạo đối tượng DAO
+
+                        // Lưu khách hàng vào cơ sở dữ liệu
+                        daoBanVe.saveCustomer(khachHang); // Gọi phương thức lưu khách hàng trước khi lưu hóa đơn
+
+                        // Tạo danh sách vé cần lưu
+                        List<VeTau> ticketsToSave = new ArrayList<>();
+                        List<ChiTietHoaDon> chiTietHoaDonList = new ArrayList<>();
+                        double tongTien = 0;
+
+                        // Lặp qua tất cả các hàng trong bảng để lấy thông tin vé
+                        for (int row = 0; row < table.getRowCount(); row++) {
+                            CustomPanel customPanel = (CustomPanel) table.getValueAt(row, 0);
+                            String hoTen = customPanel.getHoTen();
+                            String doiTuong = customPanel.getTrangThai();
+                            String cccd = customPanel.getCCCD();
+                            String thongTinChoNgoi = (String) table.getValueAt(row, 1);
+                            float giaVe = (float) table.getValueAt(row, 2);
+                            double thanhTien = (double) table.getValueAt(row, 5);
+
+                            // Tạo mã vé và đối tượng VeTau
+                            String maVe = generateTicketCode(lichKhiChonTau.getTau().getMaTau());
+                            ChoNgoi cn = new ChoNgoi(thongTinChoNgoi);
+                            VeTau ticket = new VeTau(maVe, lichKhiChonTau, cn, hoTen, cccd, lichKhiChonTau.getNgayDi(), doiTuong, giaVe, "Đã thanh toán");
+
+                            ticketsToSave.add(ticket);
+                            tongTien += thanhTien;
+
+                            // Tạo chi tiết hóa đơn với mã vé tương ứng
+                            ChiTietHoaDon chiTiet = new ChiTietHoaDon(maVe, "", 1, 0.0, thanhTien, 0.0); // Mã hóa đơn sẽ thêm sau
+                            chiTietHoaDonList.add(chiTiet);
+                        }
+
+                        // Lưu vé vào cơ sở dữ liệu trước
+                        daoBanVe.saveTickets(ticketsToSave); // Phải lưu trước để mã vé tồn tại
+
+                        // Tạo mã hóa đơn
+                        String maHD = generateInvoiceCode();
+                        LoaiHoaDon loaiHoaDon = new LoaiHoaDon("LHD01");
+                        // Lưu hóa đơn
+                        HoaDon hoaDon = new HoaDon(maHD, khachHang, null, null,loaiHoaDon, LocalDate.now(), 0, tongTien);
+                        daoBanVe.saveInvoice(hoaDon); // Lưu hóa đơn
+
+                        // Lưu chi tiết hóa đơn
+                        for (ChiTietHoaDon ct : chiTietHoaDonList) {
+                            ct.setMaHD(maHD); // Gán mã hóa đơn cho chi tiết
+                            daoBanVe.saveInvoiceDetail(ct); // Lưu từng chi tiết hóa đơn
+                        }
+
+                        JOptionPane.showMessageDialog(dialog, "Lưu vé và hóa đơn thành công!");
+
+                        // Cập nhật giao diện sau khi lưu
+                        danhSachChoDaChon.clear();
+                        JPanel_XacNhanCho.removeAll();
+                        JPanel_XacNhanCho.revalidate();
+                        JPanel_XacNhanCho.repaint();
+
                     } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(dialog, "Lỗi khi lưu vé: " + ex.getMessage());
+                        JOptionPane.showMessageDialog(dialog, "Lỗi khi lưu vé và hóa đơn: " + ex.getMessage());
                     }
+
+
                 }
             });
 
@@ -840,7 +888,18 @@ public class FrmBanVe extends JFrame implements ActionListener {
         // Tạo mã vé với cấu trúc: mã tàu + ngày tháng giờ phút giây + số đếm
         return maTau + dateTimePart + "-" + countPart;
     }
-
+    private String generateInvoiceCode() {
+        LocalDate today = LocalDate.now();
+        LocalTime now = LocalTime.now();
+        int randomSuffix = (int) (Math.random() * 10000); // Tạo số ngẫu nhiên từ 0000 đến 9999
+        return "HD" + today.toString().replace("-", "") + now.toString().replace(":", "").substring(0, 4) + String.format("%04d", randomSuffix);
+    }
+    private String generateCustomerCode() {
+        LocalDateTime now = LocalDateTime.now();
+        int randomSuffix = (int) (Math.random() * 10000); // Tạo số ngẫu nhiên từ 0000 đến 9999
+        String datePart = now.format(DateTimeFormatter.ofPattern("yyyyMMddHHmm")); // Lấy ngày giờ hiện tại theo định dạng
+        return "KH" + datePart + String.format("%04d", randomSuffix);
+    }
 
 
 }
