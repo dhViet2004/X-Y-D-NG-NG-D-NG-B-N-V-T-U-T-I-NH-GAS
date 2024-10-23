@@ -1,7 +1,7 @@
 ﻿CREATE DATABASE UngDungQuanLyBanVeTauTaiGaGoVap;
 
-use UngDungQuanLyBanVeTauTaiGaGoVap;
-
+use UngDungQuanLyBanVeTaiGaGoVap;
+drop database UngDungQuanLyBanVeTauTaiGaGoVap
 CREATE TABLE NhanVien (
     MaNV VARCHAR(255) PRIMARY KEY,
     TenNV VARCHAR(255) NOT NULL,

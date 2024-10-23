@@ -21,6 +21,14 @@ import java.util.Date;
 import java.util.List;
 
 public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListener {
+    private final JButton btnBanVe;
+    private final JButton btnTraCuu;
+    private final JButton btnThongKeTheoCa;
+    private final JButton btnQuanLyKhachHang;
+    private final JButton btnQuanLyNhanVien;
+    private final JButton btnQuanLyChuyenTau;
+    private final JButton btnQuanLyKhuyenMai;
+    private final JButton btnQuanLyDoanhThu;
     private JTable jTable2;
     private DefaultTableModel model;
     private DefaultTableModel model2;
@@ -43,6 +51,52 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         // thêm menu vào màn hình chính
         add(JPanel_Menu, BorderLayout.WEST);
+        // MENU
+        JPanel_Menu.setLayout(new BoxLayout(JPanel_Menu, BoxLayout.Y_AXIS));
+        JPanel_Menu.setBackground(Color.DARK_GRAY); // Màu nền của MENU
+        add(JPanel_Menu, BorderLayout.WEST);
+
+        // tạo logo
+        ImageIcon iconLogo = new ImageIcon(getClass().getResource("/Anh_HeThong/banner_700.jpg")); //SRC LOGO
+        Image imgUser = iconLogo.getImage();
+        Image scaledLogo = imgUser.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        ImageIcon scaledIconLogo = new ImageIcon(scaledLogo);
+
+        // Tạo label chứa ảnh
+        JLabel lblLogo = new JLabel(scaledIconLogo);
+        lblLogo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JPanel_Menu.add(lblLogo);
+
+        // Thêm khoảng cách giữa logo và menu
+        JPanel_Menu.add(Box.createRigidArea(new Dimension(0, 20))); // Khoảng cách dọc (10px)
+
+        // Tạo các nút cho từng phần quản lý
+        btnBanVe = createButton("Bán vé");
+        btnTraCuu = createButton("Tra cứu");
+        btnQuanLyKhachHang = createButton("Quản lý khách hàng");
+        btnThongKeTheoCa = createButton("Thống kê theo ca");
+        btnQuanLyChuyenTau = createButton("Quản lý chuyến tàu");
+        btnQuanLyKhuyenMai = createButton("Quản lý chương trình khuyến mãi");
+        btnQuanLyDoanhThu = createButton("Quản lý doanh thu");
+        btnQuanLyNhanVien = createButton("Quản lý nhân viên");
+
+        // Format nút với cùng kích thước, phông chữ và căn chỉnh
+        Dimension buttonSize = new Dimension(200, 60); // Tăng kích thước chiều cao của nút lên 60px
+        Font fontMenu = new Font("Arial", Font.PLAIN, 16); // Đặt font chung cho tất cả các nút
+
+        // Định dạng cho từng nút
+        JButton[] buttons = {btnBanVe, btnTraCuu, btnThongKeTheoCa, btnQuanLyChuyenTau, btnQuanLyKhachHang, btnQuanLyKhuyenMai, btnQuanLyDoanhThu, btnQuanLyNhanVien};
+        for (JButton btn : buttons) {
+            btn.setPreferredSize(buttonSize); // Đặt kích thước cố định cho nút
+            btn.setFont(fontMenu); // Đặt font
+            btn.setHorizontalAlignment(SwingConstants.CENTER); // Căn giữa text trên nút
+            btn.setAlignmentX(Component.CENTER_ALIGNMENT); // Căn giữa nút trong JPanel_Menu
+            setMaximumSize(buttonSize);
+            JPanel_Menu.add(Box.createRigidArea(new Dimension(0, 10))); // Thêm khoảng cách giữa các nút (10px)
+            JPanel_Menu.add(btn); // Thêm nút vào JPanel_Menu
+        }
+        // MENU
+
         // thêm panel chứa toàn bộ nội dung qua bên phải
         add(Jpanel_Right, BorderLayout.CENTER);
         Jpanel_Right.setLayout(new BorderLayout());
@@ -200,8 +254,37 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
         btnLammoi.addActionListener(this);
         loc.addActionListener(this);
         jTable2.addMouseListener(this);
-
+        btnBanVe.addActionListener(this);
+        btnTraCuu.addActionListener(this);
+        btnThongKeTheoCa.addActionListener(this);
+        btnQuanLyChuyenTau.addActionListener(this);
+        btnQuanLyKhuyenMai.addActionListener(this);
+        btnQuanLyKhachHang.addActionListener(this);
+        btnQuanLyDoanhThu.addActionListener(this);
+        btnQuanLyNhanVien.addActionListener(this);
     }
+
+    private JButton createButton(String text) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("Arial", Font.PLAIN, 20)); // Đặt font
+        button.setPreferredSize(new Dimension(200, 60)); // Kích thước nút
+        button.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60)); // Chiếm hết chiều ngang
+        button.setAlignmentX(Component.CENTER_ALIGNMENT); // Căn giữa nút
+        button.setBackground(Color.cyan); // Màu nền
+//        button.setOpaque(false); // Làm cho nền trong suốt
+        button.setForeground(Color.RED); // Màu chữ
+        button.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.WHITE, 1), // Viền trắng
+                BorderFactory.createEmptyBorder(0, 0, 0, 0) // Padding nếu cần
+        ));
+//        button.setContentAreaFilled(false);
+        button.setFocusPainted(false);
+        button.setOpaque(false);
+//        button.setBorderPainted(false); // Tắt viền nút
+//        button.setFocusable(false); // Tắt chế độ focus
+        return button;
+    }
+
 
     // load lên bảng hóa đơn
     public void loadHD() {
@@ -278,7 +361,7 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
             LocalDate ngayLocLocal = ngayLoc.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             // gọi hàm tìm km theo điều kiện lọc, sau đó xóa hết bảng, sau đó load km đó lên bảng
             // 1 tìm km thỏa
-            List<KhuyenMai> kmLoc  = new ArrayList<>();
+            List<KhuyenMai> kmLoc = new ArrayList<>();
             try {
                 kmLoc = dao.timKMTheoThoiGianApDung(ngayLocLocal);
             } catch (SQLException ex) {
@@ -290,7 +373,7 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
                 // load km tìm được lên bảng
                 for (int i = 0; i < kmLoc.size(); i++) {
                     model2.addRow(new Object[]{
-                            i+1,
+                            i + 1,
                             kmLoc.get(i).getMaKM(),
                             kmLoc.get(i).getThoiGianBatDau(),
                             kmLoc.get(i).getThoiGianKetThuc(),
@@ -318,9 +401,12 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
             model2.setRowCount(0);
             // load dữ liệu mới lên
             loadKM();
-        }else if (o == btnLammoi) {
+        } else if (o == btnLammoi) {
             model.setRowCount(0);
             loadHD();
+        } else if (o == btnBanVe) {
+            FrmBanVe frm = new FrmBanVe();
+            frm.setVisible(true);
         }
 
     }
