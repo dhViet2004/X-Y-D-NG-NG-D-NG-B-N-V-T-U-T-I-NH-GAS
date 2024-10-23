@@ -7,13 +7,17 @@ import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,6 +70,9 @@ public class FrmBanVe extends JFrame implements ActionListener {
     private Map<String, JButton> buttonMap = new HashMap<>(); // Để lưu trữ mối quan hệ giữa mã chỗ ngồi và JButton
     private List<LichTrinhTau> lichTrinhTaus = null;
     private LichTrinhTau lichKhiChonTau = null;
+    private double tongThanhTien = 0.0; // Biến để lưu tổng thành tiền
+    private static int ticketCount = 0; // Số vé đã tạo trong ngày
+    private static LocalDate lastDate = LocalDate.now(); // Ngày cuối cùng đã tạo vé
 
     public FrmBanVe() {
         setTitle("Bán Vé");
@@ -613,9 +620,9 @@ public class FrmBanVe extends JFrame implements ActionListener {
                 danhSachPanel.add(panel); // Lưu lại panel này vào danh sách
 
                 // Cập nhật discount và tính toán thành tiền
-                double discount = (double) panel.getDiscount(); // Sửa lại việc chuyển kiểu dữ liệu cho discount
+                double discount = panel.getDiscount();
                 double thanhTien = choNgoi.getGia() - discount;
-
+                tongThanhTien += thanhTien; // Cộng dồn vào tổng thành tiền
                 Object[] rowData = new Object[]{
                         panel, // Đưa panel vào bảng
                         choNgoi.getMaCho(),
@@ -626,37 +633,121 @@ public class FrmBanVe extends JFrame implements ActionListener {
                 };
                 model.addRow(rowData);
             }
-
-// Tạo bảng với mô hình dữ liệu
+            // Tạo bảng với mô hình dữ liệu
             JTable table = new JTable(model);
 
-// Thiết lập renderer và editor cho cột đầu tiên
+            // Tùy chỉnh tiêu đề bảng
+            JTableHeader header = table.getTableHeader();
+            Color colorTieuDeBang = new Color(0,131,66);
+            header.setBackground(colorTieuDeBang); // Đặt màu nền cho tiêu đề
+            header.setForeground(Color.WHITE); // Đặt màu chữ cho tiêu đề
+
+            header.setFont(new Font("Arial", Font.BOLD, 20)); // Đặt font cho tiêu đề (cỡ 16)
+
+            // Tùy chỉnh font cho các dòng trong bảng
+            table.setFont(new Font("Arial", Font.PLAIN, 18)); // Đặt font cho các dòng (cỡ 14)
+
+            // Thiết lập renderer và editor cho cột đầu tiên
             table.getColumnModel().getColumn(0).setCellRenderer(new CustomCellRenderer());
             table.getColumnModel().getColumn(0).setCellEditor(new CustomCellEditor());
 
-// Tùy chỉnh chiều cao các hàng
+            // Tùy chỉnh chiều cao các hàng
             table.setRowHeight(120); // Chiều cao mỗi hàng
 
-// Tùy chỉnh chiều rộng các cột
+            // Tùy chỉnh chiều rộng các cột
             table.getColumnModel().getColumn(0).setPreferredWidth(200); // Họ tên
             table.getColumnModel().getColumn(1).setPreferredWidth(200); // Thông tin chỗ ngồi
             table.getColumnModel().getColumn(2).setPreferredWidth(100); // Giá vé
-            table.getColumnModel().getColumn(3).setPreferredWidth(100); // Giảm đối tượng
+            table.getColumnModel().getColumn(3).setPreferredWidth(150); // Giảm đối tượng
             table.getColumnModel().getColumn(4).setPreferredWidth(100); // Khuyến mại
             table.getColumnModel().getColumn(5).setPreferredWidth(100); // Thành tiền
 
-// Tạo JScrollPane cho bảng
+            // Tạo JScrollPane cho bảng
             JScrollPane scrollPane = new JScrollPane(table);
             dialog.add(scrollPane, BorderLayout.CENTER); // Thêm JScrollPane vào cửa sổ
 
-// Tạo nút In
-            JButton btnIn = new JButton("In");
-            dialog.add(btnIn, BorderLayout.SOUTH); // Thêm nút In vào phía dưới cùng
+            // Tạo JPanel để chứa thông tin người mua
+            JPanel buyerInfoPanel = new JPanel(new BorderLayout()); // Tạo layout 4 hàng, 2 cột với khoảng cách 10px
 
-// Lắng nghe sự kiện khi nhấn nút "In"
-            btnIn.addActionListener(new ActionListener() {
+            JPanel JpanelThanhTien = new JPanel(new BorderLayout());
+            JpanelThanhTien.setBackground(colorTieuDeBang);
+            JpanelThanhTien.setPreferredSize(new Dimension(buyerInfoPanel.getWidth(), 50)); // Thay đổi kích thước
+
+            JLabel lbl_ThanhTien = new JLabel("Tổng thành tiền: "+tongThanhTien+" VND");
+            lbl_ThanhTien.setForeground(Color.WHITE);
+            lbl_ThanhTien.setFont(new Font("Arial", Font.BOLD, 24)); // Đặt cỡ chữ lớn hơn
+            JpanelThanhTien.add(lbl_ThanhTien,BorderLayout.EAST);
+
+            buyerInfoPanel.add(JpanelThanhTien, BorderLayout.NORTH);
+
+            JPanel thongTinNguoiMua = new JPanel(new GridLayout(4, 2, 10, 10));
+            // Tạo các label và text field cho thông tin người mua
+            JLabel lblHoTenNguoiMua = new JLabel("Họ tên người mua:");
+            JTextField txtHoTenNguoiMua = new JTextField(20);
+
+            JLabel lblCCCDNguoiMua = new JLabel("CCCD người mua:");
+            JTextField txtCCCDNguoiMua = new JTextField(20);
+
+            JLabel lblSoDienThoai = new JLabel("Số điện thoại:");
+            JTextField txtSoDienThoai = new JTextField(20);
+
+            JLabel lblDiaChi = new JLabel("Địa chỉ:");
+            JTextField txtDiaChi = new JTextField(20);
+
+            // Thêm các label và text field vào panel
+            thongTinNguoiMua.add(lblHoTenNguoiMua);
+            thongTinNguoiMua.add(txtHoTenNguoiMua);
+
+            thongTinNguoiMua.add(lblCCCDNguoiMua);
+            thongTinNguoiMua.add(txtCCCDNguoiMua);
+
+            thongTinNguoiMua.add(lblSoDienThoai);
+            thongTinNguoiMua.add(txtSoDienThoai);
+
+            thongTinNguoiMua.add(lblDiaChi);
+            thongTinNguoiMua.add(txtDiaChi);
+            buyerInfoPanel.add(thongTinNguoiMua,BorderLayout.CENTER);
+
+            JButton btnThanToan = new JButton("Thanh Toán"); // Cộng dồn vào tổng thành tiền);
+
+            // Đặt kích thước cho nút
+            btnThanToan.setPreferredSize(new Dimension(150, 50)); // Kích thước nút: rộng 150, cao 50
+            btnThanToan.setMaximumSize(new Dimension(150, 50));
+
+            // Đặt màu nền và màu chữ cho nút
+            btnThanToan.setBackground(new Color(0, 131, 66)); // Màu nền nút (cùng màu với tiêu đề bảng)
+            btnThanToan.setForeground(Color.WHITE); // Màu chữ nút
+
+            // Tùy chỉnh font cho nút
+            btnThanToan.setFont(new Font("Arial", Font.BOLD, 18)); // Đặt font cho nú
+
+            JPanel Jpanel_NutThanhToan = new JPanel(new FlowLayout());
+            Jpanel_NutThanhToan.add(btnThanToan, BorderLayout.CENTER);
+
+            buyerInfoPanel.add(Jpanel_NutThanhToan,BorderLayout.SOUTH); // Thêm nút In vào phía dưới cùng
+
+            dialog.add(buyerInfoPanel, BorderLayout.SOUTH); // Thêm ở phía trên
+            buyerInfoPanel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    updateTotalAmount(lbl_ThanhTien,table); // Cập nhật tổng thành tiền khi chuột vào panel
+                }
+            });
+            btnThanToan.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    // Lấy thông tin từ các trường nhập
+                    String hoTenNguoiMua = txtHoTenNguoiMua.getText();
+                    String cccdNguoiMua = txtCCCDNguoiMua.getText();
+                    String soDienThoai = txtSoDienThoai.getText();
+                    String diaChi = txtDiaChi.getText();
+
+                    // Kiểm tra xem thông tin đã được điền đầy đủ chưa
+                    if (hoTenNguoiMua.isEmpty() || cccdNguoiMua.isEmpty() || soDienThoai.isEmpty() || diaChi.isEmpty()) {
+                        JOptionPane.showMessageDialog(dialog, "Vui lòng điền đầy đủ thông tin người mua.");
+                        return;
+                    }
+
                     // Tạo danh sách lưu trữ các vé
                     List<VeTau> ticketsToSave = new ArrayList<>();
 
@@ -671,15 +762,15 @@ public class FrmBanVe extends JFrame implements ActionListener {
                         double giamDoiTuong = (double) table.getValueAt(row, 3);
                         String khuyenMai = (String) table.getValueAt(row, 4);
                         double thanhTien = (double) table.getValueAt(row, 5);
-
                         // Tạo mã vé
-                        String maVe = generateTicketCode();
+                        String maVe = generateTicketCode(lichKhiChonTau.getMaTau());
                         ChoNgoi cn = new ChoNgoi(thongTinChoNgoi);
 
                         // Tạo đối tượng VeTau và thêm vào danh sách
                         VeTau ticket = new VeTau(maVe, lichKhiChonTau, cn, hoTen, cccd, lichKhiChonTau.getNgayDi(), doiTuong, giaVe, "Đã thanh toán");
                         ticketsToSave.add(ticket);
                     }
+
                     // Lưu vé vào cơ sở dữ liệu
                     try {
                         DAO_BanVe daoBanVe = new DAO_BanVe();
@@ -690,6 +781,7 @@ public class FrmBanVe extends JFrame implements ActionListener {
                     }
                 }
             });
+
             dialog.setVisible(true); // Hiển thị cửa sổ
         } else if (e.getSource()==btnQuanLyKhachHang) {
             Frm_KhachHang frm_KhachHang = new Frm_KhachHang();
@@ -699,19 +791,45 @@ public class FrmBanVe extends JFrame implements ActionListener {
             frm_KhuyenMai.setVisible(true);
         }
     }
+    private void updateTotalAmount(JLabel lblThanhTien,JTable table) {
+        double totalAmount = 0;
 
-    private String generateTicketCode() {
-        // Lấy ngày hiện tại
-        LocalDate currentDate = LocalDate.now();
-        String datePart = currentDate.format(DateTimeFormatter.ofPattern("yyyyMMdd")); // Định dạng ngày
+        // Lặp qua từng hàng trong bảng để tính tổng thành tiền
+        for (int row = 0; row < table.getRowCount(); row++) {
+            double thanhTien = (double) table.getValueAt(row, 5); // Cột 5 là "Thành tiền"
+            totalAmount += thanhTien;
+        }
 
-        // Tạo một số ngẫu nhiên từ 0001 đến 9999
-        int randomNumber = (int) (Math.random() * 10000); // Sinh số ngẫu nhiên
-        String randomPart = String.format("%04d", randomNumber); // Đảm bảo có 4 chữ số
-
-        // Tạo mã vé
-        return "TAU001-" + datePart + "-" + randomPart; // Chỉnh sửa "TAU001" theo ý muốn
+        // Cập nhật label với tổng thành tiền
+        lblThanhTien.setText("Tổng thành tiền: " + totalAmount + " VND");
     }
+    private String generateTicketCode(String maTau) {
+        // Lấy thời gian hiện tại bao gồm ngày tháng và giờ phút giây
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        // Nếu là ngày mới, đặt lại số đếm về 0
+        if (!currentDateTime.toLocalDate().isEqual(lastDate)) {
+            ticketCount = 0; // Đặt lại số vé
+            lastDate = currentDateTime.toLocalDate(); // Cập nhật ngày cuối cùng
+        }
+
+        // Định dạng ngày tháng giờ phút giây theo "yyyyMMddHHmmss"
+        String dateTimePart = currentDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+
+        // Tăng số đếm nếu có nhiều vé trong cùng một giây (lên đến 1000)
+        if (ticketCount >= 1000) {
+            ticketCount = 1; // Đặt lại số đếm nếu vượt quá 1000
+        } else {
+            ticketCount++; // Tăng số đếm
+        }
+
+        // Tạo phần số đếm, đảm bảo có tối đa 3 chữ số
+        String countPart = String.format("%03d", ticketCount);
+
+        // Tạo mã vé với cấu trúc: mã tàu + ngày tháng giờ phút giây + số đếm
+        return maTau + dateTimePart + "-" + countPart;
+    }
+
 
 
 }
