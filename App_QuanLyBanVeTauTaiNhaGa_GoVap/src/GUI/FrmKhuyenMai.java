@@ -53,13 +53,14 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
         add(JPanel_Menu, BorderLayout.WEST);
         // MENU
         JPanel_Menu.setLayout(new BoxLayout(JPanel_Menu, BoxLayout.Y_AXIS));
-        JPanel_Menu.setBackground(Color.DARK_GRAY); // Màu nền của MENU
+        Color colorXanhDam = new Color(0,131,66);
+        JPanel_Menu.setBackground(colorXanhDam); // Màu nền của MENU
         add(JPanel_Menu, BorderLayout.WEST);
 
-        // tạo logo
-        ImageIcon iconLogo = new ImageIcon(getClass().getResource("/Anh_HeThong/banner_700.jpg")); //SRC LOGO
+//       tạo logo
+        ImageIcon iconLogo = new ImageIcon(getClass().getResource("/Anh_HeThong/logo.png")); //SRC LOGO
         Image imgUser = iconLogo.getImage();
-        Image scaledLogo = imgUser.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        Image scaledLogo = imgUser.getScaledInstance(250, 350, Image.SCALE_SMOOTH);
         ImageIcon scaledIconLogo = new ImageIcon(scaledLogo);
 
         // Tạo label chứa ảnh
@@ -69,6 +70,7 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
 
         // Thêm khoảng cách giữa logo và menu
         JPanel_Menu.add(Box.createRigidArea(new Dimension(0, 20))); // Khoảng cách dọc (10px)
+
 
         // Tạo các nút cho từng phần quản lý
         btnBanVe = createButton("Bán vé");
@@ -266,13 +268,13 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
 
     private JButton createButton(String text) {
         JButton button = new JButton(text);
-        button.setFont(new Font("Arial", Font.PLAIN, 20)); // Đặt font
+        button.setFont(new Font("Arial", Font.BOLD, 20)); // Đặt font
         button.setPreferredSize(new Dimension(200, 60)); // Kích thước nút
         button.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60)); // Chiếm hết chiều ngang
         button.setAlignmentX(Component.CENTER_ALIGNMENT); // Căn giữa nút
         button.setBackground(Color.cyan); // Màu nền
 //        button.setOpaque(false); // Làm cho nền trong suốt
-        button.setForeground(Color.RED); // Màu chữ
+        button.setForeground(Color.white); // Màu chữ
         button.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(Color.WHITE, 1), // Viền trắng
                 BorderFactory.createEmptyBorder(0, 0, 0, 0) // Padding nếu cần
