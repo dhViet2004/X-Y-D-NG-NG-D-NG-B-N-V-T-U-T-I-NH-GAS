@@ -10,7 +10,7 @@ public class TuyenTau {
     private String diaDiemDi;
     private String diaDiemDen;
 
-    public TuyenTau(String tenTuyen, String maTuyen, String gaDi, String gaDen, String diaDiemDi, String diaDiemDen) {
+    public TuyenTau(String maTuyen, String tenTuyen, String gaDi, String gaDen, String diaDiemDi, String diaDiemDen) {
         this.tenTuyen = tenTuyen;
         this.maTuyen = maTuyen;
         this.gaDi = gaDi;
@@ -87,4 +87,5 @@ public class TuyenTau {
                 ", diaDiemDen='" + diaDiemDen + '\'' +
                 '}';
     }
+
 }

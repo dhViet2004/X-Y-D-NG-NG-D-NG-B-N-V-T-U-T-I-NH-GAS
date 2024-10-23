@@ -1,22 +1,34 @@
 package Entity;
 
-import java.util.Objects;
-
 public class Tau {
-    private String maTau;
-    private TuyenTau tuyenTau;
-    private String tenTau;
-    private int soToa;
+    private String maTau; // Mã tàu
+    private TuyenTau tuyenTau; // Đối tượng TuyenTau
+    private String tenTau; // Tên tàu
+    private int soToa; // Số toa
 
-    public Tau(Entity.TuyenTau tuyenTau, String tenTau, String maTau, int soToa) {
+    // Constructor
+    public Tau(String maTau, TuyenTau tuyenTau, String tenTau, int soToa) {
+        this.maTau = maTau;
         this.tuyenTau = tuyenTau;
         this.tenTau = tenTau;
-        this.maTau = maTau;
         this.soToa = soToa;
     }
 
-    public Entity.TuyenTau getTuyenTau() {
+    // Getters và Setters
+    public String getMaTau() {
+        return maTau;
+    }
+
+    public void setMaTau(String maTau) {
+        this.maTau = maTau;
+    }
+
+    public TuyenTau getTuyenTau() {
         return tuyenTau;
+    }
+
+    public void setTuyenTau(TuyenTau tuyenTau) {
+        this.tuyenTau = tuyenTau;
     }
 
     public String getTenTau() {
@@ -27,33 +39,12 @@ public class Tau {
         this.tenTau = tenTau;
     }
 
-    public String getMaTau() {
-        return maTau;
-    }
-
-    public void setMaTau(String maTau) {
-        this.maTau = maTau;
-    }
-
     public int getSoToa() {
         return soToa;
     }
 
     public void setSoToa(int soToa) {
         this.soToa = soToa;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Tau tau = (Tau) o;
-        return Objects.equals(maTau, tau.maTau);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(maTau);
     }
 
     @Override

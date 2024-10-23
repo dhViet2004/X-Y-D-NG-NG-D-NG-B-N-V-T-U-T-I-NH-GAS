@@ -1,42 +1,58 @@
 package Entity;
 
 import java.time.LocalDate;
-import java.util.Objects;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.regex.Pattern;
 
 public class LichTrinhTau {
-    private String maLich;
-    private String maTau;
-    private String gioDi;
-    private LocalDate ngayDi;
+    // 1.1 maLichTrinh
+    private String maLichTrinh; // XXyyMMddNN: mã tuyến, năm, tháng, ngày, số chuyến
+    // 1.2 gioDi
+    private LocalTime gioDi; // Giờ khởi hành, không null
+    // 1.3 ngayDi
+    private LocalDate ngayDi; // Ngày đi, không null
+    // 1.4 tau là một đối tượng Tau
+    private Tau tau; // Mã tàu là đối tượng Tau
+    // 1.5 trangThai
+    private String trangThai; // Trạng thái của lịch trình tàu
 
-    public LichTrinhTau(String maLich, String maTau, String gioDi, LocalDate ngayDi) {
-        this.maLich = maLich;
-        this.maTau = maTau;
+    // Định dạng regex cho mã lịch trình
+    private static final String MA_LICH_TRINH_PATTERN = "^[A-Z]{4}\\d{4}\\d{8}$";
+
+
+    // Constructor
+    public LichTrinhTau(String maLichTrinh, LocalTime gioDi, LocalDate ngayDi, Tau tau, String trangThai) {
+        setMaLichTrinh(maLichTrinh); // Gọi phương thức set với ràng buộc
         this.gioDi = gioDi;
         this.ngayDi = ngayDi;
+        this.tau = tau;
+        this.trangThai = trangThai; // Khởi tạo trạng thái
     }
 
-    public String getMaLich() {
-        return maLich;
+    // Getter và setter cho maLichTrinh
+    public String getMaLichTrinh() {
+        return maLichTrinh;
     }
 
-    public void setMaLich(String maLich) {
-        this.maLich = maLich;
+    public void setMaLichTrinh(String maLichTrinh) {
+        if (!isValidMaLichTrinh(maLichTrinh)) {
+            throw new IllegalArgumentException("Mã lịch trình không hợp lệ! Phải theo định dạng XXyyMMddNN.");
+        }
+        this.maLichTrinh = maLichTrinh;
     }
 
-    public String getMaTau() {
-        return maTau;
+    // Phương thức kiểm tra tính hợp lệ của mã lịch trình
+    private boolean isValidMaLichTrinh(String maLichTrinh) {
+        return Pattern.matches(MA_LICH_TRINH_PATTERN, maLichTrinh);
     }
 
-    public void setMaTau(String maTau) {
-        this.maTau = maTau;
-    }
-
-    public String getGioDi() {
+    // Getters và setters khác
+    public LocalTime getGioDi() {
         return gioDi;
     }
 
-    public void setGioDi(String gioDi) {
+    public void setGioDi(LocalTime gioDi) {
         this.gioDi = gioDi;
     }
 
@@ -48,26 +64,30 @@ public class LichTrinhTau {
         this.ngayDi = ngayDi;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        LichTrinhTau that = (LichTrinhTau) o;
-        return Objects.equals(maLich, that.maLich);
+    public Tau getTau() {
+        return tau;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(maLich);
+    public void setTau(Tau tau) {
+        this.tau = tau;
+    }
+
+    public String getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
     }
 
     @Override
     public String toString() {
         return "LichTrinhTau{" +
-                "maLich='" + maLich + '\'' +
-                ", maTau='" + maTau + '\'' +
-                ", gioDi='" + gioDi + '\'' +
+                "maLichTrinh='" + maLichTrinh + '\'' +
+                ", gioDi=" + gioDi +
                 ", ngayDi=" + ngayDi +
+                ", tau=" + tau +
+                ", trangThai='" + trangThai + '\'' +
                 '}';
     }
 }
