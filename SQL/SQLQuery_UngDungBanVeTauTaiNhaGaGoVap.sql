@@ -1,17 +1,16 @@
-﻿CREATE DATABASE UngDungQuanLyBanVeTauTaiGaGoVap;
+﻿CREATE DATABASE UngDungQuanLyBanVeTaiGaGoVap;
 
-use UngDungQuanLyBanVeTaiGaGoVap;
-drop database UngDungQuanLyBanVeTauTaiGaGoVap
 CREATE TABLE NhanVien (
     MaNV VARCHAR(255) PRIMARY KEY,
-    TenNV VARCHAR(255) NOT NULL,
+    TenNV NVARCHAR(255) NOT NULL,
     SoDT VARCHAR(255),
-	TrangThai VARCHAR(255),
+	TrangThai NVARCHAR(255),
 	CCCD VARCHAR(255),
-    DiaChi VARCHAR(255),
+    DiaChi NVARCHAR(255),
     NgayThamGia DATE,
-    ChucVu VARCHAR(50)
+    ChucVu NVARCHAR(50)
 );
+
 
 CREATE TABLE TaiKhoan (
     MaNV VARCHAR(255),
@@ -25,27 +24,29 @@ CREATE TABLE LichLamViec (
     MaNhanVien VARCHAR(255),
     GioBatDau TIME,
     GioKetThuc TIME,
-    TrangThai VARCHAR(255),
-    TenCa VARCHAR(255),
+    TrangThai NVARCHAR(255),
+    TenCa NVARCHAR(255),
     FOREIGN KEY (MaNhanVien) REFERENCES NhanVien(MaNV)
 );
 
 CREATE TABLE LoaiKhachHang (
-    MaLoaiKH VARCHAR(255) PRIMARY KEY,
-    TenLoaiKH VARCHAR(255)
+    MaLoaiKH NVARCHAR(255) PRIMARY KEY,
+    TenLoaiKH NVARCHAR(255)
 );
+
+
 
 CREATE TABLE KhachHang (
     MaKH VARCHAR(255) PRIMARY KEY,
-    LoaiKhachHangMaLoaiKH VARCHAR(255),
+    LoaiKhachHangMaLoaiKH NVARCHAR(255),
     SoDT VARCHAR(255),
-    TenKH VARCHAR(255),
+    TenKH NVARCHAR(255),
 	CCCD VARCHAR(255),
-    DiaChi VARCHAR(255),
+    DiaChi NVARCHAR(255),
     DiemTichLuy INTEGER,
     NgaySinh DATE,
     NgayThamGia DATE,
-    HangThanhVien VARCHAR(255),
+    HangThanhVien NVARCHAR(255),
     FOREIGN KEY (LoaiKhachHangMaLoaiKH) REFERENCES LoaiKhachHang(MaLoaiKH)
 );
 
@@ -53,18 +54,18 @@ CREATE TABLE KhuyenMai (
     MaKM VARCHAR(255) PRIMARY KEY,
     ThoiGianBatDau DATE,
     ThoiGianKetThuc DATE,
-    NoiDungKM VARCHAR(255),
+    NoiDungKM NVARCHAR(255),
     ChietKhau FLOAT,
-    DoiTuongApDung VARCHAR(255)
+    DoiTuongApDung NVARCHAR(255)
 );
 
 CREATE TABLE TuyenTau (
     MaTuyen VARCHAR(255) PRIMARY KEY,
 	TenTuyen NVARCHAR(255),
-    GaDi VARCHAR(255),
-    GaDen VARCHAR(255),
-    DiaDiemDi VARCHAR(255),
-    DiaDiemDen VARCHAR(255)
+    GaDi NVARCHAR(255),
+    GaDen NVARCHAR(255),
+    DiaDiemDi NVARCHAR(255),
+    DiaDiemDen NVARCHAR(255)
 );
 
 CREATE TABLE Tau (
@@ -77,14 +78,14 @@ CREATE TABLE Tau (
 
 CREATE TABLE LoaiToa (
     MaLoai VARCHAR(255) PRIMARY KEY,
-    TenLoai VARCHAR(255)
+    TenLoai NVARCHAR(255)
 );
 
 CREATE TABLE ToaTau (
     MaToa VARCHAR(255) PRIMARY KEY,
     LoaiToaMaLoai VARCHAR(255),
     TauMaTau VARCHAR(255),
-    TenToa VARCHAR(255),
+    TenToa NVARCHAR(255),
     SoGhe INTEGER,
     ThuTu INTEGER,
     FOREIGN KEY (LoaiToaMaLoai) REFERENCES LoaiToa(MaLoai),
@@ -93,14 +94,14 @@ CREATE TABLE ToaTau (
 
 CREATE TABLE LoaiCho (
     MaLoai VARCHAR(255) PRIMARY KEY,
-    TenLoai VARCHAR(255)
+    TenLoai NVARCHAR(255)
 );
 
 CREATE TABLE ChoNgoi (
     MaCho VARCHAR(255) PRIMARY KEY,
     LoaiChoMaLoai VARCHAR(255),
 	LoaiToaMaToa VARCHAR(255),
-	TenCho VARCHAR(255),
+	TenCho NVARCHAR(255),
     TinhTrang BIT,
     GiaTien float,
     FOREIGN KEY (LoaiChoMaLoai) REFERENCES LoaiCho(MaLoai),
@@ -130,7 +131,7 @@ CREATE TABLE VeTau (
 
 CREATE TABLE LoaiHoaDon (
     MaLoai VARCHAR(255) PRIMARY KEY,
-    TenLoaiHoaDon VARCHAR(255)
+    TenLoaiHoaDon NVARCHAR(255)
 );
 
 CREATE TABLE HoaDon (
@@ -154,63 +155,63 @@ CREATE TABLE ChiTietHoaDon (
     SoLuong INTEGER,
     VAT float,
     ThanhTien float,
-    TenThue VARCHAR(255),
+    TenThue NVARCHAR(255),
     PRIMARY KEY (MaVe, MaHD),
     FOREIGN KEY (MaHD) REFERENCES HoaDon(MaHD),
     FOREIGN KEY (MaVe) REFERENCES VeTau(MaVe)
 );
 
 INSERT INTO TuyenTau (MaTuyen, TenTuyen, GaDi, GaDen, DiaDiemDi, DiaDiemDen) VALUES
-('TT01','SG-HN', 'Ga Sài Gòn', 'Ga Hà Nội', 'Sài Gòn', 'Hà Nội'),
-('TT02','SG-NT', 'Ga Sài Gòn', 'Ga Nha Trang', 'Sài Gòn', 'Nha Trang'),
-('TT03','SG-DN', 'Ga Sài Gòn', 'Ga Đà Nẵng', 'Sài Gòn', 'Đà Nẵng'),
-('TT04','SG-PT', 'Ga Sài Gòn', 'Ga Phan Thiết', 'Sài Gòn', 'Phan Thiết'),
-('TT05','SG-QN', 'Ga Sài Gòn', 'Ga Quy Nhơn', 'Sài Gòn', 'Quy Nhơn'),
-('TT06','SG-QN', 'Ga Sài Gòn', 'Ga Quảng Ngãi', 'Sài Gòn', 'Quảng Ngãi'),
-('TT07','SG-H', 'Ga Sài Gòn', 'Ga Huế', 'Sài Gòn', 'Huế'),
-('TT08','SG-ND', 'Ga Sài Gòn', 'Ga Nam Định', 'Sài Gòn', 'Nam Định'),
-('TT09','SG-V', 'Ga Sài Gòn', 'Ga Vinh', 'Sài Gòn', 'Vinh'),
-('TT10','SG-TH', 'Ga Sài Gòn', 'Ga Thanh Hóa', 'Sài Gòn', 'Thanh Hóa'),
-('TT11','SG-HP', 'Ga Sài Gòn', 'Ga Hải Phòng', 'Sài Gòn', 'Hải Phòng'),
-('TT12','SG-DH', 'Ga Sài Gòn', 'Ga Đông Hà', 'Sài Gòn', 'Đông Hà'),
-('TT13','SG-DH', 'Ga Sài Gòn', 'Ga Đồng Hới', 'Sài Gòn', 'Đồng Hới'),
-('TT14','SG-TC', 'Ga Sài Gòn', 'Ga Tháp Chàm', 'Sài Gòn', 'Tháp Chàm'),
-('TT15','SG-BH', 'Ga Sài Gòn', 'Ga Biên Hòa', 'Sài Gòn', 'Biên Hòa'),
-('TT16','SG-ST', 'Ga Sài Gòn', 'Ga Sóng Thần', 'Sài Gòn', 'Sóng Thần'),
-('TT17','SG-DA', 'Ga Sài Gòn', 'Ga Dĩ An', 'Sài Gòn', 'Dĩ An'),
-('TT18','SG-SL', 'Ga Sài Gòn', 'Ga Sông Lũy', 'Sài Gòn', 'Sông Lũy'),
-('TT19','SG-BT', 'Ga Sài Gòn', 'Ga Bình Thuận', 'Sài Gòn', 'Bình Thuận'),
-('TT20','SG-PR', 'Ga Sài Gòn', 'Ga Phan Rang', 'Sài Gòn', 'Phan Rang'),
-('TT21','SG-DL', 'Ga Sài Gòn', 'Ga Đà Lạt', 'Sài Gòn', 'Đà Lạt'),
-('TT22','SG-DL', 'Ga Sài Gòn', 'Ga Đà Lạt', 'Sài Gòn', 'Đà Lạt'),
-('TT23','SG-BMT', 'Ga Sài Gòn', 'Ga Buôn Ma Thuột', 'Sài Gòn', 'Buôn Ma Thuột'),
-('TT24','SG-PL', 'Ga Sài Gòn', 'Ga Pleiku', 'Sài Gòn', 'Pleiku'),
-('TT25','SG-KT', 'Ga Sài Gòn', 'Ga Kon Tum', 'Sài Gòn', 'Kon Tum'),
-('TT26','SG-LS', 'Ga Sài Gòn', 'Ga Lạng Sơn', 'Sài Gòn', 'Lạng Sơn'),
-('TT27','SG-CB', 'Ga Sài Gòn', 'Ga Cao Bằng', 'Sài Gòn', 'Cao Bằng'),
-('TT28','SG-BK', 'Ga Sài Gòn', 'Ga Bắc Kạn', 'Sài Gòn', 'Bắc Kạn'),
-('TT29','SG-HG', 'Ga Sài Gòn', 'Ga Hà Giang', 'Sài Gòn', 'Hà Giang'),
-('TT30','SG-TQ', 'Ga Sài Gòn', 'Ga Tuyên Quang', 'Sài Gòn', 'Tuyên Quang'),
-('TT31','SG-YB', 'Ga Sài Gòn', 'Ga Yên Bái', 'Sài Gòn', 'Yên Bái'),
-('TT32','SG-LC', 'Ga Sài Gòn', 'Ga Lào Cai', 'Sài Gòn', 'Lào Cai'),
-('TT33','SG-PT', 'Ga Sài Gòn', 'Ga Phú Thọ', 'Sài Gòn', 'Phú Thọ'),
-('TT34','SG-HB', 'Ga Sài Gòn', 'Ga Hòa Bình', 'Sài Gòn', 'Hòa Bình'),
-('TT35','SG-SL', 'Ga Sài Gòn', 'Ga Sơn La', 'Sài Gòn', 'Sơn La'),
-('TT36','SG-LC', 'Ga Sài Gòn', 'Ga Lai Châu', 'Sài Gòn', 'Lai Châu'),
-('TT37','SG-DB', 'Ga Sài Gòn', 'Ga Điện Biên', 'Sài Gòn', 'Điện Biên'),
-('TT38','SG-TN', 'Ga Sài Gòn', 'Ga Thái Nguyên', 'Sài Gòn', 'Thái Nguyên'),
-('TT39','SG-BN', 'Ga Sài Gòn', 'Ga Bắc Ninh', 'Sài Gòn', 'Bắc Ninh'),
-('TT40','SG-BG', 'Ga Sài Gòn', 'Ga Bắc Giang', 'Sài Gòn', 'Bắc Giang'),
-('TT41','SG-HY', 'Ga Sài Gòn', 'Ga Hưng Yên', 'Sài Gòn', 'Hưng Yên'),
-('TT42','SG-HN', 'Ga Sài Gòn', 'Ga Hà Nam', 'Sài Gòn', 'Hà Nam'),
-('TT43','SG-NB', 'Ga Sài Gòn', 'Ga Ninh Bình', 'Sài Gòn', 'Ninh Bình'),
-('TT44','SG-ND', 'Ga Sài Gòn', 'Ga Nam Định', 'Sài Gòn', 'Nam Định'),
-('TT45','SG-HD', 'Ga Sài Gòn', 'Ga Hải Dương', 'Sài Gòn', 'Hải Dương'),
-('TT46','SG-TB', 'Ga Sài Gòn', 'Ga Thái Bình', 'Sài Gòn', 'Thái Bình'),
-('TT47','SG-VP', 'Ga Sài Gòn', 'Ga Vĩnh Phúc', 'Sài Gòn', 'Vĩnh Phúc'),
-('TT48','SG-BG', 'Ga Sài Gòn', 'Ga Bắc Giang', 'Sài Gòn', 'Bắc Giang'),
-('TT49','SG-HN', 'Ga Sài Gòn', 'Ga Hà Nội', 'Sài Gòn', 'Hà Nội'),
-('TT50','SG-QB', 'Ga Sài Gòn', 'Ga Quảng Bình', 'Sài Gòn', 'Quảng Bình')
+('TT01', 'SG-HN', N'Ga Sài Gòn', N'Ga Hà Nội', N'Sài Gòn', N'Hà Nội'),
+('TT02', 'SG-NT', N'Ga Sài Gòn', N'Ga Nha Trang', N'Sài Gòn', N'Nha Trang'),
+('TT03', 'SG-DN', N'Ga Sài Gòn', N'Ga Đà Nẵng', N'Sài Gòn', N'Đà Nẵng'),
+('TT04', 'SG-PT', N'Ga Sài Gòn', N'Ga Phan Thiết', N'Sài Gòn', N'Phan Thiết'),
+('TT05', 'SG-QN', N'Ga Sài Gòn', N'Ga Quy Nhơn', N'Sài Gòn', N'Quy Nhơn'),
+('TT06', 'SG-QN', N'Ga Sài Gòn', N'Ga Quảng Ngãi', N'Sài Gòn', N'Quảng Ngãi'),
+('TT07', 'SG-H', N'Ga Sài Gòn', N'Ga Huế', N'Sài Gòn', N'Huế'),
+('TT08', 'SG-ND', N'Ga Sài Gòn', N'Ga Nam Định', N'Sài Gòn', N'Nam Định'),
+('TT09', 'SG-V', N'Ga Sài Gòn', N'Ga Vinh', N'Sài Gòn', N'Vinh'),
+('TT10', 'SG-TH', N'Ga Sài Gòn', N'Ga Thanh Hóa', N'Sài Gòn', N'Thanh Hóa'),
+('TT11', 'SG-HP', N'Ga Sài Gòn', N'Ga Hải Phòng', N'Sài Gòn', N'Hải Phòng'),
+('TT12', 'SG-DH', N'Ga Sài Gòn', N'Ga Đông Hà', N'Sài Gòn', N'Đông Hà'),
+('TT13', 'SG-DH', N'Ga Sài Gòn', N'Ga Đồng Hới', N'Sài Gòn', N'Đồng Hới'),
+('TT14', 'SG-TC', N'Ga Sài Gòn', N'Ga Tháp Chàm', N'Sài Gòn', N'Tháp Chàm'),
+('TT15', 'SG-BH', N'Ga Sài Gòn', N'Ga Biên Hòa', N'Sài Gòn', N'Biên Hòa'),
+('TT16', 'SG-ST', N'Ga Sài Gòn', N'Ga Sóng Thần', N'Sài Gòn', N'Sóng Thần'),
+('TT17', 'SG-DA', N'Ga Sài Gòn', N'Ga Dĩ An', N'Sài Gòn', N'Dĩ An'),
+('TT18', 'SG-SL', N'Ga Sài Gòn', N'Ga Sông Lũy', N'Sài Gòn', N'Sông Lũy'),
+('TT19', 'SG-BT', N'Ga Sài Gòn', N'Ga Bình Thuận', N'Sài Gòn', N'Bình Thuận'),
+('TT20', 'SG-PR', N'Ga Sài Gòn', N'Ga Phan Rang', N'Sài Gòn', N'Phan Rang'),
+('TT21', 'SG-DL', N'Ga Sài Gòn', N'Ga Đà Lạt', N'Sài Gòn', N'Đà Lạt'),
+('TT22', 'SG-DL', N'Ga Sài Gòn', N'Ga Đà Lạt', N'Sài Gòn', N'Đà Lạt'),
+('TT23', 'SG-BMT', N'Ga Sài Gòn', N'Ga Buôn Ma Thuột', N'Sài Gòn', N'Buôn Ma Thuột'),
+('TT24', 'SG-PL', N'Ga Sài Gòn', N'Ga Pleiku', N'Sài Gòn', N'Pleiku'),
+('TT25', 'SG-KT', N'Ga Sài Gòn', N'Ga Kon Tum', N'Sài Gòn', N'Kon Tum'),
+('TT26', 'SG-LS', N'Ga Sài Gòn', N'Ga Lạng Sơn', N'Sài Gòn', N'Lạng Sơn'),
+('TT27', 'SG-CB', N'Ga Sài Gòn', N'Ga Cao Bằng', N'Sài Gòn', N'Cao Bằng'),
+('TT28', 'SG-BK', N'Ga Sài Gòn', N'Ga Bắc Kạn', N'Sài Gòn', N'Bắc Kạn'),
+('TT29', 'SG-HG', N'Ga Sài Gòn', N'Ga Hà Giang', N'Sài Gòn', N'Hà Giang'),
+('TT30', 'SG-TQ', N'Ga Sài Gòn', N'Ga Tuyên Quang', N'Sài Gòn', N'Tuyên Quang'),
+('TT31', 'SG-YB', N'Ga Sài Gòn', N'Ga Yên Bái', N'Sài Gòn', N'Yên Bái'),
+('TT32', 'SG-LC', N'Ga Sài Gòn', N'Ga Lào Cai', N'Sài Gòn', N'Lào Cai'),
+('TT33', 'SG-PT', N'Ga Sài Gòn', N'Ga Phú Thọ', N'Sài Gòn', N'Phú Thọ'),
+('TT34', 'SG-HB', N'Ga Sài Gòn', N'Ga Hòa Bình', N'Sài Gòn', N'Hòa Bình'),
+('TT35', 'SG-SL', N'Ga Sài Gòn', N'Ga Sơn La', N'Sài Gòn', N'Sơn La'),
+('TT36', 'SG-LC', N'Ga Sài Gòn', N'Ga Lai Châu', N'Sài Gòn', N'Lai Châu'),
+('TT37', 'SG-DB', N'Ga Sài Gòn', N'Ga Điện Biên', N'Sài Gòn', N'Điện Biên'),
+('TT38', 'SG-TN', N'Ga Sài Gòn', N'Ga Thái Nguyên', N'Sài Gòn', N'Thái Nguyên'),
+('TT39', 'SG-BN', N'Ga Sài Gòn', N'Ga Bắc Ninh', N'Sài Gòn', N'Bắc Ninh'),
+('TT40', 'SG-BG', N'Ga Sài Gòn', N'Ga Bắc Giang', N'Sài Gòn', N'Bắc Giang'),
+('TT41', 'SG-HY', N'Ga Sài Gòn', N'Ga Hưng Yên', N'Sài Gòn', N'Hưng Yên'),
+('TT42', 'SG-HN', N'Ga Sài Gòn', N'Ga Hà Nam', N'Sài Gòn', N'Hà Nam'),
+('TT43', 'SG-NB', N'Ga Sài Gòn', N'Ga Ninh Bình', N'Sài Gòn', N'Ninh Bình'),
+('TT44', 'SG-ND', N'Ga Sài Gòn', N'Ga Nam Định', N'Sài Gòn', N'Nam Định'),
+('TT45', 'SG-HD', N'Ga Sài Gòn', N'Ga Hải Dương', N'Sài Gòn', N'Hải Dương'),
+('TT46', 'SG-TB', N'Ga Sài Gòn', N'Ga Thái Bình', N'Sài Gòn', N'Thái Bình'),
+('TT47', 'SG-VP', N'Ga Sài Gòn', N'Ga Vĩnh Phúc', N'Sài Gòn', N'Vĩnh Phúc'),
+('TT48', 'SG-BG', N'Ga Sài Gòn', N'Ga Bắc Giang', N'Sài Gòn', N'Bắc Giang'),
+('TT49', 'SG-HN', N'Ga Sài Gòn', N'Ga Hà Nội', N'Sài Gòn', N'Hà Nội'),
+('TT50', 'SG-QB', N'Ga Sài Gòn', N'Ga Quảng Bình', N'Sài Gòn', N'Quảng Bình');
 select * from TuyenTau
 INSERT INTO Tau (MaTau, MaTuyen, TenTau, SoToa) VALUES
 ('T01', 'TT01', 'SE1', 11),
@@ -370,40 +371,52 @@ INSERT INTO ToaTau (MaToa, LoaiToaMaLoai, TauMaTau, TenToa, SoGhe, ThuTu) VALUES
 ('TT50', 'LT50', 'T10', 'Toa 5', 50, 5);
 select * from ToaTau
 INSERT INTO LoaiCho (MaLoai, TenLoai) VALUES
-('LC01', 'Ghế ngồi cứng'),
-('LC02', 'Ghế ngồi mềm'),
-('LC03', 'Ghế nằm cứng'),
-('LC04', 'Ghế nằm mềm'),
-('LC05', 'Ghế ngồi có điều hòa'),
-('LC06', 'Ghế nằm có điều hòa'),
-('LC07', 'Ghế ngồi hạng thường'),
-('LC08', 'Ghế ngồi hạng sang'),
-('LC09', 'Ghế nằm hạng thường'),
-('LC10', 'Ghế nằm hạng sang');
+('LC01', N'Ghế ngồi cứng'),
+('LC02', N'Ghế ngồi mềm'),
+('LC03', N'Ghế nằm cứng'),
+('LC04', N'Ghế nằm mềm'),
+('LC05', N'Ghế ngồi có điều hòa'),
+('LC06', N'Ghế nằm có điều hòa'),
+('LC07', N'Ghế ngồi hạng thường'),
+('LC08', N'Ghế ngồi hạng sang'),
+('LC09', N'Ghế nằm hạng thường'),
+('LC10', N'Ghế nằm hạng sang');
 select * from LoaiCho
 INSERT INTO ChoNgoi (MaCho, LoaiChoMaLoai, LoaiToaMaToa, TenCho, TinhTrang, GiaTien) VALUES
-('CN01', 'LC01', 'TT01', 'Chỗ 1A', 1, 200000),
-('CN02', 'LC01', 'TT01', 'Chỗ 1B', 1, 200000),
-('CN03', 'LC02', 'TT01', 'Chỗ 1C', 1, 250000),
-('CN04', 'LC02', 'TT02', 'Chỗ 2A', 1, 250000),
-('CN05', 'LC03', 'TT02', 'Chỗ 2B', 1, 300000),
-('CN06', 'LC03', 'TT03', 'Chỗ 3A', 0, 300000),
-('CN07', 'LC04', 'TT03', 'Chỗ 3B', 1, 350000),
-('CN08', 'LC04', 'TT04', 'Chỗ 4A', 1, 350000),
-('CN09', 'LC05', 'TT04', 'Chỗ 4B', 0, 400000),
-('CN10', 'LC05', 'TT05', 'Chỗ 5A', 1, 400000);
+('CN01', 'LC01', 'TT01', N'Chỗ 1A', 1, 200000),
+('CN02', 'LC01', 'TT01', N'Chỗ 1B', 1, 200000),
+('CN03', 'LC02', 'TT01', N'Chỗ 1C', 1, 250000),
+('CN04', 'LC02', 'TT02', N'Chỗ 2A', 1, 250000),
+('CN05', 'LC03', 'TT02', N'Chỗ 2B', 1, 300000),
+('CN06', 'LC03', 'TT03', N'Chỗ 3A', 0, 300000),
+('CN07', 'LC04', 'TT03', N'Chỗ 3B', 1, 350000),
+('CN08', 'LC04', 'TT04', N'Chỗ 4A', 1, 350000),
+('CN09', 'LC05', 'TT04', N'Chỗ 4B', 0, 400000),
+('CN10', 'LC05', 'TT05', N'Chỗ 5A', 1, 400000);
 select * from ChoNgoi
-INSERT INTO VeTau (MaVe, ChoNgoiMaCho, TenKH, GiayTo, NgayDi, DoiTuong, GiaVe) VALUES
-('VT001', 'CN01', 'Nguyễn Văn A', 'CCCD123456789', '2024-10-10', 'Người lớn', 200000),
-('VT002', 'CN02', 'Trần Thị B', 'CCCD987654321', '2024-10-11', 'Người lớn', 200000),
-('VT003', 'CN03', 'Lê Văn C', 'CCCD123123123', '2024-10-12', 'Người lớn', 250000),
-('VT004', 'CN04', 'Phạm Thị D', 'CCCD321321321', '2024-10-13', 'Người lớn', 250000),
-('VT005', 'CN05', 'Nguyễn Văn E', 'CCCD456456456', '2024-10-14', 'Người lớn', 300000),
-('VT006', 'CN06', 'Trần Thị F', 'CCCD654654654', '2024-10-15', 'Người lớn', 300000),
-('VT007', 'CN07', 'Lê Văn G', 'CCCD789789789', '2024-10-16', 'Người lớn', 350000),
-('VT008', 'CN08', 'Phạm Thị H', 'CCCD321456987', '2024-10-17', 'Người lớn', 350000),
-('VT009', 'CN09', 'Nguyễn Văn I', 'CCCD654123789', '2024-10-18', 'Người lớn', 400000),
-('VT010', 'CN10', 'Trần Thị J', 'CCCD987321654', '2024-10-19', 'Người lớn', 400000);
+INSERT INTO VeTau (MaVe, LichTrinhTauMaLich, ChoNgoiMaCho, TenKH, GiayTo,NgayDi, DoiTuong, 	GiaVe ,TrangThai) VALUES
+('TAU001-20241023-0269', 'LT002', 'CN11', N'Hoang Viet', '083204001968', '2024-10-05', N'Người lớn', 250000, N'Đã thanh toán'),
+('TAU001-20241023-0475', 'LT002', 'CN29', N'A', 'A', '2024-10-05', N'Sinh viên', 250000, N'Đã thanh toán'),
+('TAU001-20241023-2850', 'LT002', 'CN68', N'b', 'b', '2024-10-05', N'Trẻ nhỏ', 300000, N'Đã thanh toán'),
+('TAU001-20241023-5335', 'LT002', 'CN30', N'B', 'B', '2024-10-05', N'Trẻ nhỏ', 250000, N'Đã thanh toán'),
+('TAU001-20241023-5515', 'LT002', 'CN13', N'a', 'a', '2024-10-05', N'Sinh viên', 250000, N'Đã thanh toán'),
+('TAU001-20241023-7005', 'LT002', 'CN12', N'My Nhan', '0123455678', '2024-10-05', N'Sinh viên', 250000, N'Đã thanh toán'),
+('TAU001-20241023-7078', 'LT051', 'CN12', N'M N', '321', '2024-10-05', N'Sinh viên', 250000, N'Đã thanh toán'),
+('TAU001-20241023-7467', 'LT051', 'CN11', N'H V', '123456', '2024-10-05', N'Trẻ nhỏ', 250000, N'Đã thanh toán');
+
+INSERT INTO VeTau (MaVe, LichTrinhTauMaLich, ChoNgoiMaCho, TenKH, GiayTo,NgayDi, DoiTuong, 	GiaVe ,TrangThai) VALUES
+('VT001', 'CN01', N'Nguyễn Văn An', '079123456789', '2024-10-10', N'Người lớn', 200000),
+('VT002', 'CN02', N'Trần Thị Bình', '079146756789', '2024-10-11', N'Người lớn', 200000),
+('VT003', 'CN03', N'Lê Văn Cẩn', '079123423489', '2024-10-12', N'Người lớn', 250000),
+('VT004', 'CN04', N'Phạm Thị Dương', '076783456789', '2024-10-13', N'Người lớn', 250000),
+('VT005', 'CN05', N'Nguyễn Văn Em', '079123456765', '2024-10-14', N'Người lớn', 300000),
+('VT006', 'CN06', N'Trần Thị Phúc', '079123456159', '2024-10-15', N'Người lớn', 300000),
+('VT007', 'CN07', N'Lê Văn Giang', '079123458369', '2024-10-16', N'Người lớn', 350000),
+('VT008', 'CN08', N'Phạm Thị Huyền', '079123426889', '2024-10-17', N'Người lớn', 350000),
+('VT009', 'CN09', N'Nguyễn Văn Nam', '071253456789', '2024-10-18', N'Người lớn', 400000),
+('VT010', 'CN10', N'Trần Thị Loan', '018723456789', '2024-10-19', N'Người lớn', 400000);
+
+
 select * from VeTau
 INSERT INTO LichTrinhTau (MaLich, MaTau, GioDi, NgayDi) VALUES
 ('LT001', 'T01', '06:00:00', '2024-10-05'),
@@ -458,42 +471,44 @@ INSERT INTO LichTrinhTau (MaLich, MaTau, GioDi, NgayDi) VALUES
 ('LT050', 'T50', '16:30:00', '2024-11-21');
 select * from LichTrinhTau
 INSERT INTO NhanVien (MaNV, TenNV, SoDT, TrangThai, CCCD, DiaChi, NgayThamGia, ChucVu) VALUES
-('NV001', 'Nguyễn Văn A', '0123456789', 'Đang làm việc', 'CCCD123456789', 'Sài Gòn', '2023-01-01', 'Nhân viên'),
-('QL001', 'Trần Thị B', '0987654321', 'Đang làm việc', 'CCCD987654321', 'Hà Nội', '2023-02-01', 'Quản lý'),
-('NV003', 'Lê Văn C', '0345678901', 'Đang nghỉ', 'CCCD123123123', 'Đà Nẵng', '2023-03-01', 'Nhân viên'),
-('NV004', 'Phạm Thị D', '0765432189', 'Đang làm việc', 'CCCD321321321', 'Nha Trang', '2023-04-01', 'Nhân viên'),
-('QL002', 'Nguyễn Văn E', '0123456780', 'Đang làm việc', 'CCCD456456456', 'Huế', '2023-05-01', 'Quản lý'),
-('NV006', 'Trần Thị F', '0987654310', 'Đang nghỉ', 'CCCD654654654', 'Cần Thơ', '2023-06-01', 'Nhân viên'),
-('NV007', 'Lê Văn G', '0345678902', 'Đang làm việc', 'CCCD789789789', 'Hải Phòng', '2023-07-01', 'Nhân viên'),
-('QL003', 'Phạm Thị H', '0765432198', 'Đang làm việc', 'CCCD321456987', 'Biên Hòa', '2023-08-01', 'Quản lý'),
-('NV009', 'Nguyễn Văn I', '0123456781', 'Đang nghỉ', 'CCCD654123789', 'Vinh', '2023-09-01', 'Nhân viên'),
-('NV010', 'Trần Thị J', '0987654322', 'Đang làm việc', 'CCCD987321654', 'Hà Nội', '2023-10-01', 'Nhân viên');
+('NV001', N'Nguyễn Văn An', '0123456789', N'Đang làm việc', 'CCCD123456789', N'Sài Gòn', '2023-01-01', N'Nhân viên'),
+('QL001', N'Trần Thị BÌnh', '0987654321', N'Đang làm việc', 'CCCD987654321', N'Hà Nội', '2023-02-01', N'Quản lý'),
+('NV003', N'Lê Văn Cần', '0345678901', N'Đang nghỉ', 'CCCD123123123', N'Đà Nẵng', '2023-03-01', N'Nhân viên'),
+('NV004', N'Phạm Thị Diễm My', '0765432189', N'Đang làm việc', 'CCCD321321321', N'Nha Trang', '2023-04-01', N'Nhân viên'),
+('QL002', N'Nguyễn Văn Tùng', '0123456780', N'Đang làm việc', 'CCCD456456456', N'Huế', '2023-05-01', N'Quản lý'),
+('NV006', N'Trần Thị Tư', '0987654310', N'Đang nghỉ', 'CCCD654654654', N'Cần Thơ', '2023-06-01', N'Nhân viên'),
+('NV007', N'Lê Văn Gần', '0345678902', N'Đang làm việc', 'CCCD789789789', N'Hải Phòng', '2023-07-01', N'Nhân viên'),
+('QL003', N'Phạm Thị Hiền', '0765432198', N'Đang làm việc', 'CCCD321456987', N'Biên Hòa', '2023-08-01', N'Quản lý'),
+('NV009', N'Nguyễn Văn Mai', '0123456781', N'Đang nghỉ', 'CCCD654123789', N'Vinh', '2023-09-01', N'Nhân viên'),
+('NV010', N'Trần Thị Mẫn', '0987654322', N'Đang làm việc', 'CCCD987321654', N'Hà Nội', '2023-10-01', N'Nhân viên');
 select * from NhanVien
 INSERT INTO LoaiKhachHang (MaLoaiKH, TenLoaiKH) VALUES
-('KH001', 'Khách hàng thường'),
-('KH002', 'Khách hàng VIP'),
-('KH003', 'Khách hàng doanh nghiệp'),
-('KH004', 'Khách hàng thân thiết'),
-('KH005', 'Khách hàng khuyến mãi');
+('KH001', N'Khách hàng thường'),
+('KH002', N'Khách hàng VIP'),
+('KH003', N'Khách hàng doanh nghiệp'),
+('KH004', N'Khách hàng thân thiết'),
+('KH005', N'Khách hàng khuyến mãi');
 select * from LoaiKhachHang
 INSERT INTO KhachHang (MaKH, LoaiKhachHangMaLoaiKH, SoDT, TenKH, DiaChi, CCCD, DiemTichLuy, NgaySinh, NgayThamGia, HangThanhVien) VALUES
-('KH001', 'KH001', '0901234567', 'Nguyễn Văn A', 'Sài Gòn', 'CCCD001', 100, '1990-01-01', '2023-01-01', 'Bạc'),
-('KH002', 'KH002', '0901234568', 'Trần Thị B', 'Hà Nội', 'CCCD002', 200, '1985-02-01', '2023-02-01', 'Vàng'),
-('KH003', 'KH001', '0901234569', 'Lê Văn C', 'Đà Nẵng', 'CCCD003', 150, '1992-03-01', '2023-03-01', 'Bạc'),
-('KH004', 'KH003', '0901234570', 'Phạm Thị D', 'Nha Trang', 'CCCD004', 300, '1995-04-01', '2023-04-01', 'Kim Cương'),
-('KH005', 'KH004', '0901234571', 'Nguyễn Văn E', 'Huế', 'CCCD005', 50, '1988-05-01', '2023-05-01', 'Bạc'),
-('KH006', 'KH001', '0901234572', 'Trần Thị F', 'Cần Thơ', 'CCCD006', 80, '1993-06-01', '2023-06-01', 'Thân thiết'),
-('KH007', 'KH002', '0901234573', 'Lê Văn G', 'Hải Phòng', 'CCCD007', 120, '1987-07-01', '2023-07-01', 'Vàng'),
-('KH008', 'KH003', '0901234574', 'Phạm Thị H', 'Biên Hòa', 'CCCD008', 400, '1982-08-01', '2023-08-01', 'Kim Cương'),
-('KH009', 'KH001', '0901234575', 'Nguyễn Văn I', 'Vinh', 'CCCD009', 70, '1991-09-01', '2023-09-01', 'Bạc'),
-('KH010', 'KH002', '0901234576', 'Trần Thị J', 'Hà Nội', 'CCCD010', 250, '1986-10-01', '2023-10-01', 'Vàng');
+('KH001', 'KH001', '0901234567', N'Nguyễn Văn An', N'Sài Gòn', 'CCCD001', 100, '1990-01-01', '2023-01-01', N'Bạc'),
+('KH002', 'KH002', '0901234568', N'Trần Thị Bình', N'Hà Nội', 'CCCD002', 200, '1985-02-01', '2023-02-01', N'Vàng'),
+('KH003', 'KH001', '0901234569', N'Lê Văn Tiền', N'Đà Nẵng', 'CCCD003', 150, '1992-03-01', '2023-03-01', N'Bạc'),
+('KH004', 'KH003', '0901234570', N'Phạm Thị Cẩm Giang', N'Nha Trang', 'CCCD004', 300, '1995-04-01', '2023-04-01', N'Kim Cương'),
+('KH005', 'KH004', '0901234571', N'Nguyễn Văn Mừng', N'Huế', 'CCCD005', 50, '1988-05-01', '2023-05-01', N'Bạc'),
+('KH006', 'KH001', '0901234572', N'Trần Thị Bé Bốn', N'Cần Thơ', 'CCCD006', 80, '1993-06-01', '2023-06-01', N'Thân thiết'),
+('KH007', 'KH002', '0901234573', N'Lê Văn Lai', N'Hải Phòng', 'CCCD007', 120, '1987-07-01', '2023-07-01', N'Vàng'),
+('KH008', 'KH003', '0901234574', N'Phạm Thị Hồng', N'Biên Hòa', 'CCCD008', 400, '1982-08-01', '2023-08-01', N'Kim Cương'),
+('KH009', 'KH001', '0901234575', N'Nguyễn Văn Tài', N'Vinh', 'CCCD009', 70, '1991-09-01', '2023-09-01', N'Bạc'),
+('KH010', 'KH002', '0901234576', N'Trần Thị Diễm My', N'Hà Nội', 'CCCD010', 250, '1986-10-01', '2023-10-01', N'Vàng');
 select * from KhachHang
+
+
 INSERT INTO KhuyenMai (MaKM, ThoiGianBatDau, ThoiGianKetThuc, NoiDungKM, ChietKhau, DoiTuongApDung) VALUES
-('KM001', '2024-01-01', '2024-01-31', 'Giảm 10% cho khách hàng thân thiết', 10.0, 'Khách hàng thân thiết'),
-('KM002', '2024-02-01', '2024-02-28', 'Giảm 15% cho khách hàng doanh nghiệp', 15.0, 'Khách hàng doanh nghiệp'),
-('KM003', '2024-03-01', '2024-03-31', 'Giảm 5% cho khách hàng thường', 5.0, 'Khách hàng thường'),
-('KM004', '2024-04-01', '2024-04-30', 'Giảm 20% cho đơn hàng trên 500.000 VNĐ', 20.0, 'Tất cả khách hàng'),
-('KM005', '2024-05-01', '2024-05-31', 'Mua 2 tặng 1 cho vé tàu', 100.0, 'Tất cả khách hàng');
+('KM001', '2024-01-01', '2024-01-31', N'Giảm 10% cho khách hàng thân thiết', 10.0, N'Khách hàng thân thiết'),
+('KM002', '2024-02-01', '2024-02-28', N'Giảm 15% cho khách hàng doanh nghiệp', 15.0, N'Khách hàng doanh nghiệp'),
+('KM003', '2024-03-01', '2024-03-31', N'Giảm 5% cho khách hàng thường', 5.0, N'Khách hàng thường'),
+('KM004', '2024-04-01', '2024-04-30', N'Giảm 20% cho đơn hàng trên 500.000 VNĐ', 20.0, N'Tất cả khách hàng'),
+('KM005', '2024-05-01', '2024-05-31', N'Mua 2 tặng 1 cho vé tàu', 100.0, N'Tất cả khách hàng');
 select * from KhuyenMai
 INSERT INTO TaiKhoan (MaNV, Password) VALUES
 ('NV001', 'password123'),
@@ -508,23 +523,23 @@ INSERT INTO TaiKhoan (MaNV, Password) VALUES
 ('NV010', 'password234');
 select * from TaiKhoan
 INSERT INTO LichLamViec (MaLichLamViec, MaNhanVien, GioBatDau, GioKetThuc, TrangThai, TenCa) VALUES
-('LLV001', 'NV001', '08:00:00', '17:00:00', 'Đang làm việc', 'Ca sáng'),
-('LLV002', 'QL001', '09:00:00', '18:00:00', 'Đang làm việc', 'Ca chiều'),
-('LLV003', 'NV003', '08:00:00', '17:00:00', 'Đang nghỉ', 'Ca sáng'),
-('LLV004', 'NV004', '08:00:00', '17:00:00', 'Đang làm việc', 'Ca sáng'),
-('LLV005', 'QL002', '09:00:00', '18:00:00', 'Đang làm việc', 'Ca chiều'),
-('LLV006', 'NV006', '08:00:00', '17:00:00', 'Đang nghỉ', 'Ca sáng'),
-('LLV007', 'NV007', '08:00:00', '17:00:00', 'Đang làm việc', 'Ca sáng'),
-('LLV008', 'QL003', '09:00:00', '18:00:00', 'Đang làm việc', 'Ca chiều'),
-('LLV009', 'NV009', '08:00:00', '17:00:00', 'Đang nghỉ', 'Ca sáng'),
-('LLV010', 'NV010', '08:00:00', '17:00:00', 'Đang làm việc', 'Ca sáng');
+('LLV001', 'NV001', '08:00:00', '17:00:00', N'Đang làm việc', N'Ca sáng'),
+('LLV002', 'QL001', '09:00:00', '18:00:00', N'Đang làm việc', N'Ca chiều'),
+('LLV003', 'NV003', '08:00:00', '17:00:00', N'Đang nghỉ', N'Ca sáng'),
+('LLV004', 'NV004', '08:00:00', '17:00:00', N'Đang làm việc', N'Ca sáng'),
+('LLV005', 'QL002', '09:00:00', '18:00:00', N'Đang làm việc', N'Ca chiều'),
+('LLV006', 'NV006', '08:00:00', '17:00:00', N'Đang nghỉ', N'Ca sáng'),
+('LLV007', 'NV007', '08:00:00', '17:00:00', N'Đang làm việc', N'Ca sáng'),
+('LLV008', 'QL003', '09:00:00', '18:00:00', N'Đang làm việc', N'Ca chiều'),
+('LLV009', 'NV009', '08:00:00', '17:00:00', N'Đang nghỉ', N'Ca sáng'),
+('LLV010', 'NV010', '08:00:00', '17:00:00', N'Đang làm việc', N'Ca sáng');
 select * from LichLamViec
 INSERT INTO LoaiHoaDon (MaLoai, TenLoaiHoaDon) VALUES
-('LH001', 'Hóa đơn bán hàng'),
-('LH002', 'Hóa đơn dịch vụ'),
-('LH003', 'Hóa đơn thanh toán'),
-('LH004', 'Hóa đơn xuất khẩu'),
-('LH005', 'Hóa đơn nội địa');
+('LH001', N'Hóa đơn bán hàng'),
+('LH002', N'Hóa đơn dịch vụ'),
+('LH003', N'Hóa đơn thanh toán'),
+('LH004', N'Hóa đơn xuất khẩu'),
+('LH005', N'Hóa đơn nội địa');
 select * from LoaiHoaDon
 INSERT INTO HoaDon (MaHD, MaKH, KhuyenMaiMaKM, NhanVienMaNV, MaLoai, NgayHoaDon, TienKhuyenMai, TongTien) VALUES
 ('HD001', 'KH001', 'KM001', 'NV001', 'LH001', '2024-01-01', 10.0, 90.0),

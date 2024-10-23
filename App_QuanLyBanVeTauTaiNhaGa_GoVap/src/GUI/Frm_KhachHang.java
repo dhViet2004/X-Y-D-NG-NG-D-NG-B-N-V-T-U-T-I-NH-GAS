@@ -62,18 +62,19 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
         JPanel_Right_Bottom = new JPanel();
         JPanel_Right_Left = new JPanel();
         JPanel_Right_Left.setPreferredSize(new Dimension(400, 800));
-        JPanel_Right_Left.setBackground(Color.BLACK);
+        JPanel_Right_Left.setBackground(Color.WHITE);
         Jpanel_Right.setLayout(new BorderLayout());
 
         // MENU
         JPanel_Menu.setLayout(new BoxLayout(JPanel_Menu, BoxLayout.Y_AXIS));
-        JPanel_Menu.setBackground(Color.DARK_GRAY); // Màu nền của MENU
+        Color colorXanhDam = new Color(0,131,66);
+        JPanel_Menu.setBackground(colorXanhDam); // Màu nền của MENU
         add(JPanel_Menu, BorderLayout.WEST);
 
         // tạo logo
-        ImageIcon iconLogo = new ImageIcon(getClass().getResource("/Anh_HeThong/banner_700.jpg")); //SRC LOGO
+        ImageIcon iconLogo = new ImageIcon(getClass().getResource("/Anh_HeThong/logo.png")); //SRC LOGO
         Image imgUser = iconLogo.getImage();
-        Image scaledLogo = imgUser.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        Image scaledLogo = imgUser.getScaledInstance(250, 350, Image.SCALE_SMOOTH);
         ImageIcon scaledIconLogo = new ImageIcon(scaledLogo);
 
         // Tạo label chứa ảnh
@@ -109,6 +110,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
             JPanel_Menu.add(Box.createRigidArea(new Dimension(0, 10))); // Thêm khoảng cách giữa các nút (10px)
             JPanel_Menu.add(btn); // Thêm nút vào JPanel_Menu
         }
+        //MENU
         // set layout cho right_top(box dọc chứa các dòng), right_bottom(box ngang chứa hai bảng), right_left(box dọc chứa các dòng)
         Box box_righttop = Box.createHorizontalBox();
         Box box_rightbottom = Box.createHorizontalBox();
@@ -122,11 +124,11 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
         Jpanel_Right.add(JPanel_Right_Bottom, BorderLayout.SOUTH);
         Jpanel_Right.add(JPanel_Right_Left, BorderLayout.WEST);
 
-        JPanel_Right_Top.setBackground(Color.LIGHT_GRAY);
+        JPanel_Right_Top.setBackground(Color.WHITE);
         //BOX RIGHT_LEFT
         // Dòng 1: label chứa ảnh
         // Tạo ảnh
-        ImageIcon iconUser = new ImageIcon(getClass().getResource("/Anh_HeThong/user.png"));
+        ImageIcon iconUser = new ImageIcon(getClass().getResource("/Anh_HeThong/pink.png"));
         // Scale ảnh nếu cần
         Image imgAVT = iconUser.getImage();
         Image scaledImgAVT = imgAVT.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
@@ -158,7 +160,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
         // DÒNG 3: Chứa nút thêm, sửa, lưu
         Box line3 = Box.createHorizontalBox();// Thay đổi màu nền và màu chữ cho các nút
         Color btnColor = new Color(70, 130, 180); // Màu xanh lam
-        Color btnTextColor = Color.WHITE; // Màu chữ trắng
+        Color btnTextColor = Color.BLACK; // Màu chữ trắng
 
         btnThemKH = new RoundedButton("Thêm");
         btnThemKH.setBackground(btnColor);
@@ -432,13 +434,13 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
 
     private JButton createButton(String text) {
         JButton button = new JButton(text);
-        button.setFont(new Font("Arial", Font.PLAIN, 20)); // Đặt font
+        button.setFont(new Font("Arial", Font.BOLD, 20)); // Đặt font
         button.setPreferredSize(new Dimension(200, 60)); // Kích thước nút
         button.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60)); // Chiếm hết chiều ngang
         button.setAlignmentX(Component.CENTER_ALIGNMENT); // Căn giữa nút
         button.setBackground(Color.cyan); // Màu nền
 //        button.setOpaque(false); // Làm cho nền trong suốt
-        button.setForeground(Color.RED); // Màu chữ
+        button.setForeground(Color.white); // Màu chữ
         button.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(Color.WHITE, 1), // Viền trắng
                 BorderFactory.createEmptyBorder(0, 0, 0, 0) // Padding nếu cần

@@ -824,7 +824,6 @@ public class FrmBanVe extends JFrame implements ActionListener {
             ticketCount = 0; // Đặt lại số vé
             lastDate = currentDateTime.toLocalDate(); // Cập nhật ngày cuối cùng
         }
-
         // Định dạng ngày tháng giờ phút giây theo "yyyyMMddHHmmss"
         String dateTimePart = currentDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
 
