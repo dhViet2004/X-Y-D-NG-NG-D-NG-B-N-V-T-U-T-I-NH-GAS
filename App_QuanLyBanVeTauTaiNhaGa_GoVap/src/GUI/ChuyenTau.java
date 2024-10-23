@@ -9,6 +9,8 @@ import Database.ConnectDatabase;
 import Entity.LichTrinhTau;
 import Entity.Tau;
 import Entity.TuyenTau;
+
+import java.awt.*;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -18,7 +20,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
@@ -32,6 +34,7 @@ public class ChuyenTau extends javax.swing.JFrame {
      * Creates new form ChuyenTau
      */
     public ChuyenTau() {
+
         initComponents();
         //combobox
         AutoCompleteDecorator.decorate(cbb_Tau);
@@ -933,8 +936,12 @@ public class ChuyenTau extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                            
 
-    private void jButtonGioDiActionPerformed(java.awt.event.ActionEvent evt) {                                             
-       timePicker1.showPopup(this, 100, 100);
+    private void jButtonGioDiActionPerformed(java.awt.event.ActionEvent evt) {
+        SwingUtilities.invokeLater(() -> {
+
+            timePicker1.showPopup(jButtonGioDi, 100, 100);
+        });
+
     }                                            
 
     private void txtGioDiActionPerformed(java.awt.event.ActionEvent evt) {                                         
@@ -1136,7 +1143,9 @@ public void fillComboBoxTrangThai() {
            
         });
     }
-  
+    public Component getjPanelMain() {
+        return jPanel_Main;
+    }
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton btnAdd;

@@ -74,8 +74,11 @@ public class FrmBanVe extends JFrame implements ActionListener {
     private static int ticketCount = 0; // Số vé đã tạo trong ngày
     private static LocalDate lastDate = LocalDate.now(); // Ngày cuối cùng đã tạo vé
     private int customerCount = 0; // Biến đếm số khách hàng
+    private Component temp;
+    Component chuyenTauPanel = new ChuyenTau().getjPanelMain();
     public FrmBanVe() {
         setTitle("Bán Vé");
+        temp= Jpanel_Main;
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         add(contain);
 
@@ -849,6 +852,29 @@ public class FrmBanVe extends JFrame implements ActionListener {
         } else if (e.getSource()==btnQuanLyKhuyenMai) {
             FrmKhuyenMai frm_KhuyenMai = new FrmKhuyenMai();
             frm_KhuyenMai.setVisible(true);
+        } else if (e.getSource()==btnQuanLyChuyenTau) {
+            JPanel_XacNhanCho.setVisible(false);
+            lab_Title.setVisible(false);
+            JPanel_BanVe.setVisible(false);
+            // Clear Jpanel_Main
+           // Clear existing components
+
+            // Create a new instance of ChuyenTau (make sure it extends JPanel)
+
+
+            // Thêm ChuyenTau vào jPanel_Main
+            Jpanel_Main.add(chuyenTauPanel);
+            Jpanel_Main.setVisible(true);
+            // Cập nhật lại giao diện người dùng
+            Jpanel_Main.revalidate(); // Cập nhật layout
+            Jpanel_Main.repaint();    //
+        } else if (e.getSource()==btnBanVe) {
+            Jpanel_Main.remove(chuyenTauPanel);
+            JPanel_XacNhanCho.setVisible(true);
+            lab_Title.setVisible(true);
+            JPanel_BanVe.setVisible(true);
+            Jpanel_Main.revalidate(); // Cập nhật layout
+            Jpanel_Main.repaint();
         }
     }
     private void updateTotalAmount(JLabel lblThanhTien,JTable table) {
