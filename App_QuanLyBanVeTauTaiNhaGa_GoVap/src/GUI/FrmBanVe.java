@@ -86,9 +86,9 @@ public class FrmBanVe extends JFrame implements ActionListener {
         add(JPanel_Menu, BorderLayout.WEST);
 
         // tạo logo
-        ImageIcon iconLogo = new ImageIcon(getClass().getResource("/Anh_HeThong/banner_700.jpg")); //SRC LOGO
+        ImageIcon iconLogo = new ImageIcon(getClass().getResource("/Anh_HeThong/logo.png")); //SRC LOGO
         Image imgUser = iconLogo.getImage();
-        Image scaledLogo = imgUser.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        Image scaledLogo = imgUser.getScaledInstance(250, 350, Image.SCALE_SMOOTH);
         ImageIcon scaledIconLogo = new ImageIcon(scaledLogo);
 
         // Tạo label chứa ảnh
@@ -143,7 +143,6 @@ public class FrmBanVe extends JFrame implements ActionListener {
         setButtonIcon(btnTimChuyen, imageUrlTimChuyen, 50, 50); // Gọi phương thức với kích thước tùy chọn
         btnTimChuyen.setVerticalTextPosition(SwingConstants.CENTER);
         btnTimChuyen.setHorizontalTextPosition(SwingConstants.RIGHT);
-
 
         ConnectDatabase.getInstance().connect(); // Kết nối database
 
@@ -236,8 +235,9 @@ public class FrmBanVe extends JFrame implements ActionListener {
                 choPanel.add(ngayDiLabel);
 
                 // Tạo nút "Xóa"
-                JButton deleteButton = new JButton("Xóa");
-                deleteButton.setPreferredSize(new Dimension(70, 25)); // Kích thước cho nút xóa
+                JButton deleteButton = new JButton();
+                URL imageUrl = getClass().getResource("/Anh_HeThong/remove.png");
+                setButtonIcon(deleteButton,imageUrl,50,50);
                 deleteButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -290,7 +290,6 @@ public class FrmBanVe extends JFrame implements ActionListener {
                 timer.start(); // Bắt đầu bộ đếm ngược
             }
         }
-
         JPanel_XacNhanCho.revalidate(); // Cập nhật giao diện
         JPanel_XacNhanCho.repaint(); // Vẽ lại panel
     }
