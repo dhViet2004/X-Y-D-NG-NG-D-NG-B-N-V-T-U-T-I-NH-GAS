@@ -9,6 +9,10 @@ public class LoaiKhachHang {
     public LoaiKhachHang() {
         this("", "");
     }
+    public  LoaiKhachHang(String maLoai){
+        this.maLoaiKhachHang = maLoai;
+    }
+
 
     public LoaiKhachHang(String maLoaiKhachHang, String tenLoaiKhachHang) {
         this.maLoaiKhachHang = maLoaiKhachHang;
