@@ -29,6 +29,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "T:/Phước việt/App_QuanLyBanVeTauTaiNhaGa_GoVap",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -36,7 +37,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.Loading">
+  <component name="RunManager" selected="Application.FrmBanVe">
     <configuration name="FrmBanVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -78,9 +79,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.FrmBanVe" />
         <item itemvalue="Application.Loading" />
         <item itemvalue="Application.FrmDangNhap" />
-        <item itemvalue="Application.FrmBanVe" />
       </list>
     </recent_temporary>
   </component>
@@ -101,7 +102,8 @@
       <option name="presentableId" value="Default" />
       <updated>1729713006586</updated>
       <workItem from="1729713008019" duration="5252000" />
-      <workItem from="1729736144815" duration="1267000" />
+      <workItem from="1729736144815" duration="1344000" />
+      <workItem from="1729737594235" duration="1308000" />
     </task>
     <servers />
   </component>
