@@ -50,6 +50,9 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
     private JPanel JPanel_Right_Left;
     private JTextField txtMaKH;
 
+    public Component getKHPanel(){
+        return Jpanel_Right;
+    }
     public Frm_KhachHang() {
         setTitle("Form Khách Hàng");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

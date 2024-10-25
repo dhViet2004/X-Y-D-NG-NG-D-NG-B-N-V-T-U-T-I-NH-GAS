@@ -310,14 +310,6 @@ INSERT INTO ChiTietHoaDon (MaVe, MaHD, SoLuong, VAT, ThanhTien, TenThue) VALUES
 ('SGNT100120241024095315-001', 'HD2024102409533459', 1, 0, 200000, 0);
 select * from ChiTietHoaDon
 
-select h.NgayHoaDon,k.TenKH,m.DoiTuongApDung,m.NoiDungKM, m.ChietKhau, h.TienKhuyenMai from KhachHang k join HoaDon h on k.MaKH=h.MaKH join KhuyenMai m on h.KhuyenMaiMaKM = m.MaKM
 
 
--- chèn một khách hàng có mã KH2024102404173335
-insert into KhachHang values ('KH2024102404173335','KH001','0356307125',N'Nguyễn Chí Thiện','083204004468',N'6, Lê Lợi, Gò Vấp',45,'2004-03-18','2022-10-10',N'Vàng')
-select * from KhachHang
-select * from HoaDon
 
-update HoaDon
-set TienKhuyenMai = 200000
-where KhuyenMaiMaKM  = 'KM005'

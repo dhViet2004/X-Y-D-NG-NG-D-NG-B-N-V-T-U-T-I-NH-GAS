@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="54b8b5be-279c-446b-9bd0-d43b7fe3c93b" name="Changes" comment="" />
+    <list default="true" id="54b8b5be-279c-446b-9bd0-d43b7fe3c93b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../SQL/SQLQuery_UngDungBanVeTauTaiNhaGaGoVap.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../SQL/SQLQuery_UngDungBanVeTauTaiNhaGaGoVap.sql" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,11 +27,13 @@
   "keyToString": {
     "Application.FrmBanVe.executor": "Run",
     "Application.FrmDangNhap.executor": "Run",
+    "Application.FrmKhuyenMai.executor": "Run",
+    "Application.Frm_KhachHang.executor": "Run",
     "Application.Loading.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "T:/Phước việt/App_QuanLyBanVeTauTaiNhaGa_GoVap",
+    "last_opened_file_path": "D:/NAM_BA/HK1/PTUD/PROJECT/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -64,6 +68,32 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="FrmKhuyenMai" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.FrmKhuyenMai" />
+      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Frm_KhachHang" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.Frm_KhachHang" />
+      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Loading" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.Loading" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -80,6 +110,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.FrmBanVe" />
+        <item itemvalue="Application.FrmKhuyenMai" />
+        <item itemvalue="Application.Frm_KhachHang" />
         <item itemvalue="Application.Loading" />
         <item itemvalue="Application.FrmDangNhap" />
       </list>
@@ -104,6 +136,9 @@
       <workItem from="1729713008019" duration="5252000" />
       <workItem from="1729736144815" duration="1344000" />
       <workItem from="1729737594235" duration="1308000" />
+      <workItem from="1729792090596" duration="11968000" />
+      <workItem from="1729831737648" duration="2595000" />
+      <workItem from="1729857136456" duration="35000" />
     </task>
     <servers />
   </component>

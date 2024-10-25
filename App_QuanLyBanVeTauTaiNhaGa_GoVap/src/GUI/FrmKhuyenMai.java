@@ -44,6 +44,9 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
     private JButton btnThemCTKM;
     private JButton btnSuaCTKM;
 
+    public  Component getKMPanel(){
+        return  Jpanel_Right;
+    }
     public FrmKhuyenMai() {
         setTitle("Form Khuyến Mãi");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
