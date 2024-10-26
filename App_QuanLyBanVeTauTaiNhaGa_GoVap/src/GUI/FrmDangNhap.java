@@ -2,6 +2,7 @@ package GUI;
 
 import DAO.DAO_DangNhap;
 import Database.ConnectDatabase;
+import Entity.NhanVien;
 import Entity.TaiKhoan;
 
 import javax.swing.*;
@@ -48,7 +49,7 @@ public class FrmDangNhap extends JFrame implements ActionListener {
                                 "Thông báo",
                                 JOptionPane.INFORMATION_MESSAGE
                         );
-
+                        NhanVien nv = daoDangNhap.timNhanVienTheoMa(maNV);
                         // Điều hướng sang giao diện khác hoặc tiếp tục xử lý
                         FrmBanVe frmBanVe = new FrmBanVe();
                         frmBanVe.setVisible(true);

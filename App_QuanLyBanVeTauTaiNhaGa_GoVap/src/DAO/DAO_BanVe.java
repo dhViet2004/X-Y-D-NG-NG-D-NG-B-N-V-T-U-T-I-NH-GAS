@@ -11,11 +11,97 @@ import java.util.List;
 
 public class DAO_BanVe {
     private Connection con;
-    private LoaiCho loaiCho;
-
     public DAO_BanVe() {
         con = ConnectDatabase.getConnection();
     }
+
+    public List<LoaiKhachHang> getAllLoaiKhachHang() throws SQLException {
+        List<LoaiKhachHang> danhSachLoaiKH = new ArrayList<>();
+
+        // Câu truy vấn SQL
+        String sql = "SELECT MaLoaiKH, TenLoaiKH FROM LoaiKhachHang";
+
+        try (PreparedStatement pstmt = con.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            // Duyệt qua kết quả trả về
+            while (rs.next()) {
+                String maLoai = rs.getString("MaLoaiKH");
+                String tenLoai = rs.getString("TenLoaiKH");
+
+                // Tạo đối tượng LoaiKhachHang và thêm vào danh sách
+                LoaiKhachHang loaiKH = new LoaiKhachHang(maLoai, tenLoai);
+                danhSachLoaiKH.add(loaiKH);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error fetching all customer types", e);
+        }
+
+        return danhSachLoaiKH; // Trả về danh sách các loại khách hàng
+    }
+    public KhuyenMai findKhuyenMaiByMa(String maKM) throws SQLException {
+        String query = "SELECT [MaKM], [ThoiGianBatDau], [ThoiGianKetThuc], [NoiDungKM], [ChietKhau], [DoiTuongApDung] " +
+                "FROM [UngDungQuanLyBanVeTaiGaGoVap].[dbo].[KhuyenMai] " +
+                "WHERE [MaKM] = ?";
+        try (PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, maKM);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String maKMResult = rs.getString("MaKM");
+                LocalDate thoiGianBatDau = rs.getDate("ThoiGianBatDau").toLocalDate();
+                LocalDate thoiGianKetThuc = rs.getDate("ThoiGianKetThuc").toLocalDate();
+                String noiDungKM = rs.getString("NoiDungKM");
+                double chietKhau = rs.getDouble("ChietKhau");
+                String doiTuongApDung = rs.getString("DoiTuongApDung");
+
+                return new KhuyenMai(maKMResult, thoiGianBatDau, thoiGianKetThuc, noiDungKM, chietKhau, doiTuongApDung);
+            }
+        }
+        return null; // Trả về null nếu không tìm thấy mã khuyến mãi
+    }
+
+    public KhachHang getKhachHangBySoDienThoai(String soDienThoai) throws SQLException {
+        KhachHang khachHang = null;
+
+        // Câu truy vấn SQL để tìm khách hàng theo số điện thoại
+        String sql = "SELECT MaKH, LoaiKhachHangMaLoaiKH, SoDT, TenKH, CCCD, DiaChi, " +
+                "DiemTichLuy, NgaySinh, NgayThamGia, HangThanhVien " +
+                "FROM KhachHang WHERE SoDT = ?";
+
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, soDienThoai); // Gán số điện thoại vào câu truy vấn
+            ResultSet rs = pstmt.executeQuery();
+
+            // Kiểm tra nếu có kết quả trả về
+            if (rs.next()) {
+                String maKH = rs.getString("MaKH");
+                String loaiKH = rs.getString("LoaiKhachHangMaLoaiKH");
+                String tenKH = rs.getString("TenKH");
+                String cccd = rs.getString("CCCD");
+                String diaChi = rs.getString("DiaChi");
+                double diemTichLuy = rs.getDouble("DiemTichLuy");
+                LocalDate ngaySinh = rs.getDate("NgaySinh").toLocalDate();
+                LocalDate ngayThamGia = rs.getDate("NgayThamGia").toLocalDate();
+                String hangThanhVien = rs.getString("HangThanhVien");
+
+                // Tạo đối tượng LoaiKhachHang (giả sử bạn có constructor phù hợp)
+                LoaiKhachHang loaiKhachHang = new LoaiKhachHang(loaiKH);
+
+                // Tạo đối tượng KhachHang
+                khachHang = new KhachHang(maKH, loaiKhachHang, soDienThoai, tenKH,
+                        cccd, diaChi, diemTichLuy, ngaySinh,
+                        ngayThamGia, hangThanhVien);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error fetching customer by phone number", e);
+        }
+
+        return khachHang; // Trả về đối tượng KhachHang hoặc null nếu không tìm thấy
+    }
+
     public Tau getTauByMaToa(String maToa) throws SQLException {
         Tau tau = null;
 
