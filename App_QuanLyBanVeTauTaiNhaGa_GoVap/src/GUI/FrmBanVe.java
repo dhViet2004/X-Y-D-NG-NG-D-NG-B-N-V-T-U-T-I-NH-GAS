@@ -75,6 +75,7 @@ public class FrmBanVe extends JFrame implements ActionListener {
     private static LocalDate lastDate = LocalDate.now(); // Ngày cuối cùng đã tạo vé
     private int customerCount = 0; // Biến đếm số khách hàng
     private Component temp;
+    private JDialog dialogChiTiet; // Khai báo biến toàn cục
     Component chuyenTauPanel = new ChuyenTau().getjPanelMain();
     public FrmBanVe() {
         setTitle("Bán Vé");
@@ -740,6 +741,31 @@ public class FrmBanVe extends JFrame implements ActionListener {
             JPanel Jpanel_NutThanhToan = new JPanel(new FlowLayout());
             Jpanel_NutThanhToan.add(btnThanToan, BorderLayout.CENTER);
 
+            JButton btnChiTietHoaDon = new JButton("Xem Chi Tiết HD");
+            btnChiTietHoaDon.setPreferredSize(new Dimension(200, 50));
+            btnChiTietHoaDon.setFont(new Font("Arial", Font.BOLD, 18));
+            btnChiTietHoaDon.setBackground(new Color(0, 131, 66));
+            btnChiTietHoaDon.setForeground(Color.WHITE);
+
+// Thêm vào JPanel_NutThanhToan
+            Jpanel_NutThanhToan.add(btnChiTietHoaDon);
+            btnChiTietHoaDon.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    double tongThanhTien = 0;
+
+                    // Tính tổng thành tiền từ bảng
+                    for (int row = 0; row < table.getRowCount(); row++) {
+                        double thanhTien = (double) table.getValueAt(row, 5); // Cột "Thành tiền"
+                        tongThanhTien += thanhTien;
+                    }
+
+                    // Hiển thị dialog chi tiết hóa đơn
+                    showInvoiceDetailDialog(table, tongThanhTien);
+                }
+            });
+
+
             buyerInfoPanel.add(Jpanel_NutThanhToan,BorderLayout.SOUTH); // Thêm nút In vào phía dưới cùng
 
             dialog.add(buyerInfoPanel, BorderLayout.SOUTH); // Thêm ở phía trên
@@ -765,7 +791,7 @@ public class FrmBanVe extends JFrame implements ActionListener {
                     }
 
 // Tạo mã khách hàng và đối tượng KhachHang
-                    String maKH = generateCustomerCode(); // Sinh mã khách hàng mới
+                    String maKH = generateCustomerCode(soDienThoai); // Sinh mã khách hàng mới
                     KhachHang khachHang = new KhachHang(
                             maKH,
                             new LoaiKhachHang("KH001"), // Mã loại khách hàng mặc định
@@ -877,6 +903,65 @@ public class FrmBanVe extends JFrame implements ActionListener {
             Jpanel_Main.repaint();
         }
     }
+
+    private void showInvoiceDetailDialog(JTable table, double tongThanhTien) {
+        // Tạo dialog
+        JDialog detailDialog = new JDialog();
+        detailDialog.setTitle("Chi Tiết Hóa Đơn");
+        detailDialog.setSize(600, 400);
+        detailDialog.setLocationRelativeTo(null); // Hiển thị giữa màn hình
+
+        // Tạo JTextArea để hiển thị chi tiết hóa đơn
+        JTextArea textArea = new JTextArea();
+        textArea.setFont(new Font("Arial", Font.PLAIN, 18));
+        textArea.setEditable(false); // Không cho phép chỉnh sửa
+
+        // Xây dựng nội dung chi tiết hóa đơn
+        StringBuilder sb = new StringBuilder();
+        sb.append("Chi Tiết Hóa Đơn\n");
+        sb.append("---------------------------------------------------\n");
+        for (int row = 0; row < table.getRowCount(); row++) {
+            String hoTen = ((CustomPanel) table.getValueAt(row, 0)).getHoTen();
+            String thongTinChoNgoi = (String) table.getValueAt(row, 1);
+            float giaVe = (float) table.getValueAt(row, 2);
+            double thanhTien = (double) table.getValueAt(row, 5);
+
+            sb.append("Họ tên: ").append(hoTen).append("\n");
+            sb.append("Chỗ ngồi: ").append(thongTinChoNgoi).append("\n");
+            sb.append("Giá vé: ").append(giaVe).append(" VND\n");
+            sb.append("Thành tiền: ").append(thanhTien).append(" VND\n");
+            sb.append("---------------------------------------------------\n");
+        }
+        sb.append("Tổng thành tiền: ").append(tongThanhTien).append(" VND\n");
+
+        // Đặt nội dung vào JTextArea
+        textArea.setText(sb.toString());
+
+        // Thêm JTextArea vào JScrollPane để hỗ trợ cuộn
+        JScrollPane scrollPane = new JScrollPane(textArea);
+
+        // Thêm JScrollPane vào dialog
+        detailDialog.add(scrollPane, BorderLayout.CENTER);
+
+        // Nút đóng dialog
+        JButton btnClose = new JButton("Đóng");
+        btnClose.setPreferredSize(new Dimension(100, 40));
+        btnClose.setFont(new Font("Arial", Font.BOLD, 16));
+        btnClose.addActionListener(e -> detailDialog.dispose());
+
+        // Thêm nút vào JPanel ở cuối dialog
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.add(btnClose);
+        detailDialog.add(buttonPanel, BorderLayout.SOUTH);
+        // Tạo Timer để tự động đóng dialog sau 60 giây (60000ms)
+        Timer timer = new Timer(60000, e -> detailDialog.dispose());
+        timer.setRepeats(false); // Chạy một lần
+        timer.start();
+        // Hiển thị dialog
+        detailDialog.setVisible(true);
+    }
+
+
     private void updateTotalAmount(JLabel lblThanhTien,JTable table) {
         double totalAmount = 0;
 
@@ -920,11 +1005,14 @@ public class FrmBanVe extends JFrame implements ActionListener {
         int randomSuffix = (int) (Math.random() * 10000); // Tạo số ngẫu nhiên từ 0000 đến 9999
         return "HD" + today.toString().replace("-", "") + now.toString().replace(":", "").substring(0, 4) + String.format("%04d", randomSuffix);
     }
-    private String generateCustomerCode() {
+    private String generateCustomerCode(String phoneNumber) {
         LocalDateTime now = LocalDateTime.now();
-        int randomSuffix = (int) (Math.random() * 10000); // Tạo số ngẫu nhiên từ 0000 đến 9999
-        String datePart = now.format(DateTimeFormatter.ofPattern("yyyyMMddHHmm")); // Lấy ngày giờ hiện tại theo định dạng
-        return "KH" + datePart + String.format("%04d", randomSuffix);
+
+        // Lấy ngày tháng và 2 số cuối của năm
+        String datePart = now.format(DateTimeFormatter.ofPattern("ddMMyy"));
+
+        // Sinh mã theo công thức: KH + ngày tháng + 2 số cuối của năm + số điện thoại KH
+        return String.format("KH%s%s", datePart, phoneNumber);
     }
 
 
