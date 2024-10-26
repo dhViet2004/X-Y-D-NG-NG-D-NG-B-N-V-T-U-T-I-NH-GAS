@@ -15,6 +15,26 @@ public class DAO_BanVe {
         con = ConnectDatabase.getConnection();
     }
 
+    public int getTotalInvoicesByDate(String date) {
+        int totalInvoices = 0; // Khởi tạo biến tổng hóa đơn
+
+        // Câu truy vấn SQL
+        String sql = "SELECT COUNT(*) AS TongHoaDon FROM KhachHang WHERE CAST(NgayThamGia AS DATE) = ?";
+
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, date); // Thiết lập ngày vào câu truy vấn
+
+            ResultSet rs = pstmt.executeQuery(); // Thực thi câu truy vấn
+
+            if (rs.next()) {
+                totalInvoices = rs.getInt("TongHoaDon"); // Lấy giá trị tổng hóa đơn
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return totalInvoices; // Trả về tổng hóa đơn
+    }
     public List<LoaiKhachHang> getAllLoaiKhachHang() throws SQLException {
         List<LoaiKhachHang> danhSachLoaiKH = new ArrayList<>();
 

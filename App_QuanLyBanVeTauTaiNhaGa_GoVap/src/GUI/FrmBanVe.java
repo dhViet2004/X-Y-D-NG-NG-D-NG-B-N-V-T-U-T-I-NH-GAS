@@ -178,11 +178,19 @@ public class FrmBanVe extends JFrame implements ActionListener {
         btnQuanLyDoanhThu.addActionListener(this);
         btnQuanLyNhanVien.addActionListener(this);
 
-    }
+        // Lấy thời gian hiện tại
+        LocalDateTime now = LocalDateTime.now();
 
+// Định dạng thời gian thành NgàyThángNăm (yyyy-MM-dd)
+        String datePart = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        counter = daoBanVe.getTotalInvoicesByDate(datePart);
+        System.out.println(counter);
+    }
     public static void main(String[] args) {
         FrmBanVe frm = new FrmBanVe();
         frm.setVisible(true);
+
     }
 
     public void setButtonIcon(JButton button, URL imageUrl, int width, int height) {
@@ -1083,19 +1091,32 @@ public class FrmBanVe extends JFrame implements ActionListener {
 
     private String generateInvoiceCode() {
         LocalDate today = LocalDate.now();
-        LocalTime now = LocalTime.now();
-        int randomSuffix = (int) (Math.random() * 10000); // Tạo số ngẫu nhiên từ 0000 đến 9999
-        return "HD" + today.toString().replace("-", "") + now.toString().replace(":", "").substring(0, 4) + String.format("%04d", randomSuffix);
+
+        // Lấy ngày theo định dạng ddMMyy
+        String datePart = today.format(DateTimeFormatter.ofPattern("ddMMyy"));
+
+        // Tạo mã hóa đơn với counter
+        String invoiceCode = String.format("HD%s%04d", datePart, counter);
+
+        // Tăng giá trị counter
+        counter = (counter + 1) % 10000; // Reset lại khi đạt đến 10000
+
+        return invoiceCode;
     }
 
     private String generateCustomerCode() {
         // Lấy thời gian hiện tại
         LocalDateTime now = LocalDateTime.now();
 
-        // Định dạng thời gian thành NgàyThángNăm và GiờPhútGiây (ddMMyyHHmmss)
-        String dateTimePart = now.format(DateTimeFormatter.ofPattern("ddMMyyHHmmss"));
+        // Định dạng thời gian thành NgàyThángNăm (ddMMyy)
+        String datePart = now.format(DateTimeFormatter.ofPattern("ddMMyy"));
 
-        // Tạo mã khách hàng với format KH + thời gian
-        return String.format("KH%s", dateTimePart);
+        // Tạo mã khách hàng với format KH + thời gian + số thứ tự
+        String customerCode = String.format("KH%s%04d", datePart, counter);
+
+        // Tăng biến đếm lên 1, nếu vượt quá 9999 thì quay lại 0
+        counter = (counter + 1) % 10000;
+
+        return customerCode;
     }
 }

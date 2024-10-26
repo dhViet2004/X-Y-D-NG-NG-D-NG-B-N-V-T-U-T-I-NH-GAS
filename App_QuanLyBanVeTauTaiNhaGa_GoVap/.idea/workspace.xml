@@ -21,22 +21,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.FrmBanVe.executor": "Run",
-    "Application.Frm_KhachHang.executor": "Run",
-    "Application.Loading.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.FrmBanVe.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Frm_KhachHang.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Loading.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="Application.Loading">
+}</component>
+  <component name="RunManager" selected="Application.FrmBanVe">
     <configuration name="FrmBanVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -78,8 +78,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Loading" />
         <item itemvalue="Application.FrmBanVe" />
+        <item itemvalue="Application.Loading" />
         <item itemvalue="Application.Frm_KhachHang" />
       </list>
     </recent_temporary>
@@ -103,6 +103,7 @@
       <workItem from="1729916755296" duration="10229000" />
       <workItem from="1729951040796" duration="816000" />
       <workItem from="1729959706282" duration="131000" />
+      <workItem from="1729965845997" duration="1850000" />
     </task>
     <servers />
   </component>
