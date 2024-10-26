@@ -254,6 +254,14 @@ select * from LoaiKhachHang
 
 --DONE
 select * from KhachHang
+delete from KhachHang where MaKH not in ('KH2024102404173335',
+'KH2024102404283619',
+'KH2024102409175125',
+'KH2024102409443676',
+'KH2024102409535155',
+'KH2610240364601530',
+'KH26102024150000',
+'KH261024154715')
  -- DONE
 INSERT INTO KhuyenMai (MaKM, ThoiGianBatDau, ThoiGianKetThuc, NoiDungKM, ChietKhau, DoiTuongApDung) VALUES
 ('KM001', '2024-01-01', '2024-01-31', N'Giảm 10% cho khách hàng thân thiết', 10.0, N'Khách hàng thân thiết'),
