@@ -62,6 +62,7 @@ public class FrmBanVe extends JFrame implements ActionListener {
     private JLabel lab_TenToaTau;
     private JLabel lab_tb_ChoNgoiNull;
     private JPanel JPanel_Tienich;
+    private JScrollBar scrollBar1;
     private JDateChooser dateChooserNgayDi = new JDateChooser();
     private JDateChooser dateChooserNgayVe = new JDateChooser();
     private DAO_BanVe daoBanVe;
@@ -241,7 +242,7 @@ public class FrmBanVe extends JFrame implements ActionListener {
 
                 // Tạo JLabel hiển thị thông tin chỗ ngồi
                 JLabel choLabel = new JLabel("| Chỗ ngồi: " + choNgoi.getTenCho());
-                JLabel gaDiLabel = new JLabel("| Ga đi: " + tau.getTuyenTau().getDiaDiemDi() + "  | " + "Ga đến: " + tau.getTuyenTau().getDiaDiemDen());
+                JLabel gaDiLabel = new JLabel("| Ga đi: " + tau.getTuyenTau().getDiaDiemDi() + "  | " + "Ga đến: " + tau.getTuyenTau().getGaDen());
                 JLabel ngayDiLabel = new JLabel("| Ngày đi: " + lichTrinhTau.getNgayDi() + " | " + "Giờ đi: " + lichTrinhTau.getGioDi());
                 choLabel.setFont(new Font("Arial", Font.PLAIN, 20));
                 gaDiLabel.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -1097,6 +1098,4 @@ public class FrmBanVe extends JFrame implements ActionListener {
         // Tạo mã khách hàng với format KH + thời gian
         return String.format("KH%s", dateTimePart);
     }
-
-
 }
