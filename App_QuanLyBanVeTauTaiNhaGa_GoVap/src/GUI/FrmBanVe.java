@@ -1104,7 +1104,7 @@ public class FrmBanVe extends JFrame implements ActionListener {
         return invoiceCode;
     }
 
-    private String generateCustomerCode() {
+    public String generateCustomerCode() {
         // Lấy thời gian hiện tại
         LocalDateTime now = LocalDateTime.now();
 

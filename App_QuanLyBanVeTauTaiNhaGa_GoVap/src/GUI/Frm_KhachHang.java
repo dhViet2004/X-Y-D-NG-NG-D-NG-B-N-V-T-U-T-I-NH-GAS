@@ -305,9 +305,9 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
         txtNgaySinh = new JDateChooser();
         txtNgayThamGia = new JDateChooser();
         txtHangThanhVien = new JComboBox<String>();
-        txtHangThanhVien.addItem("Bạc");
-        txtHangThanhVien.addItem("Vàng");
-        txtHangThanhVien.addItem("Kim cương");
+        txtHangThanhVien.addItem("Silver");
+        txtHangThanhVien.addItem("Gold");
+        txtHangThanhVien.addItem("Diamond");
 
         noiDung.add(txtMaKH);
         txtMaKH.setMaximumSize(new Dimension(400, 30));
@@ -353,7 +353,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
                     String sdt = txtSDT.getText().trim();
                     try {
                         loadKH(sdt);
-                    } catch (SQLException ex) {
+                    } catch (Exception ex) {
                         ex.printStackTrace(); // Xử lý lỗi nếu cần
                     }
                 }
@@ -370,71 +370,109 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
     }
     // gõ sdt, dò trong ds khách hàng load lên, nếu trùng, load khách hàng lên txt
 
-    public void loadKH(String sdt) throws SQLException {
-        // lấy toàn bộ danh sách
-        List<KhachHang> ds = new ArrayList<>();
+    public void loadKH(String sdt) throws Exception {
         DAO_KhachHang dao_khachHang = new DAO_KhachHang();
-        boolean found = false;
-        ds = dao_khachHang.getAllList();
-        for (int i = 0; i < ds.size(); i++) {
-            KhachHang tmp = ds.get(i);
-            if (sdt.equals(tmp.getSoDienThoai())) {
-                found = true;
-                txtMaKH.setText(tmp.getMaKhachHang());
+        KhachHang kh = dao_khachHang.findCustomerByEncryptedPhone(sdt); // Tìm khách hàng đã mã hóa số điện thoại
 
-                String maLoaiKH = tmp.getLoaiKhachHang().getMaLoaiKhachHang();
-                if (maLoaiKH.equalsIgnoreCase("KH001")) {
-                    txtLoaiKH.setSelectedItem("Khách hàng thường");
-                } else if (maLoaiKH.equalsIgnoreCase("KH002")) {
-                    txtLoaiKH.setSelectedItem("Khách hàng VIP");
-                } else if (maLoaiKH.equalsIgnoreCase("KH003")) {
-                    txtLoaiKH.setSelectedItem("Khách hàng thân thiết");
-                } else if (maLoaiKH.equalsIgnoreCase("KH004")) {
-                    txtLoaiKH.setSelectedItem("Khách hàng khuyến mãi");
-                } else if (maLoaiKH.equalsIgnoreCase("KH005")) {
-                    txtLoaiKH.setSelectedItem("Khách hàng thường");
-                }
-                txtSDT.setText(tmp.getSoDienThoai());
-                txtTenKH.setText(tmp.getTenKhachHang());
-                txtCCCD.setText(tmp.getCCCD());
-                txtDiaChi.setText(tmp.getDiaChi());
-                txtDiemTichLuy.setText(String.valueOf(tmp.getDiemTichLuy()));
-                LocalDate ngaySinh = tmp.getNgaySinh(); // Lấy giá trị LocalDate từ đối tượng KhachHang
-                Date birth = java.sql.Date.valueOf(ngaySinh); // Chuyển LocalDate sang java.util.Date
-                txtNgaySinh.setDate(birth); // Set giá trị vào JDateChooser
+        if (kh != null) {
+            // giải mã thông tin của khách hàng trước khi hiển thị
+            // giải mã và mã hóa hiển thị sdt
+            String sdtEC = kh.getSoDienThoai();
+            String sdtDE = dao_khachHang.decryptAES(sdtEC);
+            String sdtHienThi = maHoaHienThiSDT(sdtDE);
+            // giải mã và hiển thị
+            String tenEC = kh.getTenKhachHang();
+            String tenDC = dao_khachHang.decryptAES(tenEC);
+            // giải mã và mã hóa hiển thị cccd
+            String cccdEN = kh.getCCCD();
+            String cccdDC = dao_khachHang.decryptAES(cccdEN);
+            String cccdHienThi = maHoaHienThiCCCD(cccdDC);
+            // giải mã và mã hóa hiển thị địa chỉ
+            String diaChiEN = kh.getDiaChi();
+            String diaChiDC = dao_khachHang.decryptAES(diaChiEN);
+            String diaChiHienThi = maHoaHienThiDiaChi(diaChiDC);
+            // Nếu tìm thấy, hiển thị thông tin khách hàng lên giao diện
+            txtMaKH.setText(kh.getMaKhachHang());
 
-                LocalDate ngayThamGia = tmp.getNgayThamgGia(); // Lấy giá trị LocalDate từ đối tượng KhachHang
-                Date join = java.sql.Date.valueOf(ngayThamGia); // Chuyển LocalDate sang java.util.Date
-                txtNgayThamGia.setDate(join); // Set giá trị vào JDateChooser
-
-                String hangTV = tmp.getHangThanhVien();
-                if (hangTV.equalsIgnoreCase("Bạc")) {
-                    txtHangThanhVien.setSelectedItem("Bạc");
-                } else if (hangTV.equalsIgnoreCase("Vàng")) {
-                    txtHangThanhVien.setSelectedItem("Vàng");
-                } else if (hangTV.equalsIgnoreCase("Kim cương")) {
-                    txtHangThanhVien.setSelectedItem("Kim cương");
-                }
-                lbluserName.setText(txtTenKH.getText());
-                // sau khi load lên, không cho sửa bất kì trường nào,trừ khi ấn nút sửa
-                txtMaKH.setEditable(false);
-                txtLoaiKH.setEnabled(false);
-                txtSDT.setEditable(false);
-                txtTenKH.setEditable(false);
-                txtCCCD.setEditable(false);
-                txtDiemTichLuy.setEditable(false);
-                txtDiaChi.setEditable(false);
-                txtNgaySinh.setEnabled(false);
-                txtNgayThamGia.setEnabled(false);
-                txtHangThanhVien.setEnabled(false);
-                break;
+            String maLoaiKH = kh.getLoaiKhachHang().getMaLoaiKhachHang();
+            if (maLoaiKH.equalsIgnoreCase("KH001")) {
+                txtLoaiKH.setSelectedItem("Khách hàng thường");
+            } else if (maLoaiKH.equalsIgnoreCase("KH002")) {
+                txtLoaiKH.setSelectedItem("Khách hàng VIP");
+            } else if (maLoaiKH.equalsIgnoreCase("KH003")) {
+                txtLoaiKH.setSelectedItem("Khách hàng thân thiết");
+            } else if (maLoaiKH.equalsIgnoreCase("KH004")) {
+                txtLoaiKH.setSelectedItem("Khách hàng khuyến mãi");
+            } else if (maLoaiKH.equalsIgnoreCase("KH005")) {
+                txtLoaiKH.setSelectedItem("Khách hàng thường");
             }
-        }
-        if (!found) {
+
+            txtSDT.setText(sdtHienThi);
+            txtTenKH.setText(tenDC);
+            txtCCCD.setText(cccdHienThi);
+            txtDiaChi.setText(diaChiHienThi);
+            txtDiemTichLuy.setText(String.valueOf(kh.getDiemTichLuy()));
+
+            LocalDate ngaySinh = kh.getNgaySinh();
+            Date birth = java.sql.Date.valueOf(ngaySinh);
+            txtNgaySinh.setDate(birth);
+
+            LocalDate ngayThamGia = kh.getNgayThamgGia();
+            Date join = java.sql.Date.valueOf(ngayThamGia);
+            txtNgayThamGia.setDate(join);
+
+            String hangTV = kh.getHangThanhVien();
+            if (hangTV.equalsIgnoreCase("Silver")) {
+                txtHangThanhVien.setSelectedItem("Silver");
+            } else if (hangTV.equalsIgnoreCase("Gold")) {
+                txtHangThanhVien.setSelectedItem("Gold");
+            } else if (hangTV.equalsIgnoreCase("Diamond")) {
+                txtHangThanhVien.setSelectedItem("Diamond");
+            }
+
+            lbluserName.setText(txtTenKH.getText());
+
+            // Sau khi load lên, không cho sửa bất kì trường nào, trừ khi ấn nút sửa
+            txtMaKH.setEditable(false);
+            txtLoaiKH.setEnabled(false);
+            txtSDT.setEditable(false);
+            txtTenKH.setEditable(false);
+            txtCCCD.setEditable(false);
+            txtDiemTichLuy.setEditable(false);
+            txtDiaChi.setEditable(false);
+            txtNgaySinh.setEnabled(false);
+            txtNgayThamGia.setEnabled(false);
+            txtHangThanhVien.setEnabled(false);
+        } else {
             JOptionPane.showMessageDialog(this, "Không tìm thấy", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }
 
+    public String maHoaHienThiSDT(String phoneNumber) {
+        if (phoneNumber.length() == 10) {
+            // Giữ 2 chữ số đầu và 4 chữ số cuối, thay phần giữa bằng dấu "*"
+            String maskedPhone = phoneNumber.substring(0, 2) + "******" + phoneNumber.substring(6);
+            return maskedPhone;
+        }
+        return phoneNumber; // Nếu không phải 10 ký tự, trả về nguyên gốc
+    }
+
+    public String maHoaHienThiCCCD(String cccd) {
+        if (cccd.length() == 12) {
+            // Giữ 1 chữ số đầu và 1 chữ số cuối, thay phần giữa bằng dấu "*"
+            String maskedCCCD = cccd.substring(0, 1) + "**********" + cccd.substring(11);
+            return maskedCCCD;
+        }
+        return cccd; // Nếu không phải 12 ký tự, trả về nguyên gốc
+    }
+
+    public String maHoaHienThiDiaChi(String diaChi) {
+        if (diaChi != null && !diaChi.isEmpty()) {
+            // Ẩn toàn bộ địa chỉ bằng dấu "*"
+            return "***********"; // Hoặc bạn có thể sử dụng diaChi.replaceAll(".", "*") để thay thế tất cả ký tự bằng dấu "*"
+        }
+        return diaChi; // Trả về nguyên gốc nếu địa chỉ rỗng hoặc null
+    }
     private JButton createButton(String text) {
         JButton button = new JButton(text);
         button.setFont(new Font("Arial", Font.BOLD, 20)); // Đặt font
@@ -574,16 +612,9 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
 
     private void xoaRongVaSetMaKH() throws SQLException {
         // set maKH
-        DAO_KhachHang dao_khachHang = new DAO_KhachHang();
-        List<KhachHang> ds = new ArrayList<>();
-        ds = dao_khachHang.getAllList();
-        int n = ds.size() + 1;
-        String maKhachHangTiepTheo = ""; // Lấy mã khách hàng tiếp theo
-        if (n <= 9) {
-            maKhachHangTiepTheo = "KH00" + n;
-        } else {
-            maKhachHangTiepTheo = "KH0" + n;
-        }
+        FrmBanVe fbv = new FrmBanVe();
+        String maKhachHangTiepTheo = fbv.generateCustomerCode();
+
 
         // Thiết lập giá trị cho trường mã khách hàng
         txtMaKH.setText(maKhachHangTiepTheo);
@@ -617,7 +648,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
         Calendar calendar = Calendar.getInstance();
         txtNgayThamGia.setDate(calendar.getTime()); // Set today's date
         txtNgayThamGia.setEnabled(false); // Disable editing
-        txtHangThanhVien.setSelectedItem("Bạc");
+        txtHangThanhVien.setSelectedItem("Silv");
         txtHangThanhVien.setEnabled(false);
     }
 
