@@ -10,10 +10,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -24,7 +21,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.*;
 
-public class FrmBanVe extends JFrame implements ActionListener {
+public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
     private final JButton btnBanVe;
     private final JButton btnTraCuu;
     private final JButton btnThongKeTheoCa;
@@ -177,7 +174,8 @@ public class FrmBanVe extends JFrame implements ActionListener {
         btnQuanLyKhachHang.addActionListener(this);
         btnQuanLyDoanhThu.addActionListener(this);
         btnQuanLyNhanVien.addActionListener(this);
-
+        btnRadio_MotChieu.addItemListener((ItemListener) this);
+        btnRadio_KhuHoi.addItemListener((ItemListener) this);
         // Lấy thời gian hiện tại
         LocalDateTime now = LocalDateTime.now();
 
@@ -186,11 +184,22 @@ public class FrmBanVe extends JFrame implements ActionListener {
 
         counter = daoBanVe.getTotalInvoicesByDate(datePart);
         System.out.println(counter);
+
+        btnRadio_MotChieu.setSelected(true);
+
+
     }
     public static void main(String[] args) {
         FrmBanVe frm = new FrmBanVe();
         frm.setVisible(true);
 
+    }
+    // Phương thức để vô hiệu hóa hoặc kích hoạt toàn bộ các thành phần con của JPanel
+    private void setPanelEnabled(JPanel panel, boolean isEnabled) {
+        for (Component component : panel.getComponents()) {
+            component.setEnabled(isEnabled);
+        }
+        panel.setEnabled(isEnabled); // Khóa luôn cả JPanel chính
     }
 
     public void setButtonIcon(JButton button, URL imageUrl, int width, int height) {
@@ -612,8 +621,6 @@ public class FrmBanVe extends JFrame implements ActionListener {
                 JPanelTau.revalidate(); // Cập nhật giao diện
                 JPanelTau.repaint();
             }
-        } else if (e.getSource() == btnRadio_KhuHoi) {
-
         } else if (e.getSource() == btnTiepTheo) {
             // Kiểm tra xem danh sách chỗ ngồi đã chọn có trống không
             if (danhSachChoDaChon.isEmpty()) {
@@ -1118,5 +1125,18 @@ public class FrmBanVe extends JFrame implements ActionListener {
         counter = (counter + 1) % 10000;
 
         return customerCode;
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        if (e.getSource() == btnRadio_MotChieu) {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                setPanelEnabled(JPanel_NgayVe, false); // Khóa ngày về
+            }
+        } else if (e.getSource() == btnRadio_KhuHoi) {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                setPanelEnabled(JPanel_NgayVe, true); // Mở lại ngày về
+            }
+        }
     }
 }
