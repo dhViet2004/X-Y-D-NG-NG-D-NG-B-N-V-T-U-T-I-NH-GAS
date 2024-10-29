@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="AbsoluteLayout">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../BanVeTau_NhanVien/src/libs/AbsoluteLayout.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../BanVeTau_NhanVien/src/libs/jcalendar-1.2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../BanVeTau_NhanVien/src/libs/sqljdbc42.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../BanVeTau_NhanVien/src/libs/swing-time-picker.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../BanVeTau_NhanVien/src/libs/swingx-all-1.6.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../BanVeTau_NhanVien/src/libs/swingx-all-1.6.4 (1).jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../BanVeTau_NhanVien/src/libs/TimingFramework-0.55.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

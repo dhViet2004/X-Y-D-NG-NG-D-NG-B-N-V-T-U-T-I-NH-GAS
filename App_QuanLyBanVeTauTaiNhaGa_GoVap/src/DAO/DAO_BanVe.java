@@ -223,7 +223,7 @@ public class DAO_BanVe {
             pstmt.setString(1, hoaDon.getMaHD());
             pstmt.setString(2, hoaDon.getKhachHang().getMaKhachHang());
             pstmt.setString(3, hoaDon.getKhuyenMai() != null ? hoaDon.getKhuyenMai().getMaKM() : null);
-            pstmt.setString(4, hoaDon.getNv() != null ? hoaDon.getNv().getMaNV() : null);
+            pstmt.setString(4, hoaDon.getNv() != null ? hoaDon.getNv().getMaNhanVien() : null);
             pstmt.setString(5, hoaDon.getLoaiHoaDon().getMaLoaiHoaDon());
             pstmt.setDate(6, Date.valueOf(hoaDon.getNgayLap()));
             pstmt.setDouble(7, hoaDon.getTienGiam());

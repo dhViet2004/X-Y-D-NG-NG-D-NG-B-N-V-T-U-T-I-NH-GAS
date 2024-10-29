@@ -28,7 +28,7 @@ public class DAO_HoaDon {
         try (Statement statement = con.createStatement(); ResultSet rs = statement.executeQuery(sql)) {
 
             while (rs.next()) {
-                HoaDon hd = new HoaDon(rs.getString("MaHD"), new KhachHang(rs.getString("MaKH")), new KhuyenMai(rs.getString("KhuyenMaiMaKM")), new NhanVien(rs.getString("NhanVienMaNV")), new LoaiHoaDon(rs.getString("MaLoai")), rs.getDate("NgayHoaDon").toLocalDate(), rs.getDouble("TienKhuyenMai"), rs.getDouble("TongTien"));
+                HoaDon hd = new HoaDon(rs.getString("MaHD"), new KhachHang(rs.getString("MaKH")), new KhuyenMai(rs.getString("KhuyenMaiMaKM")), new NhanVien(rs.getString("MaNV")), new LoaiHoaDon(rs.getString("MaLoai")), rs.getDate("NgayHoaDon").toLocalDate(), rs.getDouble("TienKhuyenMai"), rs.getDouble("TongTien"));
                 list.add(hd);
             }
         } catch (SQLException e) {

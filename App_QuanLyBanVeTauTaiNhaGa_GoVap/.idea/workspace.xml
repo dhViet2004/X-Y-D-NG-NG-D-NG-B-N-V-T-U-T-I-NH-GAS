@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e75591dd-d21e-4cb4-80eb-258629c8c49b" name="Changes" comment="" />
+    <list default="true" id="e75591dd-d21e-4cb4-80eb-258629c8c49b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../SQL/UngDungQuanLyBanVeTaiGaGoVap.bacpac" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,22 +26,80 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.FrmBanVe.executor": "Run",
+<<<<<<< HEAD
+=======
+    "Application.FrmDangNhap.executor": "Run",
+    "Application.FrmNhanVien.executor": "Run",
+>>>>>>> c33726ba74ba5732c4587dc41698cb76600ffe12
     "Application.Frm_KhachHang.executor": "Run",
     "Application.Loading.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
+<<<<<<< HEAD
     "ignore.preview.features.used": "true",
     "kotlin-language-version-configured": "true",
+=======
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/btl_Java/taiTrenGit/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap",
+>>>>>>> c33726ba74ba5732c4587dc41698cb76600ffe12
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+<<<<<<< HEAD
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager" selected="Application.FrmBanVe">
+=======
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\btl_Java\taiTrenGit\XaydungungdungBanVeTauTaiNhaGAS\App_QuanLyBanVeTauTaiNhaGa_GoVap\src\Entity" />
+      <recent name="D:\btl_Java\taiTrenGit\XaydungungdungBanVeTauTaiNhaGAS\App_QuanLyBanVeTauTaiNhaGa_GoVap\src" />
+      <recent name="D:\btl_Java\taiTrenGit\XaydungungdungBanVeTauTaiNhaGAS\App_QuanLyBanVeTauTaiNhaGa_GoVap\src\GUI" />
+      <recent name="D:\btl_Java\taiTrenGit\XaydungungdungBanVeTauTaiNhaGAS\App_QuanLyBanVeTauTaiNhaGa_GoVap\src\Anh_HeThong" />
+      <recent name="D:\btl_Java\taiTrenGit\XaydungungdungBanVeTauTaiNhaGAS\App_QuanLyBanVeTauTaiNhaGa_GoVap\src\DAO" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="GUI" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.FrmNhanVien">
+>>>>>>> c33726ba74ba5732c4587dc41698cb76600ffe12
     <configuration name="FrmBanVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
+      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FrmDangNhap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.FrmDangNhap" />
+      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FrmNhanVien" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.FrmNhanVien" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
         <pattern>
@@ -79,8 +139,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.FrmNhanVien" />
         <item itemvalue="Application.FrmBanVe" />
         <item itemvalue="Application.Loading" />
+        <item itemvalue="Application.FrmDangNhap" />
         <item itemvalue="Application.Frm_KhachHang" />
       </list>
     </recent_temporary>
@@ -88,8 +150,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
+        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
       </set>
     </attachedChunks>
   </component>
@@ -104,8 +166,14 @@
       <workItem from="1729916755296" duration="10229000" />
       <workItem from="1729951040796" duration="816000" />
       <workItem from="1729959706282" duration="131000" />
+<<<<<<< HEAD
       <workItem from="1729965845997" duration="2101000" />
       <workItem from="1730216932205" duration="1744000" />
+=======
+      <workItem from="1729965845997" duration="1850000" />
+      <workItem from="1730172561336" duration="3213000" />
+      <workItem from="1730183250894" duration="941000" />
+>>>>>>> c33726ba74ba5732c4587dc41698cb76600ffe12
     </task>
     <servers />
   </component>
@@ -117,7 +185,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/GUI/Frm_KhachHang.java</url>
-          <line>485</line>
+          <line>526</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

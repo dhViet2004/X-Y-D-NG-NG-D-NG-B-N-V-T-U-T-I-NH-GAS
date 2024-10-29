@@ -77,6 +77,7 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
     Component chuyenTauPanel = new ChuyenTau().getjPanelMain();
     Component khuyenMaiPanel = new FrmKhuyenMai().getKMPanel();
     Component khachHangPanel = new Frm_KhachHang().getKHPanel();
+    Component nhanVienPanel = new FrmNhanVien().getJpannelNV();
     private List<LoaiKhachHang> danhSachLoaiKH = new ArrayList<>();
     private KhuyenMai khuyenMai = null;
     private Double chietKhau = 0.0;
@@ -995,6 +996,18 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
             // Cập nhật lại giao diện người dùng
             Jpanel_Main.revalidate(); // Cập nhật layout
             Jpanel_Main.repaint();    //
+        }else if (e.getSource() == btnQuanLyNhanVien) {
+            Jpanel_Main.removeAll();
+            current = (JPanel) nhanVienPanel;
+            JPanel_XacNhanCho.setVisible(false);
+            lab_Title.setVisible(false);
+            JPanel_BanVe.setVisible(false);
+            Jpanel_Main.add(nhanVienPanel);
+            Jpanel_Main.setVisible(true);
+
+            // Cập nhật lại giao diện người dùng
+            Jpanel_Main.revalidate(); // Cập nhật layout
+            Jpanel_Main.repaint();    //
         }
     }
 
@@ -1111,7 +1124,7 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
         return invoiceCode;
     }
 
-    private String generateCustomerCode() {
+    public String generateCustomerCode() {
         // Lấy thời gian hiện tại
         LocalDateTime now = LocalDateTime.now();
 
