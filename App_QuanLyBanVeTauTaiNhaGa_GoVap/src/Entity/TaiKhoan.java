@@ -1,36 +1,42 @@
 package Entity;
-
+        
 public class TaiKhoan {
-    private String maNV;
+    private String maNhanVien;
     private String password;
 
-    public TaiKhoan(String maNV, String password) {
-        this.maNV = maNV;
-        this.password = password;
+    // Constructor mặc định
+    public TaiKhoan() {}
+
+    // Constructor có tham số
+    public TaiKhoan(String maNhanVien, String password) {
+        this.maNhanVien = maNhanVien;
+        setPassword(password);
     }
 
-    public TaiKhoan() {
-        this.maNV = maNV;
-        this.password = password;
+    // Getter và Setter
+    public String getMaNhanVien() {
+        return maNhanVien;
     }
 
-    public String getMaNV() {
-        return this.maNV;
-    }
-
-    public void setMaNV(String maNV) {
-        this.maNV = maNV;
+    public void setMaNhanVien(String maNhanVien) {
+        if (maNhanVien != null && !maNhanVien.isEmpty()) {
+            this.maNhanVien = maNhanVien;
+        }
     }
 
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        if (password != null && password.length() >= 8) {
+            this.password = password;
+        }
     }
 
+    // Phương thức toString
+    @Override
     public String toString() {
-        return "Entity_TaiKhoan{maNV='" + this.maNV + "', password='" + this.password + "'}";
+        return "TaiKhoan [maNhanVien=" + maNhanVien + ", password=" + password + "]";
     }
 }

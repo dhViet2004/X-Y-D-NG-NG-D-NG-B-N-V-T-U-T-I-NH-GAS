@@ -1,55 +1,64 @@
 package Entity;
-
-import java.time.LocalTime;
-import java.util.Objects;
-
+      
+import java.time.LocalDateTime;
 public class LichLamViec {
     private String maLichLamViec;
-    private String maNV;
-    private LocalTime gioBatDau;
-    private LocalTime gioKetThuc;
+    private String maNhanVien;
+    private LocalDateTime gioBatDau;
+    private LocalDateTime gioKetThuc;
     private String trangThai;
     private String tenCa;
 
-    public LichLamViec(String maLichLamViec, String maNV, LocalTime gioBatDau, LocalTime gioKetThuc, String trangThai, String tenCa) {
+    // Constructor mặc định
+    public LichLamViec() {}
+
+    // Constructor có tham số
+    public LichLamViec(String maLichLamViec, String maNhanVien, LocalDateTime gioBatDau, LocalDateTime gioKetThuc, String trangThai, String tenCa) {
         this.maLichLamViec = maLichLamViec;
-        this.maNV = maNV;
+        this.maNhanVien = maNhanVien;
         this.gioBatDau = gioBatDau;
         this.gioKetThuc = gioKetThuc;
         this.trangThai = trangThai;
         this.tenCa = tenCa;
     }
 
+    // Getter và Setter
     public String getMaLichLamViec() {
         return maLichLamViec;
     }
 
     public void setMaLichLamViec(String maLichLamViec) {
-        this.maLichLamViec = maLichLamViec;
+        if (maLichLamViec != null && !maLichLamViec.isEmpty()) {
+            this.maLichLamViec = maLichLamViec;
+        }
     }
 
-    public String getMaNV() {
-        return maNV;
+    public String getMaNhanVien() {
+        return maNhanVien;
     }
 
-    public void setMaNV(String maNV) {
-        this.maNV = maNV;
+    public void setMaNhanVien(String maNhanVien) {
+        if (maNhanVien != null && !maNhanVien.isEmpty()) {
+            this.maNhanVien = maNhanVien;
+        }
     }
 
-    public LocalTime getGioBatDau() {
+    public LocalDateTime getGioBatDau() {
         return gioBatDau;
     }
 
-    public void setGioBatDau(LocalTime gioBatDau) {
+    public void setGioBatDau(LocalDateTime gioBatDau) {
         this.gioBatDau = gioBatDau;
     }
 
-    public LocalTime getGioKetThuc() {
+    public LocalDateTime getGioKetThuc() {
         return gioKetThuc;
     }
 
-    public void setGioKetThuc(LocalTime gioKetThuc) {
-        this.gioKetThuc = gioKetThuc;
+    public void setGioKetThuc(LocalDateTime gioKetThuc) {
+        if (gioKetThuc.isAfter(gioBatDau)) {
+            this.gioKetThuc = gioKetThuc;
+        }
     }
 
     public String getTrangThai() {
@@ -57,7 +66,7 @@ public class LichLamViec {
     }
 
     public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
+            this.trangThai = trangThai;
     }
 
     public String getTenCa() {
@@ -65,31 +74,15 @@ public class LichLamViec {
     }
 
     public void setTenCa(String tenCa) {
-        this.tenCa = tenCa;
+        if (tenCa != null && !tenCa.isEmpty()) {
+            this.tenCa = tenCa;
+        }
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        LichLamViec that = (LichLamViec) o;
-        return Objects.equals(maLichLamViec, that.maLichLamViec);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(maLichLamViec);
-    }
-
+    // Phương thức toString
     @Override
     public String toString() {
-        return "LichLamViec{" +
-                "maLichLamViec='" + maLichLamViec + '\'' +
-                ", maNV='" + maNV + '\'' +
-                ", gioBatDau=" + gioBatDau +
-                ", gioKetThuc=" + gioKetThuc +
-                ", trangThai='" + trangThai + '\'' +
-                ", tenCa='" + tenCa + '\'' +
-                '}';
+        return "LichLamViec [maLichLamViec=" + maLichLamViec + ", maNhanVien=" + maNhanVien + ", gioBatDau=" + gioBatDau +
+               ", gioKetThuc=" + gioKetThuc + ", trangThai=" + trangThai + ", tenCa=" + tenCa + "]";
     }
 }
