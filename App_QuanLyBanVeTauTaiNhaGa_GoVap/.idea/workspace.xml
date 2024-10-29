@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e75591dd-d21e-4cb4-80eb-258629c8c49b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../SQL/UngDungQuanLyBanVeTaiGaGoVap.bacpac" beforeDir="false" />
-    </list>
+    <list default="true" id="23d7978f-dc7c-44e8-a89b-61f96f72c513" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,10 +13,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 0
-}</component>
-  <component name="ProjectId" id="2nxZak7kHdaXXZ9h8FMy9eZSqPx" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="2o7SH5zXVsk3Ve2p27lfJe4qNf9" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -26,54 +24,30 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.FrmBanVe.executor": "Run",
-<<<<<<< HEAD
-=======
+    "Application.FrmDangNhap (1).executor": "Run",
+    "Application.FrmDangNhap (2).executor": "Run",
     "Application.FrmDangNhap.executor": "Run",
-    "Application.FrmNhanVien.executor": "Run",
->>>>>>> c33726ba74ba5732c4587dc41698cb76600ffe12
-    "Application.Frm_KhachHang.executor": "Run",
-    "Application.Loading.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Application.FrmDangNhap_PV.executor": "Run",
     "git-widget-placeholder": "master",
-<<<<<<< HEAD
-    "ignore.preview.features.used": "true",
-    "kotlin-language-version-configured": "true",
-=======
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/btl_Java/taiTrenGit/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap",
->>>>>>> c33726ba74ba5732c4587dc41698cb76600ffe12
+    "last_opened_file_path": "T:/final/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap/src/GUI",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-<<<<<<< HEAD
-    "vue.rearranger.settings.migration": "true"
-  }
-}]]></component>
-  <component name="RunManager" selected="Application.FrmBanVe">
-=======
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "vue.rearranger.settings.migration": "true"
+    "two.files.diff.last.used.folder": "T:/final/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap/jar Libraries/AbsoluteLayout.jar"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\btl_Java\taiTrenGit\XaydungungdungBanVeTauTaiNhaGAS\App_QuanLyBanVeTauTaiNhaGa_GoVap\src\Entity" />
-      <recent name="D:\btl_Java\taiTrenGit\XaydungungdungBanVeTauTaiNhaGAS\App_QuanLyBanVeTauTaiNhaGa_GoVap\src" />
-      <recent name="D:\btl_Java\taiTrenGit\XaydungungdungBanVeTauTaiNhaGAS\App_QuanLyBanVeTauTaiNhaGa_GoVap\src\GUI" />
-      <recent name="D:\btl_Java\taiTrenGit\XaydungungdungBanVeTauTaiNhaGAS\App_QuanLyBanVeTauTaiNhaGa_GoVap\src\Anh_HeThong" />
-      <recent name="D:\btl_Java\taiTrenGit\XaydungungdungBanVeTauTaiNhaGAS\App_QuanLyBanVeTauTaiNhaGa_GoVap\src\DAO" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="GUI" />
+      <recent name="T:\final\XaydungungdungBanVeTauTaiNhaGAS\App_QuanLyBanVeTauTaiNhaGa_GoVap\src\GUI" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.FrmNhanVien">
->>>>>>> c33726ba74ba5732c4587dc41698cb76600ffe12
-    <configuration name="FrmBanVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
+  <component name="RunManager" selected="Application.Loading (1)">
+    <configuration name="FrmDangNhap (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.FrmDangNhap" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
         <pattern>
@@ -98,8 +72,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FrmNhanVien" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.FrmNhanVien" />
+    <configuration name="FrmDangNhap_PV" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.FrmDangNhap_PV" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
         <pattern>
@@ -111,8 +85,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Frm_KhachHang" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.Frm_KhachHang" />
+    <configuration name="FrmDangNhap_PV" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.FrmDangNhap_PV" />
+      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FrmDangNhap_PV" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.FrmDangNhap_PV" />
+      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Loading (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.Loading" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
         <pattern>
@@ -139,56 +139,27 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.FrmNhanVien" />
-        <item itemvalue="Application.FrmBanVe" />
+        <item itemvalue="Application.Loading (1)" />
         <item itemvalue="Application.Loading" />
         <item itemvalue="Application.FrmDangNhap" />
-        <item itemvalue="Application.Frm_KhachHang" />
+        <item itemvalue="Application.FrmDangNhap_PV" />
+        <item itemvalue="Application.FrmDangNhap_PV" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
-        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="e75591dd-d21e-4cb4-80eb-258629c8c49b" name="Changes" comment="" />
-      <created>1729916753814</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1729916753814</updated>
-      <workItem from="1729916755296" duration="10229000" />
-      <workItem from="1729951040796" duration="816000" />
-      <workItem from="1729959706282" duration="131000" />
-<<<<<<< HEAD
-      <workItem from="1729965845997" duration="2101000" />
-      <workItem from="1730216932205" duration="1744000" />
-=======
-      <workItem from="1729965845997" duration="1850000" />
-      <workItem from="1730172561336" duration="3213000" />
-      <workItem from="1730183250894" duration="941000" />
->>>>>>> c33726ba74ba5732c4587dc41698cb76600ffe12
-    </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/GUI/Frm_KhachHang.java</url>
-          <line>526</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
