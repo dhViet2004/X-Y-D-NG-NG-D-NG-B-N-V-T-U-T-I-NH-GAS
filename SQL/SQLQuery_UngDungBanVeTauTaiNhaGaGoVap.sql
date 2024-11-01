@@ -318,6 +318,56 @@ INSERT INTO ChiTietHoaDon (MaVe, MaHD, SoLuong, VAT, ThanhTien, TenThue) VALUES
 ('SGNT100120241024095315-001', 'HD2024102409533459', 1, 0, 200000, 0);
 select * from ChiTietHoaDon
 
+select distinct MONTH(c.NgayHoaDon) as 'THÁNG', count(distinct a.TenKH) as 'SL' from VeTau a join ChiTietHoaDon b on a.MaVe=b.MaVe join HoaDon c on b.MaHD=c.MaHD where year(c.NgayHoaDon) = 2024
+group by c.NgayHoaDon, a.TenKH
+
+
+select  NgayHoaDon as 'Ngay', count(distinct MaKH) as 'SLKH'   from HoaDon where NgayHoaDon ='2024-10-24'
+group by NgayHoaDon
+
+select  NgayHoaDon as 'Ngay', count(distinct MaKH) as 'SLKH', count(distinct MaHD) as 'SLHD'   from HoaDon where NgayHoaDon ='2024-10-24'
+group by NgayHoaDon
+
+SELECT 
+    CASE DATEPART(WEEKDAY, NgayHoaDon)
+        WHEN 1 THEN N'Chủ nhật'
+        WHEN 2 THEN N'Thứ hai'
+        WHEN 3 THEN N'Thứ ba'
+        WHEN 4 THEN N'Thứ tư'
+        WHEN 5 THEN N'Thứ năm'
+        WHEN 6 THEN N'Thứ sáu'
+        WHEN 7 THEN N'Thứ bảy'
+    END AS NgayTrongTuan, 
+    COUNT(*) AS 'SLHD'
+FROM 
+    HoaDon
+WHERE 
+    YEAR(NgayHoaDon) = 2024
+GROUP BY 
+    DATEPART(WEEKDAY, NgayHoaDon)
+ORDER BY 
+    DATEPART(WEEKDAY, NgayHoaDon);
 
 
 
+WITH WeekDays AS (
+    SELECT N'Thứ hai' AS NgayTrongTuan, 2 AS Weekday
+    UNION ALL SELECT N'Thứ ba', 3
+    UNION ALL SELECT N'Thứ tư', 4
+    UNION ALL SELECT N'Thứ năm', 5
+    UNION ALL SELECT N'Thứ sáu', 6
+    UNION ALL SELECT N'Thứ bảy', 7
+    UNION ALL SELECT N'Chủ nhật', 1
+)
+SELECT 
+    wd.NgayTrongTuan,
+    COALESCE(COUNT(hd.NgayHoaDon), 0) AS SLKH
+FROM 
+    WeekDays wd
+LEFT JOIN 
+    HoaDon hd ON DATEPART(WEEKDAY, hd.NgayHoaDon) = wd.Weekday 
+    AND YEAR(hd.NgayHoaDon) = 2024-- Thay thế '?' bằng năm bạn muốn kiểm tra
+GROUP BY 
+    wd.NgayTrongTuan, wd.Weekday
+ORDER BY 
+    wd.Weekday;
