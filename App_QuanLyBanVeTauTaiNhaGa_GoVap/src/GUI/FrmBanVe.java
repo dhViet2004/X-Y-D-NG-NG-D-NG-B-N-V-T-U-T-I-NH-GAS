@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -188,7 +189,6 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
 
         btnRadio_MotChieu.setSelected(true);
 
-
     }
     public static void main(String[] args) {
         FrmBanVe frm = new FrmBanVe();
@@ -258,18 +258,18 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
                 JPanel choPanel = new JPanel();
                 choPanel.setLayout(new BoxLayout(choPanel, BoxLayout.Y_AXIS)); // Đặt layout theo chiều dọc
 
+                DecimalFormat decimalFormat = new DecimalFormat("#");
                 // Tạo JLabel hiển thị thông tin chỗ ngồi
-                JLabel choLabel = new JLabel("| Chỗ ngồi: " + choNgoi.getTenCho());
+                JLabel choLabel = new JLabel("| Chỗ ngồi: " + choNgoi.getTenCho()+ " | " + " Giá vé: "+decimalFormat.format(choNgoi.getGia())+"VND");
                 JLabel gaDiLabel = new JLabel("| Ga đi: " + tau.getTuyenTau().getDiaDiemDi() + "  | " + "Ga đến: " + tau.getTuyenTau().getGaDen());
                 JLabel ngayDiLabel = new JLabel("| Ngày đi: " + lichTrinhTau.getNgayDi() + " | " + "Giờ đi: " + lichTrinhTau.getGioDi());
-                choLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-                gaDiLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-                ngayDiLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+                choLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+                gaDiLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+                ngayDiLabel.setFont(new Font("Arial", Font.PLAIN, 16));
                 // Thêm các JLabel vào panel
                 choPanel.add(choLabel);
                 choPanel.add(gaDiLabel);
                 choPanel.add(ngayDiLabel);
-
                 // Tạo nút "Xóa"
                 JButton deleteButton = new JButton();
                 URL imageUrl = getClass().getResource("/Anh_HeThong/remove.png");
@@ -616,8 +616,6 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
                     // Thêm hiệu ứng hover
                     Color originalBackground = tauButton.getBackground(); // Lưu màu nền ban đầu
                     Color hoverBackground = new Color(250, 196, 58); // Màu nền khi hover
-
-
                 }
                 JPanelTau.revalidate(); // Cập nhật giao diện
                 JPanelTau.repaint();
@@ -628,14 +626,13 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
                 JOptionPane.showMessageDialog(this, "Bạn chưa chọn chỗ ngồi nào.");
                 return;
             }
-
             // Tạo cửa sổ mới để hiển thị danh sách chỗ ngồi đã chọn
             JDialog dialog = new JDialog(this, "Danh sách chỗ ngồi đã chọn", true);
             dialog.setSize(1050, 700); // Kích thước của cửa sổ
             dialog.setLocationRelativeTo(this); // Hiển thị ở giữa màn hình
 
             // Tạo tiêu đề các cột
-            String[] columnNames = {"Họ tên", "Thông tin chỗ ngồi", "Giá vé", "Giảm đối tượng", "Khuyến mại", "Thành tiền"};
+            String[] columnNames = {"Họ tên", "Thông tin chỗ ngồi", "Giá vé (VND)", "Giảm đối tượng", "Khuyến mại", "Thành tiền"};
 
             // Tạo mô hình bảng
             DefaultTableModel model = new DefaultTableModel(columnNames, 0);
@@ -650,6 +647,7 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
                 panel.setTrangThai("Chưa xác nhận", choNgoi.getGia());
                 panel.setCCCD("");
                 panel.setGiaVe(choNgoi.getGia());
+
 
                 danhSachPanel.add(panel); // Lưu lại panel này vào danh sách
 
@@ -858,8 +856,27 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
                     String cccdNguoiMua = txtCCCDNguoiMua.getText();
                     String soDienThoai = txtSoDienThoai.getText();
                     String diaChi = txtDiaChi.getText();
-
-// Kiểm tra xem thông tin đã được điền đầy đủ chưa
+                    for (int row = 0; row < table.getRowCount(); row++) {
+                        CustomPanel customPanel = (CustomPanel) table.getValueAt(row, 0);
+                        String hoTen = customPanel.getHoTen();
+                        String doiTuong = customPanel.getTrangThai();
+                        String cccd = customPanel.getCCCD();
+                        // Kiểm tra nếu thông tin còn thiếu
+                        if(doiTuong.equals("Trẻ nhỏ")){
+                            if (hoTen.isEmpty()) {
+                                JOptionPane.showMessageDialog(dialog,
+                                        "Vui lòng điền đầy đủ thông tin cho trẻ.");
+                                return; // Dừng nếu phát hiện thông tin không hợp lệ //đi
+                            }
+                        }else {
+                            if(hoTen.isEmpty()|| cccd.isEmpty()){
+                                JOptionPane.showMessageDialog(dialog,
+                                        "Vui lòng điền đầy đủ thông tin người đi.");
+                                return;
+                            }
+                        }
+                    }
+                    // Kiểm tra xem thông tin đã được điền đầy đủ chưa
                     if (hoTenNguoiMua.isEmpty() || cccdNguoiMua.isEmpty() || soDienThoai.isEmpty() || diaChi.isEmpty()) {
                         JOptionPane.showMessageDialog(dialog, "Vui lòng điền đầy đủ thông tin người mua.");
                         return;

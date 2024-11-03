@@ -4,19 +4,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.Period;
 
 public class CustomPanel extends JPanel {
     private JTextField txtHoTen;
     private JTextField txtCCCD;
     private JComboBox<String> cbTrangThai;
-    private float giaVe; // Biến để lưu giá vé
-    private double discount; // Biến để lưu giá trị giảm
+    private float giaVe;  // Lưu giá vé
+    private double discount;  // Lưu giảm giá
+    private LocalDate birthDate;  // Lưu ngày sinh của trẻ
 
     public CustomPanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         Dimension textFieldSize = new Dimension(150, 30);
 
+        // Panel nhập họ tên
         JPanel hoTenPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lblHoTen = new JLabel("Họ tên: ");
         txtHoTen = new JTextField(15);
@@ -24,6 +28,7 @@ public class CustomPanel extends JPanel {
         hoTenPanel.add(lblHoTen);
         hoTenPanel.add(txtHoTen);
 
+        // Panel chọn đối tượng (Người lớn, Sinh viên, Trẻ nhỏ)
         JPanel trangThaiPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lblTrangThai = new JLabel("Đối tượng:");
         cbTrangThai = new JComboBox<>(new String[]{"Người lớn", "Sinh viên", "Trẻ nhỏ"});
@@ -31,6 +36,7 @@ public class CustomPanel extends JPanel {
         trangThaiPanel.add(lblTrangThai);
         trangThaiPanel.add(cbTrangThai);
 
+        // Panel nhập CCCD
         JPanel cccdPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lblCCCD = new JLabel("CCCD:  ");
         txtCCCD = new JTextField(15);
@@ -38,44 +44,128 @@ public class CustomPanel extends JPanel {
         cccdPanel.add(lblCCCD);
         cccdPanel.add(txtCCCD);
 
+        // Thêm các panel vào CustomPanel
         add(hoTenPanel);
         add(trangThaiPanel);
         add(cccdPanel);
 
+        // Thêm sự kiện cho JComboBox đối tượng
         cbTrangThai.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updateGiaVe(giaVe); // Cập nhật giá vé và giảm khi lựa chọn thay đổi
-                System.out.println("Trạng thái: " + cbTrangThai.getSelectedItem());
-                System.out.println("Giá vé: " + giaVe);
-                System.out.println("Giảm giá: " + discount);
+                String selectedItem = (String) cbTrangThai.getSelectedItem();
+                if ("Trẻ nhỏ".equals(selectedItem)) {
+                    showBirthdateDialog();  // Hiển thị hộp thoại nhập ngày sinh
+                } else {
+                    txtCCCD.setEnabled(true);  // Mở khóa trường CCCD
+                }
+                updateGiaVe(giaVe);  // Cập nhật giá vé và giảm giá
 
-                // Lấy bảng và hàng hiện tại để cập nhật
+                // Cập nhật giá trị trên bảng nếu có
                 JTable table = (JTable) SwingUtilities.getAncestorOfClass(JTable.class, CustomPanel.this);
                 if (table != null) {
-                    int row = table.getEditingRow(); // Lấy dòng hiện tại
-                    table.getModel().setValueAt(discount, row, 3); // Cập nhật cột "Giảm đối tượng"
-                    table.getModel().setValueAt(giaVe - discount, row, 5); // Cập nhật cột "Thành tiền"
-                    table.revalidate(); // Làm mới bảng để hiển thị thay đổi
+                    int row = table.getEditingRow();
+                    table.getModel().setValueAt(discount, row, 3);  // Cập nhật cột "Giảm đối tượng"
+                    table.getModel().setValueAt(giaVe - discount, row, 5);  // Cập nhật cột "Thành tiền"
+                    table.revalidate();
                 }
             }
         });
     }
 
+    // Hiển thị hộp thoại nhập ngày sinh với JComboBox
+    private void showBirthdateDialog() {
+        JComboBox<Integer> cbNgay = new JComboBox<>();
+        JComboBox<Integer> cbThang = new JComboBox<>();
+        JComboBox<Integer> cbNam = new JComboBox<>();
+
+        // Thêm giá trị cho ngày (1-31)
+        for (int i = 1; i <= 31; i++) {
+            cbNgay.addItem(i);
+        }
+
+        // Thêm giá trị cho tháng (1-12)
+        for (int i = 1; i <= 12; i++) {
+            cbThang.addItem(i);
+        }
+
+        // Thêm giá trị cho năm (2000 - năm hiện tại)
+        int currentYear = LocalDate.now().getYear();
+        for (int i = 2000; i <= currentYear; i++) {
+            cbNam.addItem(i);
+        }
+
+        // Panel chứa các JComboBox
+        JPanel panel = new JPanel(new FlowLayout());
+        panel.add(new JLabel("Ngày:"));
+        panel.add(cbNgay);
+        panel.add(Box.createHorizontalStrut(15));
+        panel.add(new JLabel("Tháng:"));
+        panel.add(cbThang);
+        panel.add(Box.createHorizontalStrut(15));
+        panel.add(new JLabel("Năm:"));
+        panel.add(cbNam);
+
+        // Hiển thị hộp thoại nhập ngày sinh
+        int result = JOptionPane.showConfirmDialog(
+                this, panel, "Nhập ngày sinh của trẻ", JOptionPane.OK_CANCEL_OPTION);
+
+        if (result == JOptionPane.OK_OPTION) {
+            int ngay = (int) cbNgay.getSelectedItem();
+            int thang = (int) cbThang.getSelectedItem();
+            int nam = (int) cbNam.getSelectedItem();
+            System.out.println("Ngày sinh: " + ngay + "/" + thang + "/" + nam);
+
+            // Lưu ngày sinh
+            birthDate = LocalDate.of(nam, thang, ngay);
+
+            // Kiểm tra và tính tuổi
+            int tuoi = tinhTuoi();
+            System.out.println("Tuổi của trẻ: " + tuoi);
+
+            if (tuoi >= 12) {
+                JOptionPane.showMessageDialog(this, "Trẻ lớn hơn 12 tuổi, không đủ điều kiện vé trẻ nhỏ!");
+                cbTrangThai.setSelectedItem("Người lớn");
+            } else if(tuoi <=6){
+                JOptionPane.showMessageDialog(this,"Trẻ nhỏ hơn 6 tuổi không cần mua vé.Vui lòng xóa vé hoặc chọn lại đối tượng");
+                cbTrangThai.setSelectedItem("Người lớn");
+            }else {
+                txtHoTen.setEnabled(true);
+                txtCCCD.setText("");
+                txtCCCD.setEnabled(false);
+            }
+        }
+    }
+
+    // Phương thức tính tuổi
+    private int tinhTuoi() {
+        if (birthDate == null) {
+            return 0; // Nếu chưa có ngày sinh, trả về 0
+        }
+        LocalDate currentDate = LocalDate.now();
+        return Period.between(birthDate, currentDate).getYears();
+    }
+
+    // Getter cho tuổi
+    public int getTuoi() {
+        return tinhTuoi(); // Gọi phương thức tính tuổi
+    }
+
+    // Cập nhật giá vé và giảm giá dựa trên đối tượng
     public void updateGiaVe(float giaVe) {
         String selectedItem = (String) cbTrangThai.getSelectedItem();
         switch (selectedItem) {
             case "Người lớn":
-                setGiaVe(giaVe); // Giá cho người lớn
-                discount = 0; // Không có giảm
+                setGiaVe(giaVe);
+                discount = 0;
                 break;
             case "Sinh viên":
-                setGiaVe(giaVe); // Giá cho sinh viên (giá gốc)
-                discount = 90000; // Giảm 90,000 cho sinh viên
+                setGiaVe(giaVe);
+                discount = 0.1* getGiaVe();
                 break;
             case "Trẻ nhỏ":
-                setGiaVe(giaVe); // Giá cho trẻ nhỏ (giá gốc)
-                discount = 0.5 * getGiaVe(); // Giảm 50% cho trẻ nhỏ
+                setGiaVe(giaVe);
+                discount = 0.25 * getGiaVe();
                 break;
             default:
                 setGiaVe(0);
@@ -84,6 +174,7 @@ public class CustomPanel extends JPanel {
         }
     }
 
+    // Getter và Setter cho các thuộc tính
     public String getHoTen() {
         return txtHoTen.getText();
     }
@@ -98,7 +189,7 @@ public class CustomPanel extends JPanel {
 
     public void setTrangThai(String trangThai, Float giaVe) {
         cbTrangThai.setSelectedItem(trangThai);
-        updateGiaVe(giaVe); // Cập nhật giá vé khi thay đổi trạng thái
+        updateGiaVe(giaVe);
     }
 
     public String getCCCD() {
@@ -118,6 +209,6 @@ public class CustomPanel extends JPanel {
     }
 
     public double getDiscount() {
-        return discount; // Thêm phương thức getter cho discount
+        return discount;
     }
 }
