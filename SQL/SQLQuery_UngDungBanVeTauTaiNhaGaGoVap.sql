@@ -371,3 +371,5 @@ GROUP BY
     wd.NgayTrongTuan, wd.Weekday
 ORDER BY 
     wd.Weekday;
+
+	select * from KhuyenMai where  ThoiGianBatDau <= '2024-09-30' and ThoiGianKetThuc >= '2024-09-30' and DoiTuongApDung = N'Tất cả khách hàng'

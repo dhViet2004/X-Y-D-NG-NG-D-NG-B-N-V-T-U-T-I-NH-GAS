@@ -85,6 +85,30 @@ public class DAO_KhuyenMai {
         return ds;
     }
 
+    public List<KhuyenMai> timKMTheoThoiGianApDung_DoiTuongApDung(LocalDate date,String doiTuong) throws SQLException {
+        DAO_KhuyenMai dao_khuyenMai = new DAO_KhuyenMai();
+        String sql = "select * from KhuyenMai where  ThoiGianBatDau <= ? and ThoiGianKetThuc >= ? and DoiTuongApDung = ?";
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        List<Entity.KhuyenMai> ds = new ArrayList<>();
+        Entity.KhuyenMai km = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setDate(1, Date.valueOf(date));
+            ps.setDate(2, Date.valueOf(date));
+            ps.setString(3, doiTuong);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                km = new Entity.KhuyenMai(rs.getString(1), rs.getDate(2).toLocalDate(), rs.getDate(3).toLocalDate(), rs.getString(4), rs.getDouble(5), rs.getString(6));
+                ds.add(km);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return ds;
+    }
+
     // xóa km theo mã
     public boolean xoaKMTheoMa(String ma) throws SQLException {
         String sql = "delete from KhuyenMai where MaKM = ?";
@@ -94,17 +118,16 @@ public class DAO_KhuyenMai {
         return ps.executeUpdate() > 0;
 
     }
-    public static void main(String[] args) {
-        DAO_KhachHang dao_khachHang= null;
-        List<KhachHang> ds = new ArrayList<>();
+    public static void main(String[] args) throws SQLException {
+        DAO_KhuyenMai dao= new DAO_KhuyenMai();
+        List<KhuyenMai> ds = new ArrayList<>();
         try {
-             dao_khachHang = new DAO_KhachHang();
-             ds = dao_khachHang.getAllList();
+             ds = dao.timKMTheoThoiGianApDung_DoiTuongApDung(LocalDate.of(2024,9,30),"Tất cả khách hàng");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        for (KhachHang khachHang : ds) {
+        for (KhuyenMai khachHang : ds) {
             System.out.println(khachHang.toString());
         }
     }
