@@ -31,6 +31,7 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
     private final JButton btnQuanLyChuyenTau;
     private final JButton btnQuanLyKhuyenMai;
     private final JButton btnQuanLyDoanhThu;
+    private final JButton btnThongKeKhachHang;
     private JPanel contain;
     private JPanel JPanel_Menu;
     private JPanel Jpanel_Main;
@@ -79,6 +80,7 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
     Component khuyenMaiPanel = new FrmKhuyenMai().getKMPanel();
     Component khachHangPanel = new Frm_KhachHang().getKHPanel();
     Component nhanVienPanel = new FrmNhanVien().getJpannelNV();
+    Component soLuongKHPanel = new Frm_ThongKeKhachHang().getTKKHPanel();
     private List<LoaiKhachHang> danhSachLoaiKH = new ArrayList<>();
     private KhuyenMai khuyenMai = null;
     private Double chietKhau = 0.0;
@@ -115,6 +117,7 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
         btnTraCuu = createButton("Tra cứu");
         btnQuanLyKhachHang = createButton("Quản lý khách hàng");
         btnThongKeTheoCa = createButton("Thống kê theo ca");
+        btnThongKeKhachHang = createButton("Thống kê số lượng khách hàng");
         btnQuanLyChuyenTau = createButton("Quản lý chuyến tàu");
         btnQuanLyKhuyenMai = createButton("Quản lý chương trình khuyến mãi");
         btnQuanLyDoanhThu = createButton("Quản lý doanh thu");
@@ -125,7 +128,7 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
         Font fontMenu = new Font("Arial", Font.PLAIN, 16); // Đặt font chung cho tất cả các nút
 
         // Định dạng cho từng nút
-        JButton[] buttons = {btnBanVe, btnTraCuu, btnThongKeTheoCa, btnQuanLyChuyenTau, btnQuanLyKhachHang, btnQuanLyKhuyenMai, btnQuanLyDoanhThu, btnQuanLyNhanVien};
+        JButton[] buttons = {btnBanVe, btnTraCuu,btnThongKeKhachHang, btnThongKeTheoCa, btnQuanLyChuyenTau, btnQuanLyKhachHang, btnQuanLyKhuyenMai, btnQuanLyDoanhThu, btnQuanLyNhanVien};
         for (JButton btn : buttons) {
             btn.setPreferredSize(buttonSize); // Đặt kích thước cố định cho nút
             btn.setFont(fontMenu); // Đặt font
@@ -170,6 +173,7 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
 
         btnBanVe.addActionListener(this);
         btnTraCuu.addActionListener(this);
+        btnThongKeKhachHang.addActionListener(this);
         btnThongKeTheoCa.addActionListener(this);
         btnQuanLyChuyenTau.addActionListener(this);
         btnQuanLyKhuyenMai.addActionListener(this);
@@ -1020,6 +1024,18 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
             lab_Title.setVisible(false);
             JPanel_BanVe.setVisible(false);
             Jpanel_Main.add(nhanVienPanel);
+            Jpanel_Main.setVisible(true);
+
+            // Cập nhật lại giao diện người dùng
+            Jpanel_Main.revalidate(); // Cập nhật layout
+            Jpanel_Main.repaint();    //
+        }else if (e.getSource() == btnThongKeKhachHang) {
+            Jpanel_Main.removeAll();
+            current = (JPanel) soLuongKHPanel;
+            JPanel_XacNhanCho.setVisible(false);
+            lab_Title.setVisible(false);
+            JPanel_BanVe.setVisible(false);
+            Jpanel_Main.add(soLuongKHPanel);
             Jpanel_Main.setVisible(true);
 
             // Cập nhật lại giao diện người dùng
