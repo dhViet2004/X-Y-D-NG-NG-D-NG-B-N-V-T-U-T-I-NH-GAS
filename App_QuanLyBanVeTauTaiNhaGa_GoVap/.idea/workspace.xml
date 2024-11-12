@@ -5,24 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ff471ead-ac5a-46b6-a412-fe6c56748656" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/jfreechart_1_5_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Anh_HeThong/clock.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Anh_HeThong/customer.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Anh_HeThong/invoice.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GUI/Frm_ThongKeKhachHang.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GUI/Frm_ThongKeKhachHang.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/sqljdbc42.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/thuvienpoi/commons-codec-1.11.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/thuvienpoi/commons-collections4-4.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/thuvienpoi/commons-compress-1.18.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/thuvienpoi/jfreechart-1.5.5.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/thuvienpoi/poi-4.0.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/thuvienpoi/poi-ooxml-4.0.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/thuvienpoi/poi-ooxml-schemas-4.0.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/thuvienpoi/xmlbeans-3.0.2.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/DAO_HoaDon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DAO_HoaDon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SQL/SQLQuery_UngDungBanVeTauTaiNhaGaGoVap.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../SQL/SQLQuery_UngDungBanVeTauTaiNhaGaGoVap.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,29 +15,29 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2oKp0tcmaQCAdXfFLLweiz5kOKK" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.FrmBanVe.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "T:/final/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap/jar Libraries/flatlaf-3.2.5.jar",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "two.files.diff.last.used.folder": "T:/final/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap/jar Libraries/flatlaf-3.2.5.jar",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.FrmBanVe.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;T:/Làm đồ áo dạo/Đồ án/NguyenVoTruongToan_s3979056_COSC2440_asm1 (2)&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;two.files.diff.last.used.folder&quot;: &quot;T:/final/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap/jar Libraries/flatlaf-3.2.5.jar&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="FrmBanVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
@@ -78,8 +61,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
       </set>
     </attachedChunks>
   </component>
@@ -91,7 +74,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1730627902591</updated>
-      <workItem from="1730627903960" duration="325000" />
+      <workItem from="1730627903960" duration="792000" />
+      <workItem from="1730628846724" duration="1942000" />
+      <workItem from="1731226225495" duration="720000" />
+      <workItem from="1731250000441" duration="133000" />
+      <workItem from="1731288683755" duration="1000" />
     </task>
     <servers />
   </component>
