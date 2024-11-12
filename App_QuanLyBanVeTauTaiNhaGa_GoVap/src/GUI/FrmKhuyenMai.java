@@ -112,11 +112,12 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
         Jpanel_Right.add(JPanel_Right_Top, BorderLayout.CENTER);
         Jpanel_Right.add(JPanel_Right_Bottom, BorderLayout.NORTH);
         // tạo một title border cho panel chứa ds hóa đơn
-        TitledBorder dshd = BorderFactory.createTitledBorder("Hóa đơn trong ngày");
+        TitledBorder dshd = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(colorXanhDam),"Hóa đơn trong ngày");
         dshd.setTitleJustification(TitledBorder.LEFT);
         dshd.setTitlePosition(TitledBorder.TOP);
-        Font font = new Font("Courier New", Font.BOLD, 18);
+        Font font = new Font("Courier New", Font.ITALIC|Font.BOLD, 18);
         dshd.setTitleFont(font);
+        dshd.setTitleColor(Color.red);
         // set border cho Right_Top
         JPanel_Right_Top.setBorder(dshd);
         JPanel_Right_Top.setLayout(new BorderLayout());
@@ -129,13 +130,14 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
         JPanel_Right_Top.add(jScrollPane, BorderLayout.CENTER);
 
         // tạo title border cho right-bottom
-        TitledBorder dskm = BorderFactory.createTitledBorder("Danh sách chương trình khuyến mãi");
+        TitledBorder dskm = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(colorXanhDam),"Danh sách chương trình khuyến mãi");
         dskm.setTitleJustification(TitledBorder.LEFT);
         dskm.setTitlePosition(TitledBorder.TOP);
         // set bordet cho right-bottom
         JPanel_Right_Bottom.setBorder(dskm);
-        Font font2 = new Font("Courier New", Font.BOLD, 18);
+        Font font2 = new Font("Courier New", Font.BOLD|Font.ITALIC, 18);
         dskm.setTitleFont(font);
+        dskm.setTitleColor(Color.red);
         JPanel_Right_Bottom.setPreferredSize(new Dimension(0, (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.5)));
 
         // set cho JPanel_Right là borderlayout

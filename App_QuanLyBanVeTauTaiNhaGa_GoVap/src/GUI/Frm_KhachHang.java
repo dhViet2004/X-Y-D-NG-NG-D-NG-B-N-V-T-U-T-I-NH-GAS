@@ -198,10 +198,10 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
         box_rightleft.add(line3);
 
         // RIGHT_TOP:  title border là thông tin khách hàng, box_righttop chứa các dòng thông tin khách hàng
-        TitledBorder titledBorder_righttop = BorderFactory.createTitledBorder("Thông tin khách hàng");
-        Font font = new Font("Courier New", Font.BOLD, 18);
+        TitledBorder titledBorder_righttop = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(colorXanhDam),"Thông tin khách hàng");
+        Font font = new Font("Courier New", Font.BOLD|Font.ITALIC, 18);
         titledBorder_righttop.setTitleFont(font);
-        titledBorder_righttop.setTitleColor(btnTextColor);
+        titledBorder_righttop.setTitleColor(Color.red);
         JPanel_Right_Top.setBorder(titledBorder_righttop);
         // thêm từng dòng vô box_righttop
         Box tieuDe = Box.createVerticalBox();
