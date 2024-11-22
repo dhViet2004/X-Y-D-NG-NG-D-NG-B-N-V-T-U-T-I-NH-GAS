@@ -1,3 +1,4 @@
+
 package GUI;
 
 import DAO.DAO_BanVe;
@@ -17,22 +18,45 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.*;
 
-public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
+public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
+
     private final JButton btnBanVe;
-    private final JButton btnTraCuu;
+    private JButton btnTraCuu;
+    private final JButton btnQuanLyVe;
     private final JButton btnThongKeTheoCa;
-    private final JButton btnQuanLyKhachHang;
-    private final JButton btnQuanLyNhanVien;
     private final JButton btnQuanLyChuyenTau;
+    private final JButton btnQuanLyKhachHang;
     private final JButton btnQuanLyKhuyenMai;
     private final JButton btnQuanLyDoanhThu;
-    private final JButton btnThongKeKhachHang;
-    private final JButton btnTraCuuKhuyenMai;
+    private final JButton btnQuanLyNhanVien;
+
+    // quản lý vé
+    private JMenuItem doiVe = new JMenuItem();
+    private JMenuItem traVe = new JMenuItem();
+    // quản lý doanh thu
+    private JMenuItem tk_tl_DoiTraVe = new JMenuItem();
+    private JMenuItem tk_slkh = new JMenuItem();
+    private JMenuItem tk_sl_Ve = new JMenuItem();
+    private JMenuItem tk_DoanhThu_BanVe = new JMenuItem();
+    private JMenuItem taoBaoCao = new JMenuItem();
+    // tra cứu
+    private JMenuItem traCuuVe = new JMenuItem();
+    private JMenuItem traCuuKM = new JMenuItem();
+    private JMenuItem traCuuKH = new JMenuItem();
+    private JMenuItem traCuuHoaDon = new JMenuItem();
+    private JMenuItem traCuuTuyen = new JMenuItem();
+    private JMenuItem traCuuLTT = new JMenuItem();
+
+    private final Font fontMenu;
+    private final Font font_text;
+    private final Font font_text_2;
+    private final Font font_text_3;
+    private final Color colorXanhDam;
+    //------------------------------------------------------------------------------------------------------------//
     private JPanel contain;
     private JPanel JPanel_Menu;
     private JPanel Jpanel_Main;
@@ -85,7 +109,6 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
     Component traCuuKMPanel = new Frm_TraCuuKhuyenMai().getTraCuuKM_Panel();
 
 
-
     private List<LoaiKhachHang> danhSachLoaiKH = new ArrayList<>();
     private KhuyenMai khuyenMai = null;
     private Double chietKhau = 0.0;
@@ -96,10 +119,12 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
         temp = Jpanel_Main;
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         add(contain);
-
+        font_text = new Font("Arial", Font.BOLD, 30);
+        font_text_2 = new Font("Arial", Font.PLAIN, 15);
+        font_text_3 = new Font("Arial", Font.PLAIN, 25);
         // MENU
         JPanel_Menu.setLayout(new BoxLayout(JPanel_Menu, BoxLayout.Y_AXIS));
-        Color colorXanhDam = new Color(0, 131, 66);
+        colorXanhDam = new Color(0, 131, 66);
         JPanel_Menu.setBackground(colorXanhDam); // Màu nền của MENU
         add(JPanel_Menu, BorderLayout.WEST);
 
@@ -117,30 +142,38 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
         // Thêm khoảng cách giữa logo và menu
         JPanel_Menu.add(Box.createRigidArea(new Dimension(0, 20))); // Khoảng cách dọc (10px)
 
-        // Tạo các nút cho từng phần quản lý
-        btnBanVe = createButton("Bán vé");
-        btnTraCuu = createButton("Tra cứu");
-        btnQuanLyKhachHang = createButton("Quản lý khách hàng");
-        btnThongKeTheoCa = createButton("Thống kê theo ca");
-        btnThongKeKhachHang = createButton("Thống kê số lượng khách hàng");
-        btnTraCuuKhuyenMai = createButton("Tra cứu khuyến mãi");
-        btnQuanLyChuyenTau = createButton("Quản lý chuyến tàu");
-        btnQuanLyKhuyenMai = createButton("Quản lý chương trình khuyến mãi");
-        btnQuanLyDoanhThu = createButton("Quản lý doanh thu");
-        btnQuanLyNhanVien = createButton("Quản lý nhân viên");
+        btnBanVe = createButton("Bán vé", null);
+        btnTraCuu = createButton("Tra cứu", null);
+        ImageIcon downArrowIcon = new ImageIcon(getClass().getResource("/Anh_HeThong/down-chevron.png"));
+        // lấy ảnh từ icon
+        Image imgArrow = downArrowIcon.getImage();
+        // chỉnh kích thước
+        Image scaleArrow = imgArrow.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        // tại icon mới từ ảnh đã sửa
+        ImageIcon iconArrowNew = new ImageIcon(scaleArrow);
+        // Gán icon vào nút lọc
+        btnTraCuu = createButton("Tra cứu", iconArrowNew);
+        // Điều chỉnh vị trí của icon nếu cần
+        btnTraCuu.setHorizontalTextPosition(SwingConstants.LEFT); // Đặt text bên phải của icon
+        btnQuanLyVe = createButton("Quản lý vé", iconArrowNew);
+        btnThongKeTheoCa = createButton("Doanh thu theo ca", null);
+        btnQuanLyChuyenTau = createButton("Quản lý chuyến tàu", null);
+        btnQuanLyKhachHang = createButton("Quản lý khách hàng", null);
+        btnQuanLyKhuyenMai = createButton("Quản lý CTKM", null);
+        btnQuanLyDoanhThu = createButton("Quản lý doanh thu", iconArrowNew);
+        btnQuanLyNhanVien = createButton("Quản lý nhân viên", null);
 
         // Format nút với cùng kích thước, phông chữ và căn chỉnh
         Dimension buttonSize = new Dimension(200, 60); // Tăng kích thước chiều cao của nút lên 60px
-        Font fontMenu = new Font("Arial", Font.PLAIN, 16); // Đặt font chung cho tất cả các nút
+        fontMenu = new Font("Arial", Font.PLAIN, 16); // Đặt font chung cho tất cả các nút
 
         // Định dạng cho từng nút
-        JButton[] buttons = {btnBanVe, btnTraCuu,btnThongKeKhachHang, btnThongKeTheoCa, btnQuanLyChuyenTau, btnQuanLyKhachHang, btnQuanLyKhuyenMai,btnTraCuuKhuyenMai, btnQuanLyDoanhThu, btnQuanLyNhanVien};
+        JButton[] buttons = {btnBanVe, btnTraCuu, btnQuanLyVe, btnThongKeTheoCa, btnQuanLyChuyenTau, btnQuanLyKhachHang, btnQuanLyKhuyenMai, btnQuanLyDoanhThu, btnQuanLyNhanVien};
         for (JButton btn : buttons) {
             btn.setPreferredSize(buttonSize); // Đặt kích thước cố định cho nút
             btn.setFont(fontMenu); // Đặt font
             btn.setHorizontalAlignment(SwingConstants.CENTER); // Căn giữa text trên nút
             btn.setAlignmentX(Component.CENTER_ALIGNMENT); // Căn giữa nút trong JPanel_Menu
-            setMaximumSize(buttonSize);
             JPanel_Menu.add(Box.createRigidArea(new Dimension(0, 10))); // Thêm khoảng cách giữa các nút (10px)
             JPanel_Menu.add(btn); // Thêm nút vào JPanel_Menu
         }
@@ -177,16 +210,27 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
         btnTiepTheo.addActionListener(this);
 
 
+        // thêm sự kiện cho các nút có chức năng con
         btnBanVe.addActionListener(this);
-        btnTraCuu.addActionListener(this);
-        btnThongKeKhachHang.addActionListener(this);
+        btnTraCuu.addActionListener(e -> {
+            showPopupMenu_TraCuu(e); // Hiển thị menu con
+            addButtonAction(btnTraCuu); // Thực hiện thay đổi màu sắc nút
+        });
         btnThongKeTheoCa.addActionListener(this);
         btnQuanLyChuyenTau.addActionListener(this);
-        btnQuanLyKhuyenMai.addActionListener(this);
-        btnTraCuuKhuyenMai.addActionListener(this);
+        btnQuanLyVe.addActionListener(e -> {
+            showPopupMenu_QLVe(e); // Hiển thị menu con
+            addButtonAction(btnQuanLyVe); // Thực hiện thay đổi màu sắc nút
+        });
         btnQuanLyKhachHang.addActionListener(this);
-        btnQuanLyDoanhThu.addActionListener(this);
+        btnQuanLyKhuyenMai.addActionListener(this);
+        btnQuanLyDoanhThu.addActionListener(e -> {
+            showPopupMenu_QLDT(e); // Hiển thị menu con
+            addButtonAction(btnQuanLyDoanhThu); // Thực hiện thay đổi màu sắc nút
+        });
         btnQuanLyNhanVien.addActionListener(this);
+
+
         btnRadio_MotChieu.addItemListener((ItemListener) this);
         btnRadio_KhuHoi.addItemListener((ItemListener) this);
         // Lấy thời gian hiện tại
@@ -201,11 +245,13 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
         btnRadio_MotChieu.setSelected(true);
 
     }
+
     public static void main(String[] args) {
         FrmBanVe frm = new FrmBanVe();
         frm.setVisible(true);
 
     }
+
     // Phương thức để vô hiệu hóa hoặc kích hoạt toàn bộ các thành phần con của JPanel
     private void setPanelEnabled(JPanel panel, boolean isEnabled) {
         for (Component component : panel.getComponents()) {
@@ -233,26 +279,171 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
     }
 
     // CREATE A BUTTON
-    private JButton createButton(String text) {
+    private JButton createButton(String text, ImageIcon icon) {
         JButton button = new JButton(text);
         button.setFont(new Font("Arial", Font.BOLD, 20)); // Đặt font
         button.setPreferredSize(new Dimension(200, 60)); // Kích thước nút
         button.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60)); // Chiếm hết chiều ngang
         button.setAlignmentX(Component.CENTER_ALIGNMENT); // Căn giữa nút
         button.setBackground(Color.cyan); // Màu nền
-//        button.setOpaque(false); // Làm cho nền trong suốt
         button.setForeground(Color.white); // Màu chữ
         button.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(Color.WHITE, 1), // Viền trắng
                 BorderFactory.createEmptyBorder(0, 0, 0, 0) // Padding nếu cần
         ));
-//        button.setContentAreaFilled(false);
         button.setFocusPainted(false);
         button.setOpaque(false);
-//        button.setBorderPainted(false); // Tắt viền nút
-//        button.setFocusable(false); // Tắt chế độ focus
+
+        if (icon != null) {
+            button.setIcon(icon); // Thiết lập biểu tượng nếu có
+            button.setHorizontalTextPosition(SwingConstants.LEFT); // Đặt text bên phải của icon
+            button.setIconTextGap(10); // Khoảng cách giữa icon và văn bản
+        }
+
         return button;
     }
+
+
+    // Phương thức hiển thị menu con khi click vào nút "Tra cứu"
+    private void showPopupMenu_TraCuu(ActionEvent e) {
+        JPopupMenu popupMenu = new JPopupMenu();
+
+        // Tạo các menu items
+        traCuuVe = new JMenuItem("Tra cứu vé");
+        traCuuVe.setFont(fontMenu);
+        traCuuVe.setForeground(Color.white);
+        traCuuVe.setBackground(colorXanhDam);
+        traCuuVe.addActionListener(this);
+
+        traCuuKM = new JMenuItem("Tra cứu khuyến mãi");
+        traCuuKM.setFont(fontMenu);
+        traCuuKM.setForeground(Color.white);
+        traCuuKM.setBackground(colorXanhDam);
+        traCuuKM.addActionListener(this);
+
+        traCuuHoaDon = new JMenuItem("Tra cứu hóa đơn");
+        traCuuHoaDon.setFont(fontMenu);
+        traCuuHoaDon.setForeground(Color.white);
+        traCuuHoaDon.setBackground(colorXanhDam);
+        traCuuHoaDon.addActionListener(this);
+
+        traCuuKH = new JMenuItem("Tra cứu khách hàng");
+        traCuuKH.setFont(fontMenu);
+        traCuuKH.setForeground(Color.white);
+        traCuuKH.setBackground(colorXanhDam);
+        traCuuKH.addActionListener(this);
+
+        traCuuTuyen = new JMenuItem("Tra cứu tuyến");
+        traCuuTuyen.setFont(fontMenu);
+        traCuuTuyen.setForeground(Color.white);
+        traCuuTuyen.setBackground(colorXanhDam);
+
+        traCuuLTT = new JMenuItem("Tra cứu lịch trình tàu");
+        traCuuLTT.setFont(fontMenu);
+        traCuuLTT.setForeground(Color.white);
+        traCuuLTT.setBackground(colorXanhDam);
+        traCuuLTT.addActionListener(this);
+
+
+        // Thêm các menu item vào JPopupMenu
+        popupMenu.setBackground(Color.WHITE);
+        popupMenu.add(traCuuVe);
+        popupMenu.add(traCuuKM);
+        popupMenu.add(traCuuHoaDon);
+        popupMenu.add(traCuuKH);
+        popupMenu.add(traCuuTuyen);
+        popupMenu.add(traCuuLTT);
+        popupMenu.setPreferredSize(new Dimension(200, 240));
+
+        // Lấy đối tượng nguồn của sự kiện (nút "Tra cứu")
+        JButton sourceButton = (JButton) e.getSource();
+
+        // Hiển thị menu con tại vị trí bên phải của nút
+        popupMenu.show(sourceButton, sourceButton.getWidth(), 0); // Hiển thị menu bên phải nút
+    }
+
+    // Phương thức hiển thị menu con khi click vào nút "Quản lý doanh thu";
+    private void showPopupMenu_QLDT(ActionEvent e) {
+        JPopupMenu popupMenu = new JPopupMenu();
+
+        // Tạo các menu items
+        tk_DoanhThu_BanVe = new JMenuItem("Thống kê doanh thu bán vé");
+        tk_DoanhThu_BanVe.setFont(fontMenu);
+        tk_DoanhThu_BanVe.setForeground(Color.white);
+        tk_DoanhThu_BanVe.setBackground(colorXanhDam);
+        tk_DoanhThu_BanVe.addActionListener(this);
+
+        tk_slkh = new JMenuItem("Thống kê khách hàng");
+        tk_slkh.addActionListener(this);
+        tk_slkh.setFont(fontMenu);
+        tk_slkh.setForeground(Color.white);
+        tk_slkh.setBackground(colorXanhDam);
+        tk_slkh.addActionListener(this);
+
+        tk_sl_Ve = new JMenuItem("Thống kê số lượng vé");
+        tk_sl_Ve.setFont(fontMenu);
+        tk_sl_Ve.setForeground(Color.white);
+        tk_sl_Ve.setBackground(colorXanhDam);
+        tk_sl_Ve.addActionListener(this);
+
+        tk_tl_DoiTraVe = new JMenuItem("Thống kê tỉ lệ đổi trả vé");
+        tk_tl_DoiTraVe.setFont(fontMenu);
+        tk_tl_DoiTraVe.setForeground(Color.white);
+        tk_tl_DoiTraVe.setBackground(colorXanhDam);
+        tk_tl_DoiTraVe.addActionListener(this);
+
+        taoBaoCao = new JMenuItem("Tạo báo cáo doanh thu");
+        taoBaoCao.setFont(fontMenu);
+        taoBaoCao.setForeground(Color.white);
+        taoBaoCao.setBackground(colorXanhDam);
+        taoBaoCao.addActionListener(this);
+
+
+        // Thêm các menu item vào JPopupMenu
+        popupMenu.setBackground(Color.WHITE);
+        popupMenu.add(tk_sl_Ve);
+        popupMenu.add(tk_tl_DoiTraVe);
+        popupMenu.add(tk_slkh);
+        popupMenu.add(tk_DoanhThu_BanVe);
+        popupMenu.add(taoBaoCao);
+        popupMenu.setPreferredSize(new Dimension(200, 200));
+        // Lấy đối tượng nguồn của sự kiện (nút "Tra cứu")
+        JButton sourceButton = (JButton) e.getSource();
+
+        // Hiển thị menu con tại vị trí bên phải của nút
+        popupMenu.show(sourceButton, sourceButton.getWidth(), 0); // Hiển thị menu bên phải nút
+    }
+
+    // phuong thức hiển thị menu con khi click vào nút "Quản lý v"
+    private void showPopupMenu_QLVe(ActionEvent e) {
+        JPopupMenu popupMenu = new JPopupMenu();
+
+        // Tạo các menu items
+        doiVe = new JMenuItem("Đổi vé");
+        doiVe.setFont(fontMenu);
+        doiVe.setForeground(Color.white);
+        doiVe.setBackground(colorXanhDam);
+        doiVe.addActionListener(this);
+
+
+        traVe = new JMenuItem("Trả vé");
+        traVe.setFont(fontMenu);
+        traVe.setForeground(Color.white);
+        traVe.setBackground(colorXanhDam);
+        traVe.addActionListener(this);
+
+        // Thêm các menu item vào JPopupMenu
+        popupMenu.setBackground(Color.WHITE);
+        popupMenu.add(doiVe);
+        popupMenu.add(traVe);
+        popupMenu.setPreferredSize(new Dimension(200, 80));
+        // Lấy đối tượng nguồn của sự kiện (nút "Tra cứu")
+        JButton sourceButton = (JButton) e.getSource();
+
+        // Hiển thị menu con tại vị trí bên phải của nút
+        popupMenu.show(sourceButton, sourceButton.getWidth(), 0); // Hiển thị menu bên phải nút
+    }
+
 
     private void updateConfirmationPanel(LichTrinhTau lichTrinhTau) throws SQLException {
         JPanel_XacNhanCho.removeAll(); // Xóa nội dung cũ
@@ -271,7 +462,7 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
 
                 DecimalFormat decimalFormat = new DecimalFormat("#");
                 // Tạo JLabel hiển thị thông tin chỗ ngồi
-                JLabel choLabel = new JLabel("| Chỗ ngồi: " + choNgoi.getTenCho()+ " | " + " Giá vé: "+decimalFormat.format(choNgoi.getGia())+"VND");
+                JLabel choLabel = new JLabel("| Chỗ ngồi: " + choNgoi.getTenCho() + " | " + " Giá vé: " + decimalFormat.format(choNgoi.getGia()) + "VND");
                 JLabel gaDiLabel = new JLabel("| Ga đi: " + tau.getTuyenTau().getDiaDiemDi() + "  | " + "Ga đến: " + tau.getTuyenTau().getGaDen());
                 JLabel ngayDiLabel = new JLabel("| Ngày đi: " + lichTrinhTau.getNgayDi() + " | " + "Giờ đi: " + lichTrinhTau.getGioDi());
                 choLabel.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -749,14 +940,14 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
                         throw new RuntimeException(ex);
                     }
                     if (khuyenMai != null) {
-                      chietKhau = khuyenMai.getChietKhau();
-                    }else {
-                        JOptionPane.showMessageDialog(btnApDung,"Không tìm thấy khuyến mãi với mã: " + maKM);
+                        chietKhau = khuyenMai.getChietKhau();
+                    } else {
+                        JOptionPane.showMessageDialog(btnApDung, "Không tìm thấy khuyến mãi với mã: " + maKM);
                     }
                 }
             });
-            JPanel_MaKhuyenMai.add(txtMaKhuyenMai,BorderLayout.CENTER);
-            JPanel_MaKhuyenMai.add(btnApDung,BorderLayout.EAST);
+            JPanel_MaKhuyenMai.add(txtMaKhuyenMai, BorderLayout.CENTER);
+            JPanel_MaKhuyenMai.add(btnApDung, BorderLayout.EAST);
 
             JPanel JPanel_loaiKH = new JPanel(new FlowLayout(FlowLayout.LEFT));
             JPanel_loaiKH.setBackground(colorTieuDeBang);
@@ -848,7 +1039,7 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
             });
 
 
-            buyerInfoPanel.add(Jpanel_NutThanhToan,BorderLayout.SOUTH); // Thêm nút In vào phía dưới cùng
+            buyerInfoPanel.add(Jpanel_NutThanhToan, BorderLayout.SOUTH); // Thêm nút In vào phía dưới cùng
             buyerInfoPanel.add(Jpanel_NutThanhToan, BorderLayout.SOUTH); // Thêm nút In vào phía dưới cùng
 
 
@@ -873,14 +1064,14 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
                         String doiTuong = customPanel.getTrangThai();
                         String cccd = customPanel.getCCCD();
                         // Kiểm tra nếu thông tin còn thiếu
-                        if(doiTuong.equals("Trẻ nhỏ")){
+                        if (doiTuong.equals("Trẻ nhỏ")) {
                             if (hoTen.isEmpty()) {
                                 JOptionPane.showMessageDialog(dialog,
                                         "Vui lòng điền đầy đủ thông tin cho trẻ.");
                                 return; // Dừng nếu phát hiện thông tin không hợp lệ //đi
                             }
-                        }else {
-                            if(hoTen.isEmpty()|| cccd.isEmpty()){
+                        } else {
+                            if (hoTen.isEmpty() || cccd.isEmpty()) {
                                 JOptionPane.showMessageDialog(dialog,
                                         "Vui lòng điền đầy đủ thông tin người đi.");
                                 return;
@@ -950,7 +1141,7 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
                         // Lưu hóa đơn
                         double tienChietKhau = tongTien * (chietKhau / 100);
                         tongTien -= tienChietKhau;
-                        HoaDon hoaDon = new HoaDon(maHD, khachHang,khuyenMai, null, loaiHoaDon, LocalDate.now(), 0, tongTien);
+                        HoaDon hoaDon = new HoaDon(maHD, khachHang, khuyenMai, null, loaiHoaDon, LocalDate.now(), 0, tongTien);
                         daoBanVe.saveInvoice(hoaDon); // Lưu hóa đơn
 
                         // Lưu chi tiết hóa đơn
@@ -977,6 +1168,7 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
 
             dialog.setVisible(true); // Hiển thị cửa sổ
         } else if (e.getSource() == btnQuanLyKhachHang) {
+            addButtonAction(btnQuanLyKhachHang);
             Jpanel_Main.removeAll();
             current = (JPanel) khachHangPanel;
             JPanel_XacNhanCho.setVisible(false);
@@ -989,6 +1181,7 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
             Jpanel_Main.revalidate(); // Cập nhật layout
             Jpanel_Main.repaint();
         } else if (e.getSource() == btnQuanLyChuyenTau) {
+            addButtonAction(btnQuanLyChuyenTau);
             Jpanel_Main.removeAll();
             current = (JPanel) chuyenTauPanel;
             JPanel_XacNhanCho.setVisible(false);
@@ -1001,18 +1194,34 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
             Jpanel_Main.revalidate(); // Cập nhật layout
             Jpanel_Main.repaint();    //
         } else if (e.getSource() == btnBanVe) {
+            addButtonAction(btnBanVe);
             Jpanel_Main.removeAll();
             JPanel_XacNhanCho.setVisible(true);
             lab_Title.setVisible(true);
             JPanel_BanVe.setVisible(true);
 
             // thêm ngược lại
-            Jpanel_Main.add(JPanel_XacNhanCho,BorderLayout.EAST);
-            Jpanel_Main.add(lab_Title,BorderLayout.NORTH);
-            Jpanel_Main.add(JPanel_BanVe,BorderLayout.CENTER);
+            Jpanel_Main.add(JPanel_XacNhanCho, BorderLayout.EAST);
+            Jpanel_Main.add(lab_Title, BorderLayout.NORTH);
+            Jpanel_Main.add(JPanel_BanVe, BorderLayout.CENTER);
             Jpanel_Main.revalidate(); // Cập nhật layout
             Jpanel_Main.repaint();
+        } else if (e.getSource() == btnTraCuu) {
+
+            addButtonAction(btnTraCuu);
+            Jpanel_Main.removeAll();
+//            current = (JPanel) khuyenMaiPanel;
+            JPanel_XacNhanCho.setVisible(false);
+            lab_Title.setVisible(false);
+            JPanel_BanVe.setVisible(false);
+            // Thêm KhuyenMai vào jPanel_Main
+//            Jpanel_Main.add(khuyenMaiPanel);
+            Jpanel_Main.setVisible(true);
+            // Cập nhật lại giao diện người dùng
+            Jpanel_Main.revalidate(); // Cập nhật layout
+            Jpanel_Main.repaint();    //
         } else if (e.getSource() == btnQuanLyKhuyenMai) {
+            addButtonAction(btnQuanLyKhuyenMai);
             Jpanel_Main.removeAll();
             current = (JPanel) khuyenMaiPanel;
             JPanel_XacNhanCho.setVisible(false);
@@ -1024,7 +1233,21 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
             // Cập nhật lại giao diện người dùng
             Jpanel_Main.revalidate(); // Cập nhật layout
             Jpanel_Main.repaint();    //
-        }else if (e.getSource() == btnQuanLyNhanVien) {
+        } else if (e.getSource() == btnQuanLyDoanhThu) {
+            addButtonAction(btnQuanLyDoanhThu);
+            Jpanel_Main.removeAll();
+//            current = (JPanel) khuyenMaiPanel;
+            JPanel_XacNhanCho.setVisible(false);
+            lab_Title.setVisible(false);
+            JPanel_BanVe.setVisible(false);
+            // Thêm KhuyenMai vào jPanel_Main
+//            Jpanel_Main.add(khuyenMaiPanel);
+            Jpanel_Main.setVisible(true);
+            // Cập nhật lại giao diện người dùng
+            Jpanel_Main.revalidate(); // Cập nhật layout
+            Jpanel_Main.repaint();    //
+        } else if (e.getSource() == btnQuanLyNhanVien) {
+            addButtonAction(btnQuanLyNhanVien);
             Jpanel_Main.removeAll();
             current = (JPanel) nhanVienPanel;
             JPanel_XacNhanCho.setVisible(false);
@@ -1036,7 +1259,23 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
             // Cập nhật lại giao diện người dùng
             Jpanel_Main.revalidate(); // Cập nhật layout
             Jpanel_Main.repaint();    //
-        }else if (e.getSource() == btnThongKeKhachHang) {
+        } else if (e.getSource() == btnThongKeTheoCa) {
+            addButtonAction(btnThongKeTheoCa);
+            Jpanel_Main.removeAll();
+//            current = (JPanel) nhanVienPanel;
+            JPanel_XacNhanCho.setVisible(false);
+            lab_Title.setVisible(false);
+            JPanel_BanVe.setVisible(false);
+//            Jpanel_Main.add(nhanVienPanel);
+            Jpanel_Main.setVisible(true);
+
+            // Cập nhật lại giao diện người dùng
+            Jpanel_Main.revalidate(); // Cập nhật layout
+            Jpanel_Main.repaint();    //
+        }
+        // CÁC CHỨC NĂNG THỐNG KÊ NHỎ BÊN TRONG
+        // 1. Thống kê số lượng khách hàng
+        else if (e.getSource() == tk_slkh) {
             Jpanel_Main.removeAll();
             current = (JPanel) soLuongKHPanel;
             JPanel_XacNhanCho.setVisible(false);
@@ -1048,13 +1287,160 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
             // Cập nhật lại giao diện người dùng
             Jpanel_Main.revalidate(); // Cập nhật layout
             Jpanel_Main.repaint();    //
-        }else if (e.getSource() == btnTraCuuKhuyenMai) {
+        }
+        // 2. Thống kê doanh thu bán vé
+        else if (e.getSource() == tk_DoanhThu_BanVe) {
+            Jpanel_Main.removeAll();
+//            current = (JPanel) ;
+            JPanel_XacNhanCho.setVisible(false);
+            lab_Title.setVisible(false);
+            JPanel_BanVe.setVisible(false);
+//            Jpanel_Main.add();
+            Jpanel_Main.setVisible(true);
+
+            // Cập nhật lại giao diện người dùng
+            Jpanel_Main.revalidate(); // Cập nhật layout
+            Jpanel_Main.repaint();    //
+        }
+        // 3. Thống kê số lượng vé theo thời gian
+        else if (e.getSource() == tk_sl_Ve) {
+            Jpanel_Main.removeAll();
+//            current = (JPanel) ;
+            JPanel_XacNhanCho.setVisible(false);
+            lab_Title.setVisible(false);
+            JPanel_BanVe.setVisible(false);
+//            Jpanel_Main.add();
+            Jpanel_Main.setVisible(true);
+
+            // Cập nhật lại giao diện người dùng
+            Jpanel_Main.revalidate(); // Cập nhật layout
+            Jpanel_Main.repaint();    //
+        }
+        // 4. Thống kê tỉ lệ đổi trả vé
+        else if (e.getSource() == tk_tl_DoiTraVe) {
+            Jpanel_Main.removeAll();
+//            current = (JPanel) ;
+            JPanel_XacNhanCho.setVisible(false);
+            lab_Title.setVisible(false);
+            JPanel_BanVe.setVisible(false);
+//            Jpanel_Main.add();
+            Jpanel_Main.setVisible(true);
+
+            // Cập nhật lại giao diện người dùng
+            Jpanel_Main.revalidate(); // Cập nhật layout
+            Jpanel_Main.repaint();    //
+        }
+        // 5. Tạo báo cáo danh thu
+        else if (e.getSource() == taoBaoCao) {
+            Jpanel_Main.removeAll();
+//            current = (JPanel) ;
+            JPanel_XacNhanCho.setVisible(false);
+            lab_Title.setVisible(false);
+            JPanel_BanVe.setVisible(false);
+//            Jpanel_Main.add();
+            Jpanel_Main.setVisible(true);
+
+            // Cập nhật lại giao diện người dùng
+            Jpanel_Main.revalidate(); // Cập nhật layout
+            Jpanel_Main.repaint();    //
+        }
+
+
+        // CÁC CHỨC NĂNG TRA CỨU NHỎ BÊN TRONG
+        // 1. Tra cứu khuyến mãi
+        else if (e.getSource() == traCuuKM) {
             Jpanel_Main.removeAll();
             current = (JPanel) traCuuKMPanel;
             JPanel_XacNhanCho.setVisible(false);
             lab_Title.setVisible(false);
             JPanel_BanVe.setVisible(false);
             Jpanel_Main.add(traCuuKMPanel);
+            Jpanel_Main.setVisible(true);
+
+            // Cập nhật lại giao diện người dùng
+            Jpanel_Main.revalidate(); // Cập nhật layout
+            Jpanel_Main.repaint();    //
+        }
+        // 2. Tra cứu vé
+        else if (e.getSource() == traCuuVe) {
+            Jpanel_Main.removeAll();
+//            current = (JPanel) ;
+            JPanel_XacNhanCho.setVisible(false);
+            lab_Title.setVisible(false);
+            JPanel_BanVe.setVisible(false);
+//            Jpanel_Main.add();
+            Jpanel_Main.setVisible(true);
+
+            // Cập nhật lại giao diện người dùng
+            Jpanel_Main.revalidate(); // Cập nhật layout
+            Jpanel_Main.repaint();    //
+        }
+        // 3. Tra cứu hóa đơn
+        else if (e.getSource() == traCuuHoaDon) {
+            Jpanel_Main.removeAll();
+//            current = (JPanel) ;
+            JPanel_XacNhanCho.setVisible(false);
+            lab_Title.setVisible(false);
+            JPanel_BanVe.setVisible(false);
+//            Jpanel_Main.add();
+            Jpanel_Main.setVisible(true);
+
+            // Cập nhật lại giao diện người dùng
+            Jpanel_Main.revalidate(); // Cập nhật layout
+            Jpanel_Main.repaint();    //
+        }
+        // 4. Tra cứu theo tuyến
+        else if (e.getSource() == traCuuTuyen) {
+            Jpanel_Main.removeAll();
+//            current = (JPanel) ;
+            JPanel_XacNhanCho.setVisible(false);
+            lab_Title.setVisible(false);
+            JPanel_BanVe.setVisible(false);
+//            Jpanel_Main.add();
+            Jpanel_Main.setVisible(true);
+
+            // Cập nhật lại giao diện người dùng
+            Jpanel_Main.revalidate(); // Cập nhật layout
+            Jpanel_Main.repaint();    //
+        }
+        // 5. Tra cứu theo lịch trình tàu
+        else if (e.getSource() == traCuuLTT) {
+            Jpanel_Main.removeAll();
+//            current = (JPanel) ;
+            JPanel_XacNhanCho.setVisible(false);
+            lab_Title.setVisible(false);
+            JPanel_BanVe.setVisible(false);
+//            Jpanel_Main.add();
+            Jpanel_Main.setVisible(true);
+
+            // Cập nhật lại giao diện người dùng
+            Jpanel_Main.revalidate(); // Cập nhật layout
+            Jpanel_Main.repaint();    //
+        }
+
+        //CÁC CHỨC NĂNG CON CỦA QUẢN LÝ VÉ
+        //1. Đổi vé
+        else if (e.getSource() == doiVe) {
+            Jpanel_Main.removeAll();
+//            current = (JPanel) ;
+            JPanel_XacNhanCho.setVisible(false);
+            lab_Title.setVisible(false);
+            JPanel_BanVe.setVisible(false);
+//            Jpanel_Main.add();
+            Jpanel_Main.setVisible(true);
+
+            // Cập nhật lại giao diện người dùng
+            Jpanel_Main.revalidate(); // Cập nhật layout
+            Jpanel_Main.repaint();    //
+        }
+        //2. Trả vé
+        else if (e.getSource() == traVe) {
+            Jpanel_Main.removeAll();
+//            current = (JPanel) ;
+            JPanel_XacNhanCho.setVisible(false);
+            lab_Title.setVisible(false);
+            JPanel_BanVe.setVisible(false);
+//            Jpanel_Main.add();
             Jpanel_Main.setVisible(true);
 
             // Cập nhật lại giao diện người dùng
@@ -1121,7 +1507,7 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
         detailDialog.setVisible(true);
     }
 
-    private void updateTotalAmount(JLabel lblThanhTien, JTable table,double chietKhau) {
+    private void updateTotalAmount(JLabel lblThanhTien, JTable table, double chietKhau) {
         double totalAmount = 0;
 
         // Lặp qua từng hàng trong bảng để tính tổng thành tiền
@@ -1204,4 +1590,24 @@ public class FrmBanVe extends JFrame implements ActionListener,ItemListener {
             }
         }
     }
+
+
+    private JButton currentlySelectedButton = null; // Nút hiện tại đang được chọn
+
+    private void addButtonAction(JButton btn) {
+        // Đặt lại màu cho nút đang chọn trước đó
+        if (currentlySelectedButton != null) {
+            currentlySelectedButton.setBackground(Color.cyan); // Màu nền bình thường
+            currentlySelectedButton.setForeground(Color.white); // Màu chữ bình thường
+        }
+        // Đặt màu cho nút vừa nhấn
+        btn.setBackground(Color.YELLOW); // Màu nền khi nút được chọn
+        btn.setForeground(Color.RED); // Màu chữ khi nút được chọn
+        currentlySelectedButton = btn;
+    }
+
+    private void removeButtonColor(JButton btn) {
+
+    }
 }
+
