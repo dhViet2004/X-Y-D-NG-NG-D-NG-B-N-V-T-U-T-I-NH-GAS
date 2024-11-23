@@ -35,7 +35,7 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
     private JButton btnLammoi;
     private JButton btnLamMoiKM;
     private JPanel contenPanel;
-    private JPanel JPanel_Menu = new JPanel();
+    private JPanel JPanel_Menu;
     private JPanel Jpanel_Right;
     private JPanel JPanel_Right_Top;
     private JPanel JPanel_Right_Bottom;
