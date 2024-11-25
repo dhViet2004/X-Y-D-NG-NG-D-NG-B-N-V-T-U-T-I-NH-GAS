@@ -103,7 +103,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
     private JDialog dialogChiTiet; // Khai báo biến toàn cục
     Component chuyenTauPanel = new ChuyenTau().getjPanelMain();
     Component khuyenMaiPanel = new FrmKhuyenMai().getKMPanel();
-    Component khachHangPanel = new Frm_KhachHang().getKHPanel();
+    Component khachHangPanel = new Frm_KhachHang(new NhanVien()).getKHPanel();
     Component nhanVienPanel = new FrmNhanVien().getJpannelNV();
     Component soLuongKHPanel = new Frm_ThongKeKhachHang().getTKKHPanel();
     Component traCuuKMPanel = new Frm_TraCuuKhuyenMai().getTraCuuKM_Panel();
@@ -114,7 +114,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
     private Double chietKhau = 0.0;
     private int counter = 0;
 
-    public FrmBanVe() {
+    public FrmBanVe(NhanVien nv) {
         setTitle("Bán Vé");
         temp = Jpanel_Main;
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -243,11 +243,12 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
         System.out.println(counter);
 
         btnRadio_MotChieu.setSelected(true);
-
     }
 
+
+
     public static void main(String[] args) {
-        FrmBanVe frm = new FrmBanVe();
+        FrmBanVe frm = new FrmBanVe(new NhanVien());
         frm.setVisible(true);
 
     }

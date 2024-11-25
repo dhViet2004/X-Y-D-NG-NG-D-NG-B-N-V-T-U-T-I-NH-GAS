@@ -3,6 +3,7 @@ package GUI;
 import DAO.DAO_HoaDon;
 import DAO.DAO_KhuyenMai;
 import Entity.KhuyenMai;
+import Entity.NhanVien;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
@@ -36,9 +37,9 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
     private JButton btnLamMoiKM;
     private JPanel contenPanel;
     private JPanel JPanel_Menu = new JPanel();
-    private JPanel Jpanel_Right;
-    private JPanel JPanel_Right_Top;
-    private JPanel JPanel_Right_Bottom;
+    private JPanel Jpanel_Right = new JPanel();
+    private JPanel JPanel_Right_Top = new JPanel();
+    private JPanel JPanel_Right_Bottom = new JPanel();
     private JDateChooser dateChooser = new JDateChooser();
     private JButton loc;
     private JButton btnThemCTKM;
@@ -412,10 +413,10 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
             model.setRowCount(0);
             loadHD();
         } else if (o == btnBanVe) {
-            FrmBanVe frm = new FrmBanVe();
+            FrmBanVe frm = new FrmBanVe(new NhanVien());
             frm.setVisible(true);
         } else if (o == btnQuanLyKhachHang) {
-            Frm_KhachHang frmKhachHang = new Frm_KhachHang();
+            Frm_KhachHang frmKhachHang = new Frm_KhachHang(new NhanVien());
             frmKhachHang.setVisible(true);
         }
 

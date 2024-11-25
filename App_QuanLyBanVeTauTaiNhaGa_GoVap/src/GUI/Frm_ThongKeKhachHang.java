@@ -23,8 +23,8 @@ import java.util.List;
 public class Frm_ThongKeKhachHang extends JFrame implements ActionListener {
 
 
-    private JPanel JPanel_Main;
-    private JPanel JPanel_Menu;
+    private JPanel JPanel_Main = new JPanel();
+    private JPanel JPanel_Menu = new JPanel();
     private final Color color_white_text;
     private final Font font_text;
     private final Font font_text_2;

@@ -3,6 +3,7 @@ package GUI;
 import DAO.DAO_KhachHang;
 import Entity.KhachHang;
 import Entity.LoaiKhachHang;
+import Entity.NhanVien;
 import Entity.RoundedButton;
 import com.toedter.calendar.JDateChooser;
 
@@ -43,17 +44,18 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
     private final DefaultTableModel modelNoiDung;
     private final JTable tableNoiDung;
     private JPanel contentPanel;
-    private JPanel JPanel_Menu;
+    private JPanel JPanel_Menu = new JPanel();
     private JPanel Jpanel_Right;
     private JPanel JPanel_Right_Top;
     private JPanel JPanel_Right_Bottom;
     private JPanel JPanel_Right_Left;
     private JTextField txtMaKH;
+    private static NhanVien nv = new NhanVien();
 
     public Component getKHPanel(){
         return Jpanel_Right;
     }
-    public Frm_KhachHang() {
+    public Frm_KhachHang(NhanVien nv) {
         setTitle("Form Khách Hàng");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -521,7 +523,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin cần thiết trước khi lưu.", "Thông báo", JOptionPane.WARNING_MESSAGE);
             }
         } else if (obj == btnBanVe) {
-            FrmBanVe frmBanVe = new FrmBanVe();
+            FrmBanVe frmBanVe = new FrmBanVe(nv);
             frmBanVe.setVisible(true);
         } else if (obj == btnQuanLyKhuyenMai) {
             FrmKhuyenMai frmKhuyenMai = new FrmKhuyenMai();
@@ -612,7 +614,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
 
     private void xoaRongVaSetMaKH() throws SQLException {
         // set maKH
-        FrmBanVe fbv = new FrmBanVe();
+        FrmBanVe fbv = new FrmBanVe(nv);
         String maKhachHangTiepTheo = fbv.generateCustomerCode();
 
 
@@ -678,7 +680,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
     }
 
     public static void main(String[] args) {
-        Frm_KhachHang frm = new Frm_KhachHang();
+        Frm_KhachHang frm = new Frm_KhachHang(nv);
         frm.setVisible(true);
     }
 }

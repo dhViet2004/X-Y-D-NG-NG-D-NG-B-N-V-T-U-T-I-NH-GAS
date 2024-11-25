@@ -41,7 +41,7 @@ public class FrmDangNhap extends JFrame implements ActionListener {
         llv_dao = new DAO_LichLamViec();
         dao = new DAO_TaiKhoan();
 
-        txtMaNhanVien.setText("NV001");
+        txtMaNhanVien.setText("NV002");
         txtMatKhau.setText("password123");
 
     }
@@ -106,7 +106,7 @@ public class FrmDangNhap extends JFrame implements ActionListener {
 
                 // Tiến hành mở form và thông báo đăng nhập thành công
                 if (nv.getChucVu().trim().equalsIgnoreCase("Nhan Vien")) {
-                    FrmBanVe a = new FrmBanVe();
+                    FrmBanVe a = new FrmBanVe(nv);
                     a.setVisible(true);
                     this.dispose();
                     JOptionPane.showMessageDialog(this, "Đăng nhập thành công với vai trò Nhân viên");
