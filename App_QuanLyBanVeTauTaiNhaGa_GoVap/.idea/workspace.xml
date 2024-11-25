@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ff471ead-ac5a-46b6-a412-fe6c56748656" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/FrmDangNhap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmDangNhap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/FrmKhuyenMai.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmKhuyenMai.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Frm_KhachHang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_KhachHang.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Frm_ThongKeKhachHang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_ThongKeKhachHang.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Frm_TraCuuKhuyenMai.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_TraCuuKhuyenMai.java" afterDir="false" />
-    </list>
+    <list default="true" id="ff471ead-ac5a-46b6-a412-fe6c56748656" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -127,7 +119,7 @@
       <workItem from="1732341084555" duration="1274000" />
       <workItem from="1732351026658" duration="78000" />
       <workItem from="1732351117231" duration="103000" />
-      <workItem from="1732535126599" duration="1717000" />
+      <workItem from="1732535126599" duration="2142000" />
     </task>
     <servers />
   </component>

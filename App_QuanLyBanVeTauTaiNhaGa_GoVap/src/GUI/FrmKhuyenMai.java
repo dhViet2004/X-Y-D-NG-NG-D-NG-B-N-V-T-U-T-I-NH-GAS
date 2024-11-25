@@ -37,9 +37,9 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
     private JButton btnLamMoiKM;
     private JPanel contenPanel;
     private JPanel JPanel_Menu = new JPanel();
-    private JPanel Jpanel_Right = new JPanel();
-    private JPanel JPanel_Right_Top = new JPanel();
-    private JPanel JPanel_Right_Bottom = new JPanel();
+    private JPanel Jpanel_Right;
+    private JPanel JPanel_Right_Top;
+    private JPanel JPanel_Right_Bottom;
     private JDateChooser dateChooser = new JDateChooser();
     private JButton loc;
     private JButton btnThemCTKM;
