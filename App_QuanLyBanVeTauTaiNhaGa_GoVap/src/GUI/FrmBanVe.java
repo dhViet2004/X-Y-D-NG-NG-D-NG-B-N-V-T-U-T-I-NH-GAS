@@ -1,6 +1,6 @@
 
 package GUI;
-
+    
 import DAO.DAO_BanVe;
 import Database.ConnectDatabase;
 import Entity.*;
