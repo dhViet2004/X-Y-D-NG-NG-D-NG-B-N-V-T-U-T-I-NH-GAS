@@ -107,8 +107,10 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
     Component nhanVienPanel = new FrmNhanVien().getJpannelNV();
     Component soLuongKHPanel = new Frm_ThongKeKhachHang().getTKKHPanel();
     Component traCuuKMPanel = new Frm_TraCuuKhuyenMai().getTraCuuKM_Panel();
-
-
+    Component thongKe_TLDTV_Panel = new Frm_ThongKeTiLeDoiTraVe().getTKTLDTV_Panel();
+    Component thongKe_SLV_Panel = new Frm_ThongKeSoLuongVeTheoThoiGian().getTKSLV_Panel();
+    Component traCuuVe_Panel = new Frm_TraCuuVe().get_TraCuuVe_Panel();
+    Component taoBaoCaoDoanhThu_Panel = new Frm_TaoBaoCaoDoanhThu().get_TaoBaoCaoDoanhThu_Panel();
     private List<LoaiKhachHang> danhSachLoaiKH = new ArrayList<>();
     private KhuyenMai khuyenMai = null;
     private Double chietKhau = 0.0;
@@ -1299,11 +1301,11 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
         // 3. Thống kê số lượng vé theo thời gian
         else if (e.getSource() == tk_sl_Ve) {
             Jpanel_Main.removeAll();
-//            current = (JPanel) ;
+            current = (JPanel) thongKe_SLV_Panel;
             JPanel_XacNhanCho.setVisible(false);
             lab_Title.setVisible(false);
             JPanel_BanVe.setVisible(false);
-//            Jpanel_Main.add();
+            Jpanel_Main.add(thongKe_SLV_Panel);
             Jpanel_Main.setVisible(true);
 
             // Cập nhật lại giao diện người dùng
@@ -1313,11 +1315,11 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
         // 4. Thống kê tỉ lệ đổi trả vé
         else if (e.getSource() == tk_tl_DoiTraVe) {
             Jpanel_Main.removeAll();
-//            current = (JPanel) ;
+            current = (JPanel) thongKe_TLDTV_Panel;
             JPanel_XacNhanCho.setVisible(false);
             lab_Title.setVisible(false);
             JPanel_BanVe.setVisible(false);
-//            Jpanel_Main.add();
+            Jpanel_Main.add(thongKe_TLDTV_Panel);
             Jpanel_Main.setVisible(true);
 
             // Cập nhật lại giao diện người dùng
@@ -1327,11 +1329,11 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
         // 5. Tạo báo cáo danh thu
         else if (e.getSource() == taoBaoCao) {
             Jpanel_Main.removeAll();
-//            current = (JPanel) ;
+            current = (JPanel) taoBaoCaoDoanhThu_Panel;
             JPanel_XacNhanCho.setVisible(false);
             lab_Title.setVisible(false);
             JPanel_BanVe.setVisible(false);
-//            Jpanel_Main.add();
+            Jpanel_Main.add(taoBaoCaoDoanhThu_Panel);
             Jpanel_Main.setVisible(true);
 
             // Cập nhật lại giao diện người dùng
@@ -1358,11 +1360,11 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
         // 2. Tra cứu vé
         else if (e.getSource() == traCuuVe) {
             Jpanel_Main.removeAll();
-//            current = (JPanel) ;
+            current = (JPanel) traCuuVe_Panel;
             JPanel_XacNhanCho.setVisible(false);
             lab_Title.setVisible(false);
             JPanel_BanVe.setVisible(false);
-//            Jpanel_Main.add();
+            Jpanel_Main.add(traCuuVe_Panel);
             Jpanel_Main.setVisible(true);
 
             // Cập nhật lại giao diện người dùng
