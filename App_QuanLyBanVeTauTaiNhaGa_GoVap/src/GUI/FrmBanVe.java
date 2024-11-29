@@ -245,11 +245,14 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
         btnRadio_MotChieu.setSelected(true);
     }
 
+
+
     public static void main(String[] args) {
         FrmBanVe frm = new FrmBanVe(new NhanVien());
         frm.setVisible(true);
 
     }
+
     // Phương thức để vô hiệu hóa hoặc kích hoạt toàn bộ các thành phần con của JPanel
     private void setPanelEnabled(JPanel panel, boolean isEnabled) {
         for (Component component : panel.getComponents()) {
@@ -813,67 +816,9 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                     tauButton.setVerticalTextPosition(SwingConstants.BOTTOM);
                     tauButton.setContentAreaFilled(false);
                     tauButton.setBorderPainted(false);
-
-                    // Màu trạng thái cho các nút
-                    Color originalBackground = tauButton.getBackground(); // Màu nền ban đầu
-                    Color hoverBackground = new Color(173, 216, 230); // Màu khi hover (xanh nhạt)
-                    Color selectedBackground = new Color(144, 238, 144); // Màu khi đã chọn (xanh lá nhạt)
-
-// Map để theo dõi trạng thái của từng nút tàu
-                    Map<JButton, Boolean> buttonSelectedState = new HashMap<>();
-
-// Thêm nút vào map
-                    buttonSelectedState.put(tauButton, false);
-
-                    tauButton.addMouseListener(new java.awt.event.MouseAdapter() {
-                        @Override
-                        public void mouseEntered(java.awt.event.MouseEvent evt) {
-                            // Hover chỉ hiển thị khi nút chưa được chọn
-                            if (!buttonSelectedState.get(tauButton)) {
-                                tauButton.setBackground(hoverBackground); // Đổi màu khi hover
-                                tauButton.setOpaque(true); // Đảm bảo màu được hiển thị
-                            }
-                        }
-
-                        @Override
-                        public void mouseExited(java.awt.event.MouseEvent evt) {
-                            // Quay lại màu gốc nếu chưa được chọn
-                            if (!buttonSelectedState.get(tauButton)) {
-                                tauButton.setBackground(originalBackground); // Trả lại màu nền ban đầu
-                                tauButton.setOpaque(false); // Xóa màu nền khi không hover
-                            }
-                        }
-
-                        @Override
-                        public void mousePressed(java.awt.event.MouseEvent evt) {
-                            // Nếu nút chưa được chọn, chọn nó và đổi màu
-                            if (!buttonSelectedState.get(tauButton)) {
-                                tauButton.setBackground(selectedBackground); // Đặt màu "đã chọn"
-                                tauButton.setOpaque(true); // Đảm bảo màu được hiển thị
-                                buttonSelectedState.put(tauButton, true); // Đánh dấu nút là đã chọn
-                            } else {
-                                tauButton.setBackground(originalBackground); // Trả lại màu nền ban đầu
-                                tauButton.setOpaque(false); // Đảm bảo nút về trạng thái không chọn
-                                buttonSelectedState.put(tauButton, false); // Đánh dấu nút là chưa chọn
-                            }
-
-                            // Duyệt qua tất cả các nút để quay lại trạng thái ban đầu nếu nút khác được chọn
-                            for (Map.Entry<JButton, Boolean> entry : buttonSelectedState.entrySet()) {
-                                JButton button = entry.getKey();
-                                boolean isSelected = entry.getValue();
-
-                                // Nếu nút không phải là nút hiện tại và đang chọn, quay lại trạng thái ban đầu
-                                if (button != tauButton && isSelected) {
-                                    button.setBackground(originalBackground);
-                                    button.setOpaque(false);
-                                    buttonSelectedState.put(button, false); // Đánh dấu nút khác là chưa chọn
-                                }
-                            }
-                        }
-                    });
-
-
-
+                    // Thêm hiệu ứng hover
+                    Color originalBackground = tauButton.getBackground(); // Lưu màu nền ban đầu
+                    Color hoverBackground = new Color(250, 196, 58); // Màu nền khi hover
                 }
                 JPanelTau.revalidate(); // Cập nhật giao diện
                 JPanelTau.repaint();

@@ -28,8 +28,8 @@ public class Frm_TraCuuKhuyenMai extends JFrame implements ActionListener, Mouse
     private final Font font_text;
     private final Font font_text_2;
     private final Font font_text_3;
-    private JPanel JPanel_Menu = new JPanel();
-    private JPanel JPanel_Main = new JPanel();
+    private JPanel JPanel_Menu;
+    private JPanel JPanel_Main;
     private JPanel Main_Top;
     private JLabel tieuDe;
     private Box BoxKM = Box.createHorizontalBox();
