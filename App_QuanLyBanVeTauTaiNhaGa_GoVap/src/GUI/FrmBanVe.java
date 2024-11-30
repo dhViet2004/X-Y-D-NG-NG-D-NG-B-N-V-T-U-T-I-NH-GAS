@@ -274,6 +274,42 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
             button.setVerticalTextPosition(SwingConstants.BOTTOM);
             button.setContentAreaFilled(false); // Loại bỏ vùng nội dung mặc định
             button.setBorderPainted(false); // Loại bỏ viền mặc định của nút
+
+            // Thêm hiệu ứng hover
+            button.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    button.setBackground(new Color(250, 196, 58)); // Màu nền khi hover
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    button.setBackground(null); // Trả lại màu nền ban đầu khi không hover
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    // Hiệu ứng khi chọn (click)
+                    button.setBackground(new Color(255, 165, 0)); // Đổi màu nền khi nhấn nút (màu cam)
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    // Trả lại màu nền ban đầu khi thả nút
+                    button.setBackground(new Color(250, 196, 58)); // Màu nền hover
+                }
+            });
+
+            // Hoặc dùng ActionListener nếu cần
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Xử lý hành động khi nút được nhấn (click)
+                    button.setBackground(new Color(255, 165, 0)); // Đổi màu nền khi click
+                    // Thực hiện các hành động cần thiết sau khi nhấn nút
+                }
+            });
+
         } else {
             System.out.println("URL hình ảnh không hợp lệ.");
         }
@@ -592,6 +628,22 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                     } else {
                         System.out.println("File ảnh không tồn tại hoặc đường dẫn không chính xác.");
                     }
+                    // Thêm hiệu ứng hover cho nút tàu
+                    Color originalBackground = tauButton.getBackground(); // Lưu màu nền ban đầu
+                    Color hoverBackground = new Color(250, 196, 58); // Màu nền khi hover
+                    tauButton.addMouseListener(new java.awt.event.MouseAdapter() {
+                        @Override
+                        public void mouseEntered(java.awt.event.MouseEvent evt) {
+                            tauButton.setBackground(hoverBackground); // Đổi màu khi hover
+                            tauButton.setOpaque(true); // Đảm bảo màu được hiển thị
+                        }
+
+                        @Override
+                        public void mouseExited(java.awt.event.MouseEvent evt) {
+                            tauButton.setBackground(originalBackground); // Trả lại màu nền ban đầu
+                            tauButton.setOpaque(false); // Xóa màu nền khi không hover
+                        }
+                    });
                     // Thêm ActionListener cho mỗi nút tàu
                     tauButton.addActionListener(new ActionListener() {
                         @Override
@@ -599,6 +651,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                             if (!danhSachChoDaChon.isEmpty()) {
                                 JOptionPane.showMessageDialog(tauButton, "Vui lòng xóa hết vé trong giỏ hàng để chọn tàu");
                             } else {
+
                                 DAO_BanVe daoBanVe = new DAO_BanVe();
                                 // Gọi DAO để tìm các toa của tàu
                                 List<ToaTau> danhSachToa = null;
@@ -653,7 +706,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                                         }
                                         // Thêm hiệu ứng hover
                                         Color originalBackground = toaButton.getBackground(); // Lưu màu nền ban đầu
-                                        Color hoverBackground = new Color(250, 196, 58); // Màu nền khi hover
+                                        Color hoverBackground = new Color(216, 255, 193); // Màu nền khi hover
                                         toaButton.setToolTipText(toaTau.getLoaiToa().getTenLoai()); // Đây là văn bản chú thích
                                         toaButton.addMouseListener(new java.awt.event.MouseAdapter() {
                                             @Override
@@ -816,9 +869,6 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                     tauButton.setVerticalTextPosition(SwingConstants.BOTTOM);
                     tauButton.setContentAreaFilled(false);
                     tauButton.setBorderPainted(false);
-                    // Thêm hiệu ứng hover
-                    Color originalBackground = tauButton.getBackground(); // Lưu màu nền ban đầu
-                    Color hoverBackground = new Color(250, 196, 58); // Màu nền khi hover
                 }
                 JPanelTau.revalidate(); // Cập nhật giao diện
                 JPanelTau.repaint();

@@ -372,7 +372,7 @@
                           </component>
                         </children>
                       </grid>
-                      <grid id="de8a" binding="JPanel_Tienich" layout-manager="GridLayoutManager" row-count="3" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                      <grid id="de8a" binding="JPanel_Tienich" layout-manager="GridLayoutManager" row-count="3" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                         <margin top="0" left="0" bottom="0" right="0"/>
                         <constraints>
                           <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -449,6 +449,11 @@
                               <text value="Chỗ đang chọn"/>
                             </properties>
                           </component>
+                          <hspacer id="7eb">
+                            <constraints>
+                              <grid row="1" column="6" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                          </hspacer>
                         </children>
                       </grid>
                       <component id="8e003" class="javax.swing.JLabel" binding="lab_TenToaTau">

@@ -7,7 +7,6 @@
     <list default="true" id="ff471ead-ac5a-46b6-a412-fe6c56748656" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,31 +24,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.ChuyenTau.executor": "Run",
-    "Application.FrmBanVe.executor": "Run",
-    "Application.Frm_ThongKeKhachHang.executor": "Run",
-    "Application.Loading.executor": "Run",
-    "Application.Main (1).executor": "Run",
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "T:/Backup/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "two.files.diff.last.used.folder": "T:/final/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap/jar Libraries/flatlaf-3.2.5.jar",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.ChuyenTau.executor&quot;: &quot;Run&quot;,
+    &quot;Application.FrmBanVe (1).executor&quot;: &quot;Run&quot;,
+    &quot;Application.FrmBanVe.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Frm_ThongKeKhachHang.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Loading.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main (1).executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;T:/Backup/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;two.files.diff.last.used.folder&quot;: &quot;T:/final/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap/jar Libraries/flatlaf-3.2.5.jar&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="Application.Frm_ThongKeKhachHang">
-    <configuration name="ChuyenTau" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.ChuyenTau" />
+}</component>
+  <component name="RunManager" selected="Application.FrmBanVe">
+    <configuration name="FrmBanVe (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
         <pattern>
@@ -115,11 +115,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Frm_ThongKeKhachHang" />
         <item itemvalue="Application.FrmBanVe" />
+        <item itemvalue="Application.FrmBanVe (1)" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Frm_ThongKeKhachHang" />
         <item itemvalue="Application.Loading" />
-        <item itemvalue="Application.ChuyenTau" />
       </list>
     </recent_temporary>
   </component>
@@ -159,6 +159,11 @@
       <workItem from="1732679081573" duration="13000" />
       <workItem from="1732691943639" duration="389000" />
       <workItem from="1732897979223" duration="438000" />
+      <workItem from="1732898510977" duration="261000" />
+      <workItem from="1732898990565" duration="3881000" />
+      <workItem from="1732902899443" duration="2941000" />
+      <workItem from="1732906072876" duration="429000" />
+      <workItem from="1732973901446" duration="9000" />
     </task>
     <servers />
   </component>
