@@ -106,6 +106,7 @@ public class Frm_ThongKeKhachHang extends JFrame implements ActionListener {
         select_day.addItem("Hôm nay");
         select_day.addItem("Tuần này");
         select_day.addItem("Tháng này");
+        select_day.addItem("Tháng trước");
         select_day.addItem("Năm nay");
         select_day.addItem("Năm trước");
         header_3.add(select_day);
@@ -581,7 +582,7 @@ public class Frm_ThongKeKhachHang extends JFrame implements ActionListener {
                         break;
                     }
                     case "Hôm qua": {
-                        ChartPanel chart = creatChart_day_chiTiet(currentDate.minusDays(1)); // Tạo biểu đồ cho ngày hôm nay
+                        ChartPanel chart = creatChart_day_tongQuan(currentDate.minusDays(1)); // Tạo biểu đồ cho ngày hôm nay
                         updateChartPanel(chart);
                         break;
                     }
@@ -592,6 +593,13 @@ public class Frm_ThongKeKhachHang extends JFrame implements ActionListener {
                     }
                     case "Tháng này": {
                         LocalDate thang = LocalDate.now().withDayOfMonth(1); // Ngày đầu tháng
+//                        LocalDate thang = LocalDate.of(LocalDate.now().getYear(), 10, 1); // Ngày đầu tháng
+                        ChartPanel chart = creatChart_month_total(thang); // Tạo biểu đồ cho tháng này
+                        updateChartPanel(chart);
+                        break;
+                    }
+                    case "Tháng trước": {
+                        LocalDate thang = LocalDate.now().minusMonths(1).withDayOfMonth(1); // Ngày đầu tháng
 //                        LocalDate thang = LocalDate.of(LocalDate.now().getYear(), 10, 1); // Ngày đầu tháng
                         ChartPanel chart = creatChart_month_total(thang); // Tạo biểu đồ cho tháng này
                         updateChartPanel(chart);
@@ -632,6 +640,13 @@ public class Frm_ThongKeKhachHang extends JFrame implements ActionListener {
                         updateChartPanel(chart);
                         break;
                     }
+                    case "Tháng trước": {
+                        LocalDate thang = LocalDate.now().minusMonths(1).withDayOfMonth(1); // Ngày đầu tháng
+//                        LocalDate thang = LocalDate.of(LocalDate.now().getYear(), 10, 1); // Ngày đầu tháng
+                        ChartPanel chart = creatChart_month_detail(thang); // Tạo biểu đồ cho tháng này
+                        updateChartPanel(chart);
+                        break;
+                    }
                     case "Năm nay": {
                         ChartPanel chart = creatChart_year_chiTiet(year);
                         updateChartPanel(chart);
@@ -659,6 +674,8 @@ public class Frm_ThongKeKhachHang extends JFrame implements ActionListener {
     public static void main(String[] args) {
         Frm_ThongKeKhachHang frm = new Frm_ThongKeKhachHang();
         frm.setVisible(true);
+        LocalDate thang = LocalDate.now().withDayOfMonth(1); // Ngày đầu tháng
+        System.out.println(thang);
     }
 
 

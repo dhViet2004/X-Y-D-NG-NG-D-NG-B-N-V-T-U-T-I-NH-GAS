@@ -113,7 +113,7 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
         Jpanel_Right.add(JPanel_Right_Top, BorderLayout.CENTER);
         Jpanel_Right.add(JPanel_Right_Bottom, BorderLayout.NORTH);
         // tạo một title border cho panel chứa ds hóa đơn
-        TitledBorder dshd = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(colorXanhDam),"Hóa đơn trong ngày");
+        TitledBorder dshd = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(colorXanhDam),"Danh sách hóa đơn");
         dshd.setTitleJustification(TitledBorder.LEFT);
         dshd.setTitlePosition(TitledBorder.TOP);
         Font font = new Font("Courier New", Font.ITALIC|Font.BOLD, 18);

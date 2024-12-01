@@ -46,7 +46,6 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
     // tra cứu
     private JMenuItem traCuuVe = new JMenuItem();
     private JMenuItem traCuuKM = new JMenuItem();
-    private JMenuItem traCuuKH = new JMenuItem();
     private JMenuItem traCuuHoaDon = new JMenuItem();
     private JMenuItem traCuuTuyen = new JMenuItem();
     private JMenuItem traCuuLTT = new JMenuItem();
@@ -246,7 +245,6 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
     }
 
 
-
     public static void main(String[] args) {
         FrmBanVe frm = new FrmBanVe(new NhanVien());
         frm.setVisible(true);
@@ -364,11 +362,6 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
         traCuuHoaDon.setBackground(colorXanhDam);
         traCuuHoaDon.addActionListener(this);
 
-        traCuuKH = new JMenuItem("Tra cứu khách hàng");
-        traCuuKH.setFont(fontMenu);
-        traCuuKH.setForeground(Color.white);
-        traCuuKH.setBackground(colorXanhDam);
-        traCuuKH.addActionListener(this);
 
         traCuuTuyen = new JMenuItem("Tra cứu tuyến");
         traCuuTuyen.setFont(fontMenu);
@@ -387,10 +380,9 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
         popupMenu.add(traCuuVe);
         popupMenu.add(traCuuKM);
         popupMenu.add(traCuuHoaDon);
-        popupMenu.add(traCuuKH);
         popupMenu.add(traCuuTuyen);
         popupMenu.add(traCuuLTT);
-        popupMenu.setPreferredSize(new Dimension(200, 240));
+        popupMenu.setPreferredSize(new Dimension(200, 200));
 
         // Lấy đối tượng nguồn của sự kiện (nút "Tra cứu")
         JButton sourceButton = (JButton) e.getSource();

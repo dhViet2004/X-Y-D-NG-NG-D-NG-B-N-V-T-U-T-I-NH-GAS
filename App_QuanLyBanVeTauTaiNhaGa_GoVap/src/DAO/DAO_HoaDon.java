@@ -40,7 +40,7 @@ public class DAO_HoaDon {
 
     public List<Object[]> layDSHD() throws SQLException {
         List<Object[]> list = new ArrayList<>();
-        String sql = "select h.NgayHoaDon,k.TenKH,m.DoiTuongApDung,m.NoiDungKM, m.ChietKhau, h.TienKhuyenMai\n" + "from KhachHang k join HoaDon h on k.MaKH=h.MaKH join KhuyenMai m on h.KhuyenMaiMaKM = m.MaKM";
+        String sql = "select h.NgayHoaDon,k.TenKH,m.DoiTuongApDung,m.NoiDungKM, m.ChietKhau, m.ChietKhau/100*h.TongTien as TienKhuyenMai\n" + "from KhachHang k join HoaDon h on k.MaKH=h.MaKH join KhuyenMai m on h.KhuyenMaiMaKM = m.MaKM";
         DAO_HoaDon dao = new DAO_HoaDon();
         try (Statement statement = con.createStatement(); ResultSet rs = statement.executeQuery(sql)) {
 
