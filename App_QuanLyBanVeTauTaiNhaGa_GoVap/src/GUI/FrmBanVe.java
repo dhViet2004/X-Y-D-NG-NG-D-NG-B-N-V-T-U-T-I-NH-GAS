@@ -951,7 +951,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
             panelBenPhai.setPreferredSize(new Dimension(300, 0)); // Đặt kích thước cố định cho panel
             panelBenPhai.setBackground(new Color(230, 230, 250)); // Đặt màu nền
 
-// Thêm một số thành phần vào panel bên phải
+            // Thêm một số thành phần vào panel bên phải
             JLabel lblTitle = new JLabel("Thông tin thêm");
             lblTitle.setFont(new Font("Arial", Font.BOLD, 20));
             lblTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -1007,6 +1007,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
             for (LoaiKhachHang loaiKH : danhSachLoaiKH) {
                 comboBox.addItem(loaiKH.getTenLoaiKhachHang()); // Thêm từng loại vào JComboBox
             }
+
 
             JPanel JPanel_MaKhuyenMai = new JPanel(new FlowLayout(FlowLayout.CENTER));
             JPanel_MaKhuyenMai.setBackground(colorTieuDeBang);
@@ -1131,8 +1132,19 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     updateTotalAmount(lbl_ThanhTien, table, chietKhau); // Cập nhật tổng thành tiền khi chuột vào panel
+                    // Lấy thông tin của dòng đầu tiên trong bảng
+                    if (table.getRowCount() > 0) {
+                        CustomPanel customPanel = (CustomPanel) table.getValueAt(0, 0); // Lấy đối tượng từ dòng đầu tiên
+                        String hoTen = customPanel.getHoTen(); // Lấy họ tên
+                        String cccd = customPanel.getCCCD(); // Lấy CCCD
+
+                        // Cập nhật thông tin vào các trường text
+                        txtHoTenNguoiMua.setText(hoTen);
+                        txtCCCDNguoiMua.setText(cccd);
+                    }
                 }
             });
+
             btnThanToan.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
