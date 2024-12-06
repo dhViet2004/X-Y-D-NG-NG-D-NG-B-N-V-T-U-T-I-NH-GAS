@@ -881,7 +881,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
             }
             // Tạo cửa sổ mới để hiển thị danh sách chỗ ngồi đã chọn
             JDialog dialog = new JDialog(this, "Danh sách chỗ ngồi đã chọn", true);
-            dialog.setSize(1050, 700); // Kích thước của cửa sổ
+            dialog.setSize(1350, 700); // Kích thước của cửa sổ
             dialog.setLocationRelativeTo(this); // Hiển thị ở giữa màn hình
 
             // Tạo tiêu đề các cột
@@ -949,7 +949,47 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
 
             // Tạo JScrollPane cho bảng
             JScrollPane scrollPane = new JScrollPane(table);
-            dialog.add(scrollPane, BorderLayout.CENTER); // Thêm JScrollPane vào cửa sổ
+            JPanel panelThongTinNguoiDiTau = new JPanel();
+            panelThongTinNguoiDiTau.setLayout(new BorderLayout());
+            panelThongTinNguoiDiTau.add(scrollPane, BorderLayout.CENTER);
+             // Thêm JScrollPane vào cửa sổ
+            // Tạo JPanel để hiển thị thông tin bên phải
+            JPanel panelBenPhai = new JPanel();
+            panelBenPhai.setLayout(new BoxLayout(panelBenPhai, BoxLayout.Y_AXIS)); // Sử dụng BoxLayout theo trục Y
+            panelBenPhai.setPreferredSize(new Dimension(300, 0)); // Đặt kích thước cố định cho panel
+            panelBenPhai.setBackground(new Color(230, 230, 250)); // Đặt màu nền
+
+// Thêm một số thành phần vào panel bên phải
+            JLabel lblTitle = new JLabel("Thông tin thêm");
+            lblTitle.setFont(new Font("Arial", Font.BOLD, 20));
+            lblTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            JTextArea txtAreaThongTin = new JTextArea(10, 20);
+            txtAreaThongTin.setLineWrap(true);
+            txtAreaThongTin.setWrapStyleWord(true);
+            txtAreaThongTin.setFont(new Font("Arial", Font.PLAIN, 16));
+            txtAreaThongTin.setText("Nhập thông tin tại đây...");
+            JScrollPane scrollText = new JScrollPane(txtAreaThongTin);
+
+            // Nút thực hiện hành động
+            JButton btnHanhDong = new JButton("Thực hiện");
+            btnHanhDong.setAlignmentX(Component.CENTER_ALIGNMENT);
+            btnHanhDong.setFont(new Font("Arial", Font.BOLD, 16));
+            btnHanhDong.addActionListener(ec_ -> {
+                String text = txtAreaThongTin.getText();
+                JOptionPane.showMessageDialog(dialog, "Thông tin bạn nhập: " + text);
+            });
+
+            // Thêm thành phần vào panel
+            panelBenPhai.add(Box.createVerticalStrut(20)); // Thêm khoảng cách
+            panelBenPhai.add(lblTitle);
+            panelBenPhai.add(Box.createVerticalStrut(10)); // Khoảng cách giữa các thành phần
+            panelBenPhai.add(scrollText);
+            panelBenPhai.add(Box.createVerticalStrut(10));
+            panelBenPhai.add(btnHanhDong);
+
+            // Thêm panel bên phải vào dialog
+            dialog.add(panelBenPhai, BorderLayout.EAST);
 
             // Tạo JPanel để chứa thông tin người mua
             JPanel buyerInfoPanel = new JPanel(new BorderLayout()); // Tạo layout 4 hàng, 2 cột với khoảng cách 10px
@@ -1070,7 +1110,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
             btnChiTietHoaDon.setBackground(new Color(0, 131, 66));
             btnChiTietHoaDon.setForeground(Color.WHITE);
 
-// Thêm vào JPanel_NutThanhToan
+            // Thêm vào JPanel_NutThanhToan
             Jpanel_NutThanhToan.add(btnChiTietHoaDon);
             btnChiTietHoaDon.addActionListener(new ActionListener() {
                 @Override
@@ -1093,8 +1133,8 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
             buyerInfoPanel.add(Jpanel_NutThanhToan, BorderLayout.SOUTH); // Thêm nút In vào phía dưới cùng
             buyerInfoPanel.add(Jpanel_NutThanhToan, BorderLayout.SOUTH); // Thêm nút In vào phía dưới cùng
 
-
-            dialog.add(buyerInfoPanel, BorderLayout.SOUTH); // Thêm ở phía trên
+            panelThongTinNguoiDiTau.add(buyerInfoPanel, BorderLayout.SOUTH);
+            dialog.add(panelThongTinNguoiDiTau, BorderLayout.CENTER);// Thêm ở phía trên
             buyerInfoPanel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
@@ -1135,7 +1175,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                         return;
                     }
 
-// Tạo mã khách hàng và đối tượng KhachHang
+                    // Tạo mã khách hàng và đối tượng KhachHang
                     String maKH = generateCustomerCode(); // Sinh mã khách hàng mới
                     KhachHang khachHang = new KhachHang(
                             maKH,
