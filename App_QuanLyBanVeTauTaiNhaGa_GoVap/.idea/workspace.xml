@@ -41,7 +41,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.FrmBanVe">
+  <component name="RunManager" selected="Application.Loading">
     <configuration name="FrmBanVe (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -96,10 +96,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Loading" />
         <item itemvalue="Application.FrmBanVe" />
         <item itemvalue="Application.FrmBanVe (1)" />
         <item itemvalue="Application.Frm_KhachHang" />
-        <item itemvalue="Application.Loading" />
       </list>
     </recent_temporary>
   </component>
