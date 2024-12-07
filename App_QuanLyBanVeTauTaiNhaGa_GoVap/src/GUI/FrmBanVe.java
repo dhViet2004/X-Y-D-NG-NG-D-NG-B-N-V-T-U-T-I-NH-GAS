@@ -97,9 +97,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
     private double tongThanhTien = 0.0; // Biến để lưu tổng thành tiền
     private static int ticketCount = 0; // Số vé đã tạo trong ngày
     private static LocalDate lastDate = LocalDate.now(); // Ngày cuối cùng đã tạo vé
-    private int customerCount = 0; // Biến đếm số khách hàng
-    private Component temp;
-    private JDialog dialogChiTiet; // Khai báo biến toàn cục
+    private Component temp; // Khai báo biến toàn cục
     Component chuyenTauPanel = new ChuyenTau().getjPanelMain();
     Component khuyenMaiPanel = new FrmKhuyenMai().getKMPanel();
     Component khachHangPanel = new Frm_KhachHang(new NhanVien()).getKHPanel();
@@ -114,6 +112,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
     private int totalCustomerToday = 0;
     private static double VAT = 10;
     private NhanVien nhanVien;
+
     public FrmBanVe(NhanVien nv) {
         nhanVien = nv;
         setTitle("Bán Vé");
@@ -234,16 +233,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
 
         btnRadio_MotChieu.addItemListener((ItemListener) this);
         btnRadio_KhuHoi.addItemListener((ItemListener) this);
-        // Lấy thời gian hiện tại
-        LocalDateTime now = LocalDateTime.now();
 
-// Định dạng thời gian thành NgàyThángNăm (yyyy-MM-dd)
-        String datePart = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-        counter = daoBanVe.getTotalInvoicesByDate(datePart);
-        System.out.println("Số lượng vé: "+counter);
-        totalCustomerToday = daoBanVe.getTotalInvoicesByDate(datePart);
-        System.out.println("Số lượng khách hàng: "+totalCustomerToday);
 
         btnRadio_MotChieu.setSelected(true);
     }
@@ -480,11 +470,15 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
 
     private void updateConfirmationPanel(LichTrinhTau lichTrinhTau) throws SQLException {
         JPanel_XacNhanCho.removeAll(); // Xóa nội dung cũ
-        JPanel_XacNhanCho.setLayout(new BoxLayout(JPanel_XacNhanCho, BoxLayout.Y_AXIS)); // Đặt layout theo chiều dọc
+
+        // Tạo JPanel chứa thông tin xác nhận chỗ
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS)); // Đặt layout theo chiều dọc
+        contentPanel.setBackground(Color.WHITE);
 
         if (danhSachChoDaChon.isEmpty()) {
             JLabel label = new JLabel("Bạn chưa chọn chỗ ngồi nào.");
-            JPanel_XacNhanCho.add(label);
+            contentPanel.add(label);
         } else {
             Tau tau = daoBanVe.getThongTin(lichTrinhTau.getTau().getMaTau());
 
@@ -492,19 +486,24 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                 // Tạo một panel cho từng chỗ ngồi
                 JPanel choPanel = new JPanel();
                 choPanel.setLayout(new BoxLayout(choPanel, BoxLayout.Y_AXIS)); // Đặt layout theo chiều dọc
+                choPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY)); // Đường viền mỗi vé
+                choPanel.setBackground(new Color(240, 248, 255)); // Màu nền
 
                 DecimalFormat decimalFormat = new DecimalFormat("#");
+
                 // Tạo JLabel hiển thị thông tin chỗ ngồi
-                JLabel choLabel = new JLabel("| Chỗ ngồi: " + choNgoi.getTenCho() + " | " + " Giá vé: " + decimalFormat.format(choNgoi.getGia()) + "VND");
-                JLabel gaDiLabel = new JLabel("| Ga đi: " + tau.getTuyenTau().getDiaDiemDi() + "  | " + "Ga đến: " + tau.getTuyenTau().getGaDen());
-                JLabel ngayDiLabel = new JLabel("| Ngày đi: " + lichTrinhTau.getNgayDi() + " | " + "Giờ đi: " + lichTrinhTau.getGioDi());
+                JLabel choLabel = new JLabel(" Chỗ ngồi: " + choNgoi.getTenCho() + " | " + " Giá vé: " + decimalFormat.format(choNgoi.getGia()) + "VND");
+                JLabel gaDiLabel = new JLabel(" Ga đi: " + tau.getTuyenTau().getDiaDiemDi() + "  | " + "Ga đến: " + tau.getTuyenTau().getGaDen());
+                JLabel ngayDiLabel = new JLabel(" Ngày đi: " + lichTrinhTau.getNgayDi() + " | " + "Giờ đi: " + lichTrinhTau.getGioDi());
                 choLabel.setFont(new Font("Arial", Font.PLAIN, 16));
                 gaDiLabel.setFont(new Font("Arial", Font.PLAIN, 16));
                 ngayDiLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+
                 // Thêm các JLabel vào panel
                 choPanel.add(choLabel);
                 choPanel.add(gaDiLabel);
                 choPanel.add(ngayDiLabel);
+
                 // Tạo nút "Xóa"
                 JButton deleteButton = new JButton();
                 URL imageUrl = getClass().getResource("/Anh_HeThong/remove.png");
@@ -512,15 +511,11 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                 deleteButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        // Xóa chỗ ngồi khỏi danh sách đã chọn
-                        danhSachChoDaChon.remove(choNgoi);
-
-                        // Cập nhật màu sắc nút chỗ ngồi tương ứng
-                        JButton correspondingButton = getButtonForSeat(choNgoi); // Hàm giả định để lấy nút chỗ ngồi
+                        danhSachChoDaChon.remove(choNgoi); // Xóa chỗ ngồi khỏi danh sách đã chọn
+                        JButton correspondingButton = getButtonForSeat(choNgoi); // Lấy nút chỗ ngồi
                         if (correspondingButton != null) {
-                            correspondingButton.setBackground(choNgoi.getTinhTrang() ? Color.WHITE : Color.PINK); // Đặt lại màu sắc
+                            correspondingButton.setBackground(choNgoi.getTinhTrang() ? Color.WHITE : Color.PINK);
                         }
-
                         try {
                             updateConfirmationPanel(lichTrinhTau); // Cập nhật lại panel xác nhận
                         } catch (SQLException ex) {
@@ -529,17 +524,14 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                     }
                 });
 
-                // Thêm nút "Xóa" vào panel
-                choPanel.add(deleteButton); // Nút xóa nằm dưới các thông tin chỗ ngồi
-
-                // Thêm panel chỗ ngồi vào JPanel_XacNhanCho
-                JPanel_XacNhanCho.add(choPanel);
+                choPanel.add(deleteButton); // Thêm nút "Xóa"
 
                 // Tạo JLabel hiển thị bộ đếm ngược
                 JLabel countdownLabel = new JLabel("Thời gian còn lại: 500 giây");
                 choPanel.add(countdownLabel);
                 JLabel lineBot = new JLabel("|------------------------------------------------------------------------------------");
                 choPanel.add(lineBot);
+
                 // Khởi tạo bộ đếm ngược
                 int countdownTime = 500; // Thời gian đếm ngược (500 giây)
                 Timer timer = new Timer(1000, new ActionListener() {
@@ -552,18 +544,31 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                             countdownLabel.setText("Thời gian còn lại: " + timeLeft + " giây");
                         } else {
                             ((Timer) e.getSource()).stop(); // Dừng timer
-
-                            // Tự động nhấn nút "Xóa" cho chỗ ngồi hiện tại
                             deleteButton.doClick(); // Gọi hành động nút xóa
                         }
                     }
                 });
                 timer.start(); // Bắt đầu bộ đếm ngược
+
+                contentPanel.add(choPanel);
+                contentPanel.add(Box.createVerticalStrut(10)); // Khoảng cách giữa các vé
             }
         }
+
+        // Đặt contentPanel vào JScrollPane
+        JScrollPane scrollPane = new JScrollPane(contentPanel);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        // Thay thế nội dung của JPanel_XacNhanCho bằng JScrollPane
+        JPanel_XacNhanCho.removeAll();
+        JPanel_XacNhanCho.setLayout(new BorderLayout());
+        JPanel_XacNhanCho.add(scrollPane, BorderLayout.CENTER);
+
         JPanel_XacNhanCho.revalidate(); // Cập nhật giao diện
         JPanel_XacNhanCho.repaint(); // Vẽ lại panel
     }
+
 
 
     // Hàm để lấy nút tương ứng với chỗ ngồi
@@ -572,7 +577,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
     }
 
     private JPanel current;
-
+    final JButton[] selectedTauButton = {null};
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnTimChuyen) {
@@ -593,27 +598,29 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
             }
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String ngayDi = sdf.format(dateChooserNgayDi.getDate());
-            // Gọi DAO để tìm các chuyến tàu
 
             try {
                 lichTrinhTaus = daoBanVe.getTrainsByDateAndDestination(gaDen, ngayDi);
-
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
+            // Tạo container cho các nút toa
+            JPanel tauContainerPanel = new JPanel();
+            tauContainerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10)); // Sắp xếp các nút theo chiều ngang với khoảng cách 10px
 
             // Hiển thị kết quả dưới dạng các JButton có hình ảnh
             JPanelTau.removeAll(); // Xóa các nút trước đó nếu có
-            JPanelTau.setLayout(new FlowLayout());
+            JPanelTau.setLayout(new BorderLayout());
+            tauContainerPanel.setPreferredSize(new Dimension(JPanelTau.getWidth(), 100)); // Chiều rộng giữ nguyên, chiều cao là 300
 
             if (lichTrinhTaus.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Không tìm thấy chuyến tàu nào.");
             } else {
+
                 for (LichTrinhTau lichTrinhTau : lichTrinhTaus) {
                     String tauInfo = "Tên tàu: " + lichTrinhTau.getTau().getTenTau() + ", Giờ chạy: " + lichTrinhTau.getGioDi();
                     JButton tauButton = new JButton(tauInfo);
 
-                    // Thêm hình ảnh đại diện cho nút
                     URL imageUrl = getClass().getResource("/Anh_HeThong/DauTauHoa.png");
                     if (imageUrl != null) {
                         ImageIcon icon = new ImageIcon(imageUrl);
@@ -625,8 +632,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                         System.out.println("File ảnh không tồn tại hoặc đường dẫn không chính xác.");
                     }
                     // Thêm hiệu ứng hover cho nút tàu
-                    Color originalBackground = tauButton.getBackground(); // Lưu màu nền ban đầu
-                    Color hoverBackground = new Color(250, 196, 58); // Màu nền khi hover
+                    Color hoverBackground = new Color(132, 255, 57); // Màu nền khi hover
                     tauButton.addMouseListener(new java.awt.event.MouseAdapter() {
                         @Override
                         public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -634,12 +640,21 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                             tauButton.setOpaque(true); // Đảm bảo màu được hiển thị
                         }
 
+                    });
+                    // Xử lý cho sự kiện di chuyển chuột ra ngoài
+                    tauButton.addMouseListener(new MouseAdapter() {
                         @Override
-                        public void mouseExited(java.awt.event.MouseEvent evt) {
-                            tauButton.setBackground(originalBackground); // Trả lại màu nền ban đầu
-                            tauButton.setOpaque(false); // Xóa màu nền khi không hover
+                        public void mouseExited(MouseEvent e) {
+                            // Nếu nút này đang được chọn, giữ nguyên màu nền vàng
+                            if (tauButton == selectedTauButton[0]) {
+                                tauButton.setBackground(hoverBackground); // Giữ màu vàng
+                            } else {
+                                tauButton.setBackground(null); // Nếu không được chọn, khôi phục lại màu nền ban đầu
+                            }
                         }
                     });
+                    // Biến lưu trữ nút toa đã chọn
+                    final JButton[] selectedToaButton = {null};
                     // Thêm ActionListener cho mỗi nút tàu
                     tauButton.addActionListener(new ActionListener() {
                         @Override
@@ -647,7 +662,12 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                             if (!danhSachChoDaChon.isEmpty()) {
                                 JOptionPane.showMessageDialog(tauButton, "Vui lòng xóa hết vé trong giỏ hàng để chọn tàu");
                             } else {
-
+                                // Nếu có nút toa đã chọn, đổi lại màu ban đầu
+                                if (selectedTauButton[0] != null) {
+                                    selectedTauButton[0].setBackground(null);  // Khôi phục màu nền ban đầu
+                                }
+                                tauButton.setBackground(hoverBackground); // Màu vàng khi chọn
+                                selectedTauButton[0] = tauButton;
                                 DAO_BanVe daoBanVe = new DAO_BanVe();
                                 // Gọi DAO để tìm các toa của tàu
                                 List<ToaTau> danhSachToa = null;
@@ -656,9 +676,14 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                                 } catch (SQLException ex) {
                                     throw new RuntimeException(ex);
                                 }
-                                // Hiển thị toa dưới dạng hình ảnh
+                                // Tạo container cho các nút toa
+                                JPanel toaContainerPanel = new JPanel();
+                                toaContainerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10)); // Sắp xếp các nút theo chiều ngang với khoảng cách 10px
+
+                                // Xóa các nút cũ
                                 JPanel_Toa.removeAll();
-                                JPanel_Toa.setLayout(new FlowLayout());
+                                JPanel_Toa.setLayout(new BorderLayout());  // Đặt BorderLayout để chứa JScrollPane
+
                                 if (danhSachToa.isEmpty()) {
                                     JOptionPane.showMessageDialog(null, "Không tìm thấy toa tàu.");
                                 } else {
@@ -673,7 +698,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                                         icon = new ImageIcon(resizedImage);
                                         JButton DautoaButton = new JButton(lichTrinhTau.getTau().getMaTau());
                                         DautoaButton.setIcon(icon);
-                                        JPanel_Toa.add(DautoaButton);
+                                        toaContainerPanel.add(DautoaButton);
                                         //Căng chỉnh btn
                                         DautoaButton.setHorizontalTextPosition(SwingConstants.CENTER);
                                         DautoaButton.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -700,9 +725,9 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                                         } else {
                                             System.out.println("Ảnh không tồn tại.");
                                         }
+
                                         // Thêm hiệu ứng hover
-                                        Color originalBackground = toaButton.getBackground(); // Lưu màu nền ban đầu
-                                        Color hoverBackground = new Color(216, 255, 193); // Màu nền khi hover
+                                        Color hoverBackground = new Color(132, 255, 57); // Màu nền khi hover
                                         toaButton.setToolTipText(toaTau.getLoaiToa().getTenLoai()); // Đây là văn bản chú thích
                                         toaButton.addMouseListener(new java.awt.event.MouseAdapter() {
                                             @Override
@@ -711,29 +736,41 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                                                 toaButton.setOpaque(true); // Đảm bảo màu được hiển thị
                                             }
 
+                                        });
+                                        // Xử lý cho sự kiện di chuyển chuột ra ngoài
+                                        toaButton.addMouseListener(new MouseAdapter() {
                                             @Override
-                                            public void mouseExited(java.awt.event.MouseEvent evt) {
-                                                toaButton.setBackground(originalBackground); // Trả lại màu nền ban đầu
-                                                toaButton.setOpaque(false); // Xóa màu nền khi không hover
+                                            public void mouseExited(MouseEvent e) {
+                                                // Nếu nút này đang được chọn, giữ nguyên màu nền vàng
+                                                if (toaButton == selectedToaButton[0]) {
+                                                    toaButton.setBackground(hoverBackground); // Giữ màu vàng
+                                                } else {
+                                                    toaButton.setBackground(null); // Nếu không được chọn, khôi phục lại màu nền ban đầu
+                                                }
                                             }
                                         });
-
                                         // Trong phần xử lý nút toa
                                         toaButton.addActionListener(new ActionListener() {
                                             @Override
                                             public void actionPerformed(ActionEvent event) {
                                                 lab_TenToaTau.setText("Toa tàu số " + toaTau.getThuTu() + ": " + toaTau.getLoaiToa().getTenLoai());
+
+                                                // Nếu có nút toa đã chọn, đổi lại màu ban đầu
+                                                if (selectedToaButton[0] != null) {
+                                                    selectedToaButton[0].setBackground(null);  // Khôi phục màu nền ban đầu
+                                                }
+                                                toaButton.setBackground(hoverBackground); // Màu vàng khi chọn
+                                                selectedToaButton[0] = toaButton;
+
                                                 DAO_BanVe daoBanVe = new DAO_BanVe();
                                                 List<ChoNgoi> danhSachChoNgoi = null;
                                                 lichKhiChonTau = lichTrinhTau;
-
                                                 try {
                                                     // Gọi DAO để tìm các chỗ ngồi của toa
                                                     danhSachChoNgoi = daoBanVe.getSeatsByMaToa(toaTau.getMaToa());
                                                 } catch (SQLException ex) {
                                                     throw new RuntimeException(ex);
                                                 }
-
                                                 // Hiển thị chỗ ngồi trong JPanel_ChoNgoi
                                                 JPanel_ChoNgoi_A.removeAll();
                                                 JPanel_ChoNgoi_A.setLayout(new FlowLayout());
@@ -753,7 +790,6 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
 
                                                         // Lưu nút vào buttonMap để dễ dàng truy cập sau này
                                                         buttonMap.put(choNgoi.getMaCho(), choButton); // Lưu nút vào map
-
                                                         // Kiểm tra xem chỗ ngồi đã được chọn hay chưa
                                                         if (danhSachChoDaChon.stream().anyMatch(c -> c.getMaCho().equals(choNgoi.getMaCho()))) {
                                                             choButton.setBackground(Color.YELLOW); // Nếu đã chọn, đổi màu thành vàng
@@ -767,7 +803,6 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                                                         }
                                                         choButton.setPreferredSize(new Dimension(60, 60)); // Kích thước nút hình vuông
                                                         choButton.setOpaque(true);
-
                                                         // Kiểm tra vé cho mã chỗ ngồi
                                                         VeTau veTau = daoBanVe.getVeTaubyLichTrinhTauandMaCho(lichTrinhTau.getMaLichTrinh(), choNgoi.getMaCho());
                                                         if (veTau != null) {
@@ -786,11 +821,9 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                                                                         choButton.setBackground(choNgoi.getTinhTrang() ? Color.WHITE : Color.PINK); // Màu nền dựa trên tình trạng
                                                                         danhSachChoDaChon.removeIf(c -> c.getMaCho().equals(choNgoi.getMaCho())); // Xóa khỏi danh sách đã chọn
                                                                     } else {
-                                                                        // Nếu chỗ ngồi chưa được chọn, đổi màu sang vàng khi được chọn
                                                                         choButton.setBackground(Color.YELLOW); // Màu vàng khi được chọn
                                                                         danhSachChoDaChon.add(choNgoi); // Thêm vào danh sách đã chọn
                                                                     }
-
                                                                     try {
                                                                         updateConfirmationPanel(lichTrinhTau); // Cập nhật panel xác nhận chỗ
                                                                     } catch (SQLException ex) {
@@ -799,8 +832,6 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                                                                 }
                                                             });
                                                         }
-
-                                                        // Gán chỗ ngồi vào JPanel tương ứng dựa trên ký tự cuối cùng
                                                         String tenCho = choNgoi.getTenCho(); // Lấy tên chỗ
                                                         if (tenCho != null && !tenCho.isEmpty()) {
                                                             char cuoi = tenCho.charAt(tenCho.length() - 1); // Lấy ký tự cuối cùng
@@ -818,7 +849,6 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                                                                     JPanel_ChoNgoi_D.add(choButton);
                                                                     break;
                                                                 default:
-                                                                    // Nếu không khớp với các ký tự A, B, C, D thì có thể bỏ qua hoặc xử lý tùy ý
                                                                     break;
                                                             }
                                                         }
@@ -835,23 +865,18 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                                                 }
                                             }
                                         });
-
-
-                                        // Thêm nút toa vào JPanel_Toa
-                                        JPanel_Toa.add(toaButton);
+                                        toaContainerPanel.add(toaButton);
                                         toaButton.setHorizontalTextPosition(SwingConstants.CENTER);
                                         toaButton.setVerticalTextPosition(SwingConstants.BOTTOM);
                                         toaButton.setContentAreaFilled(false);
                                         toaButton.setBorderPainted(false);
-
-                                        // Căn chỉnh biểu tượng với viền của nút
                                         toaButton.setIconTextGap(0);  // Không có khoảng cách giữa biểu tượng và văn bản
                                         toaButton.setMargin(new Insets(0, 0, 0, 0));  // Loại bỏ phần đệm của nút
                                         toaButton.setContentAreaFilled(false);  // Loại bỏ vùng nội dung mặc định của nút
                                         toaButton.setBorderPainted(false);  // Loại bỏ viền mặc định của nút
                                     }
-
-                                    // Cập nhật giao diện
+                                    JScrollPane scrollPane = new JScrollPane(toaContainerPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+                                    JPanel_Toa.add(scrollPane, BorderLayout.CENTER);
                                     JPanel_Toa.revalidate();
                                     JPanel_Toa.repaint();
                                 }
@@ -860,12 +885,15 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                     });
 
                     // Thêm nút vào JPanelTau
-                    JPanelTau.add(tauButton);
+                    tauContainerPanel.add(tauButton);
                     tauButton.setHorizontalTextPosition(SwingConstants.CENTER);
                     tauButton.setVerticalTextPosition(SwingConstants.BOTTOM);
                     tauButton.setContentAreaFilled(false);
                     tauButton.setBorderPainted(false);
                 }
+                // Thêm container vào JScrollPane để có thanh cuộn nằm ngang
+                JScrollPane scrollPane = new JScrollPane(tauContainerPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+                JPanelTau.add(scrollPane, BorderLayout.CENTER);
                 JPanelTau.revalidate(); // Cập nhật giao diện
                 JPanelTau.repaint();
             }
@@ -1004,27 +1032,54 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
 
             JPanel JPanel_MaKhuyenMai = new JPanel(new FlowLayout(FlowLayout.CENTER));
             JPanel_MaKhuyenMai.setBackground(colorTieuDeBang);
+
             JTextField txtMaKhuyenMai = new JTextField("Nhập mã giảm giá tại đây");
             txtMaKhuyenMai.setPreferredSize(new Dimension(150, 30));
+
+// Sự kiện khi nhấp chuột vào JTextField
+            txtMaKhuyenMai.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    txtMaKhuyenMai.setText(""); // Xóa nội dung hiện tại
+                }
+            });
+
             JButton btnApDung = new JButton("Áp Dụng");
             btnApDung.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String maKM = txtMaKhuyenMai.getText().trim(); // Lấy mã khuyến mãi từ TextField
                     try {
-                        khuyenMai = daoBanVe.findKhuyenMaiByMa(maKM);
+                        khuyenMai = daoBanVe.findKhuyenMaiByMa(maKM); // Tìm khuyến mãi theo mã
                     } catch (SQLException ex) {
                         throw new RuntimeException(ex);
                     }
+
                     if (khuyenMai != null) {
-                        chietKhau = khuyenMai.getChietKhau();
+                        LocalDate now = LocalDate.now(); // Ngày hiện tại
+                        if (khuyenMai.getThoiGianKetThuc().isBefore(now) || khuyenMai.getThoiGianKetThuc().isEqual(now)) {
+                            // Nếu khuyến mãi đã hết hạn
+                            JOptionPane.showMessageDialog(btnApDung,
+                                    "Khuyến mãi đã hết hạn vào ngày: " + khuyenMai.getThoiGianKetThuc(),
+                                    "Thông Báo",
+                                    JOptionPane.WARNING_MESSAGE);
+                        } else {
+                            // Nếu khuyến mãi còn hiệu lực
+                            chietKhau = khuyenMai.getChietKhau();
+                            showKhuyenMaiDialog(khuyenMai); // Hiển thị dialog thông tin khuyến mãi
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(btnApDung, "Không tìm thấy khuyến mãi với mã: " + maKM);
+                        JOptionPane.showMessageDialog(btnApDung,
+                                "Không tìm thấy khuyến mãi với mã: " + maKM,
+                                "Lỗi",
+                                JOptionPane.ERROR_MESSAGE);
                     }
                 }
             });
-            JPanel_MaKhuyenMai.add(txtMaKhuyenMai, BorderLayout.CENTER);
-            JPanel_MaKhuyenMai.add(btnApDung, BorderLayout.EAST);
+
+            JPanel_MaKhuyenMai.add(txtMaKhuyenMai);
+            JPanel_MaKhuyenMai.add(btnApDung);
+
 
             JPanel JPanel_loaiKH = new JPanel(new FlowLayout(FlowLayout.LEFT));
             JPanel_loaiKH.setBackground(colorTieuDeBang);
@@ -1103,7 +1158,6 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                 public void actionPerformed(ActionEvent e) {
                     // Tạo JPanel chứa thông tin chi tiết vé
                     JPanel panelChiTietVe = new JPanel();
-
                     panelChiTietVe.setLayout(new BoxLayout(panelChiTietVe, BoxLayout.Y_AXIS)); // Sắp xếp theo chiều dọc
                     panelChiTietVe.setBackground(Color.WHITE);
 
@@ -1112,6 +1166,10 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                         JPanel vePanel = new JPanel(new GridLayout(5, 1, 5, 5)); // Sử dụng GridLayout cho thông tin mỗi vé
                         vePanel.setBorder(BorderFactory.createLineBorder(Color.GRAY)); // Đường viền mỗi vé
                         vePanel.setBackground(new Color(240, 248, 255)); // Màu nền
+
+                        // Giới hạn chiều cao cho mỗi vé
+                        vePanel.setPreferredSize(new Dimension(400, 100)); // Chiều rộng 400px, chiều cao 100px
+                        vePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100)); // Đặt giới hạn chiều cao
 
                         // Lấy thông tin vé từ bảng
                         String hoTen = ((CustomPanel) table.getValueAt(row, 0)).getHoTen();
@@ -1130,13 +1188,12 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                         double thanhTien = (double) table.getValueAt(row, 5);
 
                         // Thêm các thông tin vé
-//                        vePanel.add(new JLabel("Ga đi: " +))
                         vePanel.add(new JLabel("  Họ tên: " + hoTen));
                         vePanel.add(new JLabel("  Thông tin chỗ ngồi: " + thongTinChoNgoi));
                         vePanel.add(new JLabel("  Giá vé: " + giaVe + " VND"));
                         vePanel.add(new JLabel("  Thành tiền: " + thanhTien + " VND"));
 
-                        // Thêm véPanel vào panelChiTietVe
+                        // Thêm vePanel vào panelChiTietVe
                         panelChiTietVe.add(vePanel);
                         panelChiTietVe.add(Box.createVerticalStrut(10)); // Khoảng cách giữa các vé
                     }
@@ -1153,6 +1210,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                     panelBenPhai.repaint();
                 }
             });
+
 
             buyerInfoPanel.add(Jpanel_NutThanhToan, BorderLayout.SOUTH); // Thêm nút In vào phía dưới cùng
             buyerInfoPanel.add(Jpanel_NutThanhToan, BorderLayout.SOUTH); // Thêm nút In vào phía dưới cùng
@@ -1589,6 +1647,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
     }
 
     private String generateTicketCode(String maTau) {
+
         // Lấy thời gian hiện tại bao gồm ngày tháng và giờ phút giây
         LocalDateTime currentDateTime = LocalDateTime.now();
 
@@ -1615,13 +1674,20 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
     }
 
     private String generateInvoiceCode() {
+        // Lấy thời gian hiện tại
+        LocalDateTime now = LocalDateTime.now();
+        // Định dạng thời gian thành NgàyThángNăm (yyyy-MM-dd)
+        String datePart = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        counter = daoBanVe.getTotalInvoicesByDate(datePart);
+        System.out.println("Số lượng hóa đơn: "+counter);
+
         LocalDate today = LocalDate.now();
 
         // Lấy ngày theo định dạng ddMMyy
-        String datePart = today.format(DateTimeFormatter.ofPattern("ddMMyy"));
+        String datePart1 = today.format(DateTimeFormatter.ofPattern("ddMMyy"));
 
         // Tạo mã hóa đơn với counter
-        String invoiceCode = String.format("HD%s%04d", datePart, counter);
+        String invoiceCode = String.format("HD%s%04d", datePart1, counter);
 
         // Tăng giá trị counter
         counter = (counter + 1) % 10000; // Reset lại khi đạt đến 10000
@@ -1632,12 +1698,16 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
     public String generateCustomerCode() {
         // Lấy thời gian hiện tại
         LocalDateTime now = LocalDateTime.now();
+        // Định dạng thời gian thành NgàyThángNăm (yyyy-MM-dd)
+        String datePart = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        totalCustomerToday = daoBanVe.getTotalInvoicesByDate(datePart);
+        System.out.println("Số lượng khách hàng: "+totalCustomerToday);
 
         // Định dạng thời gian thành NgàyThángNăm (ddMMyy)
-        String datePart = now.format(DateTimeFormatter.ofPattern("ddMMyy"));
+        String datePart1 = now.format(DateTimeFormatter.ofPattern("ddMMyy"));
 
         // Tạo mã khách hàng với format KH + thời gian + số thứ tự
-        String customerCode = String.format("KH%s%04d", datePart, totalCustomerToday);
+        String customerCode = String.format("KH%s%04d", datePart1, totalCustomerToday);
 
         // Tăng biến đếm lên 1, nếu vượt quá 9999 thì quay lại 0
         totalCustomerToday = (totalCustomerToday + 1) % 10000;
@@ -1672,6 +1742,87 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
         btn.setForeground(Color.RED); // Màu chữ khi nút được chọn
         currentlySelectedButton = btn;
     }
+    private void showKhuyenMaiDialog(KhuyenMai khuyenMai) {
+        JDialog dialog = new JDialog();
+        dialog.setTitle("Thông Tin Khuyến Mãi");
+
+        // Tạo panel chính với khoảng cách bên trong
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5); // Khoảng cách giữa các thành phần
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+
+        // Các thành phần hiển thị
+        gbc.gridy = 0;
+        panel.add(new JLabel("Mã KM:"), gbc);
+        gbc.gridx = 1;
+        JLabel lblMaKM = new JLabel(khuyenMai.getMaKM());
+        lblMaKM.setFont(new Font("Arial", Font.BOLD, 14));
+        panel.add(lblMaKM, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        panel.add(new JLabel("Chiết khấu:"), gbc);
+        gbc.gridx = 1;
+        JLabel lblChietKhau = new JLabel(String.valueOf(khuyenMai.getChietKhau()+" %"));
+        lblChietKhau.setFont(new Font("Arial", Font.BOLD, 14));
+        lblChietKhau.setForeground(Color.BLUE); // Đổi màu chữ
+        panel.add(lblChietKhau, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        panel.add(new JLabel("Thời gian bắt đầu:"), gbc);
+        gbc.gridx = 1;
+        panel.add(new JLabel(khuyenMai.getThoiGianBatDau().toString()), gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        panel.add(new JLabel("Thời gian kết thúc:"), gbc);
+        gbc.gridx = 1;
+        panel.add(new JLabel(khuyenMai.getThoiGianKetThuc().toString()), gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        panel.add(new JLabel("Nội dung KM:"), gbc);
+
+        gbc.gridx = 1;
+        JTextArea txtNoiDungKM = new JTextArea(khuyenMai.getNoiDungKM());
+        txtNoiDungKM.setWrapStyleWord(true);
+        txtNoiDungKM.setLineWrap(true);
+        txtNoiDungKM.setEditable(false);
+        txtNoiDungKM.setBackground(new Color(240, 240, 240)); // Màu nền nhẹ
+        txtNoiDungKM.setFont(new Font("Arial", Font.PLAIN, 12));
+        txtNoiDungKM.setBorder(null); // Xóa viền của JTextArea
+
+        JScrollPane scrollPane = new JScrollPane(txtNoiDungKM);
+        scrollPane.setPreferredSize(new Dimension(200, 60));
+        panel.add(scrollPane, gbc);
+
+
+        // Nút đóng
+        JButton btnClose = new JButton("Đóng");
+        btnClose.setFont(new Font("Arial", Font.BOLD, 14));
+        btnClose.addActionListener(e -> dialog.dispose());
+
+        // Bố cục của dialog
+        dialog.setLayout(new BorderLayout());
+        dialog.add(panel, BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(1, 0, 1, 0));
+        buttonPanel.add(btnClose);
+
+        dialog.add(buttonPanel, BorderLayout.SOUTH);
+
+        dialog.setSize(355, 260); // Kích thước dialog
+        dialog.setLocationRelativeTo(null); // Hiển thị giữa màn hình
+        dialog.setModal(true); // Chặn thao tác ngoài dialog
+        dialog.setVisible(true);
+    }
+
 
     private void removeButtonColor(JButton btn) {
 

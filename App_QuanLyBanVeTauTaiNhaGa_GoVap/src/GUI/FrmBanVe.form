@@ -458,7 +458,7 @@
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints border-constraint="East"/>
             <properties>
-              <preferredSize width="400" height="24"/>
+              <preferredSize width="375" height="24"/>
             </properties>
             <border type="bevel-raised" title="Giỏ vé" title-justification="2">
               <font size="28" style="1"/>
