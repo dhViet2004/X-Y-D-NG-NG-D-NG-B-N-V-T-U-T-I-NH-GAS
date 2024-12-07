@@ -2,6 +2,7 @@
 package GUI;
 
 import DAO.DAO_BanVe;
+import DAO.DAO_NhanVien;
 import Database.ConnectDatabase;
 import Entity.*;
 import com.toedter.calendar.JDateChooser;
@@ -33,6 +34,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
     private final JButton btnQuanLyKhuyenMai;
     private final JButton btnQuanLyDoanhThu;
     private final JButton btnQuanLyNhanVien;
+    private final JButton btnQuanLyLichLamViec;
 
     // quản lý vé
     private JMenuItem doiVe = new JMenuItem();
@@ -106,7 +108,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
     Component nhanVienPanel = new FrmNhanVien().getJpannelNV();
     Component soLuongKHPanel = new Frm_ThongKeKhachHang().getTKKHPanel();
     Component traCuuKMPanel = new Frm_TraCuuKhuyenMai().getTraCuuKM_Panel();
-
+    Component LLVPanel = new FrmLichLamViec().getPanel_LLV();
     private List<LoaiKhachHang> danhSachLoaiKH = new ArrayList<>();
     private KhuyenMai khuyenMai = null;
     private Double chietKhau = 0.0;
@@ -114,6 +116,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
     private int totalCustomerToday = 0;
     private static double VAT = 10;
     private NhanVien nhanVien;
+
     public FrmBanVe(NhanVien nv) {
         nhanVien = nv;
         setTitle("Bán Vé");
@@ -163,13 +166,13 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
         btnQuanLyKhuyenMai = createButton("Quản lý CTKM", null);
         btnQuanLyDoanhThu = createButton("Quản lý doanh thu", iconArrowNew);
         btnQuanLyNhanVien = createButton("Quản lý nhân viên", null);
-
+        btnQuanLyLichLamViec = createButton("Quản lý lịch làm việc", null);
         // Format nút với cùng kích thước, phông chữ và căn chỉnh
         Dimension buttonSize = new Dimension(200, 60); // Tăng kích thước chiều cao của nút lên 60px
         fontMenu = new Font("Arial", Font.PLAIN, 16); // Đặt font chung cho tất cả các nút
 
         // Định dạng cho từng nút
-        JButton[] buttons = {btnBanVe, btnTraCuu, btnQuanLyVe, btnThongKeTheoCa, btnQuanLyChuyenTau, btnQuanLyKhachHang, btnQuanLyKhuyenMai, btnQuanLyDoanhThu, btnQuanLyNhanVien};
+        JButton[] buttons = {btnBanVe, btnTraCuu, btnQuanLyVe, btnThongKeTheoCa, btnQuanLyChuyenTau, btnQuanLyKhachHang, btnQuanLyKhuyenMai, btnQuanLyDoanhThu, btnQuanLyNhanVien, btnQuanLyLichLamViec};
         for (JButton btn : buttons) {
             btn.setPreferredSize(buttonSize); // Đặt kích thước cố định cho nút
             btn.setFont(fontMenu); // Đặt font
@@ -230,6 +233,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
             addButtonAction(btnQuanLyDoanhThu); // Thực hiện thay đổi màu sắc nút
         });
         btnQuanLyNhanVien.addActionListener(this);
+        btnQuanLyLichLamViec.addActionListener(this);
 
 
         btnRadio_MotChieu.addItemListener((ItemListener) this);
@@ -241,11 +245,16 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
         String datePart = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         counter = daoBanVe.getTotalInvoicesByDate(datePart);
-        System.out.println("Số lượng vé: "+counter);
+        System.out.println("Số lượng vé: " + counter);
         totalCustomerToday = daoBanVe.getTotalInvoicesByDate(datePart);
-        System.out.println("Số lượng khách hàng: "+totalCustomerToday);
+        System.out.println("Số lượng khách hàng: " + totalCustomerToday);
 
         btnRadio_MotChieu.setSelected(true);
+        try {
+            phanQuyen(nv.getMaNhanVien());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -627,15 +636,15 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                     // Thêm hiệu ứng hover cho nút tàu
                     Color originalBackground = tauButton.getBackground(); // Lưu màu nền ban đầu
                     Color hoverBackground = new Color(250, 196, 58); // Màu nền khi hover
-                    tauButton.addMouseListener(new java.awt.event.MouseAdapter() {
+                    tauButton.addMouseListener(new MouseAdapter() {
                         @Override
-                        public void mouseEntered(java.awt.event.MouseEvent evt) {
+                        public void mouseEntered(MouseEvent evt) {
                             tauButton.setBackground(hoverBackground); // Đổi màu khi hover
                             tauButton.setOpaque(true); // Đảm bảo màu được hiển thị
                         }
 
                         @Override
-                        public void mouseExited(java.awt.event.MouseEvent evt) {
+                        public void mouseExited(MouseEvent evt) {
                             tauButton.setBackground(originalBackground); // Trả lại màu nền ban đầu
                             tauButton.setOpaque(false); // Xóa màu nền khi không hover
                         }
@@ -704,15 +713,15 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                                         Color originalBackground = toaButton.getBackground(); // Lưu màu nền ban đầu
                                         Color hoverBackground = new Color(216, 255, 193); // Màu nền khi hover
                                         toaButton.setToolTipText(toaTau.getLoaiToa().getTenLoai()); // Đây là văn bản chú thích
-                                        toaButton.addMouseListener(new java.awt.event.MouseAdapter() {
+                                        toaButton.addMouseListener(new MouseAdapter() {
                                             @Override
-                                            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                                            public void mouseEntered(MouseEvent evt) {
                                                 toaButton.setBackground(hoverBackground); // Đổi màu khi hover
                                                 toaButton.setOpaque(true); // Đảm bảo màu được hiển thị
                                             }
 
                                             @Override
-                                            public void mouseExited(java.awt.event.MouseEvent evt) {
+                                            public void mouseExited(MouseEvent evt) {
                                                 toaButton.setBackground(originalBackground); // Trả lại màu nền ban đầu
                                                 toaButton.setOpaque(false); // Xóa màu nền khi không hover
                                             }
@@ -902,7 +911,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
 
                 // Cập nhật discount và tính toán thành tiền
                 double discount = panel.getDiscount();
-                double tienThue = (choNgoi.getGia()*10)/100;
+                double tienThue = (choNgoi.getGia() * 10) / 100;
                 double thanhTien = choNgoi.getGia() - discount + tienThue;
                 tongThanhTien += thanhTien; // Cộng dồn vào tổng thành tiền
                 Object[] rowData = new Object[]{
@@ -1243,7 +1252,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                             String cccd = customPanel.getCCCD();
                             String thongTinChoNgoi = (String) table.getValueAt(row, 1);
                             float giaVe = (float) table.getValueAt(row, 2);
-                            float tienThue = (float) ((giaVe*VAT)/100);
+                            float tienThue = (float) ((giaVe * VAT) / 100);
                             double thanhTien = (double) table.getValueAt(row, 5);
 
                             // Tạo mã vé và đối tượng VeTau
@@ -1255,7 +1264,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                             tongTien += thanhTien;
 
                             // Tạo chi tiết hóa đơn với mã vé tương ứng
-                            ChiTietHoaDon chiTiet = new ChiTietHoaDon(maVe, "", 1,VAT, thanhTien, tienThue); // Mã hóa đơn sẽ thêm sau
+                            ChiTietHoaDon chiTiet = new ChiTietHoaDon(maVe, "", 1, VAT, thanhTien, tienThue); // Mã hóa đơn sẽ thêm sau
                             chiTietHoaDonList.add(chiTiet);
                         }
                         // Lưu vé vào cơ sở dữ liệu trước
@@ -1267,7 +1276,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                         // Lưu hóa đơn
                         double tienChietKhau = tongTien * (chietKhau / 100);
                         tongTien -= tienChietKhau;
-                        HoaDon hoaDon = new HoaDon(maHD, khachHang, khuyenMai,nhanVien, loaiHoaDon, LocalDateTime.now(), tienChietKhau, tongTien);
+                        HoaDon hoaDon = new HoaDon(maHD, khachHang, khuyenMai, nhanVien, loaiHoaDon, LocalDateTime.now(), tienChietKhau, tongTien);
                         daoBanVe.saveInvoice(hoaDon); // Lưu hóa đơn
 
                         // Lưu chi tiết hóa đơn
@@ -1380,6 +1389,19 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
             lab_Title.setVisible(false);
             JPanel_BanVe.setVisible(false);
             Jpanel_Main.add(nhanVienPanel);
+            Jpanel_Main.setVisible(true);
+
+            // Cập nhật lại giao diện người dùng
+            Jpanel_Main.revalidate(); // Cập nhật layout
+            Jpanel_Main.repaint();    //
+        } else if (e.getSource() == btnQuanLyLichLamViec) {
+            addButtonAction(btnQuanLyLichLamViec);
+            Jpanel_Main.removeAll();
+            current = (JPanel) LLVPanel;
+            JPanel_XacNhanCho.setVisible(false);
+            lab_Title.setVisible(false);
+            JPanel_BanVe.setVisible(false);
+            Jpanel_Main.add(LLVPanel);
             Jpanel_Main.setVisible(true);
 
             // Cập nhật lại giao diện người dùng
@@ -1574,6 +1596,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
             Jpanel_Main.repaint();    //
         }
     }
+
     private void updateTotalAmount(JLabel lblThanhTien, JTable table, double chietKhau) {
         double totalAmount = 0;
 
@@ -1673,8 +1696,25 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
         currentlySelectedButton = btn;
     }
 
-    private void removeButtonColor(JButton btn) {
-
+    FrmDangNhap frmDangNhap = new FrmDangNhap();
+    DAO_NhanVien dao_nv = new DAO_NhanVien();
+    String role = frmDangNhap.getmaNV();
+    private void phanQuyen(String maNV) throws Exception {
+        System.out.println(maNV);
+        List<NhanVien> list = dao_nv.findAll();
+        for (NhanVien nv : list) {
+            if (nv.getMaNhanVien().equalsIgnoreCase(maNV) && nv.getChucVu().equalsIgnoreCase("Nhan vien")) {
+                btnQuanLyNhanVien.setEnabled(false);
+                btnQuanLyChuyenTau.setEnabled(false);
+                btnQuanLyLichLamViec.setEnabled(false);
+            }if(nv.getMaNhanVien().equalsIgnoreCase(maNV) && nv.getChucVu().equalsIgnoreCase("Quan ly")){
+                btnBanVe.setEnabled(false);
+                btnQuanLyVe.setEnabled(false);
+                btnTraCuu.setEnabled(false);
+                btnQuanLyKhuyenMai.setEnabled(false);
+                btnThongKeTheoCa.setEnabled(false);
+            }
+        }
     }
 }
 
