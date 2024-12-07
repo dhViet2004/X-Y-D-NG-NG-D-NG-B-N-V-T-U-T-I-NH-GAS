@@ -1,4 +1,4 @@
-package main;
+package Main;
 
 import DAO.DAO_KhachHang;
 import Entity.KhachHang;
