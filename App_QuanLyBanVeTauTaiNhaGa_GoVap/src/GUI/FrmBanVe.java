@@ -107,13 +107,15 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
     Component soLuongKHPanel = new Frm_ThongKeKhachHang().getTKKHPanel();
     Component traCuuKMPanel = new Frm_TraCuuKhuyenMai().getTraCuuKM_Panel();
 
-
     private List<LoaiKhachHang> danhSachLoaiKH = new ArrayList<>();
     private KhuyenMai khuyenMai = null;
     private Double chietKhau = 0.0;
     private int counter = 0;
-
+    private int totalCustomerToday = 0;
+    private static double VAT = 10;
+    private NhanVien nhanVien;
     public FrmBanVe(NhanVien nv) {
+        nhanVien = nv;
         setTitle("Bán Vé");
         temp = Jpanel_Main;
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -239,7 +241,9 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
         String datePart = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         counter = daoBanVe.getTotalInvoicesByDate(datePart);
-        System.out.println(counter);
+        System.out.println("Số lượng vé: "+counter);
+        totalCustomerToday = daoBanVe.getTotalInvoicesByDate(datePart);
+        System.out.println("Số lượng khách hàng: "+totalCustomerToday);
 
         btnRadio_MotChieu.setSelected(true);
     }
@@ -877,7 +881,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
             dialog.setLocationRelativeTo(this); // Hiển thị ở giữa màn hình
 
             // Tạo tiêu đề các cột
-            String[] columnNames = {"Họ tên", "Thông tin chỗ ngồi", "Giá vé (VND)", "Giảm đối tượng", "Khuyến mại", "Thành tiền"};
+            String[] columnNames = {"Họ tên", "Thông tin chỗ ngồi", "Giá vé (VND)", "Giảm đối tượng", "Chỗ ngồi", "Thành tiền"};
 
             // Tạo mô hình bảng
             DefaultTableModel model = new DefaultTableModel(columnNames, 0);
@@ -898,14 +902,15 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
 
                 // Cập nhật discount và tính toán thành tiền
                 double discount = panel.getDiscount();
-                double thanhTien = choNgoi.getGia() - discount;
+                double tienThue = (choNgoi.getGia()*10)/100;
+                double thanhTien = choNgoi.getGia() - discount + tienThue;
                 tongThanhTien += thanhTien; // Cộng dồn vào tổng thành tiền
                 Object[] rowData = new Object[]{
                         panel, // Đưa panel vào bảng
                         choNgoi.getMaCho(),
                         choNgoi.getGia(),
                         discount,
-                        "", // Khuyến mại
+                        choNgoi.getTenCho(), // Khuyến mại
                         thanhTien
                 };
                 model.addRow(rowData);
@@ -944,7 +949,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
             JPanel panelThongTinNguoiDiTau = new JPanel();
             panelThongTinNguoiDiTau.setLayout(new BorderLayout());
             panelThongTinNguoiDiTau.add(scrollPane, BorderLayout.CENTER);
-             // Thêm JScrollPane vào cửa sổ
+
             // Tạo JPanel để hiển thị thông tin bên phải
             JPanel panelBenPhai = new JPanel();
             panelBenPhai.setLayout(new BoxLayout(panelBenPhai, BoxLayout.Y_AXIS)); // Sử dụng BoxLayout theo trục Y
@@ -952,33 +957,16 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
             panelBenPhai.setBackground(new Color(230, 230, 250)); // Đặt màu nền
 
             // Thêm một số thành phần vào panel bên phải
-            JLabel lblTitle = new JLabel("Thông tin thêm");
+            JLabel lblTitle = new JLabel("Thông tin chi tiết vé");
             lblTitle.setFont(new Font("Arial", Font.BOLD, 20));
             lblTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-            JTextArea txtAreaThongTin = new JTextArea(10, 20);
-            txtAreaThongTin.setLineWrap(true);
-            txtAreaThongTin.setWrapStyleWord(true);
-            txtAreaThongTin.setFont(new Font("Arial", Font.PLAIN, 16));
-            txtAreaThongTin.setText("Nhập thông tin tại đây...");
-            JScrollPane scrollText = new JScrollPane(txtAreaThongTin);
-
-            // Nút thực hiện hành động
-            JButton btnHanhDong = new JButton("Thực hiện");
-            btnHanhDong.setAlignmentX(Component.CENTER_ALIGNMENT);
-            btnHanhDong.setFont(new Font("Arial", Font.BOLD, 16));
-            btnHanhDong.addActionListener(ec_ -> {
-                String text = txtAreaThongTin.getText();
-                JOptionPane.showMessageDialog(dialog, "Thông tin bạn nhập: " + text);
-            });
 
             // Thêm thành phần vào panel
             panelBenPhai.add(Box.createVerticalStrut(20)); // Thêm khoảng cách
             panelBenPhai.add(lblTitle);
             panelBenPhai.add(Box.createVerticalStrut(10)); // Khoảng cách giữa các thành phần
-            panelBenPhai.add(scrollText);
             panelBenPhai.add(Box.createVerticalStrut(10));
-            panelBenPhai.add(btnHanhDong);
+
 
             // Thêm panel bên phải vào dialog
             dialog.add(panelBenPhai, BorderLayout.EAST);
@@ -994,9 +982,14 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
             lblLoaiKH.setForeground(Color.WHITE);
             lblLoaiKH.setFont(new Font("Arial", Font.BOLD, 18));
 
-            JLabel lbl_ThanhTien = new JLabel("Tổng thành tiền: " + tongThanhTien + " VND    ");
-            lbl_ThanhTien.setForeground(Color.WHITE);
+            JLabel lbl_ThanhTien = new JLabel("  Tổng thành tiền: " + tongThanhTien + " VND    ");
+            lbl_ThanhTien.setForeground(Color.RED);
             lbl_ThanhTien.setFont(new Font("Arial", Font.BOLD, 20)); // Đặt cỡ chữ lớn hơn
+
+            // Đặt nền cho JLabel
+            lbl_ThanhTien.setOpaque(true); // Bắt buộc để JLabel hiển thị màu nền
+            lbl_ThanhTien.setBackground(Color.YELLOW); // Đặt màu nền là vàng nhạt
+
 
             try {
                 danhSachLoaiKH = daoBanVe.getAllLoaiKhachHang();
@@ -1108,20 +1101,58 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
             btnChiTietHoaDon.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    double tongThanhTien = 0;
-                    // Tính tổng thành tiền từ bảng
-                    for (int row = 0; row < table.getRowCount(); row++) {
-                        double thanhTien = (double) table.getValueAt(row, 5); // Cột "Thành tiền"
-                        tongThanhTien += thanhTien;
-                    }
-                    double tienChietKhau = tongThanhTien * (chietKhau / 100);
-                    tongThanhTien -= tienChietKhau;
+                    // Tạo JPanel chứa thông tin chi tiết vé
+                    JPanel panelChiTietVe = new JPanel();
 
-                    // Hiển thị dialog chi tiết hóa đơn
-                    showInvoiceDetailDialog(table, tongThanhTien);
+                    panelChiTietVe.setLayout(new BoxLayout(panelChiTietVe, BoxLayout.Y_AXIS)); // Sắp xếp theo chiều dọc
+                    panelChiTietVe.setBackground(Color.WHITE);
+
+                    // Thêm thông tin của từng vé vào panel
+                    for (int row = 0; row < table.getRowCount(); row++) {
+                        JPanel vePanel = new JPanel(new GridLayout(5, 1, 5, 5)); // Sử dụng GridLayout cho thông tin mỗi vé
+                        vePanel.setBorder(BorderFactory.createLineBorder(Color.GRAY)); // Đường viền mỗi vé
+                        vePanel.setBackground(new Color(240, 248, 255)); // Màu nền
+
+                        // Lấy thông tin vé từ bảng
+                        String hoTen = ((CustomPanel) table.getValueAt(row, 0)).getHoTen();
+                        String thongTinChoNgoi = (String) table.getValueAt(row, 1);
+                        Object value = table.getValueAt(row, 2);
+                        double giaVe;
+
+                        if (value instanceof Float) {
+                            giaVe = ((Float) value).doubleValue();
+                        } else if (value instanceof Double) {
+                            giaVe = (Double) value;
+                        } else {
+                            throw new ClassCastException("Không thể chuyển đổi kiểu dữ liệu: " + value.getClass());
+                        }
+
+                        double thanhTien = (double) table.getValueAt(row, 5);
+
+                        // Thêm các thông tin vé
+//                        vePanel.add(new JLabel("Ga đi: " +))
+                        vePanel.add(new JLabel("  Họ tên: " + hoTen));
+                        vePanel.add(new JLabel("  Thông tin chỗ ngồi: " + thongTinChoNgoi));
+                        vePanel.add(new JLabel("  Giá vé: " + giaVe + " VND"));
+                        vePanel.add(new JLabel("  Thành tiền: " + thanhTien + " VND"));
+
+                        // Thêm véPanel vào panelChiTietVe
+                        panelChiTietVe.add(vePanel);
+                        panelChiTietVe.add(Box.createVerticalStrut(10)); // Khoảng cách giữa các vé
+                    }
+
+                    // Đặt panelChiTietVe vào JScrollPane
+                    JScrollPane scrollPane = new JScrollPane(panelChiTietVe);
+                    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+                    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+                    // Thay thế nội dung của panelBenPhai bằng JScrollPane
+                    panelBenPhai.removeAll();
+                    panelBenPhai.add(scrollPane);
+                    panelBenPhai.revalidate();
+                    panelBenPhai.repaint();
                 }
             });
-
 
             buyerInfoPanel.add(Jpanel_NutThanhToan, BorderLayout.SOUTH); // Thêm nút In vào phía dưới cùng
             buyerInfoPanel.add(Jpanel_NutThanhToan, BorderLayout.SOUTH); // Thêm nút In vào phía dưới cùng
@@ -1193,7 +1224,6 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                             LocalDate.now(), // Ngày tham gia
                             "Silver" // Hạng thành viên mặc định
                     );
-
                     try {
                         DAO_BanVe daoBanVe = new DAO_BanVe(); // Tạo đối tượng DAO
 
@@ -1213,6 +1243,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                             String cccd = customPanel.getCCCD();
                             String thongTinChoNgoi = (String) table.getValueAt(row, 1);
                             float giaVe = (float) table.getValueAt(row, 2);
+                            float tienThue = (float) ((giaVe*VAT)/100);
                             double thanhTien = (double) table.getValueAt(row, 5);
 
                             // Tạo mã vé và đối tượng VeTau
@@ -1224,7 +1255,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                             tongTien += thanhTien;
 
                             // Tạo chi tiết hóa đơn với mã vé tương ứng
-                            ChiTietHoaDon chiTiet = new ChiTietHoaDon(maVe, "", 1, 0.0, thanhTien, 0.0); // Mã hóa đơn sẽ thêm sau
+                            ChiTietHoaDon chiTiet = new ChiTietHoaDon(maVe, "", 1,VAT, thanhTien, tienThue); // Mã hóa đơn sẽ thêm sau
                             chiTietHoaDonList.add(chiTiet);
                         }
                         // Lưu vé vào cơ sở dữ liệu trước
@@ -1236,7 +1267,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                         // Lưu hóa đơn
                         double tienChietKhau = tongTien * (chietKhau / 100);
                         tongTien -= tienChietKhau;
-                        HoaDon hoaDon = new HoaDon(maHD, khachHang, khuyenMai, null, loaiHoaDon, LocalDate.now(), 0, tongTien);
+                        HoaDon hoaDon = new HoaDon(maHD, khachHang, khuyenMai,nhanVien, loaiHoaDon, LocalDateTime.now(), tienChietKhau, tongTien);
                         daoBanVe.saveInvoice(hoaDon); // Lưu hóa đơn
 
                         // Lưu chi tiết hóa đơn
@@ -1543,65 +1574,6 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
             Jpanel_Main.repaint();    //
         }
     }
-
-
-    private void showInvoiceDetailDialog(JTable table, double tongThanhTien) {
-        // Tạo dialog
-        JDialog detailDialog = new JDialog();
-        detailDialog.setTitle("Chi Tiết Hóa Đơn");
-        detailDialog.setSize(600, 400);
-        detailDialog.setLocationRelativeTo(null); // Hiển thị giữa màn hình
-
-        // Tạo JTextArea để hiển thị chi tiết hóa đơn
-        JTextArea textArea = new JTextArea();
-        textArea.setFont(new Font("Arial", Font.PLAIN, 18));
-        textArea.setEditable(false); // Không cho phép chỉnh sửa
-
-        // Xây dựng nội dung chi tiết hóa đơn
-        StringBuilder sb = new StringBuilder();
-        sb.append("Chi Tiết Hóa Đơn\n");
-        sb.append("---------------------------------------------------\n");
-        for (int row = 0; row < table.getRowCount(); row++) {
-            String hoTen = ((CustomPanel) table.getValueAt(row, 0)).getHoTen();
-            String thongTinChoNgoi = (String) table.getValueAt(row, 1);
-            float giaVe = (float) table.getValueAt(row, 2);
-            double thanhTien = (double) table.getValueAt(row, 5);
-
-            sb.append("Họ tên: ").append(hoTen).append("\n");
-            sb.append("Chỗ ngồi: ").append(thongTinChoNgoi).append("\n");
-            sb.append("Giá vé: ").append(giaVe).append(" VND\n");
-            sb.append("Thành tiền: ").append(thanhTien).append(" VND\n");
-            sb.append("---------------------------------------------------\n");
-        }
-        sb.append("Tổng thành tiền: ").append(tongThanhTien).append(" VND\n");
-
-        // Đặt nội dung vào JTextArea
-        textArea.setText(sb.toString());
-
-        // Thêm JTextArea vào JScrollPane để hỗ trợ cuộn
-        JScrollPane scrollPane = new JScrollPane(textArea);
-
-        // Thêm JScrollPane vào dialog
-        detailDialog.add(scrollPane, BorderLayout.CENTER);
-
-        // Nút đóng dialog
-        JButton btnClose = new JButton("Đóng");
-        btnClose.setPreferredSize(new Dimension(100, 40));
-        btnClose.setFont(new Font("Arial", Font.BOLD, 16));
-        btnClose.addActionListener(e -> detailDialog.dispose());
-
-        // Thêm nút vào JPanel ở cuối dialog
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        buttonPanel.add(btnClose);
-        detailDialog.add(buttonPanel, BorderLayout.SOUTH);
-        // Tạo Timer để tự động đóng dialog sau 60 giây (60000ms)
-        Timer timer = new Timer(60000, e -> detailDialog.dispose());
-        timer.setRepeats(false); // Chạy một lần
-        timer.start();
-        // Hiển thị dialog
-        detailDialog.setVisible(true);
-    }
-
     private void updateTotalAmount(JLabel lblThanhTien, JTable table, double chietKhau) {
         double totalAmount = 0;
 
@@ -1613,7 +1585,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
         double tienChietKhau = totalAmount * (chietKhau / 100);
         totalAmount -= tienChietKhau;
         // Cập nhật label với tổng thành tiền
-        lblThanhTien.setText("Tổng thành tiền: " + totalAmount + " VND");
+        lblThanhTien.setText("  Tổng thành tiền: " + totalAmount + " VND");
     }
 
     private String generateTicketCode(String maTau) {
@@ -1665,10 +1637,10 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
         String datePart = now.format(DateTimeFormatter.ofPattern("ddMMyy"));
 
         // Tạo mã khách hàng với format KH + thời gian + số thứ tự
-        String customerCode = String.format("KH%s%04d", datePart, counter);
+        String customerCode = String.format("KH%s%04d", datePart, totalCustomerToday);
 
         // Tăng biến đếm lên 1, nếu vượt quá 9999 thì quay lại 0
-        counter = (counter + 1) % 10000;
+        totalCustomerToday = (totalCustomerToday + 1) % 10000;
 
         return customerCode;
     }

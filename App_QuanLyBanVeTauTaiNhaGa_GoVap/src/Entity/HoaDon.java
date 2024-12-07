@@ -1,6 +1,7 @@
 package Entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class HoaDon {
@@ -9,11 +10,11 @@ public class HoaDon {
     private KhuyenMai khuyenMai;
     private NhanVien nv;
     private LoaiHoaDon loaiHoaDon;
-    private LocalDate ngayLap;
+    private LocalDateTime ngayLap;
     private double tienGiam;
     private double tongTien;
 
-    public HoaDon(String maHD, KhachHang khachHang, KhuyenMai khuyenMai, NhanVien nv, LoaiHoaDon loaiHoaDon, LocalDate ngayLap, double tienGiam, double tongTien) {
+    public HoaDon(String maHD, KhachHang khachHang, KhuyenMai khuyenMai, NhanVien nv, LoaiHoaDon loaiHoaDon, LocalDateTime ngayLap, double tienGiam, double tongTien) {
         this.maHD = maHD;
         this.khachHang = khachHang;
         this.khuyenMai = khuyenMai;
@@ -60,11 +61,11 @@ public class HoaDon {
         this.loaiHoaDon = loaiHoaDon;
     }
 
-    public LocalDate getNgayLap() {
+    public LocalDateTime getNgayLap() {
         return ngayLap;
     }
 
-    public void setNgayLap(LocalDate ngayLap) {
+    public void setNgayLap(LocalDateTime ngayLap) {
         this.ngayLap = ngayLap;
     }
 

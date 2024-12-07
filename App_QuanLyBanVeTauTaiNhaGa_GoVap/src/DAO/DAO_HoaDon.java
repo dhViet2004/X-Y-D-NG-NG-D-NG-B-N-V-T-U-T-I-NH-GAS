@@ -20,23 +20,23 @@ public class DAO_HoaDon {
         con = ConnectDatabase.getConnection();
     }
 
-    public List<HoaDon> getAllList() throws SQLException {
-        List<HoaDon> list = new ArrayList<HoaDon>();
-        String sql = "select * from HoaDon";
-        DAO_HoaDon dao = new DAO_HoaDon();
-        try (Statement statement = con.createStatement(); ResultSet rs = statement.executeQuery(sql)) {
-
-            while (rs.next()) {
-                HoaDon hd = new HoaDon(rs.getString("MaHD"), new KhachHang(rs.getString("MaKH")), new KhuyenMai(rs.getString("KhuyenMaiMaKM")), new NhanVien(rs.getString("MaNV")), new LoaiHoaDon(rs.getString("MaLoai")), rs.getDate("NgayHoaDon").toLocalDate(), rs.getDouble("TienKhuyenMai"), rs.getDouble("TongTien"));
-                list.add(hd);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw e; // Ném lại ngoại lệ để xử lý ở nơi gọi
-        }
-
-        return list;
-    }
+//    public List<HoaDon> getAllList() throws SQLException {
+//        List<HoaDon> list = new ArrayList<HoaDon>();
+//        String sql = "select * from HoaDon";
+//        DAO_HoaDon dao = new DAO_HoaDon();
+//        try (Statement statement = con.createStatement(); ResultSet rs = statement.executeQuery(sql)) {
+//
+//            while (rs.next()) {
+//                HoaDon hd = new HoaDon(rs.getString("MaHD"), new KhachHang(rs.getString("MaKH")), new KhuyenMai(rs.getString("KhuyenMaiMaKM")), new NhanVien(rs.getString("MaNV")), new LoaiHoaDon(rs.getString("MaLoai")), rs.getDate("NgayHoaDon").toLocalDa, rs.getDouble("TienKhuyenMai"), rs.getDouble("TongTien"));
+//                list.add(hd);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            throw e; // Ném lại ngoại lệ để xử lý ở nơi gọi
+//        }
+//
+//        return list;
+//    }
 
     public List<Object[]> layDSHD() throws SQLException {
         List<Object[]> list = new ArrayList<>();

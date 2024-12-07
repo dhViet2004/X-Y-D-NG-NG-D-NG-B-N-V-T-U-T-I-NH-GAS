@@ -65,8 +65,9 @@ public class CustomPanel extends JPanel {
                 JTable table = (JTable) SwingUtilities.getAncestorOfClass(JTable.class, CustomPanel.this);
                 if (table != null) {
                     int row = table.getEditingRow();
+                    double tienThue = (giaVe*10)/100;
                     table.getModel().setValueAt(discount, row, 3);  // Cập nhật cột "Giảm đối tượng"
-                    table.getModel().setValueAt(giaVe - discount, row, 5);  // Cập nhật cột "Thành tiền"
+                    table.getModel().setValueAt(giaVe - discount + tienThue, row, 5);  // Cập nhật cột "Thành tiền"
                     table.revalidate();
                 }
             }

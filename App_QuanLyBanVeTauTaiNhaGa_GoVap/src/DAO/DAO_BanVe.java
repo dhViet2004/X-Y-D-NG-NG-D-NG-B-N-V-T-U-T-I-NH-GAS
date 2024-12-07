@@ -5,6 +5,7 @@ import Entity.*;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,26 @@ public class DAO_BanVe {
     private Connection con;
     public DAO_BanVe() {
         con = ConnectDatabase.getConnection();
+    }
+
+
+    public int getTotalCustomersToday() {
+        int totalCustomers = 0; // Khởi tạo biến tổng số khách hàng
+
+        // Câu truy vấn SQL để đếm số lượng khách hàng tham gia hôm nay
+        String sql = "SELECT COUNT(*) AS TongKhachHang FROM KhachHang WHERE CAST(NgayThamGia AS DATE) = CAST(GETDATE() AS DATE)";
+
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            ResultSet rs = pstmt.executeQuery(); // Thực thi câu truy vấn
+
+            if (rs.next()) {
+                totalCustomers = rs.getInt("TongKhachHang"); // Lấy tổng số khách hàng
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return totalCustomers; // Trả về tổng số khách hàng
     }
 
     public int getTotalInvoicesByDate(String date) {
@@ -217,7 +238,6 @@ public class DAO_BanVe {
             }
         }
 
-        // Tiến hành lưu hóa đơn
         String sql = "INSERT INTO HoaDon (MaHD, MaKH, KhuyenMaiMaKM, NhanVienMaNV, MaLoai, NgayHoaDon, TienKhuyenMai, TongTien) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setString(1, hoaDon.getMaHD());
@@ -225,11 +245,16 @@ public class DAO_BanVe {
             pstmt.setString(3, hoaDon.getKhuyenMai() != null ? hoaDon.getKhuyenMai().getMaKM() : null);
             pstmt.setString(4, hoaDon.getNv() != null ? hoaDon.getNv().getMaNhanVien() : null);
             pstmt.setString(5, hoaDon.getLoaiHoaDon().getMaLoaiHoaDon());
-            pstmt.setDate(6, Date.valueOf(hoaDon.getNgayLap()));
+
+            // Chuyển LocalDateTime thành Timestamp
+            Timestamp timestamp = Timestamp.valueOf(hoaDon.getNgayLap());
+            pstmt.setTimestamp(6, timestamp); // Dùng setTimestamp thay vì setDate
+
             pstmt.setDouble(7, hoaDon.getTienGiam());
             pstmt.setDouble(8, hoaDon.getTongTien());
             pstmt.executeUpdate();
         }
+
     }
 
 
