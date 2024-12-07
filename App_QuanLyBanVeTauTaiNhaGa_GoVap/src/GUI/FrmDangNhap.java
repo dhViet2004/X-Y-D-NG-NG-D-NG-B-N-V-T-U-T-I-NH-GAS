@@ -23,6 +23,10 @@ public class FrmDangNhap extends JFrame implements ActionListener {
     private JButton btnDangNhap;
     private JPanel Jpanel_Input;
     private JTextField txtMaNhanVien;
+    public String maNV = txtMaNhanVien.getText();
+    public String getmaNV(){
+        return maNV;
+    }
     private JPasswordField txtMatKhau;
     private NhanVien nv;
     private DAO_LichLamViec llv_dao;
@@ -41,8 +45,8 @@ public class FrmDangNhap extends JFrame implements ActionListener {
         llv_dao = new DAO_LichLamViec();
         dao = new DAO_TaiKhoan();
 
-        txtMaNhanVien.setText("NV002");
-        txtMatKhau.setText("password123");
+//        txtMaNhanVien.setText("NV004");
+//        txtMatKhau.setText("1111111");
 
     }
 
@@ -98,7 +102,7 @@ public class FrmDangNhap extends JFrame implements ActionListener {
                             llv.setTrangThai("Dung gio");
                         }
                         System.out.println("Ma lich lam viec khi click button dang nhap:" + llv.getMaLichLamViec());
-                        System.out.println("Tragn thai khi button dang nhap dc click:" + llv.getTrangThai());
+                        System.out.println("Trang thai khi button dang nhap dc click:" + llv.getTrangThai());
                         // Cập nhật trạng thái vào cơ sở dữ liệu
                         llv_dao.updateTrangThai(llv.getMaLichLamViec(), llv.getTrangThai());
                     }
@@ -110,8 +114,8 @@ public class FrmDangNhap extends JFrame implements ActionListener {
                     a.setVisible(true);
                     this.dispose();
                     JOptionPane.showMessageDialog(this, "Đăng nhập thành công với vai trò Nhân viên");
-                } else {
-                    FrmLichLamViec b = new FrmLichLamViec();
+                } if(nv.getChucVu().trim().equalsIgnoreCase("Quan ly")) {
+                    FrmBanVe b = new FrmBanVe(nv);
                     b.setVisible(true);
                     this.dispose();
                     JOptionPane.showMessageDialog(this, "Đăng nhập thành công với vai trò quản lý");

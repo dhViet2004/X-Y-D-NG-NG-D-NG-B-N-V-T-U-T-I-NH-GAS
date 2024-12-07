@@ -132,4 +132,5 @@ public class NhanVien {
         return "NhanVien [maNhanVien=" + maNhanVien + ", tenNV=" + tenNV + ", soDT=" + soDT + ", trangThai=" + trangThai +
                ", CCCD=" + cccd + ", diaChi=" + diaChi + ", ngayVaoLam=" + ngayVaoLam + ", chucVu=" + chucVu + ", avata=" + avata + "]";
     }
+
 }
