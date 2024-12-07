@@ -17,12 +17,14 @@ import java.awt.event.*;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
 
@@ -121,7 +123,13 @@ private JTextField txtHoTenNguoiMua = new JTextField();
 private JTextField txtCCCDNguoiMua = new JTextField();
 private JTextField txtDiaChi = new JTextField();
 private KhachHang khachHangMuaVe = null;
-public FrmBanVe(NhanVien nv) {
+private Tau tauKhiChon = null;
+private ToaTau toaKhiChon = null;
+public TextField txtTienThua;
+public TextField txtTienKhachDua;
+private double total;
+public JLabel lableTienThua = new JLabel("Tiền Thừa: ");
+    public FrmBanVe(NhanVien nv) {
     nhanVien = nv;
     setTitle("Bán Vé");
     temp = Jpanel_Main;
@@ -471,7 +479,6 @@ private void showPopupMenu_QLVe(ActionEvent e) {
     doiVe.setBackground(colorXanhDam);
     doiVe.addActionListener(this);
 
-
     traVe = new JMenuItem("Trả vé");
     traVe.setFont(fontMenu);
     traVe.setForeground(Color.white);
@@ -552,9 +559,6 @@ private void updateConfirmationPanel(LichTrinhTau lichTrinhTau) throws SQLExcept
             // Tạo JLabel hiển thị bộ đếm ngược
             JLabel countdownLabel = new JLabel("Thời gian còn lại: 500 giây");
             choPanel.add(countdownLabel);
-            JLabel lineBot = new JLabel("|------------------------------------------------------------------------------------");
-            choPanel.add(lineBot);
-
             // Khởi tạo bộ đếm ngược
             int countdownTime = 500; // Thời gian đếm ngược (500 giây)
             Timer timer = new Timer(1000, new ActionListener() {
@@ -685,6 +689,7 @@ public void actionPerformed(ActionEvent e) {
                         if (!danhSachChoDaChon.isEmpty()) {
                             JOptionPane.showMessageDialog(tauButton, "Vui lòng xóa hết vé trong giỏ hàng để chọn tàu");
                         } else {
+
                             // Nếu có nút toa đã chọn, đổi lại màu ban đầu
                             if (selectedTauButton[0] != null) {
                                 selectedTauButton[0].setBackground(null);  // Khôi phục màu nền ban đầu
@@ -777,7 +782,7 @@ public void actionPerformed(ActionEvent e) {
                                         @Override
                                         public void actionPerformed(ActionEvent event) {
                                             lab_TenToaTau.setText("Toa tàu số " + toaTau.getThuTu() + ": " + toaTau.getLoaiToa().getTenLoai());
-
+                                            toaKhiChon = toaTau;
                                             // Nếu có nút toa đã chọn, đổi lại màu ban đầu
                                             if (selectedToaButton[0] != null) {
                                                 selectedToaButton[0].setBackground(null);  // Khôi phục màu nền ban đầu
@@ -788,6 +793,11 @@ public void actionPerformed(ActionEvent e) {
                                             DAO_BanVe daoBanVe = new DAO_BanVe();
                                             List<ChoNgoi> danhSachChoNgoi = null;
                                             lichKhiChonTau = lichTrinhTau;
+                                            try {
+                                                tauKhiChon = daoBanVe.getThongTin(lichKhiChonTau.getTau().getMaTau());
+                                            } catch (SQLException ex) {
+                                                throw new RuntimeException(ex);
+                                            }
                                             try {
                                                 // Gọi DAO để tìm các chỗ ngồi của toa
                                                 danhSachChoNgoi = daoBanVe.getSeatsByMaToa(toaTau.getMaToa());
@@ -1155,26 +1165,31 @@ public void actionPerformed(ActionEvent e) {
         buyerInfoPanel.add(JpanelThanhTien, BorderLayout.NORTH);
 
         JPanel thongTinNguoiMua = new JPanel(new GridLayout(4, 2, 5, 5));
-        // Tạo các label và text field cho thông tin người mua
-        JLabel lblHoTenNguoiMua = new JLabel("Họ tên người mua:");
+// Tạo các label và text field cho thông tin người mua
+        JLabel lblHoTenNguoiMua = new JLabel("  Họ tên người mua:");
         lblHoTenNguoiMua.setFont(new Font("Arial", Font.BOLD, 16)); // Tăng cỡ chữ
 
         txtHoTenNguoiMua.setPreferredSize(new Dimension(200, 30)); // Tăng kích thước text field
+        txtHoTenNguoiMua.setFont(new Font("Arial", Font.PLAIN, 16)); // Tăng cỡ chữ trong text field
         txtHoTenNguoiMua.setText("");
-        JLabel lblCCCDNguoiMua = new JLabel("CCCD người mua:");
+
+        JLabel lblCCCDNguoiMua = new JLabel("  CCCD người mua:");
         lblCCCDNguoiMua.setFont(new Font("Arial", Font.BOLD, 16)); // Tăng cỡ chữ
         txtCCCDNguoiMua.setText("");
         txtCCCDNguoiMua.setPreferredSize(new Dimension(200, 30)); // Tăng kích thước text field
+        txtCCCDNguoiMua.setFont(new Font("Arial", Font.PLAIN, 16)); // Tăng cỡ chữ trong text field
 
-        JLabel lblSoDienThoai = new JLabel("Số điện thoại:");
+        JLabel lblSoDienThoai = new JLabel("  Số điện thoại:");
         lblSoDienThoai.setFont(new Font("Arial", Font.BOLD, 16)); // Tăng cỡ chữ
         txtSoDienThoai.setText("");
         txtSoDienThoai.setPreferredSize(new Dimension(200, 30)); // Tăng kích thước text field
+        txtSoDienThoai.setFont(new Font("Arial", Font.PLAIN, 16)); // Tăng cỡ chữ trong text field
 
-        JLabel lblDiaChi = new JLabel("Địa chỉ:");
+        JLabel lblDiaChi = new JLabel("  Địa chỉ:");
         lblDiaChi.setFont(new Font("Arial", Font.BOLD, 16)); // Tăng cỡ chữ
         txtDiaChi.setText("");
         txtDiaChi.setPreferredSize(new Dimension(200, 30)); // Tăng kích thước text field
+        txtDiaChi.setFont(new Font("Arial", Font.PLAIN, 16)); // Tăng cỡ chữ trong text field
 
         // Thêm các label và text field vào panel
         thongTinNguoiMua.add(lblHoTenNguoiMua);
@@ -1204,7 +1219,7 @@ public void actionPerformed(ActionEvent e) {
         btnThanToan.setFont(new Font("Arial", Font.BOLD, 18)); // Đặt font cho nú
 
         JPanel Jpanel_NutThanhToan = new JPanel(new FlowLayout());
-        Jpanel_NutThanhToan.add(btnThanToan, BorderLayout.CENTER);
+
 
         JButton btnChiTietHoaDon = new JButton("Xem Chi Tiết HD");
         btnChiTietHoaDon.setPreferredSize(new Dimension(200, 50));
@@ -1212,8 +1227,23 @@ public void actionPerformed(ActionEvent e) {
         btnChiTietHoaDon.setBackground(new Color(0, 131, 66));
         btnChiTietHoaDon.setForeground(Color.WHITE);
 
-        // Thêm vào JPanel_NutThanhToan
+        JButton btnInHoaDon = new JButton("In Hóa Đơn");
+        btnInHoaDon.setPreferredSize(new Dimension(200, 50));
+        btnInHoaDon.setFont(new Font("Arial", Font.BOLD, 18));
+        btnInHoaDon.setBackground(new Color(0, 131, 66));
+        btnInHoaDon.setForeground(Color.WHITE);
+
+        JButton btnGuiVeEmail = new JButton("Gửi vé qua Email");
+        btnGuiVeEmail.setPreferredSize(new Dimension(200, 50));
+        btnGuiVeEmail.setFont(new Font("Arial", Font.BOLD, 18));
+        btnGuiVeEmail.setBackground(new Color(0, 131, 66));
+        btnGuiVeEmail.setForeground(Color.WHITE);
+
+        Jpanel_NutThanhToan.add(btnGuiVeEmail);
+        Jpanel_NutThanhToan.add(btnInHoaDon);
         Jpanel_NutThanhToan.add(btnChiTietHoaDon);
+        Jpanel_NutThanhToan.add(btnThanToan, BorderLayout.CENTER);
+        
         btnChiTietHoaDon.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1224,17 +1254,19 @@ public void actionPerformed(ActionEvent e) {
 
                 // Thêm thông tin của từng vé vào panel
                 for (int row = 0; row < table.getRowCount(); row++) {
-                    JPanel vePanel = new JPanel(new GridLayout(5, 1, 5, 5)); // Sử dụng GridLayout cho thông tin mỗi vé
+                    JPanel vePanel = new JPanel(new GridLayout(13, 1, 5, 5)); // Sử dụng GridLayout cho thông tin mỗi vé
                     vePanel.setBorder(BorderFactory.createLineBorder(Color.GRAY)); // Đường viền mỗi vé
                     vePanel.setBackground(new Color(240, 248, 255)); // Màu nền
 
                     // Giới hạn chiều cao cho mỗi vé
-                    vePanel.setPreferredSize(new Dimension(400, 100)); // Chiều rộng 400px, chiều cao 100px
-                    vePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100)); // Đặt giới hạn chiều cao
+                    vePanel.setPreferredSize(new Dimension(400, 350)); // Chiều rộng 400px, chiều cao 100px
+                    vePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 300)); // Đặt giới hạn chiều cao
 
                     // Lấy thông tin vé từ bảng
                     String hoTen = ((CustomPanel) table.getValueAt(row, 0)).getHoTen();
-                    String thongTinChoNgoi = (String) table.getValueAt(row, 1);
+                    String doiTuong = ((CustomPanel) table.getValueAt(row, 0)).getTrangThai();
+                    String giayTo = ((CustomPanel) table.getValueAt(row, 0)).getCCCD();
+                    String thongTinChoNgoi = (String) table.getValueAt(row, 4);
                     Object value = table.getValueAt(row, 2);
                     double giaVe;
 
@@ -1249,10 +1281,19 @@ public void actionPerformed(ActionEvent e) {
                     double thanhTien = (double) table.getValueAt(row, 5);
 
                     // Thêm các thông tin vé
-                    vePanel.add(new JLabel("  Họ tên: " + hoTen));
-                    vePanel.add(new JLabel("  Thông tin chỗ ngồi: " + thongTinChoNgoi));
-                    vePanel.add(new JLabel("  Giá vé: " + giaVe + " VND"));
-                    vePanel.add(new JLabel("  Thành tiền: " + thanhTien + " VND"));
+                    vePanel.add(new JLabel("  THONG TIN HANH TRINH "));
+                    vePanel.add(new JLabel("    Ga đi-Ga đến: " + tauKhiChon.getTuyenTau().getGaDi()+"-"+tauKhiChon.getTuyenTau().getGaDen()));
+                    vePanel.add(new JLabel("    Tàu/Train: " + tauKhiChon.getTenTau()));
+                    vePanel.add(new JLabel("    Ngày đi/Date: " + lichKhiChonTau.getNgayDi()));
+                    vePanel.add(new JLabel("    Giờ đi/Time: " + lichKhiChonTau.getGioDi()));
+                    vePanel.add(new JLabel("    Toa/Coach: " + removeDiacritics(toaKhiChon.getTenToa())));
+                    vePanel.add(new JLabel("    Chỗ/Seat: " + thongTinChoNgoi));
+                    vePanel.add(new JLabel("  THONG TIN HANG KHACH "));
+                    vePanel.add(new JLabel("    Họ tên: " + hoTen));
+                    vePanel.add(new JLabel("    Doi tuong: " + doiTuong));
+                    vePanel.add(new JLabel("    Giay To: " + giayTo));
+                    vePanel.add(new JLabel("    Giá vé: " + giaVe + " VND      |     VAT: 10%"));
+                    vePanel.add(new JLabel("    Thành tiền: " + thanhTien + " VND"));
 
                     // Thêm vePanel vào panelChiTietVe
                     panelChiTietVe.add(vePanel);
@@ -1272,8 +1313,44 @@ public void actionPerformed(ActionEvent e) {
             }
         });
 
+        JPanel panelTienThua = new JPanel();
+        panelTienThua.setLayout(new GridLayout(4, 1));
+        panelTienThua.setPreferredSize(new Dimension(340, 200));
+        panelTienThua.setBackground(new Color(240, 248, 255));
+        JLabel lableTienKhachDua = new JLabel("Tiền khách đưa");
+        lableTienKhachDua.setFont(new Font("Arial", Font.BOLD, 16));
+        panelTienThua.add(lableTienKhachDua);
+        txtTienKhachDua = new TextField();
+        txtTienKhachDua.setPreferredSize(new Dimension(200, 30)); // Tăng kích thước text field
+        txtTienKhachDua.setFont(new Font("Arial", Font.PLAIN, 16)); // Tăng cỡ chữ trong text field
+        panelTienThua.add(txtTienKhachDua);
 
-        buyerInfoPanel.add(Jpanel_NutThanhToan, BorderLayout.SOUTH); // Thêm nút In vào phía dưới cùng
+        lableTienThua.setFont(new Font("Arial", Font.BOLD, 16));
+        lableTienThua.setText("Tiền thừa: ");
+        lableTienThua.setForeground(Color.RED);
+        // Đặt nền cho JLabel
+        lableTienThua.setOpaque(true); // Bắt buộc để JLabel hiển thị màu nền
+        lableTienThua.setBackground(Color.YELLOW); // Đặt màu nền là vàng nhạt
+        panelTienThua.add(lableTienThua);
+
+        JButton btnTinhTienThua = new JButton("Tính tiền thừa");
+        btnTinhTienThua.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                calculateChange(total, txtTienKhachDua);
+            }
+        });
+        panelTienThua.add(btnTinhTienThua);
+
+
+
+
+
+
+        buyerInfoPanel.add(panelTienThua,BorderLayout.EAST);
+
+
+
         buyerInfoPanel.add(Jpanel_NutThanhToan, BorderLayout.SOUTH); // Thêm nút In vào phía dưới cùng
 
         panelThongTinNguoiDiTau.add(buyerInfoPanel, BorderLayout.SOUTH);
@@ -1730,9 +1807,22 @@ private void updateTotalAmount(JLabel lblThanhTien, JTable table, double chietKh
     }
     double tienChietKhau = totalAmount * (chietKhau / 100);
     totalAmount -= tienChietKhau;
+    total = totalAmount;
     // Cập nhật label với tổng thành tiền
     lblThanhTien.setText("  Tổng thành tiền: " + totalAmount + " VND");
 }
+    private void calculateChange(double total, TextField txtTienKhachDua) {
+        try {
+            double tienKhachDua = Double.parseDouble(txtTienKhachDua.getText().trim());
+            double tienThua = tienKhachDua - total;
+            // Cập nhật vào txtTienThua
+           lableTienThua.setText("Tiền thừa: "+ tienThua+ "VNĐ");
+        } catch (NumberFormatException e) {
+            // Xử lý nếu nhập sai định dạng
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập số tiền hợp lệ!", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 private String generateTicketCode(String maTau) {
 
     // Lấy thời gian hiện tại bao gồm ngày tháng và giờ phút giây
@@ -1888,7 +1978,11 @@ private void showKhuyenMaiDialog(KhuyenMai khuyenMai) {
     dialog.setVisible(true);
 }
 
-
+    public String removeDiacritics(String input) {
+        String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(normalized).replaceAll("").replace("đ", "d").replace("Đ", "D");
+    }
 FrmDangNhap frmDangNhap = new FrmDangNhap();
 DAO_NhanVien dao_nv = new DAO_NhanVien();
 String role = frmDangNhap.getmaNV();
