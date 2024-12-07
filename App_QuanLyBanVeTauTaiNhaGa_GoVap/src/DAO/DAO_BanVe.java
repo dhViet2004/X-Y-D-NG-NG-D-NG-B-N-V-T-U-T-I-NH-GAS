@@ -36,15 +36,13 @@ public class DAO_BanVe {
         return totalCustomers; // Trả về tổng số khách hàng
     }
 
-    public int getTotalInvoicesByDate(String date) {
+    public int getTotalInvoicesByDate() {
         int totalInvoices = 0; // Khởi tạo biến tổng hóa đơn
 
-        // Câu truy vấn SQL
-        String sql = "SELECT COUNT(*) AS TongHoaDon FROM KhachHang WHERE CAST(NgayThamGia AS DATE) = ?";
+        // Câu truy vấn SQL để đếm tổng hóa đơn theo ngày hiện tại
+        String sql = "SELECT COUNT(*) AS TongHoaDon FROM HoaDon WHERE CAST(NgayHoaDon AS DATE) = CAST(GETDATE() AS DATE)";
 
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-            pstmt.setString(1, date); // Thiết lập ngày vào câu truy vấn
-
             ResultSet rs = pstmt.executeQuery(); // Thực thi câu truy vấn
 
             if (rs.next()) {
@@ -56,6 +54,7 @@ public class DAO_BanVe {
 
         return totalInvoices; // Trả về tổng hóa đơn
     }
+
     public List<LoaiKhachHang> getAllLoaiKhachHang() throws SQLException {
         List<LoaiKhachHang> danhSachLoaiKH = new ArrayList<>();
 

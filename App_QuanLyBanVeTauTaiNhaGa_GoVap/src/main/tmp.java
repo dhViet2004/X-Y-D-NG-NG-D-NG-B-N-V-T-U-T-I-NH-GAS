@@ -8,15 +8,7 @@ public class tmp {
         DAO_KhachHang dao = new DAO_KhachHang();
         String sdt = "0356307125";
 
-        String enc;
 
-        {
-            try {
-                enc = dao.encryptAES(sdt);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
         KhachHang tmp;
         tmp = dao.findCustomerByEncryptedPhone(sdt);
         System.out.println(tmp);
