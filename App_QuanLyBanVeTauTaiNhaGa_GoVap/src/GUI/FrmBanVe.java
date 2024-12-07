@@ -2,6 +2,7 @@
 package GUI;
 
 import DAO.DAO_BanVe;
+import DAO.DAO_NhanVien;
 import Database.ConnectDatabase;
 import Entity.*;
 import com.toedter.calendar.JDateChooser;
@@ -33,6 +34,8 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
     private final JButton btnQuanLyKhuyenMai;
     private final JButton btnQuanLyDoanhThu;
     private final JButton btnQuanLyNhanVien;
+    private final JButton btnQuanLyLLV;
+
 
     // quản lý vé
     private JMenuItem doiVe = new JMenuItem();
@@ -104,7 +107,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
     Component nhanVienPanel = new FrmNhanVien().getJpannelNV();
     Component soLuongKHPanel = new Frm_ThongKeKhachHang().getTKKHPanel();
     Component traCuuKMPanel = new Frm_TraCuuKhuyenMai().getTraCuuKM_Panel();
-
+    Component llvPanel = new FrmLichLamViec().getPanel_LLV();
     private List<LoaiKhachHang> danhSachLoaiKH = new ArrayList<>();
     private KhuyenMai khuyenMai = null;
     private Double chietKhau = 0.0;
@@ -162,13 +165,14 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
         btnQuanLyKhuyenMai = createButton("Quản lý CTKM", null);
         btnQuanLyDoanhThu = createButton("Quản lý doanh thu", iconArrowNew);
         btnQuanLyNhanVien = createButton("Quản lý nhân viên", null);
+        btnQuanLyLLV = createButton("Quản lý lịch làm việc", null);
 
         // Format nút với cùng kích thước, phông chữ và căn chỉnh
         Dimension buttonSize = new Dimension(200, 60); // Tăng kích thước chiều cao của nút lên 60px
         fontMenu = new Font("Arial", Font.PLAIN, 16); // Đặt font chung cho tất cả các nút
 
         // Định dạng cho từng nút
-        JButton[] buttons = {btnBanVe, btnTraCuu, btnQuanLyVe, btnThongKeTheoCa, btnQuanLyChuyenTau, btnQuanLyKhachHang, btnQuanLyKhuyenMai, btnQuanLyDoanhThu, btnQuanLyNhanVien};
+        JButton[] buttons = {btnBanVe, btnTraCuu, btnQuanLyVe, btnThongKeTheoCa, btnQuanLyChuyenTau, btnQuanLyKhachHang, btnQuanLyKhuyenMai, btnQuanLyDoanhThu, btnQuanLyNhanVien, btnQuanLyLLV};
         for (JButton btn : buttons) {
             btn.setPreferredSize(buttonSize); // Đặt kích thước cố định cho nút
             btn.setFont(fontMenu); // Đặt font
@@ -229,13 +233,18 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
             addButtonAction(btnQuanLyDoanhThu); // Thực hiện thay đổi màu sắc nút
         });
         btnQuanLyNhanVien.addActionListener(this);
-
+        btnQuanLyLLV.addActionListener(this);
 
         btnRadio_MotChieu.addItemListener((ItemListener) this);
         btnRadio_KhuHoi.addItemListener((ItemListener) this);
 
 
         btnRadio_MotChieu.setSelected(true);
+        try {
+            phanQuyen(nv.getMaNhanVien());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -570,7 +579,6 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
     }
 
 
-
     // Hàm để lấy nút tương ứng với chỗ ngồi
     private JButton getButtonForSeat(ChoNgoi choNgoi) {
         return buttonMap.get(choNgoi.getMaCho()); // Trả về nút tương ứng
@@ -578,6 +586,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
 
     private JPanel current;
     final JButton[] selectedTauButton = {null};
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnTimChuyen) {
@@ -930,7 +939,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
 
                 // Cập nhật discount và tính toán thành tiền
                 double discount = panel.getDiscount();
-                double tienThue = (choNgoi.getGia()*10)/100;
+                double tienThue = (choNgoi.getGia() * 10) / 100;
                 double thanhTien = choNgoi.getGia() - discount + tienThue;
                 tongThanhTien += thanhTien; // Cộng dồn vào tổng thành tiền
                 Object[] rowData = new Object[]{
@@ -1301,7 +1310,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                             String cccd = customPanel.getCCCD();
                             String thongTinChoNgoi = (String) table.getValueAt(row, 1);
                             float giaVe = (float) table.getValueAt(row, 2);
-                            float tienThue = (float) ((giaVe*VAT)/100);
+                            float tienThue = (float) ((giaVe * VAT) / 100);
                             double thanhTien = (double) table.getValueAt(row, 5);
 
                             // Tạo mã vé và đối tượng VeTau
@@ -1313,7 +1322,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                             tongTien += thanhTien;
 
                             // Tạo chi tiết hóa đơn với mã vé tương ứng
-                            ChiTietHoaDon chiTiet = new ChiTietHoaDon(maVe, "", 1,VAT, thanhTien, tienThue); // Mã hóa đơn sẽ thêm sau
+                            ChiTietHoaDon chiTiet = new ChiTietHoaDon(maVe, "", 1, VAT, thanhTien, tienThue); // Mã hóa đơn sẽ thêm sau
                             chiTietHoaDonList.add(chiTiet);
                         }
                         // Lưu vé vào cơ sở dữ liệu trước
@@ -1325,7 +1334,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
                         // Lưu hóa đơn
                         double tienChietKhau = tongTien * (chietKhau / 100);
                         tongTien -= tienChietKhau;
-                        HoaDon hoaDon = new HoaDon(maHD, khachHang, khuyenMai,nhanVien, loaiHoaDon, LocalDateTime.now(), tienChietKhau, tongTien);
+                        HoaDon hoaDon = new HoaDon(maHD, khachHang, khuyenMai, nhanVien, loaiHoaDon, LocalDateTime.now(), tienChietKhau, tongTien);
                         daoBanVe.saveInvoice(hoaDon); // Lưu hóa đơn
 
                         // Lưu chi tiết hóa đơn
@@ -1438,6 +1447,19 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
             lab_Title.setVisible(false);
             JPanel_BanVe.setVisible(false);
             Jpanel_Main.add(nhanVienPanel);
+            Jpanel_Main.setVisible(true);
+
+            // Cập nhật lại giao diện người dùng
+            Jpanel_Main.revalidate(); // Cập nhật layout
+            Jpanel_Main.repaint();    //
+        } else if (e.getSource() == btnQuanLyLLV) {
+            addButtonAction(btnQuanLyLLV);
+            Jpanel_Main.removeAll();
+            current = (JPanel) llvPanel;
+            JPanel_XacNhanCho.setVisible(false);
+            lab_Title.setVisible(false);
+            JPanel_BanVe.setVisible(false);
+            Jpanel_Main.add(llvPanel);
             Jpanel_Main.setVisible(true);
 
             // Cập nhật lại giao diện người dùng
@@ -1632,6 +1654,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
             Jpanel_Main.repaint();    //
         }
     }
+
     private void updateTotalAmount(JLabel lblThanhTien, JTable table, double chietKhau) {
         double totalAmount = 0;
 
@@ -1679,7 +1702,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
         // Định dạng thời gian thành NgàyThángNăm (yyyy-MM-dd)
         String datePart = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         counter = daoBanVe.getTotalInvoicesByDate(datePart);
-        System.out.println("Số lượng hóa đơn: "+counter);
+        System.out.println("Số lượng hóa đơn: " + counter);
 
         LocalDate today = LocalDate.now();
 
@@ -1701,7 +1724,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
         // Định dạng thời gian thành NgàyThángNăm (yyyy-MM-dd)
         String datePart = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         totalCustomerToday = daoBanVe.getTotalInvoicesByDate(datePart);
-        System.out.println("Số lượng khách hàng: "+totalCustomerToday);
+        System.out.println("Số lượng khách hàng: " + totalCustomerToday);
 
         // Định dạng thời gian thành NgàyThángNăm (ddMMyy)
         String datePart1 = now.format(DateTimeFormatter.ofPattern("ddMMyy"));
@@ -1742,6 +1765,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
         btn.setForeground(Color.RED); // Màu chữ khi nút được chọn
         currentlySelectedButton = btn;
     }
+
     private void showKhuyenMaiDialog(KhuyenMai khuyenMai) {
         JDialog dialog = new JDialog();
         dialog.setTitle("Thông Tin Khuyến Mãi");
@@ -1767,7 +1791,7 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
         gbc.gridy = 1;
         panel.add(new JLabel("Chiết khấu:"), gbc);
         gbc.gridx = 1;
-        JLabel lblChietKhau = new JLabel(String.valueOf(khuyenMai.getChietKhau()+" %"));
+        JLabel lblChietKhau = new JLabel(String.valueOf(khuyenMai.getChietKhau() + " %"));
         lblChietKhau.setFont(new Font("Arial", Font.BOLD, 14));
         lblChietKhau.setForeground(Color.BLUE); // Đổi màu chữ
         panel.add(lblChietKhau, gbc);
@@ -1824,8 +1848,25 @@ public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
     }
 
 
-    private void removeButtonColor(JButton btn) {
-
+    FrmDangNhap frmDangNhap = new FrmDangNhap();
+    DAO_NhanVien dao_nv = new DAO_NhanVien();
+    String role = frmDangNhap.getmaNV();
+    private void phanQuyen(String maNV) throws Exception {
+        System.out.println(maNV);
+        List<NhanVien> list = dao_nv.findAll();
+        for (NhanVien nv : list) {
+            if (nv.getMaNhanVien().equalsIgnoreCase(maNV) && nv.getChucVu().equalsIgnoreCase("Nhan vien")) {
+                btnQuanLyNhanVien.setEnabled(false);
+                btnQuanLyChuyenTau.setEnabled(false);
+                btnQuanLyLLV.setEnabled(false);
+            }if(nv.getMaNhanVien().equalsIgnoreCase(maNV) && nv.getChucVu().equalsIgnoreCase("Quan ly")){
+                btnBanVe.setEnabled(false);
+                btnQuanLyVe.setEnabled(false);
+                btnTraCuu.setEnabled(false);
+                btnQuanLyKhuyenMai.setEnabled(false);
+                btnThongKeTheoCa.setEnabled(false);
+            }
+        }
     }
 }
 
