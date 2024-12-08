@@ -6,6 +6,7 @@ import DAO.DAO_KhachHang;
 import DAO.DAO_NhanVien;
 import Database.ConnectDatabase;
 import Entity.*;
+import com.itextpdf.io.exceptions.IOException;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.Timer;
@@ -14,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -130,9 +132,12 @@ public TextField txtTienKhachDua;
 private double total;
 public JLabel lableTienThua = new JLabel("Tiền Thừa: ");
 private boolean isChiTietHoaDonDisplayed = false;
+private boolean isThanhToanDisplayed = false;
 private List<TicketDetails> danhSachVe = new ArrayList<>();
 private List<ChiTietHoaDon> chiTietHoaDonList = new ArrayList<>();
-
+private HoaDon hoaDonDaThanhToan = null;
+private  List<VeTau> ticketsToSave = new ArrayList<>();
+private KhachHang khachHang = null;
     public FrmBanVe(NhanVien nv) {
     nhanVien = nv;
     setTitle("Bán Vé");
@@ -1237,13 +1242,13 @@ public void actionPerformed(ActionEvent e) {
         btnInHoaDon.setBackground(new Color(0, 131, 66));
         btnInHoaDon.setForeground(Color.WHITE);
 
-        JButton btnGuiVeEmail = new JButton("Gửi vé qua Email");
-        btnGuiVeEmail.setPreferredSize(new Dimension(200, 50));
-        btnGuiVeEmail.setFont(new Font("Arial", Font.BOLD, 18));
-        btnGuiVeEmail.setBackground(new Color(0, 131, 66));
-        btnGuiVeEmail.setForeground(Color.WHITE);
+        JButton btnInVe = new JButton("In vé");
+        btnInVe.setPreferredSize(new Dimension(200, 50));
+        btnInVe.setFont(new Font("Arial", Font.BOLD, 18));
+        btnInVe.setBackground(new Color(0, 131, 66));
+        btnInVe.setForeground(Color.WHITE);
 
-        Jpanel_NutThanhToan.add(btnGuiVeEmail);
+        Jpanel_NutThanhToan.add(btnInVe);
         Jpanel_NutThanhToan.add(btnInHoaDon);
         Jpanel_NutThanhToan.add(btnChiTietHoaDon);
         Jpanel_NutThanhToan.add(btnThanToan, BorderLayout.CENTER);
@@ -1349,9 +1354,9 @@ public void actionPerformed(ActionEvent e) {
             }
         });
 
-        // Gắn sự kiện cho nút btnGuiVeEmail
-        btnGuiVeEmail.addActionListener(event -> {
-            if (isChiTietHoaDonDisplayed) {
+        // Gắn sự kiện cho nút btnInVe
+        btnInVe.addActionListener(event -> {
+            if (isChiTietHoaDonDisplayed&&isThanhToanDisplayed) {
                 // Kiểm tra nếu danh sách vé không rỗng
                 if (!danhSachVe.isEmpty()) {
                     // Tạo tên file PDF
@@ -1359,12 +1364,55 @@ public void actionPerformed(ActionEvent e) {
                     // In danh sách vé ra file PDF
                     TicketPDFGenerator.generateTicketPdf(fileName, danhSachVe,chiTietHoaDonList);
                     JOptionPane.showMessageDialog(null, "In thanh công, danh sách vé được chứa tại file "+fileName);
+                    // Mở file PDF sau khi in thành công
+                    try {
+                        // Tạo đối tượng File từ tên file
+                        File pdfFile = new File(fileName);
+                        if (pdfFile.exists()) {
+                            // Sử dụng Desktop để mở file PDF
+                            Desktop.getDesktop().open(pdfFile);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Không tìm thấy file PDF.");
+                        }
+                    } catch (IOException | java.io.IOException e1) {
+                        JOptionPane.showMessageDialog(null, "Không thể mở file PDF: " + e1.getMessage());
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Danh sách vé rỗng, không thể gửi email.");
                 }
             } else {
                 // Hiển thị thông báo nếu chi tiết hóa đơn chưa được hiển thị
-                JOptionPane.showMessageDialog(null, "Vui lòng xem chi tiết hóa đơn trước khi gửi vé qua email.");
+                JOptionPane.showMessageDialog(null, "Vui lòng xem chi tiết hóa đơn và thanh toán trước khi in vé.");
+            }
+        });
+        btnInHoaDon.addActionListener(event -> {
+            // Kiểm tra nếu danh sách chi tiết hóa đơn không rỗng và đã thanh toán
+            if (isChiTietHoaDonDisplayed && isThanhToanDisplayed) {
+                if (chiTietHoaDonList.isEmpty()) {
+                    // Kiểm tra nếu danh sách chi tiết hóa đơn rỗng
+                    JOptionPane.showMessageDialog(null, "Danh sách chi tiết hóa đơn rỗng, không thể in hóa đơn.");
+                    return;
+                }
+
+                // Tạo mã hóa đơn và tên file PDF
+                String fileName = "hoa_don_" + hoaDonDaThanhToan.getMaHD() + ".pdf";
+
+                try {
+                    // Gọi phương thức tạo hóa đơn PDF
+                    InvoicePDFGenerator.generateInvoicePdf(hoaDonDaThanhToan, khachHang, chiTietHoaDonList, danhSachVe);
+
+                    // Thông báo thành công
+                    JOptionPane.showMessageDialog(null, "In hóa đơn thành công, hóa đơn được chứa tại file " + fileName);
+
+                    // Mở file PDF sau khi in thành công
+                    openPdfFile(fileName);
+                } catch (Exception e2) {
+                    // Hiển thị thông báo lỗi nếu có vấn đề xảy ra
+                    JOptionPane.showMessageDialog(null, "Có lỗi xảy ra khi in hóa đơn: " + e2.getMessage());
+                }
+            } else {
+                // Thông báo nếu chi tiết hóa đơn chưa được hiển thị hoặc chưa thanh toán
+                JOptionPane.showMessageDialog(null, "Vui lòng xem chi tiết hóa đơn và thanh toán trước khi in hóa đơn.");
             }
         });
 
@@ -1455,7 +1503,7 @@ public void actionPerformed(ActionEvent e) {
                     JOptionPane.showMessageDialog(dialog, "Vui lòng điền đầy đủ thông tin người mua.");
                     return;
                 }
-                KhachHang khachHang = null;
+
                 if(khachHangMuaVe==null){
                     // Tạo mã khách hàng và đối tượng KhachHang
                     String maKH = generateCustomerCode(); // Sinh mã khách hàng mới
@@ -1485,7 +1533,7 @@ public void actionPerformed(ActionEvent e) {
                 }
                 try {
                     // Tạo danh sách vé cần lưu
-                    List<VeTau> ticketsToSave = new ArrayList<>();
+
 
                     double tongTien = 0;
 
@@ -1523,6 +1571,7 @@ public void actionPerformed(ActionEvent e) {
                     tongTien -= tienChietKhau;
                     HoaDon hoaDon = new HoaDon(maHD, khachHang, khuyenMai, nhanVien, loaiHoaDon, LocalDateTime.now(), tienChietKhau, tongTien);
                     daoBanVe.saveInvoice(hoaDon); // Lưu hóa đơn
+                    hoaDonDaThanhToan = hoaDon;
 
                     // Lưu chi tiết hóa đơn
                     for (ChiTietHoaDon ct : chiTietHoaDonList) {
@@ -1531,7 +1580,7 @@ public void actionPerformed(ActionEvent e) {
                     }
 
                     JOptionPane.showMessageDialog(dialog, "Lưu vé và hóa đơn thành công!");
-
+                    isThanhToanDisplayed = true;
                     // Cập nhật giao diện sau khi lưu
                     danhSachChoDaChon.clear();
                     JPanel_XacNhanCho.removeAll();
@@ -2024,7 +2073,24 @@ private void showKhuyenMaiDialog(KhuyenMai khuyenMai) {
     dialog.setModal(true); // Chặn thao tác ngoài dialog
     dialog.setVisible(true);
 }
-
+    // Phương thức mở file PDF
+    private void openPdfFile(String fileName) {
+        try {
+            File pdfFile = new File(fileName);
+            if (pdfFile.exists()) {
+                // Sử dụng Desktop để mở file PDF
+                try {
+                    Desktop.getDesktop().open(pdfFile);
+                } catch (java.io.IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Không tìm thấy file PDF.");
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Không thể mở file PDF: " + e.getMessage());
+        }
+    }
     public String removeDiacritics(String input) {
         String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
         Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");

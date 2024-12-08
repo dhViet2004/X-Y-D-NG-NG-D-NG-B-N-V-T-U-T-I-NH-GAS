@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="01b32cc5-2379-4a07-890e-bdebcafb1472" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/core_3_5_3.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App_QuanLyBanVeTauTaiNhaGa_GoVap.iml" beforeDir="false" afterPath="$PROJECT_DIR$/App_QuanLyBanVeTauTaiNhaGa_GoVap.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/danh_sach_ve.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/TicketPDFGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/TicketPDFGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/danh_sach_ve.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/danh_sach_ve.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/InvoicePDFGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/InvoicePDFGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/tmp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/tmp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +51,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "T:/Backup/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap",
+    "last_opened_file_path": "T:/testmail",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -158,7 +155,8 @@
       <workItem from="1733548132651" duration="13329000" />
       <workItem from="1733566870378" duration="31782000" />
       <workItem from="1733629319263" duration="6057000" />
-      <workItem from="1733662690587" duration="9117000" />
+      <workItem from="1733662690587" duration="9549000" />
+      <workItem from="1733672601694" duration="8459000" />
     </task>
     <servers />
   </component>
