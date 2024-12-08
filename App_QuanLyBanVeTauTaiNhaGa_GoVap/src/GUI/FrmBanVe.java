@@ -131,7 +131,7 @@ private double total;
 public JLabel lableTienThua = new JLabel("Tiền Thừa: ");
 private boolean isChiTietHoaDonDisplayed = false;
 private List<TicketDetails> danhSachVe = new ArrayList<>();
-
+private List<ChiTietHoaDon> chiTietHoaDonList = new ArrayList<>();
 
     public FrmBanVe(NhanVien nv) {
     nhanVien = nv;
@@ -1357,7 +1357,7 @@ public void actionPerformed(ActionEvent e) {
                     // Tạo tên file PDF
                     String fileName = "danh_sach_ve.pdf";
                     // In danh sách vé ra file PDF
-                    TicketPDFGenerator.generateTicketPdf(fileName, danhSachVe);
+                    TicketPDFGenerator.generateTicketPdf(fileName, danhSachVe,chiTietHoaDonList);
                     JOptionPane.showMessageDialog(null, "In thanh công, danh sách vé được chứa tại file "+fileName);
                 } else {
                     JOptionPane.showMessageDialog(null, "Danh sách vé rỗng, không thể gửi email.");
@@ -1397,14 +1397,7 @@ public void actionPerformed(ActionEvent e) {
         });
         panelTienThua.add(btnTinhTienThua);
 
-
-
-
-
-
         buyerInfoPanel.add(panelTienThua,BorderLayout.EAST);
-
-
 
         buyerInfoPanel.add(Jpanel_NutThanhToan, BorderLayout.SOUTH); // Thêm nút In vào phía dưới cùng
 
@@ -1491,10 +1484,9 @@ public void actionPerformed(ActionEvent e) {
                     khachHang = khachHangMuaVe;
                 }
                 try {
-
                     // Tạo danh sách vé cần lưu
                     List<VeTau> ticketsToSave = new ArrayList<>();
-                    List<ChiTietHoaDon> chiTietHoaDonList = new ArrayList<>();
+
                     double tongTien = 0;
 
                     // Lặp qua tất cả các hàng trong bảng để lấy thông tin vé
