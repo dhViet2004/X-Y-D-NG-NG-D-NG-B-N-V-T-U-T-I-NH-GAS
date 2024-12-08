@@ -14,10 +14,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 public class Frm_KhachHang extends JFrame implements ActionListener, MouseListener {
     private final JButton btnBanVe;
@@ -52,9 +50,10 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
     private JTextField txtMaKH;
     private static NhanVien nv = new NhanVien();
 
-    public Component getKHPanel(){
+    public Component getKHPanel() {
         return Jpanel_Right;
     }
+
     public Frm_KhachHang(NhanVien nv) {
         setTitle("Form Khách Hàng");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,7 +71,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
 
         // MENU
         JPanel_Menu.setLayout(new BoxLayout(JPanel_Menu, BoxLayout.Y_AXIS));
-        Color colorXanhDam = new Color(0,131,66);
+        Color colorXanhDam = new Color(0, 131, 66);
         JPanel_Menu.setBackground(colorXanhDam); // Màu nền của MENU
         add(JPanel_Menu, BorderLayout.WEST);
 
@@ -200,8 +199,8 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
         box_rightleft.add(line3);
 
         // RIGHT_TOP:  title border là thông tin khách hàng, box_righttop chứa các dòng thông tin khách hàng
-        TitledBorder titledBorder_righttop = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(colorXanhDam),"Thông tin khách hàng");
-        Font font = new Font("Courier New", Font.BOLD|Font.ITALIC, 18);
+        TitledBorder titledBorder_righttop = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(colorXanhDam), "Thông tin khách hàng");
+        Font font = new Font("Courier New", Font.BOLD | Font.ITALIC, 18);
         titledBorder_righttop.setTitleFont(font);
         titledBorder_righttop.setTitleColor(Color.red);
         JPanel_Right_Top.setBorder(titledBorder_righttop);
@@ -295,10 +294,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
         txtMaKH = new JTextField(50);
         txtLoaiKH = new JComboBox<String>();
         txtLoaiKH.addItem("Khách hàng thường");
-        txtLoaiKH.addItem("Khách hàng vip");
-        txtLoaiKH.addItem("Khách hàng doanh nghiệp");
         txtLoaiKH.addItem("Khách hàng thân thiết");
-        txtLoaiKH.addItem("Khách hàng khuyến mãi");
         txtSDT = new JTextField(50);
         txtTenKH = new JTextField(50);
         txtDiaChi = new JTextField(50);
@@ -400,13 +396,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
             if (maLoaiKH.equalsIgnoreCase("KH001")) {
                 txtLoaiKH.setSelectedItem("Khách hàng thường");
             } else if (maLoaiKH.equalsIgnoreCase("KH002")) {
-                txtLoaiKH.setSelectedItem("Khách hàng VIP");
-            } else if (maLoaiKH.equalsIgnoreCase("KH003")) {
                 txtLoaiKH.setSelectedItem("Khách hàng thân thiết");
-            } else if (maLoaiKH.equalsIgnoreCase("KH004")) {
-                txtLoaiKH.setSelectedItem("Khách hàng khuyến mãi");
-            } else if (maLoaiKH.equalsIgnoreCase("KH005")) {
-                txtLoaiKH.setSelectedItem("Khách hàng thường");
             }
 
             txtSDT.setText(sdtHienThi);
@@ -475,6 +465,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
         }
         return diaChi; // Trả về nguyên gốc nếu địa chỉ rỗng hoặc null
     }
+
     private JButton createButton(String text) {
         JButton button = new JButton(text);
         button.setFont(new Font("Arial", Font.BOLD, 20)); // Đặt font
@@ -537,14 +528,8 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
         String maLoaiKH = "";
         if (txtLoaiKH.getSelectedItem().toString().equalsIgnoreCase("Khách hàng thường")) {
             maLoaiKH = "KH001";
-        } else if (txtLoaiKH.getSelectedItem().toString().equalsIgnoreCase("Khách hàng VIP")) {
-            maLoaiKH = "KH002";
-        } else if (txtLoaiKH.getSelectedItem().toString().equalsIgnoreCase("Khách hàng doanh nghiệp")) {
-            maLoaiKH = "KH003";
         } else if (txtLoaiKH.getSelectedItem().toString().equalsIgnoreCase("Khách hàng thân thiết")) {
-            maLoaiKH = "KH004";
-        } else if (txtLoaiKH.getSelectedItem().toString().equalsIgnoreCase("Khách hàng khuyến mãi")) {
-            maLoaiKH = "KH005";
+            maLoaiKH = "KH002";
         }
         LoaiKhachHang tmp = new LoaiKhachHang(maLoaiKH, txtLoaiKH.getSelectedItem().toString());
         KhachHang khachHang = null;

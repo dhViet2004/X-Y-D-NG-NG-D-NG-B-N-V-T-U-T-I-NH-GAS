@@ -8,9 +8,9 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
-import java.util.Base64;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 public class DAO_KhachHang {
@@ -39,13 +39,7 @@ public class DAO_KhachHang {
             if ("KH001".equals(maLoaiKhachHang)) {
                 tenLoaiKhachHang = "Khách hàng thường";
             } else if ("KH002".equals(maLoaiKhachHang)) {
-                tenLoaiKhachHang = "Khách hàng VIP";
-            } else if ("KH003".equals(maLoaiKhachHang)) {
-                tenLoaiKhachHang = "Khách hàng doanh nghiệp";
-            } else if ("KH004".equals(maLoaiKhachHang)) {
                 tenLoaiKhachHang = "Khách hàng thân thiết";
-            } else if ("KH005".equals(maLoaiKhachHang)) {
-                tenLoaiKhachHang = "Khách hàng khuyễn mãi";  //
             }
 
             // Tạo đối tượng LoaiKhachHang và KhachHang
@@ -69,6 +63,7 @@ public class DAO_KhachHang {
 
         return ds;
     }
+
     // kiểm tra xem có tồn tại hay không trả về trư false
     public boolean customerExists(String sdt) throws SQLException {
         String sql = "SELECT COUNT(*) AS count FROM KhachHang WHERE SoDT = ?";
@@ -107,13 +102,7 @@ public class DAO_KhachHang {
                 if ("KH001".equals(maLoaiKhachHang)) {
                     tenLoaiKhachHang = "Khách hàng thường";
                 } else if ("KH002".equals(maLoaiKhachHang)) {
-                    tenLoaiKhachHang = "Khách hàng VIP";
-                } else if ("KH003".equals(maLoaiKhachHang)) {
-                    tenLoaiKhachHang = "Khách hàng doanh nghiệp";
-                } else if ("KH004".equals(maLoaiKhachHang)) {
                     tenLoaiKhachHang = "Khách hàng thân thiết";
-                } else if ("KH005".equals(maLoaiKhachHang)) {
-                    tenLoaiKhachHang = "Khách hàng khuyễn mãi";  //
                 }
 
                 // Tạo đối tượng LoaiKhachHang và KhachHang
@@ -138,6 +127,7 @@ public class DAO_KhachHang {
         }
         return null; // Nếu không tìm thấy
     }
+
     public boolean updateCustomer(KhachHang kh) throws SQLException {
         String deleteSql = "DELETE FROM KhachHang WHERE SoDT = ?";
         String insertSql = "INSERT INTO KhachHang (MaKH, LoaiKhachHangMaLoaiKH, soDT, tenKH, CCCD,DiaChi, DiemTichLuy, NgaySinh, NgayThamGia, HangThanhVien) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -219,6 +209,7 @@ public class DAO_KhachHang {
 
     private static final String AES_KEY = "1234567890123456"; // Khóa bí mật 16 byte
     private static final String ALGORITHM = "AES";
+
     // Hàm mã hóa bằng AES
     public static String encryptAES(String data) throws Exception {
         Key key = new SecretKeySpec(AES_KEY.getBytes(), "AES");
@@ -227,8 +218,9 @@ public class DAO_KhachHang {
         byte[] encryptedData = cipher.doFinal(data.getBytes());
         return Base64.getEncoder().encodeToString(encryptedData);
     }
+
     // Hàm giải mã
-    public  String decryptAES(String encryptedText) throws Exception {
+    public String decryptAES(String encryptedText) throws Exception {
         // Chuyển đổi khóa bí mật thành SecretKey
         SecretKey secretKey = new SecretKeySpec(AES_KEY.getBytes(), ALGORITHM);
 
@@ -242,6 +234,7 @@ public class DAO_KhachHang {
 
         return new String(decryptedBytes);
     }
+
     // Phương thức thêm khách hàng, sử dụng mã hóa trước khi lưu
     public int addCustomer(KhachHang kh) throws SQLException {
         String sql = "INSERT INTO KhachHang (MaKH, LoaiKhachHangMaLoaiKH, SoDT, TenKH, CCCD, DiaChi, DiemTichLuy, NgaySinh, NgayThamGia, HangThanhVien) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

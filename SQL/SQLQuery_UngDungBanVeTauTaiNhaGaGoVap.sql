@@ -251,7 +251,8 @@ INSERT INTO LoaiKhachHang (MaLoaiKH, TenLoaiKH) VALUES
 ('KH004', N'Khách hàng thân thiết'),
 ('KH005', N'Khách hàng khuyến mãi');
 select * from LoaiKhachHang
-
+update LoaiKhachHang set TenLoaiKH =  N'Khách hàng thân thiết' where MaLoaiKH = 'KH002'
+delete from LoaiKhachHang where MaLoaiKH not in ('KH001','KH002')
 --DONE
 select * from KhachHang
 delete from KhachHang where MaKH not in ('KH2024102404173335',
@@ -270,6 +271,16 @@ INSERT INTO KhuyenMai (MaKM, ThoiGianBatDau, ThoiGianKetThuc, NoiDungKM, ChietKh
 ('KM004', '2024-04-01', '2024-04-30', N'Giảm 20% cho đơn hàng trên 500.000 VNĐ', 20.0, N'Tất cả khách hàng'),
 ('KM005', '2024-05-01', '2024-05-31', N'Mua 2 tặng 1 cho vé tàu', 100.0, N'Tất cả khách hàng');
 select * from KhuyenMai
+
+UPDATE KhuyenMai
+SET DoiTuongApDung = CASE 
+                        WHEN MaKM = 'KM002' THEN N'Khách hàng thân thiết'
+                        WHEN MaKM = 'KM005' THEN N'Khách hàng thường'
+                        WHEN MaKM = 'KM004' THEN N'Khách hàng thường'
+						when MaKM = 'KM006' then N'Khách hàng  thường'
+						when MaKM = 'KM007' then N'Khách hàng  thường'
+                     END
+WHERE MaKM IN ('KM002', 'KM005', 'KM004','KM006','KM007');
 
 --DONE
 INSERT INTO TaiKhoan (MaNV, Password) VALUES
