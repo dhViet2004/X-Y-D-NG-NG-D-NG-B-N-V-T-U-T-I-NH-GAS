@@ -16,6 +16,75 @@ public class DAO_BanVe {
         con = ConnectDatabase.getConnection();
     }
 
+    public ChoNgoi getChoNgoiByMaCho(String maCho) throws SQLException {
+        ChoNgoi choNgoi = null;
+
+        // Câu truy vấn SQL
+        String sql = "SELECT c.MaCho, c.LoaiChoMaLoai, c.LoaiToaMaToa, c.TenCho, c.TinhTrang, c.GiaTien, " +
+                "t.MaToa, t.TenToa, t.SoGhe, t.ThuTu, " +
+                "tau.MaTau, tau.TenTau, tau.SoToa, " +
+                "tt.MaTuyen, tt.TenTuyen, tt.GaDi, tt.GaDen, tt.DiaDiemDi, tt.DiaDiemDen, " +
+                "lt.MaLoai, lt.TenLoai " +
+                "FROM ChoNgoi c " +
+                "JOIN ToaTau t ON c.LoaiToaMaToa = t.MaToa " +
+                "JOIN Tau tau ON t.TauMaTau = tau.MaTau " +
+                "JOIN TuyenTau tt ON tau.MaTuyen = tt.MaTuyen " +
+                "JOIN LoaiToa lt ON t.LoaiToaMaLoai = lt.MaLoai " +
+                "WHERE c.MaCho = ?";
+
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setString(1, maCho); // Gán tham số mã chỗ vào câu truy vấn
+            ResultSet rs = pstmt.executeQuery();
+
+            // Kiểm tra nếu có kết quả trả về
+            if (rs.next()) {
+                // Lấy thông tin chỗ ngồi
+                String loaiChoMaLoai = rs.getString("LoaiChoMaLoai");
+                String tenCho = rs.getString("TenCho");
+                boolean tinhTrang = rs.getBoolean("TinhTrang");
+                float giaTien = rs.getFloat("GiaTien");
+
+                // Lấy thông tin toa tàu
+                String maToa = rs.getString("MaToa");
+                String tenToa = rs.getString("TenToa");
+                int soGhe = rs.getInt("SoGhe");
+                int thuTu = rs.getInt("ThuTu");
+
+                // Lấy thông tin tàu
+                String maTau = rs.getString("MaTau");
+                String tenTau = rs.getString("TenTau");
+                int soToa = rs.getInt("SoToa");
+
+                // Lấy thông tin tuyến tàu
+                String maTuyen = rs.getString("MaTuyen");
+                String tenTuyen = rs.getString("TenTuyen");
+                String gaDi = rs.getString("GaDi");
+                String gaDen = rs.getString("GaDen");
+                String diaDiemDi = rs.getString("DiaDiemDi");
+                String diaDiemDen = rs.getString("DiaDiemDen");
+
+                // Lấy thông tin loại toa
+                String maLoaiToa = rs.getString("MaLoai");
+                String tenLoaiToa = rs.getString("TenLoai");
+
+                // Tạo các đối tượng liên kết
+                TuyenTau tuyenTau = new TuyenTau(maTuyen, tenTuyen, gaDi, gaDen, diaDiemDi, diaDiemDen);
+                Tau tau = new Tau(maTau, tuyenTau, tenTau, soToa);
+                LoaiToa loaiToa = new LoaiToa(maLoaiToa, tenLoaiToa);
+                ToaTau toaTau = new ToaTau(maToa, loaiToa, tau, soGhe, tenToa, thuTu);
+                LoaiCho loaiCho = new LoaiCho(loaiChoMaLoai); // Giả định LoaiCho chỉ có mã
+
+                // Tạo đối tượng chỗ ngồi
+                choNgoi = new ChoNgoi(maCho, loaiCho, toaTau, tenCho, tinhTrang, giaTien);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Error fetching seat information by MaCho", e);
+        }
+
+        return choNgoi; // Trả về đối tượng ChoNgoi hoặc null nếu không tìm thấy
+    }
 
     public int getTotalCustomersToday() {
         int totalCustomers = 0; // Khởi tạo biến tổng số khách hàng

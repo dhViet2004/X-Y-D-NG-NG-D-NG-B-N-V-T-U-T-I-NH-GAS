@@ -129,6 +129,10 @@ public TextField txtTienThua;
 public TextField txtTienKhachDua;
 private double total;
 public JLabel lableTienThua = new JLabel("Tiền Thừa: ");
+private boolean isChiTietHoaDonDisplayed = false;
+private List<TicketDetails> danhSachVe = new ArrayList<>();
+
+
     public FrmBanVe(NhanVien nv) {
     nhanVien = nv;
     setTitle("Bán Vé");
@@ -1243,10 +1247,11 @@ public void actionPerformed(ActionEvent e) {
         Jpanel_NutThanhToan.add(btnInHoaDon);
         Jpanel_NutThanhToan.add(btnChiTietHoaDon);
         Jpanel_NutThanhToan.add(btnThanToan, BorderLayout.CENTER);
-        
+
         btnChiTietHoaDon.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 // Tạo JPanel chứa thông tin chi tiết vé
                 JPanel panelChiTietVe = new JPanel();
                 panelChiTietVe.setLayout(new BoxLayout(panelChiTietVe, BoxLayout.Y_AXIS)); // Sắp xếp theo chiều dọc
@@ -1258,48 +1263,77 @@ public void actionPerformed(ActionEvent e) {
                     vePanel.setBorder(BorderFactory.createLineBorder(Color.GRAY)); // Đường viền mỗi vé
                     vePanel.setBackground(new Color(240, 248, 255)); // Màu nền
 
-                    // Giới hạn chiều cao cho mỗi vé
-                    vePanel.setPreferredSize(new Dimension(400, 350)); // Chiều rộng 400px, chiều cao 100px
-                    vePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 300)); // Đặt giới hạn chiều cao
+                    // Đặt kích thước cố định cho vePanel
+                    int fixedWidth = 400;
+                    int fixedHeight = 350;
+                    vePanel.setPreferredSize(new Dimension(fixedWidth, fixedHeight)); // Kích thước ưa thích
+                    vePanel.setMinimumSize(new Dimension(fixedWidth, fixedHeight)); // Kích thước tối thiểu
+                    vePanel.setMaximumSize(new Dimension(fixedWidth, fixedHeight)); // Kích thước tối đa
 
                     // Lấy thông tin vé từ bảng
                     String hoTen = ((CustomPanel) table.getValueAt(row, 0)).getHoTen();
                     String doiTuong = ((CustomPanel) table.getValueAt(row, 0)).getTrangThai();
                     String giayTo = ((CustomPanel) table.getValueAt(row, 0)).getCCCD();
-                    String thongTinChoNgoi = (String) table.getValueAt(row, 4);
+                    String thongTinChoNgoi = (String) table.getValueAt(row, 1);
+
                     Object value = table.getValueAt(row, 2);
-                    double giaVe;
-
-                    if (value instanceof Float) {
-                        giaVe = ((Float) value).doubleValue();
-                    } else if (value instanceof Double) {
-                        giaVe = (Double) value;
-                    } else {
-                        throw new ClassCastException("Không thể chuyển đổi kiểu dữ liệu: " + value.getClass());
-                    }
-
+                    double giaVe = (value instanceof Number) ? ((Number) value).doubleValue() : 0.0;
                     double thanhTien = (double) table.getValueAt(row, 5);
 
-                    // Thêm các thông tin vé
-                    vePanel.add(new JLabel("  THONG TIN HANH TRINH "));
-                    vePanel.add(new JLabel("    Ga đi-Ga đến: " + tauKhiChon.getTuyenTau().getGaDi()+"-"+tauKhiChon.getTuyenTau().getGaDen()));
-                    vePanel.add(new JLabel("    Tàu/Train: " + tauKhiChon.getTenTau()));
-                    vePanel.add(new JLabel("    Ngày đi/Date: " + lichKhiChonTau.getNgayDi()));
-                    vePanel.add(new JLabel("    Giờ đi/Time: " + lichKhiChonTau.getGioDi()));
-                    vePanel.add(new JLabel("    Toa/Coach: " + removeDiacritics(toaKhiChon.getTenToa())));
-                    vePanel.add(new JLabel("    Chỗ/Seat: " + thongTinChoNgoi));
-                    vePanel.add(new JLabel("  THONG TIN HANG KHACH "));
-                    vePanel.add(new JLabel("    Họ tên: " + hoTen));
-                    vePanel.add(new JLabel("    Doi tuong: " + doiTuong));
-                    vePanel.add(new JLabel("    Giay To: " + giayTo));
-                    vePanel.add(new JLabel("    Giá vé: " + giaVe + " VND      |     VAT: 10%"));
-                    vePanel.add(new JLabel("    Thành tiền: " + thanhTien + " VND"));
+                    try {
+                        // Lấy thông tin chỗ ngồi từ DAO
+                        ChoNgoi cn = daoBanVe.getChoNgoiByMaCho(thongTinChoNgoi);
 
-                    // Thêm vePanel vào panelChiTietVe
-                    panelChiTietVe.add(vePanel);
-                    panelChiTietVe.add(Box.createVerticalStrut(10)); // Khoảng cách giữa các vé
+                        // Kiểm tra nếu cn bị null
+                        if (cn == null) {
+                            JOptionPane.showMessageDialog(null, "Không tìm thấy thông tin chỗ ngồi với mã: " + thongTinChoNgoi);
+                            continue; // Bỏ qua vé này
+                        }
+
+                        // Thêm thông tin vé vào danh sách
+                        TicketDetails ve = new TicketDetails(
+                                hoTen,
+                                doiTuong,
+                                giayTo,
+                                cn.getToaTau().getTau().getTuyenTau().getGaDi(),
+                                cn.getToaTau().getTau().getTuyenTau().getGaDen(),
+                                lichKhiChonTau.getTau().getTenTau(),
+                                lichKhiChonTau.getNgayDi(),
+                                lichKhiChonTau.getGioDi(),
+                                cn.getToaTau().getTenToa(),
+                                cn.getTenCho(),
+                                giaVe,
+                                thanhTien
+                        );
+                        danhSachVe.add(ve);
+
+                        // Thêm các thông tin vé vào JPanel
+                        vePanel.add(new JLabel("  THÔNG TIN HÀNH TRÌNH "));
+                        vePanel.add(new JLabel("    Ga đi-Ga đến: " + ve.getGaDi() + " - " + ve.getGaDen()));
+                        vePanel.add(new JLabel("    Tàu/Train: " + ve.getTenTau()));
+                        vePanel.add(new JLabel("    Ngày đi/Date: " + ve.getNgayDi()));
+                        vePanel.add(new JLabel("    Giờ đi/Time: " + ve.getGioDi()));
+                        vePanel.add(new JLabel("    Toa/Coach: " + ve.getToaTau()));
+                        vePanel.add(new JLabel("    Chỗ/Seat: " + ve.getChoNgoi()));
+                        vePanel.add(new JLabel("  THÔNG TIN HÀNH KHÁCH "));
+                        vePanel.add(new JLabel("    Họ tên: " + ve.getHoTen()));
+                        vePanel.add(new JLabel("    Đối tượng: " + ve.getDoiTuong()));
+                        vePanel.add(new JLabel("    Giấy tờ: " + ve.getGiayTo()));
+                        vePanel.add(new JLabel("    Giá vé: " + ve.getGiaVe() + " VND      |     VAT: 10%"));
+                        vePanel.add(new JLabel("    Thành tiền: " + ve.getThanhTien() + " VND"));
+
+                        // Thêm vePanel vào panelChiTietVe
+                        panelChiTietVe.add(vePanel);
+                        panelChiTietVe.add(Box.createVerticalStrut(10)); // Khoảng cách giữa các vé
+
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Lỗi khi lấy thông tin chỗ ngồi: " + ex.getMessage());
+                        ex.printStackTrace();
+                    } catch (ClassCastException ex) {
+                        JOptionPane.showMessageDialog(null, "Lỗi dữ liệu: " + ex.getMessage());
+                        ex.printStackTrace();
+                    }
                 }
-
                 // Đặt panelChiTietVe vào JScrollPane
                 JScrollPane scrollPane = new JScrollPane(panelChiTietVe);
                 scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -1310,6 +1344,27 @@ public void actionPerformed(ActionEvent e) {
                 panelBenPhai.add(scrollPane);
                 panelBenPhai.revalidate();
                 panelBenPhai.repaint();
+
+                isChiTietHoaDonDisplayed = true;
+            }
+        });
+
+        // Gắn sự kiện cho nút btnGuiVeEmail
+        btnGuiVeEmail.addActionListener(event -> {
+            if (isChiTietHoaDonDisplayed) {
+                // Kiểm tra nếu danh sách vé không rỗng
+                if (!danhSachVe.isEmpty()) {
+                    // Tạo tên file PDF
+                    String fileName = "danh_sach_ve.pdf";
+                    // In danh sách vé ra file PDF
+                    TicketPDFGenerator.generateTicketPdf(fileName, danhSachVe);
+                    JOptionPane.showMessageDialog(null, "In thanh công, danh sách vé được chứa tại file "+fileName);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Danh sách vé rỗng, không thể gửi email.");
+                }
+            } else {
+                // Hiển thị thông báo nếu chi tiết hóa đơn chưa được hiển thị
+                JOptionPane.showMessageDialog(null, "Vui lòng xem chi tiết hóa đơn trước khi gửi vé qua email.");
             }
         });
 
