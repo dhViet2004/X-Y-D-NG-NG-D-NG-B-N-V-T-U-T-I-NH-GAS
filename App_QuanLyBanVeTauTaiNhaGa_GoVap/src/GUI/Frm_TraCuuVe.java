@@ -3,6 +3,7 @@ package GUI;
 import DAO.DAO_TraCuuVe;
 import Database.ConnectDatabase;
 import Entity.VeTau;
+import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -11,6 +12,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.util.List;
 
 public class Frm_TraCuuVe extends JFrame {
@@ -29,12 +33,22 @@ public class Frm_TraCuuVe extends JFrame {
     private  Color MauXanh = new Color(0,131,66);
     private JTextField txtHoTen;
     private JButton btnTimVe;
-
+    private JTextField txtMaVe;
+    private JTextField txtMaLich;
+    private JTextField txtMaCho;
+    private JTextField txtTenKH;
+    private JTextField txtGiayTo;
+    private JTextField txtNgayDi;
+    private JTextField txtDoiTuong;
+    private JTextField txtGiaVe;
+    private JTextField txtTrangThai;
+    private List<VeTau> veTauList;
     public Component get_TraCuuVe_Panel() {
         return JPanel_Right;
     }
 
     public Frm_TraCuuVe() {
+        DAO_TraCuuVe daoTraCuuVe = new DAO_TraCuuVe();
         // Kết nối database
         ConnectDatabase.getInstance().connect();
 
@@ -87,7 +101,7 @@ public class Frm_TraCuuVe extends JFrame {
         // Thêm khoảng cách bên trong cho các panel
         timChiTiet.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         createPanelTimNhanh().setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        createPanelTimTheoThoiGian().setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+//        createPanelTimTheoThoiGian().setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
 
 
@@ -101,98 +115,142 @@ public class Frm_TraCuuVe extends JFrame {
         panelTimVe.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
 
-        // Thiết lập layout và tạo bảng cho panel_ThongTinVe
+        // Tạo giao diện bảng
         panel_ThongTinVe.setLayout(new BorderLayout());
-        String[] columnNames = {"Mã vé", "Họ tên", "Giấy tờ", "Ngày đi", "Đối tượng", "Giá vé"};
+        String[] columnNames = {
+                "Mã vé", "Họ tên", "Giấy tờ", "Ngày đi", "Đối tượng", "Giá vé", "Trạng thái"
+        };
         tableModel = new DefaultTableModel(columnNames, 0);
         table = new JTable(tableModel);
 
-        // Cấu hình bảng
+        // Tùy chỉnh tiêu đề bảng
         JTableHeader header = table.getTableHeader();
-        header.setFont(new Font("Arial", Font.BOLD, 25));
-        header.setBackground(MauXanh);
-        header.setForeground(Color.WHITE);
+        header.setFont(new Font("Arial", Font.BOLD, 25)); // Font chữ in đậm, kích thước 16
+        header.setBackground(MauXanh); // Nền màu xanh
+
+        header.setForeground(Color.WHITE); // Chữ màu trắng
         header.setOpaque(true);
 
-        // Cấu hình font chữ cho từng dòng
+        // Tùy chỉnh font chữ từng dòng
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-        cellRenderer.setFont(new Font("Arial", Font.PLAIN, 25));
-        cellRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        cellRenderer.setFont(new Font("Arial", Font.PLAIN, 20)); // Font chữ từng dòng, kích thước 14
+        cellRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Căn giữa nội dung
         table.setDefaultRenderer(Object.class, cellRenderer);
 
-        // Thiết lập chiều cao cho các dòng
-        table.setRowHeight(30);
+        // Chỉnh chiều cao dòng (mặc định cho tất cả dòng)
+        table.setRowHeight(30); // Đặt chiều cao cho tất cả các dòng là 30px
 
-        // Đưa bảng vào JScrollPane và thêm vào panel_ThongTinVe
+        // Đưa bảng vào JScrollPane
         JScrollPane scrollPane = new JScrollPane(table);
         panel_ThongTinVe.add(scrollPane, BorderLayout.CENTER);
+        // Thêm sự kiện cho nút "Tìm vé"
+        addSearchButtonListener();
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = table.getSelectedRow(); // Lấy chỉ số dòng được chọn
+                if (row >= 0) {
+                    // Lấy mã vé từ cột đầu tiên (Giả sử cột mã vé là cột 0)
+                    String maVe = table.getValueAt(row, 0).toString(); // Cột mã vé (có thể thay đổi theo cột trong bảng của bạn)
 
-        // Tải dữ liệu vào bảng
-        loadDataToTable();
+                    // Tìm vé trong danh sách vé bằng mã vé
+                    VeTau ve = findVeByMaVe(maVe); // Giả sử phương thức này tìm vé trong danh sách
+
+                    if (ve != null) {
+                        // Điền thông tin vé vào các JTextField
+                        txtMaVe.setText(ve.getMaVe());
+                        txtMaLich.setText(ve.getLichTrinhTau().getMaLichTrinh());
+                        txtMaCho.setText(ve.getChoNgoi().getMaCho());
+                        txtTenKH.setText(ve.getTenKhachHang());
+                        txtGiayTo.setText(ve.getGiayTo());
+                        txtNgayDi.setText(String.valueOf(ve.getNgayDi()));
+                        txtDoiTuong.setText(ve.getDoiTuong());
+                        txtGiaVe.setText(String.valueOf(ve.getGiaVe()));
+                        txtTrangThai.setText(ve.getTrangThai());
+                    }
+                }
+            }
+        });
+
+
     }
-
-    private static JPanel createPanelChiTietVe() {
-        // Tạo panel chi tiết vé
+    // Phương thức tìm vé theo mã vé
+    private VeTau findVeByMaVe(String maVe) {
+        for (VeTau ve : veTauList) {
+            if (ve.getMaVe().equals(maVe)) {
+                return ve; // Trả về vé tìm được
+            }
+        }
+        return null; // Trả về null nếu không tìm thấy vé
+    }
+    // Phương thức tạo panel chi tiết vé
+    private JPanel createPanelChiTietVe() {
         JPanel panelChiTietVe = new JPanel();
         panelChiTietVe.setLayout(new GridBagLayout());
+
+        TitledBorder titledBorder = new TitledBorder("Chi tiết vé");
+        titledBorder.setTitleFont(new Font("Arial", Font.ITALIC, 20));
+        titledBorder.setTitleJustification(TitledBorder.LEFT);
+        panelChiTietVe.setBorder(titledBorder);
+
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(5, 5, 5, 5); // Khoảng cách giữa các thành phần
+        gbc.insets = new Insets(5, 5, 5, 5);
 
         // Tạo các JLabel và JTextField cho từng trường
         JLabel lblMaVe = new JLabel("Mã vé:");
-        lblMaVe.setFont(new Font("Arial", Font.BOLD, 18));  // Giảm cỡ chữ
-        JTextField txtMaVe = new JTextField(20);  // Giảm số lượng cột
-        txtMaVe.setFont(new Font("Arial", Font.PLAIN, 18));  // Giảm cỡ chữ
-        txtMaVe.setPreferredSize(new Dimension(180, 30)); // Giảm kích thước JTextField
+        lblMaVe.setFont(new Font("Arial", Font.BOLD, 18));
+        txtMaVe = new JTextField(20);
+        txtMaVe.setFont(new Font("Arial", Font.PLAIN, 18));
+        txtMaVe.setPreferredSize(new Dimension(180, 30));
 
         JLabel lblMaLich = new JLabel("Mã lịch:");
-        lblMaLich.setFont(new Font("Arial", Font.BOLD, 20));  // Giảm cỡ chữ
-        JTextField txtMaLich = new JTextField(20);
+        lblMaLich.setFont(new Font("Arial", Font.BOLD, 20));
+        txtMaLich = new JTextField(20);
         txtMaLich.setFont(new Font("Arial", Font.PLAIN, 18));
-        txtMaLich.setPreferredSize(new Dimension(250, 35));  // Giảm kích thước JTextField
+        txtMaLich.setPreferredSize(new Dimension(250, 35));
 
         JLabel lblMaCho = new JLabel("Mã chỗ:");
-        lblMaCho.setFont(new Font("Arial", Font.BOLD, 20));  // Giảm cỡ chữ
-        JTextField txtMaCho = new JTextField(20);
+        lblMaCho.setFont(new Font("Arial", Font.BOLD, 20));
+        txtMaCho = new JTextField(20);
         txtMaCho.setFont(new Font("Arial", Font.PLAIN, 18));
-        txtMaCho.setPreferredSize(new Dimension(250, 35));  // Giảm kích thước JTextField
+        txtMaCho.setPreferredSize(new Dimension(250, 35));
 
         JLabel lblTenKH = new JLabel("Tên khách hàng:");
-        lblTenKH.setFont(new Font("Arial", Font.BOLD, 20));  // Giảm cỡ chữ
-        JTextField txtTenKH = new JTextField(20);
+        lblTenKH.setFont(new Font("Arial", Font.BOLD, 20));
+        txtTenKH = new JTextField(20);
         txtTenKH.setFont(new Font("Arial", Font.PLAIN, 18));
-        txtTenKH.setPreferredSize(new Dimension(250, 35));  // Giảm kích thước JTextField
+        txtTenKH.setPreferredSize(new Dimension(250, 35));
 
         JLabel lblGiayTo = new JLabel("Giấy tờ:");
-        lblGiayTo.setFont(new Font("Arial", Font.BOLD, 20));  // Giảm cỡ chữ
-        JTextField txtGiayTo = new JTextField(20);
+        lblGiayTo.setFont(new Font("Arial", Font.BOLD, 20));
+        txtGiayTo = new JTextField(20);
         txtGiayTo.setFont(new Font("Arial", Font.PLAIN, 18));
-        txtGiayTo.setPreferredSize(new Dimension(250, 35));  // Giảm kích thước JTextField
+        txtGiayTo.setPreferredSize(new Dimension(250, 35));
 
         JLabel lblNgayDi = new JLabel("Ngày đi:");
-        lblNgayDi.setFont(new Font("Arial", Font.BOLD, 20));  // Giảm cỡ chữ
-        JTextField txtNgayDi = new JTextField(20);
+        lblNgayDi.setFont(new Font("Arial", Font.BOLD, 20));
+        txtNgayDi = new JTextField(20);
         txtNgayDi.setFont(new Font("Arial", Font.PLAIN, 18));
-        txtNgayDi.setPreferredSize(new Dimension(250, 35));  // Giảm kích thước JTextField
+        txtNgayDi.setPreferredSize(new Dimension(250, 35));
 
         JLabel lblDoiTuong = new JLabel("Đối tượng:");
-        lblDoiTuong.setFont(new Font("Arial", Font.BOLD, 20));  // Giảm cỡ chữ
-        JTextField txtDoiTuong = new JTextField(20);
+        lblDoiTuong.setFont(new Font("Arial", Font.BOLD, 20));
+        txtDoiTuong = new JTextField(20);
         txtDoiTuong.setFont(new Font("Arial", Font.PLAIN, 18));
-        txtDoiTuong.setPreferredSize(new Dimension(250, 35));  // Giảm kích thước JTextField
+        txtDoiTuong.setPreferredSize(new Dimension(250, 35));
 
         JLabel lblGiaVe = new JLabel("Giá vé:");
-        lblGiaVe.setFont(new Font("Arial", Font.BOLD, 20));  // Giảm cỡ chữ
-        JTextField txtGiaVe = new JTextField(20);
+        lblGiaVe.setFont(new Font("Arial", Font.BOLD, 20));
+        txtGiaVe = new JTextField(20);
         txtGiaVe.setFont(new Font("Arial", Font.PLAIN, 18));
-        txtGiaVe.setPreferredSize(new Dimension(250, 35));  // Giảm kích thước JTextField
+        txtGiaVe.setPreferredSize(new Dimension(250, 35));
 
         JLabel lblTrangThai = new JLabel("Trạng thái:");
-        lblTrangThai.setFont(new Font("Arial", Font.BOLD, 20));  // Giảm cỡ chữ
-        JTextField txtTrangThai = new JTextField(20);
+        lblTrangThai.setFont(new Font("Arial", Font.BOLD, 20));
+        txtTrangThai = new JTextField(20);
         txtTrangThai.setFont(new Font("Arial", Font.PLAIN, 18));
-        txtTrangThai.setPreferredSize(new Dimension(250, 35));  // Giảm kích thước JTextField
+        txtTrangThai.setPreferredSize(new Dimension(250, 35));
 
         // Sắp xếp các thành phần vào GridBagLayout
         gbc.gridx = 0;
@@ -251,12 +309,9 @@ public class Frm_TraCuuVe extends JFrame {
 
         return panelChiTietVe;
     }
-
     private JPanel createPanelTimTheoThoiGian() {
         // Tạo panel chính với GridBagLayout
         JPanel panelTimTheoThoiGian = new JPanel();
-
-
         panelTimTheoThoiGian.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -285,13 +340,14 @@ public class Frm_TraCuuVe extends JFrame {
         gbc.gridwidth = 1;
         panelTimTheoThoiGian.add(lblThoiGian, gbc);
 
-        // Calendar đầu tiên
-        JTextField txtThoiGianFrom = new JTextField(10);
-        txtThoiGianFrom.setFont(new Font("Arial", Font.PLAIN, 20));
+        // Calendar đầu tiên (JDateChooser)
+        JDateChooser dateChooserFrom = new JDateChooser();
+        dateChooserFrom.setFont(new Font("Arial", Font.PLAIN, 20));
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
-        panelTimTheoThoiGian.add(txtThoiGianFrom, gbc);
+        gbc.weightx = 2.0;  // Tăng giá trị weightx để panel rộng hơn
+        panelTimTheoThoiGian.add(dateChooserFrom, gbc);
 
         // Label "đến"
         JLabel lblDen = new JLabel("đến");
@@ -300,12 +356,14 @@ public class Frm_TraCuuVe extends JFrame {
         gbc.gridy = 1;
         panelTimTheoThoiGian.add(lblDen, gbc);
 
-        // Calendar thứ hai
-        JTextField txtThoiGianTo = new JTextField(10);
-        txtThoiGianTo.setFont(new Font("Arial", Font.PLAIN, 20));
+        // Calendar thứ hai (JDateChooser)
+        JDateChooser dateChooserTo = new JDateChooser();
+        dateChooserTo.setFont(new Font("Arial", Font.PLAIN, 20));
         gbc.gridx = 3;
         gbc.gridy = 1;
-        panelTimTheoThoiGian.add(txtThoiGianTo, gbc);
+        gbc.gridwidth = 1;
+        gbc.weightx = 2.0;  // Tăng giá trị weightx để panel rộng hơn
+        panelTimTheoThoiGian.add(dateChooserTo, gbc);
 
         // Nút Lọc
         JButton btnLoc = new JButton("Lọc");
@@ -449,8 +507,22 @@ public class Frm_TraCuuVe extends JFrame {
         btnTimVe.setFont(new Font("Arial", Font.PLAIN, 25)); // Cập nhật kích thước font của JButton
         panel.add(btnTimVe, gbc);
 
+        // Thêm button Quét mã QR
+        gbc.gridx = 2;  // Cột 2 - button Quét mã QR
+        gbc.gridy = 1;  // Dòng 1
+        gbc.gridheight = 1;
+        JButton btnQuetQR = new JButton("Quét mã QR");
+        btnQuetQR.setFont(new Font("Arial", Font.PLAIN, 25)); // Cập nhật kích thước font của JButton
+        panel.add(btnQuetQR, gbc);
+
+        // Đảm bảo chiều cao các nút button bằng nhau (2 button sẽ có chiều cao bằng nhau như radio button)
+        gbc.gridx = 2;  // Cột 2
+        gbc.gridy = 0;  // Dòng 0
+        gbc.gridheight = 3;  // Chiếm 3 dòng, giống như các radio button
+
         return panel;
     }
+
     private JPanel createRadioPanel() {
         // Tạo một panel riêng cho các radio button
         JPanel radioPanel = new JPanel();
@@ -479,37 +551,90 @@ public class Frm_TraCuuVe extends JFrame {
 
         return radioPanel;
     }
-    private void loadDataToTable() {
-        DAO_TraCuuVe daoTraCuuVe = new DAO_TraCuuVe();
 
-        try {
-            // Lấy danh sách vé tàu từ DAO
-            List<VeTau> danhSachVe = daoTraCuuVe.getAllVeTau();
+    // Thêm sự kiện cho nút "Tìm vé"
+    private void addSearchButtonListener() {
+        btnTimVe.addActionListener(e -> {
+            // Lấy tiêu chí tìm kiếm từ radio button
+            if (radioMaVe.isSelected()) {
+                String maVe = txtHoTen.getText().trim();
+                if (!maVe.isEmpty()) {
+                    try {
+                        DAO_TraCuuVe daoTraCuuVe = new DAO_TraCuuVe();
+                        // Gọi phương thức timVeTauTheoMa từ DAO để tìm vé theo mã
+                        veTauList = daoTraCuuVe.timVeTauTheoMa(maVe);
 
-            // Xóa dữ liệu cũ (nếu có) trong bảng
-            tableModel.setRowCount(0);
+                        if (!veTauList.isEmpty()) {
+                            // Cập nhật bảng với danh sách vé tìm được
+                            updateTableWithVeTau(veTauList);
+                        } else {
+                            // Nếu không tìm thấy vé
+                            JOptionPane.showMessageDialog(null, "Không tìm thấy vé với mã này!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    } catch (SQLException ex) {
+                        // Xử lý lỗi khi truy vấn cơ sở dữ liệu
+                        JOptionPane.showMessageDialog(null, "Lỗi khi tìm vé: " + ex.getMessage(), "Thông báo", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Vui lòng nhập mã vé!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                }
+            } else if (radioGiayTo.isSelected()) {
+                String giayTo = txtHoTen.getText().trim();  // Giả sử txtGiayTo là ô nhập liệu cho giấy tờ
+                if (!giayTo.isEmpty()) {
+                    try {
+                        DAO_TraCuuVe daoTraCuuVe = new DAO_TraCuuVe();
+                        // Gọi phương thức timVeTauTheoGiayTo từ DAO để tìm vé theo giấy tờ
+                        veTauList = daoTraCuuVe.timVeTauTheoGiayTo(giayTo);
 
-            // Duyệt qua danh sách vé và thêm vào bảng
-            for (VeTau ve : danhSachVe) {
-                Object[] row = {
-                        ve.getMaVe(),
-                        ve.getTenKhachHang(),
-                        ve.getGiayTo(),
-                        ve.getNgayDi(),
-                        ve.getDoiTuong(),
-                        ve.getGiaVe()
-                };
-                tableModel.addRow(row);
+                        if (!veTauList.isEmpty()) {
+                            // Cập nhật bảng với danh sách vé tìm được
+                            updateTableWithVeTau(veTauList);
+                        } else {
+                            // Nếu không tìm thấy vé
+                            JOptionPane.showMessageDialog(null, "Không tìm thấy vé với giấy tờ này!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    } catch (SQLException ex) {
+                        // Xử lý lỗi khi truy vấn cơ sở dữ liệu
+                        JOptionPane.showMessageDialog(null, "Lỗi khi tìm vé: " + ex.getMessage(), "Thông báo", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Vui lòng nhập giấy tờ!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                }
+            } else if (radioHoTen.isSelected()) {
+                JOptionPane.showMessageDialog(null, "Tìm kiếm theo họ tên chưa được triển khai!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn một tiêu chí tìm kiếm!", "Thông báo", JOptionPane.WARNING_MESSAGE);
             }
-
-            // Đặt font cho bảng
-            table.setFont(new Font("Arial", Font.PLAIN, 20)); // Thay đổi kích thước chữ ở đây
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Lỗi khi tải dữ liệu: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
+        });
     }
+
+
+    private void updateTableWithVeTau(List<VeTau> veTauList) {
+        tableModel.setRowCount(0); // Xóa dữ liệu cũ trong bảng
+
+        if (veTauList != null && !veTauList.isEmpty()) {
+            for (VeTau veTau : veTauList) {
+                // Cập nhật dữ liệu hiển thị trong bảng với các trường tương ứng
+                Object[] rowData = {
+                        veTau.getMaVe(),
+                        veTau.getTenKhachHang(),
+                        veTau.getGiayTo(),
+                        veTau.getNgayDi(),
+                        veTau.getDoiTuong(),
+                        veTau.getGiaVe(),
+                        veTau.getTrangThai() // Trạng thái
+                };
+                tableModel.addRow(rowData); // Thêm dữ liệu mới vào bảng
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Không tìm thấy vé với thông tin đã nhập.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        // Đặt font cho bảng
+        table.setFont(new Font("Arial", Font.PLAIN, 20)); // Thay đổi kích thước chữ ở đây
+    }
+
+
 
 
     public static void main(String[] args) {

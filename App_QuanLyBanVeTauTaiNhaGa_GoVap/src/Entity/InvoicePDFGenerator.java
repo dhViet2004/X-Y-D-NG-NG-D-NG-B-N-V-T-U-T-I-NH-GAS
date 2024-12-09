@@ -25,12 +25,13 @@ public class InvoicePDFGenerator {
     private static String hotenKH = null;
     private static String soDienThoai = null;
     private static String diaChi = null;
+    private static String loaiKH = null;
     // Phương thức tạo hóa đơn PDF
     public static void generateInvoicePdf(HoaDon hoaDon, KhachHang khachHang,
                                           List<ChiTietHoaDon> chiTietHoaDonList, List<TicketDetails> danhSachVe) {
         try {
 
-            if(khachHang.getLoaiKhachHang().equals("KH002")){
+            if(khachHang.getLoaiKhachHang().getMaLoaiKhachHang().equals("KH002")){
                 DAO_KhachHang dao_khachHang = new DAO_KhachHang();
                 hotenKH = dao_khachHang.decryptAES(khachHang.getTenKhachHang());
                 soDienThoai = dao_khachHang.decryptAES(khachHang.getSoDienThoai());

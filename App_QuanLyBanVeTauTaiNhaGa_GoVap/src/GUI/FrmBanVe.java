@@ -144,7 +144,6 @@ private HoaDon hoaDonDaThanhToan = null;
 private double diemTichLuy = 0;
 private KhachHang khachHang = null;
 private LocalDate ngayHienTai = LocalDate.now();
-private double diemTru = 0;// Lưu ngày cuối cùng đã tính vé
     private int tongVe = 0; // Biến đếm số vé trong ngày
 private KhachHang khachHangDeInHoaDon = null;
     private VeTau thongTinVeDoi;
@@ -1130,36 +1129,6 @@ public void actionPerformed(ActionEvent e) {
                                     txtSoDienThoai.setText(dao_khachHang.decryptAES(khachHangMuaVe.getSoDienThoai()));
                                     txtDiaChi.setText(dao_khachHang.decryptAES(khachHangMuaVe.getDiaChi()));
 
-                                    // Lấy điểm tích lũy của khách hàng
-                                    diemTichLuy = khachHangMuaVe.getDiemTichLuy(); // Giả sử có trường điểm tích lũy trong đối tượng khách hàng
-
-                                    // Hiển thị hộp thoại với điểm tích lũy
-                                    int confirm = JOptionPane.showConfirmDialog(dialog,
-                                            "Khách hàng hiện có " + diemTichLuy + " điểm tích lũy.\n" +
-                                                    "Bạn có muốn trừ điểm tích lũy không?",
-                                            "Trừ điểm tích lũy",
-                                            JOptionPane.YES_NO_OPTION);
-
-                                    // Nếu khách hàng chọn "Có"
-                                    if (confirm == JOptionPane.YES_OPTION) {
-                                        // Kiểm tra xem điểm tích lũy có đủ để trừ không
-                                        if (diemTichLuy >= 1000) {
-                                            // Tính điểm chẵn cần trừ (lấy phần chẵn gần nhất)
-                                            diemTru = (diemTichLuy / 1000) * 1000; // Lấy phần chẵn của điểm tích lũy
-
-                                            // Trừ điểm và cập nhật lại
-                                            khachHangMuaVe.setDiemTichLuy(diemTichLuy - diemTru);
-                                            dao_khachHang.updateCustomer(khachHangMuaVe); // Cập nhật lại dữ liệu khách hàng vào DB
-
-                                            // Hiển thị thông báo
-                                            JOptionPane.showMessageDialog(dialog, "Đã trừ " + diemTru + " điểm tích lũy.\nĐiểm còn lại: " + khachHangMuaVe.getDiemTichLuy());
-                                            System.out.println(diemTichLuy);
-                                            System.out.println(diemTru);
-
-                                        }else{
-                                            JOptionPane.showMessageDialog(dialog, "Điểm tích lũy không đủ để trừ.");
-                                        }
-                                    }
                                 } catch (Exception ex) {
                                     throw new RuntimeException(ex);
                                 }
@@ -1658,7 +1627,7 @@ public void actionPerformed(ActionEvent e) {
                     LoaiHoaDon loaiHoaDon = new LoaiHoaDon("LHD01");
                     // Lưu hóa đơn
                     double tienChietKhau = tongTien * (chietKhau / 100);
-                    tongTien -= tienChietKhau - diemTru;
+                    tongTien -= tienChietKhau;
                     HoaDon hoaDon = new HoaDon(maHD, khachHang, khuyenMai, nhanVien, loaiHoaDon, LocalDateTime.now(), tienChietKhau, tongTien);
                     daoBanVe.saveInvoice(hoaDon); // Lưu hóa đơn
                     hoaDonDaThanhToan = hoaDon;

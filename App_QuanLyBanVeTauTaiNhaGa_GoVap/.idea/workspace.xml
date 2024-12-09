@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd9785e7-16e6-4490-a795-ba74396c2716" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hoa_don.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hoa_don.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/DAO_TraCuuVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DAO_TraCuuVe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/InvoicePDFGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/InvoicePDFGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/Frm_TraCuuVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_TraCuuVe.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,12 +22,18 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.FrmBanVe (1).executor": "Run",
+    "Application.FrmBanVe (2).executor": "Run",
     "Application.FrmBanVe.executor": "Run",
+    "Application.Frm_TraCuuVe (1).executor": "Run",
+    "Application.Frm_TraCuuVe (2).executor": "Run",
+    "Application.Frm_TraCuuVe (3).executor": "Run",
+    "Application.Frm_TraCuuVe.executor": "Run",
     "git-widget-placeholder": "master",
     "node.js.selected.package.tslint": "(autodetect)"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.FrmBanVe (1)">
+  <component name="RunManager" selected="Application.FrmBanVe">
     <configuration name="FrmBanVe (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -49,10 +60,52 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Frm_TraCuuVe (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.Frm_TraCuuVe" />
+      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Frm_TraCuuVe (3)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.Frm_TraCuuVe" />
+      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Frm_TraCuuVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.Frm_TraCuuVe" />
+      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.FrmBanVe (1)" />
         <item itemvalue="Application.FrmBanVe" />
+        <item itemvalue="Application.FrmBanVe (1)" />
+        <item itemvalue="Application.Frm_TraCuuVe" />
+        <item itemvalue="Application.Frm_TraCuuVe (3)" />
+        <item itemvalue="Application.Frm_TraCuuVe (2)" />
       </list>
     </recent_temporary>
   </component>
