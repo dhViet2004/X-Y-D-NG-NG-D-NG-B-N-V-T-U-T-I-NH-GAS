@@ -235,7 +235,24 @@ public class DAO_KhachHang {
             throw new RuntimeException("Lỗi khi thêm khách hàng: " + e.getMessage(), e);
         }
     }
+    public boolean CapNhatDiemKhachHang_SDT(String sdt, double diem) throws SQLException {
+        String sqlUpdate = "UPDATE KhachHang SET DiemTichLuy = DiemTichLuy + ? WHERE SoDT = ?";
+        try (PreparedStatement ps = con.prepareStatement(sqlUpdate)) {
+            // Mã hóa số điện thoại
+            String encryptedSDT = encryptAES(sdt);
 
+            // Gán giá trị vào truy vấn
+            ps.setDouble(1, diem);
+            ps.setString(2, encryptedSDT);
+
+            // Thực thi câu lệnh
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0; // Trả về true nếu có ít nhất 1 bản ghi được cập nhật
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Lỗi khi cập nhật điểm khách hàng: " + e.getMessage(), e);
+        }
+    }
     public static void main(String[] args) throws Exception {
         String s = "0356307125";
         DAO_KhachHang dao = new DAO_KhachHang();

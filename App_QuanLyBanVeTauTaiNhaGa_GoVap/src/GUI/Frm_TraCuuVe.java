@@ -159,7 +159,7 @@ public class Frm_TraCuuVe extends JFrame {
                     if (ve != null) {
                         // Điền thông tin vé vào các JTextField
                         txtMaVe.setText(ve.getMaVe());
-                        txtMaLich.setText(ve.getLichTrinhTau().getMaLichTrinh());
+                        txtMaLich.setText("Tên tàu:"+ve.getLichTrinhTau().getTau().getTenTau()+", TG: "+ve.getLichTrinhTau().getNgayDi()+"-"+ve.getLichTrinhTau().getGioDi());
                         txtMaCho.setText(ve.getChoNgoi().getMaCho());
                         txtTenKH.setText(ve.getTenKhachHang());
                         txtGiayTo.setText(ve.getGiayTo());
@@ -204,13 +204,13 @@ public class Frm_TraCuuVe extends JFrame {
         txtMaVe.setFont(new Font("Arial", Font.PLAIN, 18));
         txtMaVe.setPreferredSize(new Dimension(180, 30));
 
-        JLabel lblMaLich = new JLabel("Mã lịch:");
+        JLabel lblMaLich = new JLabel("Thông tin:");
         lblMaLich.setFont(new Font("Arial", Font.BOLD, 20));
         txtMaLich = new JTextField(20);
-        txtMaLich.setFont(new Font("Arial", Font.PLAIN, 18));
+        txtMaLich.setFont(new Font("Arial", Font.PLAIN, 15));
         txtMaLich.setPreferredSize(new Dimension(250, 35));
 
-        JLabel lblMaCho = new JLabel("Mã chỗ:");
+        JLabel lblMaCho = new JLabel("Chỗ ngồi:");
         lblMaCho.setFont(new Font("Arial", Font.BOLD, 20));
         txtMaCho = new JTextField(20);
         txtMaCho.setFont(new Font("Arial", Font.PLAIN, 18));
