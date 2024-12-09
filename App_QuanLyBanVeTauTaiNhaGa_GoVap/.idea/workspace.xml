@@ -5,9 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd9785e7-16e6-4490-a795-ba74396c2716" name="Changes" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAO/DAO_KhachHang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DAO_KhachHang.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/Frm_KhachHang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_KhachHang.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" afterDir="false" />
+>>>>>>> 712b7c6ec6f5d0b8e9af3cd3d043b5d5908262b7
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +48,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+<<<<<<< HEAD
   <component name="RunManager" selected="Application.Frm_KhachHang">
     <configuration name="DAO_KhachHang" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DAO.DAO_KhachHang" />
@@ -51,6 +56,15 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="DAO.*" />
+=======
+  <component name="RunManager" selected="Application.FrmBanVe (1)">
+    <configuration name="FrmBanVe (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
+      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+>>>>>>> 712b7c6ec6f5d0b8e9af3cd3d043b5d5908262b7
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -86,8 +100,12 @@
     </configuration>
     <recent_temporary>
       <list>
+<<<<<<< HEAD
         <item itemvalue="Application.Frm_KhachHang" />
         <item itemvalue="Application.DAO_KhachHang" />
+=======
+        <item itemvalue="Application.FrmBanVe (1)" />
+>>>>>>> 712b7c6ec6f5d0b8e9af3cd3d043b5d5908262b7
         <item itemvalue="Application.FrmBanVe" />
       </list>
     </recent_temporary>
