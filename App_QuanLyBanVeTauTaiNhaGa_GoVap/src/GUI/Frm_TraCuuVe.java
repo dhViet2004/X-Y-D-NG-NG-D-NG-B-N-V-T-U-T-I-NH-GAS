@@ -14,6 +14,8 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -587,7 +589,23 @@ public class Frm_TraCuuVe extends JFrame {
         gbc.gridx = 2;  // Cột 2
         gbc.gridy = 0;  // Dòng 0
         gbc.gridheight = 3;  // Chiếm 3 dòng, giống như các radio button
+        btnQuetQR.addActionListener(e -> {
+            // Khởi tạo cửa sổ quét mã QR
+            QR_Scan qrScan = new QR_Scan();
 
+            // Thêm WindowListener để nhận kết quả từ QR_Scan khi đóng
+            qrScan.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    // Lấy chuỗi kết quả từ mã QR và hiển thị trong txtHoTen
+                    String qrResult = qrScan.getQrResult(); // Phương thức này cần được thêm trong lớp QR_Scan
+                    if (qrResult != null && !qrResult.isEmpty()) {
+                        txtHoTen.setText(qrResult); // Gán kết quả vào JTextField
+                    }
+                }
+            });
+            qrScan.setVisible(true); // Hiển thị cửa sổ QR_Scan
+        });
         return panel;
     }
 
