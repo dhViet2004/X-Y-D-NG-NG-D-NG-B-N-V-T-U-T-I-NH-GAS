@@ -1670,10 +1670,15 @@ public void actionPerformed(ActionEvent e) {
                     }
 
                     JOptionPane.showMessageDialog(dialog, "Lưu vé và hóa đơn thành công!");
-//                    double diemTichLuyMoi = khachHang.getDiemTichLuy()+ (hoaDonDaThanhToan.getTongTien()*0.001);
-//                    khachHangMuaVe.setDiemTichLuy(diemTichLuyMoi);
-//                    DAO_KhachHang daoKhachHang = new DAO_KhachHang();
-////                    daoKhachHang.updateCustomer(khachHangMuaVe);
+
+                    double diemTichLuyMoi = khachHang.getDiemTichLuy()+ (hoaDonDaThanhToan.getTongTien()*0.001);
+                    khachHangMuaVe.setDiemTichLuy(diemTichLuyMoi);
+                    DAO_KhachHang daoKhachHang = new DAO_KhachHang();
+                    if(daoKhachHang.updateCustomer(khachHangMuaVe)){
+                        System.out.println("Cập nhật điểm tích lũy thành công");
+                    }else{
+                        System.out.println("Cập nhật điểm tích lũy thất bại");
+                    }
 
 
                     isThanhToanDisplayed = true;
