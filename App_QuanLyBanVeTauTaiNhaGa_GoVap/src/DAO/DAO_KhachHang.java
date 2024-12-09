@@ -64,26 +64,7 @@ public class DAO_KhachHang {
         return ds;
     }
 
-    // kiểm tra xem có tồn tại hay không trả về trư false
-    public boolean customerExists(String sdt) throws SQLException {
-        String sql = "SELECT COUNT(*) AS count FROM KhachHang WHERE SoDT = ?";
-        DAO_KhachHang dao_khachHang = new DAO_KhachHang();
 
-        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
-            // Mã hóa số điện thoại trước khi tìm kiếm
-            String encryptedSDT = encryptAES(sdt);
-
-            preparedStatement.setString(1, encryptedSDT); // Gán số điện thoại đã mã hóa vào truy vấn
-            ResultSet rs = preparedStatement.executeQuery();
-
-            if (rs.next()) {
-                return rs.getInt("count") > 0;
-            }
-        } catch (Exception e) { // Thay đổi từ SQLException thành Exception để bao gồm cả lỗi mã hóa
-            e.printStackTrace();
-        }
-        return false;
-    }
 
     // kiểm tra xem tồn tại chưa, trả về KH
     public KhachHang findCustomerByEncryptedPhone(String sdt) throws SQLException {
@@ -127,7 +108,26 @@ public class DAO_KhachHang {
         }
         return null; // Nếu không tìm thấy
     }
+    // kiểm tra xem có tồn tại hay không trả về trư false
+    public boolean customerExists(String sdt) throws SQLException {
+        String sql = "SELECT COUNT(*) AS count FROM KhachHang WHERE SoDT = ?";
+        DAO_KhachHang dao_khachHang = new DAO_KhachHang();
 
+        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+            // Mã hóa số điện thoại trước khi tìm kiếm
+            String encryptedSDT = encryptAES(sdt);
+
+            preparedStatement.setString(1, encryptedSDT); // Gán số điện thoại đã mã hóa vào truy vấn
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("count") > 0;
+            }
+        } catch (Exception e) { // Thay đổi từ SQLException thành Exception để bao gồm cả lỗi mã hóa
+            e.printStackTrace();
+        }
+        return false;
+    }
     public boolean updateCustomer(KhachHang kh) throws SQLException {
         String deleteSql = "DELETE FROM KhachHang WHERE SoDT = ?";
         String insertSql = "INSERT INTO KhachHang (MaKH, LoaiKhachHangMaLoaiKH, soDT, tenKH, CCCD,DiaChi, DiemTichLuy, NgaySinh, NgayThamGia, HangThanhVien) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -140,7 +140,7 @@ public class DAO_KhachHang {
             if (customerExists(kh.getSoDienThoai())) {
                 // Step 1: Delete the existing customer record
                 try (PreparedStatement deleteStatement = con.prepareStatement(deleteSql)) {
-                    deleteStatement.setString(1, kh.getSoDienThoai());
+                    deleteStatement.setString(1, encryptAES(kh.getSoDienThoai()));
                     deleteStatement.executeUpdate();
                 }
 
@@ -148,10 +148,10 @@ public class DAO_KhachHang {
                 try (PreparedStatement insertStatement = con.prepareStatement(insertSql)) {
                     insertStatement.setString(1, kh.getMaKhachHang());
                     insertStatement.setString(2, kh.getLoaiKhachHang().getMaLoaiKhachHang());
-                    insertStatement.setString(3, kh.getSoDienThoai());
-                    insertStatement.setString(4, kh.getTenKhachHang());
-                    insertStatement.setString(5, kh.getCCCD());
-                    insertStatement.setString(6, kh.getDiaChi());
+                    insertStatement.setString(3, encryptAES(kh.getSoDienThoai()));
+                    insertStatement.setString(4, encryptAES(kh.getTenKhachHang()));
+                    insertStatement.setString(5, encryptAES(kh.getCCCD()));
+                    insertStatement.setString(6, encryptAES(kh.getDiaChi()));
                     insertStatement.setDouble(7, kh.getDiemTichLuy());
                     insertStatement.setDate(8, Date.valueOf(kh.getNgaySinh()));
                     insertStatement.setDate(9, Date.valueOf(kh.getNgayThamgGia()));
@@ -166,7 +166,7 @@ public class DAO_KhachHang {
             } else {
                 System.out.println("Khách hàng chưa tồn tại.");
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             try {
                 con.rollback(); // Rollback if there is an error
@@ -184,28 +184,6 @@ public class DAO_KhachHang {
         return false; // Update failed
     }
 
-//        public int addCustomer(KhachHang kh) throws SQLException {
-//            String sql = "INSERT INTO KhachHang (MaKH, LoaiKhachHangMaLoaiKH, soDT, tenKH, CCCD,DiaChi, DiemTichLuy, NgaySinh, NgayThamGia, HangThanhVien) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-//
-//            try (PreparedStatement ps = con.prepareStatement(sql)) {
-//                ps.setString(1, kh.getMaKhachHang());
-//                ps.setString(2, kh.getLoaiKhachHang().getMaLoaiKhachHang()); // Sử dụng MaLoaiKhachHang ở đây
-//                ps.setString(3, kh.getSoDienThoai());
-//                ps.setString(4, kh.getTenKhachHang());
-//                ps.setString(5, kh.getCCCD());
-//                ps.setString(6, kh.getDiaChi());
-//                ps.setDouble(7, kh.getDiemTichLuy());
-//                ps.setDate(8, java.sql.Date.valueOf(kh.getNgaySinh()));
-//                ps.setDate(9, java.sql.Date.valueOf(kh.getNgayThamgGia()));
-//                ps.setString(10, kh.getHangThanhVien());
-//
-//                return ps.executeUpdate(); // Trả về số hàng bị ảnh hưởng
-//            } catch (SQLException e) {
-//                // Ghi lại ngoại lệ hoặc xử lý nó theo cách phù hợp
-//                e.printStackTrace(); // Thay thế bằng ghi log hợp lý
-//                throw new RuntimeException("Lỗi khi thêm khách hàng: " + e.getMessage(), e);
-//            }
-//        }
 
     private static final String AES_KEY = "1234567890123456"; // Khóa bí mật 16 byte
     private static final String ALGORITHM = "AES";
@@ -256,5 +234,13 @@ public class DAO_KhachHang {
             e.printStackTrace();
             throw new RuntimeException("Lỗi khi thêm khách hàng: " + e.getMessage(), e);
         }
+    }
+
+    public static void main(String[] args) throws Exception {
+        String s = "0356307125";
+        DAO_KhachHang dao = new DAO_KhachHang();
+        boolean kq = dao.customerExists(s);
+        System.out.println(kq);
+        System.out.println(encryptAES(s));
     }
 }

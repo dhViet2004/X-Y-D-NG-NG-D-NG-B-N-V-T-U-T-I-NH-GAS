@@ -376,7 +376,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
             // giải mã và mã hóa hiển thị sdt
             String sdtEC = kh.getSoDienThoai();
             String sdtDE = dao_khachHang.decryptAES(sdtEC);
-            String sdtHienThi = maHoaHienThiSDT(sdtDE);
+//            String sdtHienThi = maHoaHienThiSDT(sdtDE);
             // giải mã và hiển thị
             String tenEC = kh.getTenKhachHang();
             String tenDC = dao_khachHang.decryptAES(tenEC);
@@ -398,7 +398,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
                 txtLoaiKH.setSelectedItem("Khách hàng thân thiết");
             }
 
-            txtSDT.setText(sdtHienThi);
+            txtSDT.setText(sdtDE);
             txtTenKH.setText(tenDC);
             txtCCCD.setText(cccdHienThi);
             txtDiaChi.setText(diaChiHienThi);
@@ -506,7 +506,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
             if (isInputValid()) {
                 try {
                     saveCustomer();
-                } catch (SQLException ex) {
+                } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, "Lỗi khi lưu khách hàng: " + ex.getMessage(), "Thông báo", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
@@ -522,14 +522,9 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
 
     }
 
-    private void saveCustomer() throws SQLException {
+    private void saveCustomer() throws Exception {
         DAO_KhachHang dao_khachHang = new DAO_KhachHang();
-        String maLoaiKH = "";
-        if (txtLoaiKH.getSelectedItem().toString().equalsIgnoreCase("Khách hàng thường")) {
-            maLoaiKH = "KH001";
-        } else if (txtLoaiKH.getSelectedItem().toString().equalsIgnoreCase("Khách hàng thân thiết")) {
-            maLoaiKH = "KH002";
-        }
+        String maLoaiKH = "KH002";
         LoaiKhachHang tmp = new LoaiKhachHang(maLoaiKH, txtLoaiKH.getSelectedItem().toString());
         KhachHang khachHang = null;
         // Gather customer information
@@ -559,6 +554,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
             }
         } else {
             // Add new customer
+            System.out.println("Khách hàng chưa tồn tại");
             dao_khachHang.addCustomer(khachHang);
             JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -634,7 +630,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
         Calendar calendar = Calendar.getInstance();
         txtNgayThamGia.setDate(calendar.getTime()); // Set today's date
         txtNgayThamGia.setEnabled(false); // Disable editing
-        txtHangThanhVien.setSelectedItem("Silv");
+        txtHangThanhVien.setSelectedItem("Silver");
         txtHangThanhVien.setEnabled(false);
     }
 

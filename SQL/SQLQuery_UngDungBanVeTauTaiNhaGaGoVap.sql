@@ -254,7 +254,7 @@ select * from LoaiKhachHang
 update LoaiKhachHang set TenLoaiKH =  N'Khách hàng thân thiết' where MaLoaiKH = 'KH002'
 delete from LoaiKhachHang where MaLoaiKH not in ('KH001','KH002')
 --DONE
-select * from KhachHang
+select * from KhachHang where SoDT = 'y+xFpMNKiU3KgV1sOVyhxg=='
 delete from KhachHang where MaKH not in ('KH2024102404173335',
 'KH2024102404283619',
 'KH2024102409175125',
@@ -396,3 +396,5 @@ ORDER BY
         WHERE h.NgayHoaDon between '2024-10-01' and '2024-12-31'
         GROUP BY h.NgayHoaDon
 		order by h.NgayHoaDon
+		KH271024023741
+		select * from KhachHang where MaKH = 'KH271024023741'
