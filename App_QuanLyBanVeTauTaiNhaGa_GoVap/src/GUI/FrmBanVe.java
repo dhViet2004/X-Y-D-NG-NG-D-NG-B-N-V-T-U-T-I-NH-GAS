@@ -1448,7 +1448,7 @@ public void actionPerformed(ActionEvent e) {
                     String fileName = "danh_sach_ve.pdf";
                     // In danh sách vé ra file PDF
                     TicketPDFGenerator.generateTicketPdf(fileName, danhSachVe,chiTietHoaDonList);
-                    JOptionPane.showMessageDialog(null, "In thanh công, danh sách vé được chứa tại file "+fileName);
+                    JOptionPane.showMessageDialog(null, "In vé thành công! Nhấn OK để xem vé");
                     // Mở file PDF sau khi in thành công
                     try {
                         // Tạo đối tượng File từ tên file
@@ -1493,7 +1493,7 @@ public void actionPerformed(ActionEvent e) {
                     InvoicePDFGenerator.generateInvoicePdf(hoaDonDaThanhToan, khachHang, chiTietHoaDonList, danhSachVe);
 
                     // Thông báo thành công
-                    JOptionPane.showMessageDialog(null, "In hóa đơn thành công, hóa đơn được chứa tại file " + fileName);
+                    JOptionPane.showMessageDialog(null, "In hóa đơn thành công! Nhấn OK để xem hóa đơn.");
 
                     // Mở file PDF sau khi in thành công
                     openPdfFile(fileName);

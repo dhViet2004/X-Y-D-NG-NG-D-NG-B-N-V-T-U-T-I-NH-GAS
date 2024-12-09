@@ -76,7 +76,7 @@ public class InvoicePDFGenerator {
             // Thông tin khách hàng
             document.add(new Paragraph("Khach hang: " + removeDiacritics(hotenKH)));
             document.add(new Paragraph("So dien thoai: " + removeDiacritics(soDienThoai)));
-            document.add(new Paragraph("Dia Chi: " + maHoaHienThiDiaChi(removeDiacritics(diaChi))));
+            document.add(new Paragraph("Dia Chi: " + removeDiacritics(diaChi)));
             document.add(new Paragraph("----------------------------------------------------------------------------------------------------------------------------------")
                     .setHorizontalAlignment(HorizontalAlignment.CENTER));
 
@@ -91,10 +91,6 @@ public class InvoicePDFGenerator {
             table.addCell(new Cell().add(new Paragraph("Don gia")));
             table.addCell(new Cell().add(new Paragraph("VAT")));
             table.addCell(new Cell().add(new Paragraph("Thanh tien")));
-
-
-
-
 
             double totalAmount = 0.0; // Biến tính tổng tiền
             int stt = 1;
@@ -136,13 +132,7 @@ public class InvoicePDFGenerator {
             throw new RuntimeException(e);
         }
     }
-    public static  String maHoaHienThiDiaChi(String diaChi) {
-        if (diaChi != null && !diaChi.isEmpty()) {
-            // Ẩn toàn bộ địa chỉ bằng dấu "*"
-            return "***********"; // Hoặc bạn có thể sử dụng diaChi.replaceAll(".", "*") để thay thế tất cả ký tự bằng dấu "*"
-        }
-        return diaChi; // Trả về nguyên gốc nếu địa chỉ rỗng hoặc null
-    }
+
     // Phương thức chuyển chuỗi có dấu thành chuỗi không dấu
     public static String removeDiacritics(String input) {
         if (input == null || input.isEmpty()) {
