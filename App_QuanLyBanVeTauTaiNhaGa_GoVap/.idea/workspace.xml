@@ -8,13 +8,19 @@
       <change afterPath="$PROJECT_DIR$/src/DAO/DAO_DoiVe.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/GUI/Frm_DoiVe.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/danh_sach_ve.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/danh_sach_ve.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hoa_don_HD0912240002.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hoa_don_HD0912240002.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAO/DAO_BanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DAO_BanVe.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/KhachHang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/KhachHang.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/LichTrinhTau.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/LichTrinhTau.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/VeTau.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/VeTau.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/src/DAO/DAO_HoaDon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DAO_HoaDon.java" afterDir="false" />
+>>>>>>> e6b09286664838c57c145cbd7c227f05ae11ad65
       <change beforePath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/Frm_ThongKeSoLuongVeTheoThoiGian.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_ThongKeSoLuongVeTheoThoiGian.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SQL/SQLQuery_UngDungBanVeTauTaiNhaGaGoVap.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../SQL/SQLQuery_UngDungBanVeTauTaiNhaGaGoVap.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +57,7 @@
     "Application.FrmBanVe.executor": "Run",
     "Application.Frm_DoiVe.executor": "Run",
     "Application.Frm_KhachHang.executor": "Run",
+    "Application.Frm_ThongKeSoLuongVeTheoThoiGian.executor": "Run",
     "Application.Loading.executor": "Run",
     "Application.TicketPDFGenerator.executor": "Run",
     "Application.tmp.executor": "Run",
@@ -59,7 +66,11 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
+<<<<<<< HEAD
     "last_opened_file_path": "D:/DoAn_PTUD1/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap",
+=======
+    "last_opened_file_path": "D:/NAM_BA/HK1/PTUD/PROJECT/tmp/8_12/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap",
+>>>>>>> e6b09286664838c57c145cbd7c227f05ae11ad65
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -100,8 +111,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< HEAD
     <configuration name="Frm_DoiVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.Frm_DoiVe" />
+=======
+    <configuration name="Frm_ThongKeSoLuongVeTheoThoiGian" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.Frm_ThongKeSoLuongVeTheoThoiGian" />
+>>>>>>> e6b09286664838c57c145cbd7c227f05ae11ad65
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
         <pattern>
@@ -116,16 +132,28 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.FrmBanVe" />
+<<<<<<< HEAD
         <item itemvalue="Application.Frm_DoiVe" />
         <item itemvalue="Application.FrmBanVe (1)" />
+=======
+        <item itemvalue="Application.Frm_ThongKeSoLuongVeTheoThoiGian" />
+        <item itemvalue="Application.tmp" />
+        <item itemvalue="Application.FrmBanVe (1)" />
+        <item itemvalue="Application.TicketPDFGenerator" />
+>>>>>>> e6b09286664838c57c145cbd7c227f05ae11ad65
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
+<<<<<<< HEAD
         <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
         <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
+=======
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+>>>>>>> e6b09286664838c57c145cbd7c227f05ae11ad65
       </set>
     </attachedChunks>
   </component>
@@ -143,7 +171,11 @@
       <workItem from="1733629319263" duration="6057000" />
       <workItem from="1733662690587" duration="9549000" />
       <workItem from="1733672601694" duration="8459000" />
+<<<<<<< HEAD
       <workItem from="1733729979580" duration="12081000" />
+=======
+      <workItem from="1733687323125" duration="9803000" />
+>>>>>>> e6b09286664838c57c145cbd7c227f05ae11ad65
     </task>
     <servers />
   </component>
