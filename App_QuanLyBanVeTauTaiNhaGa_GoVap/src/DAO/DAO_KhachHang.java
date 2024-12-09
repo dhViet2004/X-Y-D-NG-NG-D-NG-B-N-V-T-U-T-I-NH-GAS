@@ -254,10 +254,10 @@ public class DAO_KhachHang {
         }
     }
     public static void main(String[] args) throws Exception {
-        String s = "0356307125";
+        String s = "RkNzwoJ86odHAknKjpmGVw";
         DAO_KhachHang dao = new DAO_KhachHang();
-        boolean kq = dao.customerExists(s);
-        System.out.println(kq);
-        System.out.println(encryptAES(s));
+        KhachHang tmp = dao.findCustomerByEncryptedPhone("012");
+        System.out.println(tmp);
+        System.out.println(dao.decryptAES(tmp.getCCCD()));
     }
 }
