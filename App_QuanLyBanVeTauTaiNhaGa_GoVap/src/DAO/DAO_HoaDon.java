@@ -4,11 +4,10 @@ import Database.ConnectDatabase;
 import Entity.*;
 
 import java.sql.*;
+import java.sql.Date;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class DAO_HoaDon {
     private Connection con;
@@ -354,4 +353,92 @@ public class DAO_HoaDon {
         statement.close();
         return list;
     }
+
+    public int tongSLVeTheoThoiGian(Timestamp begin, Timestamp end) throws SQLException {
+        String sql = """
+                    SELECT count(*)
+                    FROM VeTau v
+                    JOIN ChiTietHoaDon c ON v.MaVe = c.MaVe
+                    JOIN HoaDon h ON c.MaHD = h.MaHD
+                    WHERE h.NgayHoaDon BETWEEN ? AND ?
+                """;
+
+        try (PreparedStatement statement = con.prepareStatement(sql)) {
+            // Chuyển Date thành Timestamp để phù hợp với SQL
+            statement.setTimestamp(1, new Timestamp(begin.getTime()));
+            statement.setTimestamp(2, new Timestamp(end.getTime()));
+
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        }
+        return 0; // Trả về 0 nếu không có kết quả
+    }
+
+
+    public Map<String, Integer> slDoiTuongTheoThoiGian(Timestamp begin, Timestamp end) throws SQLException {
+        String sql = """
+                    SELECT v.DoiTuong, count(*)
+                    FROM VeTau v
+                    JOIN ChiTietHoaDon c ON v.MaVe = c.MaVe
+                    JOIN HoaDon h ON c.MaHD = h.MaHD
+                    WHERE h.NgayHoaDon BETWEEN ? AND ?
+                    GROUP BY v.DoiTuong
+                """;
+
+        Map<String, Integer> resultMap = new HashMap<>();
+
+        try (PreparedStatement statement = con.prepareStatement(sql)) {
+            // Gán giá trị tham số
+            statement.setTimestamp(1, new Timestamp(begin.getTime()));
+            statement.setTimestamp(2, new Timestamp(end.getTime()));
+
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    // Lấy DoiTuong và TongSoLuong từ kết quả truy vấn
+                    String doiTuong = rs.getString(1);
+                    int tongSoLuong = rs.getInt(2);
+                    resultMap.put(doiTuong, tongSoLuong);
+                }
+            }
+        }
+
+        return resultMap;
+    }
+
+    public Map<Date, Integer> getTicketsByDateRange(Timestamp begin, Timestamp end) throws SQLException {
+        // Dùng LinkedHashMap để giữ thứ tự chèn
+        Map<Date, Integer> resultMap = new LinkedHashMap<>();
+
+        String sql = """
+        SELECT h.NgayHoaDon, COUNT(*)
+        FROM VeTau v
+        JOIN ChiTietHoaDon c ON v.MaVe = c.MaVe
+        JOIN HoaDon h ON c.MaHD = h.MaHD
+        WHERE h.NgayHoaDon BETWEEN ? AND ?
+        GROUP BY h.NgayHoaDon
+        ORDER BY h.NgayHoaDon
+    """;
+
+        try (PreparedStatement statement = con.prepareStatement(sql)) {
+            statement.setTimestamp(1, begin);
+            statement.setTimestamp(2, end);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    Date date = rs.getDate(1);
+                    int soLuong = rs.getInt(2);
+
+                    // Thêm kiểm tra và cộng dồn số lượng vé nếu trùng ngày
+                    resultMap.merge(date, soLuong, Integer::sum);
+                }
+            }
+        }
+
+        return resultMap;
+    }
+
+
 }

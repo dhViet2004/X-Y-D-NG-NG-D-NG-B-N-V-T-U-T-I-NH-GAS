@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="01b32cc5-2379-4a07-890e-bdebcafb1472" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/danh_sach_ve.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/danh_sach_ve.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/InvoicePDFGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/InvoicePDFGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/DAO_HoaDon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DAO_HoaDon.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/Frm_ThongKeSoLuongVeTheoThoiGian.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_ThongKeSoLuongVeTheoThoiGian.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SQL/SQLQuery_UngDungBanVeTauTaiNhaGaGoVap.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../SQL/SQLQuery_UngDungBanVeTauTaiNhaGaGoVap.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +44,7 @@
     "Application.FrmBanVe (3).executor": "Run",
     "Application.FrmBanVe.executor": "Run",
     "Application.Frm_KhachHang.executor": "Run",
+    "Application.Frm_ThongKeSoLuongVeTheoThoiGian.executor": "Run",
     "Application.Loading.executor": "Run",
     "Application.TicketPDFGenerator.executor": "Run",
     "Application.tmp.executor": "Run",
@@ -51,7 +53,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "T:/testmail",
+    "last_opened_file_path": "D:/NAM_BA/HK1/PTUD/PROJECT/tmp/8_12/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -86,8 +88,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Loading" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.Loading" />
+    <configuration name="Frm_ThongKeSoLuongVeTheoThoiGian" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.Frm_ThongKeSoLuongVeTheoThoiGian" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
         <pattern>
@@ -128,18 +130,18 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.FrmBanVe" />
+        <item itemvalue="Application.Frm_ThongKeSoLuongVeTheoThoiGian" />
         <item itemvalue="Application.tmp" />
         <item itemvalue="Application.FrmBanVe (1)" />
         <item itemvalue="Application.TicketPDFGenerator" />
-        <item itemvalue="Application.Loading" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
-        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
       </set>
     </attachedChunks>
   </component>
@@ -157,6 +159,7 @@
       <workItem from="1733629319263" duration="6057000" />
       <workItem from="1733662690587" duration="9549000" />
       <workItem from="1733672601694" duration="8459000" />
+      <workItem from="1733687323125" duration="9803000" />
     </task>
     <servers />
   </component>

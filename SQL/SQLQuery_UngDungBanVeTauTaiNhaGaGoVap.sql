@@ -384,3 +384,15 @@ ORDER BY
     wd.Weekday;
 
 	select * from KhuyenMai where  ThoiGianBatDau <= '2024-09-30' and ThoiGianKetThuc >= '2024-09-30' and DoiTuongApDung = N'Tất cả khách hàng'
+
+	select v.DoiTuong as DoiTuong, count(*) as TongSoLuong
+	
+	from VeTau v join ChiTietHoaDon h on v.MaVe=h.MaVe join HoaDon d on h.MaHD = d.MaHD where d.NgayHoaDon between '2024-10-01' and '2024-12-31' group by v.DoiTuong
+
+	        SELECT h.NgayHoaDon, count(*)
+        FROM VeTau v
+        JOIN ChiTietHoaDon c ON v.MaVe = c.MaVe
+        JOIN HoaDon h ON c.MaHD = h.MaHD
+        WHERE h.NgayHoaDon between '2024-10-01' and '2024-12-31'
+        GROUP BY h.NgayHoaDon
+		order by h.NgayHoaDon
