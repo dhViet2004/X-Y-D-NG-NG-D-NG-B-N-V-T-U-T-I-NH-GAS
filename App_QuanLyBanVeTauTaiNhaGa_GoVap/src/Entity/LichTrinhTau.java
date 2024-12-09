@@ -30,6 +30,12 @@ public class LichTrinhTau {
         this.trangThai = trangThai; // Khởi tạo trạng thái
     }
 
+    public LichTrinhTau(String maLichTrinh, LocalDate ngayDi, LocalTime gioDi) {
+        this.maLichTrinh = maLichTrinh;
+        this.gioDi = gioDi;
+        this.ngayDi = ngayDi;
+    }
+
     // Getter và setter cho maLichTrinh
     public String getMaLichTrinh() {
         return maLichTrinh;

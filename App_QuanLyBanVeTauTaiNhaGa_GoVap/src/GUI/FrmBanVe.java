@@ -2,6 +2,7 @@
 package GUI;
 
 import DAO.DAO_BanVe;
+import DAO.DAO_DoiVe;
 import DAO.DAO_KhachHang;
 import DAO.DAO_NhanVien;
 import Database.ConnectDatabase;
@@ -31,7 +32,8 @@ import java.util.regex.Pattern;
 public class FrmBanVe extends JFrame implements ActionListener, ItemListener {
 
 private final JButton btnBanVe;
-private JButton btnTraCuu;
+    private final DAO_DoiVe dao_DoiVe;
+    private JButton btnTraCuu;
 private final JButton btnQuanLyVe;
 private final JButton btnThongKeTheoCa;
 private final JButton btnQuanLyChuyenTau;
@@ -110,10 +112,12 @@ Component chuyenTauPanel = new ChuyenTau().getjPanelMain();
 Component khuyenMaiPanel = new FrmKhuyenMai().getKMPanel();
 Component khachHangPanel = new Frm_KhachHang(new NhanVien()).getKHPanel();
 Component nhanVienPanel = new FrmNhanVien().getJpannelNV();
+Component doiVePanel = new Frm_DoiVe().getJpannelDoiVe();
 Component soLuongKHPanel = new Frm_ThongKeKhachHang().getTKKHPanel();
 Component traCuuKMPanel = new Frm_TraCuuKhuyenMai().getTraCuuKM_Panel();
 Component llvPanel = new FrmLichLamViec().getPanel_LLV();
 Component traCuuVePanel = new Frm_TraCuuVe().get_TraCuuVe_Panel();
+Component thongKeSLVe = new Frm_ThongKeSoLuongVeTheoThoiGian().getTKSLV();
 private List<LoaiKhachHang> danhSachLoaiKH = new ArrayList<>();
 private KhuyenMai khuyenMai = null;
 private Double chietKhau = 0.0;
@@ -143,6 +147,7 @@ private LocalDate ngayHienTai = LocalDate.now();
 private double diemTru = 0;// Lưu ngày cuối cùng đã tính vé
     private int tongVe = 0; // Biến đếm số vé trong ngày
 private KhachHang khachHangDeInHoaDon = null;
+    private VeTau thongTinVeDoi;
     public FrmBanVe(NhanVien nv) {
     nhanVien = nv;
     setTitle("Bán Vé");
@@ -157,6 +162,10 @@ private KhachHang khachHangDeInHoaDon = null;
     colorXanhDam = new Color(0, 131, 66);
     JPanel_Menu.setBackground(colorXanhDam); // Màu nền của MENU
     add(JPanel_Menu, BorderLayout.WEST);
+
+    //đổi
+        dao_DoiVe= new DAO_DoiVe();
+        //
 
     // tạo logo
     ImageIcon iconLogo = new ImageIcon(getClass().getResource("/Anh_HeThong/logo1.png")); //SRC LOGO
@@ -870,6 +879,17 @@ public void actionPerformed(ActionEvent e) {
                                                                     choButton.setBackground(choNgoi.getTinhTrang() ? Color.WHITE : Color.PINK); // Màu nền dựa trên tình trạng
                                                                     danhSachChoDaChon.removeIf(c -> c.getMaCho().equals(choNgoi.getMaCho())); // Xóa khỏi danh sách đã chọn
                                                                 } else {
+                                                                    //đổi
+                                                                    if (thongTinVeDoi != null) { // Kiểm tra điều kiện
+                                                                        if (!danhSachChoDaChon.isEmpty()) { // Nếu đã có chỗ ngồi trong danh sách
+                                                                            JOptionPane.showMessageDialog(null,
+                                                                                    "Bạn đã chọn một chỗ ngồi rồi. Vui lòng xóa vé khỏi giỏ hàng trước khi chọn chỗ mới.",
+                                                                                    "Thông báo",
+                                                                                    JOptionPane.WARNING_MESSAGE);
+                                                                            return; // Dừng thực hiện thêm chỗ ngồi mới
+                                                                        }
+                                                                    }
+                                                                    //
                                                                     choButton.setBackground(Color.YELLOW); // Màu vàng khi được chọn
                                                                     danhSachChoDaChon.add(choNgoi); // Thêm vào danh sách đã chọn
                                                                 }
@@ -969,10 +989,20 @@ public void actionPerformed(ActionEvent e) {
         // Trong vòng lặp thêm hàng vào bảng
         for (ChoNgoi choNgoi : danhSachChoDaChon) {
             CustomPanel panel = new CustomPanel();
-            panel.setHoTen(""); // Thiết lập các thuộc tính cần thiết
-            panel.setTrangThai("Chưa xác nhận", choNgoi.getGia());
-            panel.setCCCD("");
-            panel.setGiaVe(choNgoi.getGia());
+            //đổi
+            if(thongTinVeDoi!= null){
+                panel.setHoTen("Nguyen Van A"); // Thiết lập các thuộc tính cần thiết
+                panel.setTrangThai(thongTinVeDoi.getDoiTuong(),choNgoi.getGia());
+                panel.setCCCD("123456789");
+                panel.setGiaVe(choNgoi.getGia());
+            }
+            //
+            else{
+                panel.setHoTen(""); // Thiết lập các thuộc tính cần thiết
+                panel.setTrangThai("Người lớn", choNgoi.getGia());
+                panel.setCCCD("");
+                panel.setGiaVe(choNgoi.getGia());
+            }
 
 
             danhSachPanel.add(panel); // Lưu lại panel này vào danh sách
@@ -982,6 +1012,7 @@ public void actionPerformed(ActionEvent e) {
             double tienThue = (choNgoi.getGia() * 10) / 100;
             double thanhTien = choNgoi.getGia() - discount + tienThue;
             tongThanhTien += thanhTien; // Cộng dồn vào tổng thành tiền
+
             Object[] rowData = new Object[]{
                     panel, // Đưa panel vào bảng
                     choNgoi.getMaCho(),
@@ -1058,7 +1089,6 @@ public void actionPerformed(ActionEvent e) {
         JLabel lblLoaiKH = new JLabel("Loại Khách Hàng");
         lblLoaiKH.setForeground(Color.WHITE);
         lblLoaiKH.setFont(new Font("Arial", Font.BOLD, 18));
-
         JLabel lbl_ThanhTien = new JLabel("  Tổng thành tiền: " + tongThanhTien + " VND    ");
         lbl_ThanhTien.setForeground(Color.RED);
         lbl_ThanhTien.setFont(new Font("Arial", Font.BOLD, 20)); // Đặt cỡ chữ lớn hơn
@@ -1303,13 +1333,15 @@ public void actionPerformed(ActionEvent e) {
 
                 // Thêm thông tin của từng vé vào panel
                 for (int row = 0; row < table.getRowCount(); row++) {
-                    JPanel vePanel = new JPanel(new GridLayout(13, 1, 5, 5)); // Sử dụng GridLayout cho thông tin mỗi vé
+                    //đổi 13 thành
+                    JPanel vePanel = new JPanel(new GridLayout(14, 1, 5, 5)); // Sử dụng GridLayout cho thông tin mỗi vé
                     vePanel.setBorder(BorderFactory.createLineBorder(Color.GRAY)); // Đường viền mỗi vé
                     vePanel.setBackground(new Color(240, 248, 255)); // Màu nền
 
                     // Đặt kích thước cố định cho vePanel
                     int fixedWidth = 400;
-                    int fixedHeight = 350;
+                    //đổi 350 = 370
+                    int fixedHeight = 370;
                     vePanel.setPreferredSize(new Dimension(fixedWidth, fixedHeight)); // Kích thước ưa thích
                     vePanel.setMinimumSize(new Dimension(fixedWidth, fixedHeight)); // Kích thước tối thiểu
                     vePanel.setMaximumSize(new Dimension(fixedWidth, fixedHeight)); // Kích thước tối đa
@@ -1323,6 +1355,13 @@ public void actionPerformed(ActionEvent e) {
                     Object value = table.getValueAt(row, 2);
                     double giaVe = (value instanceof Number) ? ((Number) value).doubleValue() : 0.0;
                     double thanhTien = (double) table.getValueAt(row, 5);
+                    //đổi
+                    if(thongTinVeDoi!=null){
+                        double giaVeDoi = thongTinVeDoi.getGiaVe();
+                        double phiDoi = 20000;
+                        thanhTien = thanhTien - giaVeDoi+ phiDoi;
+                    }
+                    //
 
                     try {
                         // Lấy thông tin chỗ ngồi từ DAO
@@ -1353,7 +1392,7 @@ public void actionPerformed(ActionEvent e) {
 
                         // Thêm các thông tin vé vào JPanel
                         vePanel.add(new JLabel("  THÔNG TIN HÀNH TRÌNH "));
-                        vePanel.add(new JLabel("    Ga đi-Ga đến: " + ve.getGaDi() + " - " + ve.getGaDen()));
+                        add(new JLabel("    Ga đi-Ga đến: " + ve.getGaDi() + " - " + ve.getGaDen()));
                         vePanel.add(new JLabel("    Tàu/Train: " + ve.getTenTau()));
                         vePanel.add(new JLabel("    Ngày đi/Date: " + ve.getNgayDi()));
                         vePanel.add(new JLabel("    Giờ đi/Time: " + ve.getGioDi()));
@@ -1364,6 +1403,13 @@ public void actionPerformed(ActionEvent e) {
                         vePanel.add(new JLabel("    Đối tượng: " + ve.getDoiTuong()));
                         vePanel.add(new JLabel("    Giấy tờ: " + ve.getGiayTo()));
                         vePanel.add(new JLabel("    Giá vé: " + ve.getGiaVe() + " VND      |     VAT: 10%"));
+                        //đổi
+                        if(thongTinVeDoi!=null){
+
+                            vePanel.add(new JLabel("  Phí đổi: 20000 VND"));
+                            vePanel.add(new JLabel("  -Vé đổi: " + thongTinVeDoi.getGiaVe() + " VND"));
+                        }
+                        //
                         vePanel.add(new JLabel("    Thành tiền: " + ve.getThanhTien() + " VND"));
 
                         // Thêm vePanel vào panelChiTietVe
@@ -1631,6 +1677,17 @@ public void actionPerformed(ActionEvent e) {
 
 
                     isThanhToanDisplayed = true;
+                    //đổi
+                    if(thongTinVeDoi!= null){
+                        JButton choNgoiCanDoi = getButtonForSeat(thongTinVeDoi.getChoNgoi());
+                        choNgoiCanDoi.setBackground(Color.white);
+                        choNgoiCanDoi.setEnabled(true);
+                        choNgoiCanDoi.setText(choNgoiCanDoi.getText());
+                        String maVeDoi = thongTinVeDoi.getMaVe();
+                        dao_DoiVe.capNhatTrangThaiVe(maVeDoi,"Đã đổi");
+                    }
+                    //
+
                     // Cập nhật giao diện sau khi lưu
                     danhSachChoDaChon.clear();
                     JPanel_XacNhanCho.removeAll();
@@ -1808,11 +1865,11 @@ public void actionPerformed(ActionEvent e) {
     // 3. Thống kê số lượng vé theo thời gian
     else if (e.getSource() == tk_sl_Ve) {
         Jpanel_Main.removeAll();
-//            current = (JPanel) ;
+            current = (JPanel)thongKeSLVe ;
         JPanel_XacNhanCho.setVisible(false);
         lab_Title.setVisible(false);
         JPanel_BanVe.setVisible(false);
-//            Jpanel_Main.add();
+            Jpanel_Main.add(thongKeSLVe);
         Jpanel_Main.setVisible(true);
 
         // Cập nhật lại giao diện người dùng
@@ -1926,10 +1983,11 @@ public void actionPerformed(ActionEvent e) {
     else if (e.getSource() == doiVe) {
         Jpanel_Main.removeAll();
 //            current = (JPanel) ;
+        current = (JPanel) doiVePanel;
         JPanel_XacNhanCho.setVisible(false);
         lab_Title.setVisible(false);
         JPanel_BanVe.setVisible(false);
-//            Jpanel_Main.add();
+          Jpanel_Main.add(doiVePanel);
         Jpanel_Main.setVisible(true);
 
         // Cập nhật lại giao diện người dùng
@@ -1962,8 +2020,13 @@ private void updateTotalAmount(JLabel lblThanhTien, JTable table, double chietKh
     }
     double tienChietKhau = totalAmount * (chietKhau / 100);
     totalAmount -= tienChietKhau;
-    total = totalAmount;
+
+    //đổi
+    if(thongTinVeDoi!=null){
+        totalAmount = totalAmount - thongTinVeDoi.getGiaVe() + 20000;
+    }
     // Cập nhật label với tổng thành tiền
+    total = totalAmount;
     lblThanhTien.setText("  Tổng thành tiền: " + totalAmount + " VND");
 }
     private void calculateChange(double total, TextField txtTienKhachDua) {
@@ -2175,5 +2238,9 @@ private void phanQuyen(String maNV) throws Exception {
         }
     }
 }
+
+    public void setThongTinVe(VeTau thongTinVeDoi) {
+        this.thongTinVeDoi = thongTinVeDoi;
+    }
 }
 
