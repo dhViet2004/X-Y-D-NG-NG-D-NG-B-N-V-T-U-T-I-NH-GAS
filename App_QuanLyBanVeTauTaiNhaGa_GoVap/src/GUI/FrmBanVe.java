@@ -2211,7 +2211,6 @@ private void phanQuyen(String maNV) throws Exception {
         }
     }
 }
-
     public void setThongTinVe(VeTau thongTinVeDoi) {
         this.thongTinVeDoi = thongTinVeDoi;
     }
