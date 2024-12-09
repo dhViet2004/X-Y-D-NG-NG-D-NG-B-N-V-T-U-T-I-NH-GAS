@@ -26,6 +26,18 @@ public class VeTau {
         this.trangThai = trangThai;
     }
 
+    public VeTau(String maVeTau, String maLichTrinh, String choNgoiMaCho, String tenKH, String giayTo, LocalDate ngayDi, String doiTuong, double giaVe, String trangThai) {
+        this.maVe = maVeTau;
+        this.lichTrinhTau = new LichTrinhTau(maLichTrinh, null, null, null, null); // Tạo đối tượng từ mã lịch trình
+        this.choNgoi = new ChoNgoi(choNgoiMaCho);
+        this.tenKhachHang = tenKH;
+        this.giayTo = giayTo;
+        this.ngayDi = ngayDi;
+        this.doiTuong = doiTuong;
+        this.giaVe = giaVe;
+        this.trangThai = trangThai;
+    }
+
     public String getMaVe() {
         return maVe;
     }

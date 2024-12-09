@@ -33,6 +33,14 @@ public class KhachHang {
         this.maKhachHang = maKhachHang;
     }
 
+    public KhachHang(String maKH, String tenKH, String cccd, String soDT, String diaChi) {
+        this.maKhachHang = maKH;
+        this.tenKhachHang = tenKH;
+        this.CCCD = cccd;
+        this.soDienThoai = soDT;
+        this.diaChi = diaChi;
+    }
+
     public String getMaKhachHang() {
         return maKhachHang;
     }

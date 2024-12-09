@@ -470,7 +470,8 @@ public class DAO_BanVe {
         String sql = "SELECT vt.MaVe, lt.MaLich, lt.MaTau, lt.GioDi, lt.NgayDi, vt.ChoNgoiMaCho, vt.TenKH, vt.GiayTo, vt.DoiTuong, vt.GiaVe, vt.TrangThai " +
                 "FROM VeTau vt " +
                 "JOIN LichTrinhTau lt ON vt.LichTrinhTauMaLich = lt.MaLich " +
-                "WHERE vt.LichTrinhTauMaLich = ? AND vt.ChoNgoiMaCho = ?";
+                //đổi AND vt.TrangThai = N'Đã thanh toán'
+                "WHERE vt.LichTrinhTauMaLich = ? AND vt.ChoNgoiMaCho = ? AND vt.TrangThai = N'Đã thanh toán'";
 
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setString(1, lichTrinhTau);
