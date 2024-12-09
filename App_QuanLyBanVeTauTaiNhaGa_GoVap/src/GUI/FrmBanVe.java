@@ -94,7 +94,7 @@ private JLabel lab_TenToaTau;
 private JLabel lab_tb_ChoNgoiNull;
 private JPanel JPanel_Tienich;
 private JScrollBar scrollBar1;
-private JDateChooser dateChooserNgayDi = new JDateChooser();
+    private JDateChooser dateChooserNgayDi = new JDateChooser();
 private JDateChooser dateChooserNgayVe = new JDateChooser();
 private DAO_BanVe daoBanVe;
 private ButtonGroup btnGroup;
@@ -113,6 +113,7 @@ Component nhanVienPanel = new FrmNhanVien().getJpannelNV();
 Component soLuongKHPanel = new Frm_ThongKeKhachHang().getTKKHPanel();
 Component traCuuKMPanel = new Frm_TraCuuKhuyenMai().getTraCuuKM_Panel();
 Component llvPanel = new FrmLichLamViec().getPanel_LLV();
+Component traCuuVePanel = new Frm_TraCuuVe().get_TraCuuVe_Panel();
 private List<LoaiKhachHang> danhSachLoaiKH = new ArrayList<>();
 private KhuyenMai khuyenMai = null;
 private Double chietKhau = 0.0;
@@ -136,8 +137,12 @@ private boolean isThanhToanDisplayed = false;
 private List<TicketDetails> danhSachVe = new ArrayList<>();
 private List<ChiTietHoaDon> chiTietHoaDonList = new ArrayList<>();
 private HoaDon hoaDonDaThanhToan = null;
-private  List<VeTau> ticketsToSave = new ArrayList<>();
+private double diemTichLuy = 0;
 private KhachHang khachHang = null;
+private LocalDate ngayHienTai = LocalDate.now();
+private double diemTru = 0;// Lưu ngày cuối cùng đã tính vé
+    private int tongVe = 0; // Biến đếm số vé trong ngày
+private KhachHang khachHangDeInHoaDon = null;
     public FrmBanVe(NhanVien nv) {
     nhanVien = nv;
     setTitle("Bán Vé");
@@ -154,7 +159,7 @@ private KhachHang khachHang = null;
     add(JPanel_Menu, BorderLayout.WEST);
 
     // tạo logo
-    ImageIcon iconLogo = new ImageIcon(getClass().getResource("/Anh_HeThong/logo.png")); //SRC LOGO
+    ImageIcon iconLogo = new ImageIcon(getClass().getResource("/Anh_HeThong/logo1.png")); //SRC LOGO
     Image imgUser = iconLogo.getImage();
     Image scaledLogo = imgUser.getScaledInstance(250, 350, Image.SCALE_SMOOTH);
     ImageIcon scaledIconLogo = new ImageIcon(scaledLogo);
@@ -276,6 +281,8 @@ private KhachHang khachHang = null;
     // Định dạng thời gian thành NgàyThángNăm (yyyy-MM-dd)
     totalCustomerToday = daoBanVe.getTotalCustomersToday();
     System.out.println("Số lượng khách hàng: " + totalCustomerToday);
+    System.out.println("Số lượng vé"+ ticketCount);
+
 }
 
 
@@ -1092,6 +1099,37 @@ public void actionPerformed(ActionEvent e) {
                                     txtCCCDNguoiMua.setText(dao_khachHang.decryptAES(khachHangMuaVe.getCCCD()));
                                     txtSoDienThoai.setText(dao_khachHang.decryptAES(khachHangMuaVe.getSoDienThoai()));
                                     txtDiaChi.setText(dao_khachHang.decryptAES(khachHangMuaVe.getDiaChi()));
+
+                                    // Lấy điểm tích lũy của khách hàng
+                                    diemTichLuy = khachHangMuaVe.getDiemTichLuy(); // Giả sử có trường điểm tích lũy trong đối tượng khách hàng
+
+                                    // Hiển thị hộp thoại với điểm tích lũy
+                                    int confirm = JOptionPane.showConfirmDialog(dialog,
+                                            "Khách hàng hiện có " + diemTichLuy + " điểm tích lũy.\n" +
+                                                    "Bạn có muốn trừ điểm tích lũy không?",
+                                            "Trừ điểm tích lũy",
+                                            JOptionPane.YES_NO_OPTION);
+
+                                    // Nếu khách hàng chọn "Có"
+                                    if (confirm == JOptionPane.YES_OPTION) {
+                                        // Kiểm tra xem điểm tích lũy có đủ để trừ không
+                                        if (diemTichLuy >= 1000) {
+                                            // Tính điểm chẵn cần trừ (lấy phần chẵn gần nhất)
+                                            diemTru = (diemTichLuy / 1000) * 1000; // Lấy phần chẵn của điểm tích lũy
+
+                                            // Trừ điểm và cập nhật lại
+                                            khachHangMuaVe.setDiemTichLuy(diemTichLuy - diemTru);
+                                            dao_khachHang.updateCustomer(khachHangMuaVe); // Cập nhật lại dữ liệu khách hàng vào DB
+
+                                            // Hiển thị thông báo
+                                            JOptionPane.showMessageDialog(dialog, "Đã trừ " + diemTru + " điểm tích lũy.\nĐiểm còn lại: " + khachHangMuaVe.getDiemTichLuy());
+                                            System.out.println(diemTichLuy);
+                                            System.out.println(diemTru);
+
+                                        }else{
+                                            JOptionPane.showMessageDialog(dialog, "Điểm tích lũy không đủ để trừ.");
+                                        }
+                                    }
                                 } catch (Exception ex) {
                                     throw new RuntimeException(ex);
                                 }
@@ -1257,6 +1295,7 @@ public void actionPerformed(ActionEvent e) {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+
                 // Tạo JPanel chứa thông tin chi tiết vé
                 JPanel panelChiTietVe = new JPanel();
                 panelChiTietVe.setLayout(new BoxLayout(panelChiTietVe, BoxLayout.Y_AXIS)); // Sắp xếp theo chiều dọc
@@ -1305,7 +1344,7 @@ public void actionPerformed(ActionEvent e) {
                                 lichKhiChonTau.getTau().getTenTau(),
                                 lichKhiChonTau.getNgayDi(),
                                 lichKhiChonTau.getGioDi(),
-                                cn.getToaTau().getTenToa(),
+                                cn.getToaTau().getMaToa(),
                                 cn.getTenCho(),
                                 giaVe,
                                 thanhTien
@@ -1395,9 +1434,15 @@ public void actionPerformed(ActionEvent e) {
                 }
 
                 // Tạo mã hóa đơn và tên file PDF
-                String fileName = "hoa_don_" + hoaDonDaThanhToan.getMaHD() + ".pdf";
+                String fileName = "hoa_don.pdf";
 
                 try {
+                    for(ChiTietHoaDon tmp : chiTietHoaDonList){
+                        System.out.println(tmp.getMaHD()+ ";");
+                    }
+                    for(TicketDetails tmp : danhSachVe){
+                        System.out.println(tmp.getGiayTo() +";");
+                    }
                     // Gọi phương thức tạo hóa đơn PDF
                     InvoicePDFGenerator.generateInvoicePdf(hoaDonDaThanhToan, khachHang, chiTietHoaDonList, danhSachVe);
 
@@ -1473,6 +1518,7 @@ public void actionPerformed(ActionEvent e) {
         btnThanToan.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println("Số lượng vé"+ ticketCount);
                 // Lấy thông tin từ các trường nhập
                 String hoTenNguoiMua = txtHoTenNguoiMua.getText();
                 String cccdNguoiMua = txtCCCDNguoiMua.getText();
@@ -1532,9 +1578,7 @@ public void actionPerformed(ActionEvent e) {
                     khachHang = khachHangMuaVe;
                 }
                 try {
-                    // Tạo danh sách vé cần lưu
-
-
+                    List<VeTau> ticketsToSave = new ArrayList<>();
                     double tongTien = 0;
 
                     // Lặp qua tất cả các hàng trong bảng để lấy thông tin vé
@@ -1568,7 +1612,7 @@ public void actionPerformed(ActionEvent e) {
                     LoaiHoaDon loaiHoaDon = new LoaiHoaDon("LHD01");
                     // Lưu hóa đơn
                     double tienChietKhau = tongTien * (chietKhau / 100);
-                    tongTien -= tienChietKhau;
+                    tongTien -= tienChietKhau - diemTru;
                     HoaDon hoaDon = new HoaDon(maHD, khachHang, khuyenMai, nhanVien, loaiHoaDon, LocalDateTime.now(), tienChietKhau, tongTien);
                     daoBanVe.saveInvoice(hoaDon); // Lưu hóa đơn
                     hoaDonDaThanhToan = hoaDon;
@@ -1580,6 +1624,12 @@ public void actionPerformed(ActionEvent e) {
                     }
 
                     JOptionPane.showMessageDialog(dialog, "Lưu vé và hóa đơn thành công!");
+//                    double diemTichLuyMoi = khachHang.getDiemTichLuy()+ (hoaDonDaThanhToan.getTongTien()*0.001);
+//                    khachHangMuaVe.setDiemTichLuy(diemTichLuyMoi);
+//                    DAO_KhachHang daoKhachHang = new DAO_KhachHang();
+////                    daoKhachHang.updateCustomer(khachHangMuaVe);
+
+
                     isThanhToanDisplayed = true;
                     // Cập nhật giao diện sau khi lưu
                     danhSachChoDaChon.clear();
@@ -1597,6 +1647,15 @@ public void actionPerformed(ActionEvent e) {
             }
         });
 
+        // Thêm sự kiện khi đóng dialog (xóa danh sách vé khi đóng cửa sổ)
+        dialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                danhSachVe.clear();
+                chiTietHoaDonList.clear();
+                System.out.println("Danh sách vé đã được xóa khi đóng cửa sổ.");
+            }
+        });
         dialog.setVisible(true); // Hiển thị cửa sổ
     } else if (e.getSource() == btnQuanLyKhachHang) {
         addButtonAction(btnQuanLyKhachHang);
@@ -1808,11 +1867,11 @@ public void actionPerformed(ActionEvent e) {
     // 2. Tra cứu vé
     else if (e.getSource() == traCuuVe) {
         Jpanel_Main.removeAll();
-//            current = (JPanel) ;
+            current = (JPanel) traCuuVePanel;
         JPanel_XacNhanCho.setVisible(false);
         lab_Title.setVisible(false);
         JPanel_BanVe.setVisible(false);
-//            Jpanel_Main.add();
+            Jpanel_Main.add(traCuuVePanel);
         Jpanel_Main.setVisible(true);
 
         // Cập nhật lại giao diện người dùng

@@ -85,6 +85,43 @@ public class DAO_BanVe {
 
         return choNgoi; // Trả về đối tượng ChoNgoi hoặc null nếu không tìm thấy
     }
+    public boolean isTicketCodeExists(String maVe) throws SQLException {
+        // Câu truy vấn SQL để kiểm tra xem mã vé có tồn tại trong cơ sở dữ liệu không
+        String query = "SELECT COUNT(*) FROM VeTau WHERE maVe = ?";
+
+        try (PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, maVe);  // Thiết lập tham số cho câu truy vấn
+            ResultSet rs = ps.executeQuery();  // Thực thi câu truy vấn
+
+            // Nếu có kết quả trả về, kiểm tra số lượng
+            if (rs.next()) {
+                return rs.getInt(1) > 0;  // Nếu có ít nhất 1 kết quả, tức là mã vé đã tồn tại
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();  // In ra lỗi nếu có
+        }
+        return false;  // Nếu không có mã vé nào trùng, trả về false
+    }
+
+
+    public int getTotalTicketsToday() {
+        int totalTickets = 0; // Khởi tạo biến tổng số vé
+
+        // Câu truy vấn SQL để đếm số lượng vé trong ngày hôm nay
+        String sql = "SELECT COUNT(*) AS TongVe FROM VeTau WHERE CAST(NgayDi AS DATE) = CAST(GETDATE() AS DATE)";
+
+        try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+            ResultSet rs = pstmt.executeQuery(); // Thực thi câu truy vấn
+
+            if (rs.next()) {
+                totalTickets = rs.getInt("TongVe"); // Lấy tổng số vé
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return totalTickets; // Trả về tổng số vé
+    }
 
     public int getTotalCustomersToday() {
         int totalCustomers = 0; // Khởi tạo biến tổng số khách hàng

@@ -37,7 +37,7 @@
               <background color="-197121"/>
               <font name="Courier New" size="18" style="1"/>
               <horizontalAlignment value="0"/>
-              <text value="Hệ thống quản lý vé tàu tại ga Gò Vấp"/>
+              <text value="Hệ thống quản lý vé tàu tại ga Lạc Hồng"/>
             </properties>
           </component>
           <grid id="4d80d" binding="JPanel_BanVe" layout-manager="BorderLayout" hgap="0" vgap="0">
@@ -372,7 +372,7 @@
                           </component>
                         </children>
                       </grid>
-                      <grid id="de8a" binding="JPanel_Tienich" layout-manager="GridLayoutManager" row-count="3" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                      <grid id="de8a" binding="JPanel_Tienich" layout-manager="GridLayoutManager" row-count="4" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                         <margin top="0" left="0" bottom="0" right="0"/>
                         <constraints>
                           <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -382,7 +382,7 @@
                         <children>
                           <grid id="2adc8" layout-manager="BorderLayout" hgap="0" vgap="0">
                             <constraints>
-                              <grid row="0" column="3" row-span="3" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                              <grid row="0" column="3" row-span="4" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties/>
                             <border type="none"/>
@@ -397,46 +397,56 @@
                           </grid>
                           <hspacer id="42497">
                             <constraints>
-                              <grid row="0" column="2" row-span="3" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                              <grid row="1" column="2" row-span="3" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                             </constraints>
                           </hspacer>
-                          <component id="73df0" class="javax.swing.JLabel">
-                            <constraints>
-                              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties>
-                              <icon value="Anh_HeThong/mauTrang.png"/>
-                              <text value="Chỗ chưa đặt"/>
-                            </properties>
-                          </component>
-                          <component id="86302" class="javax.swing.JLabel">
-                            <constraints>
-                              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties>
-                              <icon value="Anh_HeThong/mauHong.png"/>
-                              <text value="Chỗ đã đặt"/>
-                            </properties>
-                          </component>
-                          <component id="db399" class="javax.swing.JLabel">
-                            <constraints>
-                              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties>
-                              <icon value="Anh_HeThong/mauVang.png"/>
-                              <text value="Chỗ đang chọn"/>
-                            </properties>
-                          </component>
                           <hspacer id="dea4b">
                             <constraints>
-                              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                             </constraints>
                           </hspacer>
                           <hspacer id="62be2">
                             <constraints>
-                              <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                              <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                             </constraints>
                           </hspacer>
+                          <grid id="a53e5" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="0" right="0"/>
+                            <constraints>
+                              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties/>
+                            <border type="none"/>
+                            <children>
+                              <component id="ffe37" class="javax.swing.JLabel">
+                                <constraints>
+                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <icon value="Anh_HeThong/mauTrang.png"/>
+                                  <text value="Chỗ chưa đặt"/>
+                                </properties>
+                              </component>
+                              <component id="eee62" class="javax.swing.JLabel">
+                                <constraints>
+                                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <icon value="Anh_HeThong/mauHong.png"/>
+                                  <text value="Chỗ đã đặt"/>
+                                </properties>
+                              </component>
+                              <component id="a8f6d" class="javax.swing.JLabel">
+                                <constraints>
+                                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <icon value="Anh_HeThong/mauVang.png"/>
+                                  <text value="Chỗ đang chọn"/>
+                                </properties>
+                              </component>
+                            </children>
+                          </grid>
                         </children>
                       </grid>
                       <component id="8e003" class="javax.swing.JLabel" binding="lab_TenToaTau">
@@ -458,7 +468,7 @@
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints border-constraint="East"/>
             <properties>
-              <preferredSize width="375" height="24"/>
+              <preferredSize width="340" height="24"/>
             </properties>
             <border type="bevel-raised" title="Giỏ vé" title-justification="2">
               <font size="28" style="1"/>

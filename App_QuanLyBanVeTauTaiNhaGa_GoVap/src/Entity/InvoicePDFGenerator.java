@@ -1,8 +1,12 @@
 package Entity;
 
+import DAO.DAO_KhachHang;
 import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import com.itextpdf.kernel.pdf.event.PdfDocumentEvent;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
@@ -10,20 +14,38 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
+import org.apache.xmlbeans.impl.common.ValidatorListener;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.Normalizer;
 import java.util.List;
 
 public class InvoicePDFGenerator {
-
+    private static String hotenKH = null;
+    private static String soDienThoai = null;
+    private static String diaChi = null;
     // Phương thức tạo hóa đơn PDF
     public static void generateInvoicePdf(HoaDon hoaDon, KhachHang khachHang,
                                           List<ChiTietHoaDon> chiTietHoaDonList, List<TicketDetails> danhSachVe) {
         try {
+
+            if(khachHang.getLoaiKhachHang().equals("KH002")){
+                DAO_KhachHang dao_khachHang = new DAO_KhachHang();
+                hotenKH = dao_khachHang.decryptAES(khachHang.getTenKhachHang());
+                soDienThoai = dao_khachHang.decryptAES(khachHang.getSoDienThoai());
+                diaChi = dao_khachHang.decryptAES(khachHang.getDiaChi());
+
+            }else{
+                hotenKH = khachHang.getTenKhachHang();
+                soDienThoai = khachHang.getSoDienThoai();
+                diaChi = khachHang.getDiaChi();
+            }
+
+
             // Tạo mã hóa đơn và tên file PDF
             String invoiceNumber = hoaDon.getMaHD(); // Lấy mã hóa đơn từ hoaDon
-            String filePath = "hoa_don_" + invoiceNumber + ".pdf";
+            String filePath = "hoa_don.pdf";
             PdfWriter writer = new PdfWriter(filePath);
 
             // Tạo đối tượng PdfDocument
@@ -50,11 +72,11 @@ public class InvoicePDFGenerator {
                     .setTextAlignment(TextAlignment.CENTER)
                     .setFontSize(10);
             document.add(ngayLapHD);
-
+            document.add(new Paragraph("Ma hoa don: " + hoaDon.getMaHD()).setFontSize(10));
             // Thông tin khách hàng
-            document.add(new Paragraph("Khach hang: " + removeDiacritics(khachHang.getTenKhachHang())));
-            document.add(new Paragraph("So dien thoai: " + removeDiacritics(khachHang.getSoDienThoai())));
-            document.add(new Paragraph("Dia Chi: " + removeDiacritics(khachHang.getDiaChi())));
+            document.add(new Paragraph("Khach hang: " + removeDiacritics(hotenKH)));
+            document.add(new Paragraph("So dien thoai: " + removeDiacritics(soDienThoai)));
+            document.add(new Paragraph("Dia Chi: " + maHoaHienThiDiaChi(removeDiacritics(diaChi))));
             document.add(new Paragraph("----------------------------------------------------------------------------------------------------------------------------------")
                     .setHorizontalAlignment(HorizontalAlignment.CENTER));
 
@@ -108,11 +130,19 @@ public class InvoicePDFGenerator {
             document.close();
 
             System.out.println("Hóa đơn đã được tạo thành công: " + filePath);
-        } catch (IOException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
-
+    public static  String maHoaHienThiDiaChi(String diaChi) {
+        if (diaChi != null && !diaChi.isEmpty()) {
+            // Ẩn toàn bộ địa chỉ bằng dấu "*"
+            return "***********"; // Hoặc bạn có thể sử dụng diaChi.replaceAll(".", "*") để thay thế tất cả ký tự bằng dấu "*"
+        }
+        return diaChi; // Trả về nguyên gốc nếu địa chỉ rỗng hoặc null
+    }
     // Phương thức chuyển chuỗi có dấu thành chuỗi không dấu
     public static String removeDiacritics(String input) {
         if (input == null || input.isEmpty()) {
