@@ -293,7 +293,6 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
 
         txtMaKH = new JTextField(50);
         txtLoaiKH = new JComboBox<String>();
-        txtLoaiKH.addItem("Khách hàng thường");
         txtLoaiKH.addItem("Khách hàng thân thiết");
         txtSDT = new JTextField(50);
         txtTenKH = new JTextField(50);
@@ -621,7 +620,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
 
         // Cho phép chỉnh sửa các trường khác
         // Khách hàng mới sẽ là khách hàng thường, hạng bạc, điểm tích lũy 0, ngày tham gia: hiện tại
-        txtLoaiKH.setSelectedItem("Khách hàng thường");
+        txtLoaiKH.setSelectedItem("Khách hàng thân thiết");
         txtLoaiKH.setEnabled(false);
         txtSDT.setEditable(true);
         txtTenKH.setEditable(true);
