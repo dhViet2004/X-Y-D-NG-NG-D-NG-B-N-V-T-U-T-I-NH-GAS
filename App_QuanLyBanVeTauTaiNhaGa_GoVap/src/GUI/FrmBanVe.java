@@ -108,6 +108,7 @@ private double tongThanhTien = 0.0; // Biến để lưu tổng thành tiền
 private static int ticketCount = 0; // Số vé đã tạo trong ngày
 private static LocalDate lastDate = LocalDate.now(); // Ngày cuối cùng đã tạo vé
 private Component temp; // Khai báo biến toàn cục
+    Component traVePanel= new TraVe_GUI().getTrave();
 Component chuyenTauPanel = new ChuyenTau().getjPanelMain();
 Component khuyenMaiPanel = new FrmKhuyenMai().getKMPanel();
 Component khachHangPanel = new Frm_KhachHang(new NhanVien()).getKHPanel();
@@ -1740,6 +1741,21 @@ public void actionPerformed(ActionEvent e) {
         // Cập nhật lại giao diện người dùng
         Jpanel_Main.revalidate(); // Cập nhật layout
         Jpanel_Main.repaint();    //
+    } else if (e.getSource() == traVe) {
+
+        Jpanel_Main.removeAll();
+        current = (JPanel) traVePanel;
+        JPanel_XacNhanCho.setVisible(false);
+        lab_Title.setVisible(false);
+        JPanel_BanVe.setVisible(false);
+        Jpanel_Main.add(traVePanel);
+        Jpanel_Main.setVisible(true);
+
+        // Cập nhật lại giao diện người dùng
+        Jpanel_Main.revalidate(); // Cập nhật layout
+        Jpanel_Main.repaint();    //
+
+
     } else if (e.getSource() == btnQuanLyKhuyenMai) {
         addButtonAction(btnQuanLyKhuyenMai);
         Jpanel_Main.removeAll();
@@ -2215,5 +2231,6 @@ private void phanQuyen(String maNV) throws Exception {
     public void setThongTinVe(VeTau thongTinVeDoi) {
         this.thongTinVeDoi = thongTinVeDoi;
     }
+
 }
 
