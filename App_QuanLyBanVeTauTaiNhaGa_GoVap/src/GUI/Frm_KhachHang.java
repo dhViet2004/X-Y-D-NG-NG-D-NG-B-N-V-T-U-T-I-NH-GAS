@@ -370,25 +370,23 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
     public void loadKH(String sdt) throws Exception {
         DAO_KhachHang dao_khachHang = new DAO_KhachHang();
         KhachHang kh = dao_khachHang.findCustomerByEncryptedPhone(sdt); // Tìm khách hàng đã mã hóa số điện thoại
-
+        System.out.println(kh);
         if (kh != null) {
-            // giải mã thông tin của khách hàng trước khi hiển thị
-            // giải mã và mã hóa hiển thị sdt
+            // Giải mã thông tin của khách hàng trước khi hiển thị
             String sdtEC = kh.getSoDienThoai();
-            String sdtDE = dao_khachHang.decryptAES(sdtEC);
-//            String sdtHienThi = maHoaHienThiSDT(sdtDE);
-            // giải mã và hiển thị
+            String sdtDE = dao_khachHang.decryptAES(sdtEC); // Giải mã số điện thoại
+
+            // Không áp dụng maHoaHienThi cho CCCD và địa chỉ, chỉ cần giải mã
             String tenEC = kh.getTenKhachHang();
             String tenDC = dao_khachHang.decryptAES(tenEC);
-            // giải mã và mã hóa hiển thị cccd
+
             String cccdEN = kh.getCCCD();
-            String cccdDC = dao_khachHang.decryptAES(cccdEN);
-            String cccdHienThi = maHoaHienThiCCCD(cccdDC);
-            // giải mã và mã hóa hiển thị địa chỉ
+            String cccdDC = dao_khachHang.decryptAES(cccdEN); // Giải mã CCCD
+
             String diaChiEN = kh.getDiaChi();
-            String diaChiDC = dao_khachHang.decryptAES(diaChiEN);
-            String diaChiHienThi = maHoaHienThiDiaChi(diaChiDC);
-            // Nếu tìm thấy, hiển thị thông tin khách hàng lên giao diện
+            String diaChiDC = dao_khachHang.decryptAES(diaChiEN); // Giải mã địa chỉ
+
+            // Hiển thị đầy đủ thông tin khách hàng
             txtMaKH.setText(kh.getMaKhachHang());
 
             String maLoaiKH = kh.getLoaiKhachHang().getMaLoaiKhachHang();
@@ -400,8 +398,8 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
 
             txtSDT.setText(sdtDE);
             txtTenKH.setText(tenDC);
-            txtCCCD.setText(cccdHienThi);
-            txtDiaChi.setText(diaChiHienThi);
+            txtCCCD.setText(cccdDC); // Hiển thị CCCD đầy đủ
+            txtDiaChi.setText(diaChiDC); // Hiển thị địa chỉ đầy đủ
             txtDiemTichLuy.setText(String.valueOf(kh.getDiemTichLuy()));
 
             LocalDate ngaySinh = kh.getNgaySinh();
@@ -438,6 +436,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
             JOptionPane.showMessageDialog(this, "Không tìm thấy", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }
+
 
     public String maHoaHienThiSDT(String phoneNumber) {
         if (phoneNumber.length() == 10) {
