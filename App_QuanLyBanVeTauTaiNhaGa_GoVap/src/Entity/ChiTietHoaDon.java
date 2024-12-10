@@ -19,6 +19,10 @@ public class ChiTietHoaDon {
         this.tienThue = tienThue;
     }
 
+    public ChiTietHoaDon() {
+
+    }
+
     public String getMaVe() {
         return maVe;
     }

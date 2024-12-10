@@ -38,6 +38,10 @@ public class VeTau {
         this.trangThai = trangThai;
     }
 
+    public VeTau() {
+
+    }
+
     public String getMaVe() {
         return maVe;
     }

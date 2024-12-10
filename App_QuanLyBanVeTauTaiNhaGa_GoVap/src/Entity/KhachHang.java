@@ -41,6 +41,10 @@ public class KhachHang {
         this.diaChi = diaChi;
     }
 
+    public KhachHang() {
+
+    }
+
     public String getMaKhachHang() {
         return maKhachHang;
     }

@@ -108,7 +108,7 @@ private double tongThanhTien = 0.0; // Biến để lưu tổng thành tiền
 private static int ticketCount = 0; // Số vé đã tạo trong ngày
 private static LocalDate lastDate = LocalDate.now(); // Ngày cuối cùng đã tạo vé
 private Component temp; // Khai báo biến toàn cục
-    Component traVePanel= new TraVe_GUI().getTrave();
+    Component traVePanel= new TraVe_GUI(new NhanVien() ).getTrave();
 Component chuyenTauPanel = new ChuyenTau().getjPanelMain();
 Component khuyenMaiPanel = new FrmKhuyenMai().getKMPanel();
 Component khachHangPanel = new Frm_KhachHang(new NhanVien()).getKHPanel();
@@ -119,6 +119,7 @@ Component traCuuKMPanel = new Frm_TraCuuKhuyenMai().getTraCuuKM_Panel();
 Component llvPanel = new FrmLichLamViec().getPanel_LLV();
 Component traCuuVePanel = new Frm_TraCuuVe().get_TraCuuVe_Panel();
 Component thongKeSLVe = new Frm_ThongKeSoLuongVeTheoThoiGian().getTKSLV();
+
 private List<LoaiKhachHang> danhSachLoaiKH = new ArrayList<>();
 private KhuyenMai khuyenMai = null;
 private Double chietKhau = 0.0;
@@ -145,11 +146,14 @@ private HoaDon hoaDonDaThanhToan = null;
 private double diemTichLuy = 0;
 private KhachHang khachHang = null;
 private LocalDate ngayHienTai = LocalDate.now();
+
     private int tongVe = 0; // Biến đếm số vé trong ngày
 private KhachHang khachHangDeInHoaDon = null;
     private VeTau thongTinVeDoi;
     public FrmBanVe(NhanVien nv) {
     nhanVien = nv;
+    System.out.println("Mã nhân viên: " + nhanVien.getMaNhanVien());
+
     setTitle("Bán Vé");
     temp = Jpanel_Main;
     setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -1743,12 +1747,16 @@ public void actionPerformed(ActionEvent e) {
         Jpanel_Main.repaint();    //
     } else if (e.getSource() == traVe) {
 
+
+        TraVe_GUI traVe = new TraVe_GUI(nhanVien);
+
+        Component panel = traVe.getTrave();
         Jpanel_Main.removeAll();
-        current = (JPanel) traVePanel;
+
         JPanel_XacNhanCho.setVisible(false);
         lab_Title.setVisible(false);
         JPanel_BanVe.setVisible(false);
-        Jpanel_Main.add(traVePanel);
+        Jpanel_Main.add(panel);
         Jpanel_Main.setVisible(true);
 
         // Cập nhật lại giao diện người dùng
