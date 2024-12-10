@@ -816,11 +816,13 @@
         }//GEN-LAST:event_jTableLLVMouseClicked
 
         private void lblTimeBDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTimeBDMouseClicked
-            timePicker1.showPopup(this, 50, 50);
+            Point location = lblTimeBD.getLocationOnScreen();
+            timePicker1.showPopup(this, location.x, location.y + lblTimeBD.getHeight());
         }//GEN-LAST:event_lblTimeBDMouseClicked
 
         private void lblTimeKTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTimeKTMouseClicked
-            timePicker2.showPopup(this, 50, 50);
+            Point location = lblTimeKT.getLocationOnScreen();
+            timePicker2.showPopup(this, location.x, location.y + lblTimeBD.getHeight());
         }//GEN-LAST:event_lblTimeKTMouseClicked
 
         private void cbxCaLamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxCaLamMouseClicked

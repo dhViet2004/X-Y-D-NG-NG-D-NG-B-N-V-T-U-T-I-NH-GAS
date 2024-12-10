@@ -1615,6 +1615,11 @@ public void actionPerformed(ActionEvent e) {
 
                         ticketsToSave.add(ticket);
                         tongTien += thanhTien;
+                        if(thongTinVeDoi!= null){
+                            double giaVeDoi = thongTinVeDoi.getGiaVe();
+                            double phiDoi = 20000;
+                            tongTien = tongTien - giaVeDoi+ phiDoi;
+                        }
 
                         // Tạo chi tiết hóa đơn với mã vé tương ứng
                         ChiTietHoaDon chiTiet = new ChiTietHoaDon(maVe, "", 1, VAT, thanhTien, tienThue); // Mã hóa đơn sẽ thêm sau
@@ -1659,6 +1664,7 @@ public void actionPerformed(ActionEvent e) {
                         choNgoiCanDoi.setText(choNgoiCanDoi.getText());
                         String maVeDoi = thongTinVeDoi.getMaVe();
                         dao_DoiVe.capNhatTrangThaiVe(maVeDoi,"Đã đổi");
+                        dao_DoiVe.CapNhatHoaDonDoi(thongTinVeDoi.getMaVe(),"LHD03");
                     }
                     //
 
