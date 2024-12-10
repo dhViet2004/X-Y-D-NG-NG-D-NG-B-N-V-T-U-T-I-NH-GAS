@@ -4,124 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d5effe5f-a51b-4a6c-9a3b-7bc154c167cd" name="Changes" comment="">
-<<<<<<< HEAD
-      <change afterPath="$PROJECT_DIR$/src/DAO/DAO_ThongKeTLDoiTraVe.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Main/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/Chart.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/Chart.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/LabelColor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/LegendItem.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/LegendItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/ModelChart.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/ModelLegend.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/blankchart/BlankPlotChart.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/blankchart/BlankPlotChatRender.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/blankchart/NiceScale.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/blankchart/SeriesSize.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/TimingFramework-0.55.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/pie-chart.jar" afterDir="false" />
-=======
-      <change afterPath="$PROJECT_DIR$/src/DAO/DAO_TraCuuHD.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GUI/Frm_TraCuuHoaDon.java" afterDir="false" />
->>>>>>> db79da2b8ed4730c7aad46a214d4f73a4f1bafdb
+    <list default="true" id="297356e5-4273-41ca-a778-eb48bf8dc037" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/danh_sach_ve.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/danh_sach_ve.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hoa_don.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hoa_don.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/DAO_ThongKeTLDoiTraVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DAO_ThongKeTLDoiTraVe.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/Frm_ThongKeTiLeDoiTraVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_ThongKeTiLeDoiTraVe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Frm_TraCuuVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_TraCuuVe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/Main.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "VoPhuocViet"
-  }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/dhViet2004/XaydungungdungBanVeTauTaiNhaGAS.git",
-    "accountId": "b97ccbad-a7ad-4afc-9329-a46fc2910326"
-  }
-}]]></component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 5
-}</component>
-  <component name="ProjectId" id="2q0gtA5SYPh6F3J0ccZHeOFmXsk" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-    <option name="sortKey" value="BY_TIME_ASCENDING" />
-  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.DashboardPanel.executor": "Run",
-    "Application.FrmBanVe (1).executor": "Run",
-    "Application.FrmBanVe (2).executor": "Run",
-    "Application.FrmBanVe (3).executor": "Run",
-    "Application.FrmBanVe (4).executor": "Run",
-    "Application.FrmBanVe (5).executor": "Run",
     "Application.FrmBanVe.executor": "Run",
-<<<<<<< HEAD
-    "Application.Frm_ThongKeSoLuongVeTheoThoiGian.executor": "Run",
     "Application.Frm_ThongKeTiLeDoiTraVe.executor": "Run",
-    "Application.Frm_TraCuuVe.executor": "Run",
-    "Application.Main (1).executor": "Run",
-    "Application.Main (2).executor": "Run",
     "Application.Main.executor": "Run",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "T:/BieuDoHinhTron_Java",
     "node.js.selected.package.tslint": "(autodetect)"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="T:\final\XaydungungdungBanVeTauTaiNhaGAS\App_QuanLyBanVeTauTaiNhaGa_GoVap\src" />
-      <recent name="T:\final\XaydungungdungBanVeTauTaiNhaGAS\App_QuanLyBanVeTauTaiNhaGa_GoVap\src\libs" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="Main" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Application.Frm_ThongKeTiLeDoiTraVe">
-=======
-    "Application.Frm_TraCuuHoaDon.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/DoAn_PTUD3/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
-  }
-}]]></component>
-  <component name="RecentsManager">
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="DAO" />
-      <recent name="GUI" />
-    </key>
-  </component>
   <component name="RunManager" selected="Application.FrmBanVe">
->>>>>>> db79da2b8ed4730c7aad46a214d4f73a4f1bafdb
     <configuration name="FrmBanVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -135,44 +46,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-<<<<<<< HEAD
     <configuration name="Frm_ThongKeTiLeDoiTraVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.Frm_ThongKeTiLeDoiTraVe" />
-=======
-    <configuration name="Frm_TraCuuHoaDon" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.Frm_TraCuuHoaDon" />
->>>>>>> db79da2b8ed4730c7aad46a214d4f73a4f1bafdb
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="GUI.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-<<<<<<< HEAD
-    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main.Main" />
-      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Main.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Main (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main.Main" />
-      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Main.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -195,41 +74,13 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.FrmBanVe" />
         <item itemvalue="Application.Frm_ThongKeTiLeDoiTraVe" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.Main (2)" />
-        <item itemvalue="Application.Main (1)" />
-=======
-    <recent_temporary>
-      <list>
->>>>>>> db79da2b8ed4730c7aad46a214d4f73a4f1bafdb
-        <item itemvalue="Application.FrmBanVe" />
-        <item itemvalue="Application.Frm_TraCuuHoaDon" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
-        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
-      </set>
-    </attachedChunks>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="d5effe5f-a51b-4a6c-9a3b-7bc154c167cd" name="Changes" comment="" />
-      <created>1733805119322</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1733805119322</updated>
-      <workItem from="1733805120431" duration="124000" />
-      <workItem from="1733821258133" duration="7259000" />
-    </task>
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
   </component>
 </project>

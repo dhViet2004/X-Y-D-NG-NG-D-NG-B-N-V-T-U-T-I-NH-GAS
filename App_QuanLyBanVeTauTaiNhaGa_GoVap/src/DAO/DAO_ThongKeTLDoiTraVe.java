@@ -12,6 +12,27 @@ public class DAO_ThongKeTLDoiTraVe {
     public DAO_ThongKeTLDoiTraVe() {
         con = ConnectDatabase.getConnection();
     }
+    // Thống kê số lượng vé theo một năm và trạng thái (Đã thanh toán, Đã đổi, Đã trả)
+    public int thongKeVeTheoNam(int year, String trangThai) throws SQLException {
+        String query = """
+        SELECT COUNT(MaVe) AS SoLuongVe
+        FROM VeTau
+        WHERE YEAR(NgayDi) = ? 
+        AND TrangThai = ?;
+    """;  // Lọc theo năm và trạng thái
+
+        try (PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setInt(1, year);            // Thiết lập năm
+            ps.setString(2, trangThai);    // Thiết lập trạng thái vé
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("SoLuongVe");
+                }
+            }
+        }
+        return 0;  // Nếu không có kết quả
+    }
 
     // Thống kê số lượng vé đã bán (Trang thái "Đã thanh toán")
     public int thongKeVeDaThanhToan(String startDate, String endDate) throws SQLException {
@@ -27,18 +48,20 @@ public class DAO_ThongKeTLDoiTraVe {
     public int thongKeVeDaTra(String startDate, String endDate) throws SQLException {
         return thongKeVeTheoTrangThai(startDate, endDate, "Đã trả");
     }
-    // Thống kê số lượng vé cho một tháng cụ thể và trạng thái
-    public int thongKeVeTheoThang(int month, String trangThai) throws SQLException {
+    // Thống kê số lượng vé cho một tháng và năm cụ thể và trạng thái
+    public int thongKeVeTheoThangVaNam(int month, int year, String trangThai) throws SQLException {
         String query = """
-            SELECT COUNT(MaVe) AS SoLuongVe
-            FROM VeTau
-            WHERE MONTH(NgayDi) = ?
-            AND TrangThai = ?;
-            """;  // Lọc theo tháng và trạng thái
+        SELECT COUNT(MaVe) AS SoLuongVe
+        FROM VeTau
+        WHERE MONTH(NgayDi) = ?
+        AND YEAR(NgayDi) = ?
+        AND TrangThai = ?;
+        """;  // Lọc theo tháng, năm và trạng thái
 
         try (PreparedStatement ps = con.prepareStatement(query)) {
             ps.setInt(1, month);          // Thiết lập tháng (1 đến 12)
-            ps.setString(2, trangThai);   // Thiết lập trạng thái vé
+            ps.setInt(2, year);           // Thiết lập năm
+            ps.setString(3, trangThai);   // Thiết lập trạng thái vé
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
