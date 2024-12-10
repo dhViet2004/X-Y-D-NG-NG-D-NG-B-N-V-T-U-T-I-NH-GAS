@@ -1658,6 +1658,7 @@ public void actionPerformed(ActionEvent e) {
                         choNgoiCanDoi.setText(choNgoiCanDoi.getText());
                         String maVeDoi = thongTinVeDoi.getMaVe();
                         dao_DoiVe.capNhatTrangThaiVe(maVeDoi,"Đã đổi");
+                        dao_DoiVe.CapNhatHoaDonDoi(thongTinVeDoi.getMaVe(),"LHD03");
                     }
                     //
 

@@ -241,7 +241,40 @@ public boolean capNhatTrangThaiVe(String maVe, String trangThaiMoi) {
     return false; // Trả về false nếu có lỗi hoặc không tìm thấy vé
 }
 
-//điều kiện đổi vé
+//cập nhật mã loại hóa đơn đổi
+public boolean CapNhatHoaDonDoi(String maVe, String maLoaiMoi) {
+    try {
+        // Câu lệnh SQL để cập nhật mã loại hóa đơn
+        String sql = "UPDATE HoaDon SET MaLoai = ? "
+                + "FROM HoaDon "
+                + "JOIN ChiTietHoaDon ON HoaDon.MaHD = ChiTietHoaDon.MaHD "
+                + "JOIN VeTau ON ChiTietHoaDon.MaVe = VeTau.MaVe "
+                + "WHERE VeTau.MaVe = ?";
+
+        // Tạo PreparedStatement
+        PreparedStatement stmt = con.prepareStatement(sql);
+
+        // Gán giá trị cho các tham số trong câu lệnh SQL
+        stmt.setString(1, maLoaiMoi);  // Gán mã loại mới (LHD03)
+        stmt.setString(2, maVe);       // Gán mã vé cần cập nhật
+
+        // Thực hiện lệnh cập nhật và kiểm tra kết quả
+        int rowsUpdated = stmt.executeUpdate();
+        if (rowsUpdated > 0) {
+            System.out.println("Cập nhật mã loại hóa đơn thành công!");
+            return true; // Trả về true nếu cập nhật thành công
+        } else {
+            System.out.println("Không tìm thấy vé với mã: " + maVe);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(); // In lỗi nếu có
+    }
+
+    return false; // Trả về false nếu có lỗi hoặc không tìm thấy vé
+}
+
+
+    //điều kiện đổi vé
 public boolean kiemTraThoiGianDoi(String maVe) {
     String sql = "SELECT NgayDi, GioDi FROM LichTrinhTau " +
             "WHERE MaLich = (SELECT LichTrinhTauMaLich FROM VeTau WHERE MaVe = ?)";
