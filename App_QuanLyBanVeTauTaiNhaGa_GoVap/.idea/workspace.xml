@@ -4,34 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-<<<<<<< HEAD
-    <list default="true" id="769ee6b4-7e35-41b4-b6a2-7dabe084eb36" name="Changes" comment="" />
-=======
-    <list default="true" id="769ee6b4-7e35-41b4-b6a2-7dabe084eb36" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/libs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GUI/QR_Scan.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/AbsoluteLayout.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/bridj-0.6.2-windows-only.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/core-3.3.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/javase-3.3.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/log4j-1.2.17.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/slf4j-api-1.6.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/webcam-capture-0.3.12.jar" afterDir="false" />
+    <list default="true" id="d5effe5f-a51b-4a6c-9a3b-7bc154c167cd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-<<<<<<< HEAD
-      <change beforePath="$PROJECT_DIR$/hoa_don.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hoa_don.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/DAO_DoiVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DAO_DoiVe.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/FrmLichLamViec.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmLichLamViec.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/FrmNhanVien.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmNhanVien.java" afterDir="false" />
-=======
-      <change beforePath="$PROJECT_DIR$/App_QuanLyBanVeTauTaiNhaGa_GoVap.iml" beforeDir="false" afterPath="$PROJECT_DIR$/App_QuanLyBanVeTauTaiNhaGa_GoVap.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/danh_sach_ve.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/danh_sach_ve.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hoa_don.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hoa_don.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Frm_TraCuuVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_TraCuuVe.java" afterDir="false" />
->>>>>>> c1ea22ec806efe9c030f305b0e1e92b4f968259f
     </list>
->>>>>>> 745f5835ffe06922785c4f14b46eac265a399573
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,59 +16,19 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-<<<<<<< HEAD
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
-  <component name="ProjectId" id="2q0e7xa0b2EX589DUzSsMrMS0bh" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-=======
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 4
-}</component>
-  <component name="ProjectId" id="2pzU1iskPGgQMZEV9fOKhtQ0rEA" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
-<<<<<<< HEAD
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-    <option name="sortKey" value="BY_TIME_ASCENDING" />
-  </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.FrmBanVe (1).executor&quot;: &quot;Run&quot;,
-    &quot;Application.FrmBanVe (2).executor&quot;: &quot;Run&quot;,
-    &quot;Application.FrmBanVe (3).executor&quot;: &quot;Run&quot;,
-    &quot;Application.FrmBanVe.executor&quot;: &quot;Run&quot;,
-    &quot;Application.FrmLichLamViec.executor&quot;: &quot;Run&quot;,
-    &quot;Application.FrmNhanVien.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Frm_DoiVe.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Frm_TraCuuVe (1).executor&quot;: &quot;Debug&quot;,
-    &quot;Application.Frm_TraCuuVe (2).executor&quot;: &quot;Run&quot;,
-    &quot;Application.Frm_TraCuuVe (3).executor&quot;: &quot;Run&quot;,
-    &quot;Application.Frm_TraCuuVe (4).executor&quot;: &quot;Run&quot;,
-    &quot;Application.Frm_TraCuuVe.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/DoAn_PTUD2/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.FrmBanVe (1).executor": "Run",
+    "Application.FrmBanVe.executor": "Run",
+    "git-widget-placeholder": "master",
+    "node.js.selected.package.tslint": "(autodetect)"
   }
-}</component>
-  <component name="RunManager" selected="Application.Frm_DoiVe">
-    <configuration name="FrmBanVe (3)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+}]]></component>
+  <component name="RunManager" selected="Application.FrmBanVe (2)">
+    <configuration name="FrmBanVe (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
@@ -105,43 +41,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-=======
->>>>>>> 745f5835ffe06922785c4f14b46eac265a399573
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.FrmBanVe.executor": "Run",
-    "Application.Frm_TraCuuVe (1).executor": "Run",
-    "Application.Frm_TraCuuVe (2).executor": "Run",
-    "Application.Frm_TraCuuVe.executor": "Run",
-    "Application.Loading.executor": "Run",
-    "Application.QR_Scan.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "T:/final/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap/src/libs",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
-  }
-}]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="T:\final\XaydungungdungBanVeTauTaiNhaGAS\App_QuanLyBanVeTauTaiNhaGa_GoVap\src\libs" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="GUI" />
-    </key>
-  </component>
-<<<<<<< HEAD
-  <component name="RunManager" selected="Application.FrmBanVe">
-=======
-  <component name="RunManager" selected="Application.Frm_TraCuuVe (1)">
->>>>>>> c1ea22ec806efe9c030f305b0e1e92b4f968259f
->>>>>>> 745f5835ffe06922785c4f14b46eac265a399573
+    <configuration name="FrmBanVe (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
+      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="FrmBanVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -155,149 +67,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-<<<<<<< HEAD
-    <configuration name="FrmLichLamViec" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.FrmLichLamViec" />
-=======
-    <configuration name="Frm_TraCuuVe (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.Frm_TraCuuVe" />
->>>>>>> c1ea22ec806efe9c030f305b0e1e92b4f968259f
-      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-<<<<<<< HEAD
-    <configuration name="Frm_TraCuuVe (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-=======
-<<<<<<< HEAD
-    <configuration name="FrmNhanVien" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.FrmNhanVien" />
-      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Frm_DoiVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.Frm_DoiVe" />
-=======
-    <configuration name="Frm_TraCuuVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
->>>>>>> 745f5835ffe06922785c4f14b46eac265a399573
-      <option name="MAIN_CLASS_NAME" value="GUI.Frm_TraCuuVe" />
->>>>>>> c1ea22ec806efe9c030f305b0e1e92b4f968259f
-      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Frm_TraCuuVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.Frm_TraCuuVe" />
-      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="QR_Scan" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.QR_Scan" />
-      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
-<<<<<<< HEAD
+        <item itemvalue="Application.FrmBanVe (2)" />
+        <item itemvalue="Application.FrmBanVe (1)" />
         <item itemvalue="Application.FrmBanVe" />
-        <item itemvalue="Application.Frm_TraCuuVe (2)" />
-        <item itemvalue="Application.Frm_TraCuuVe (1)" />
-        <item itemvalue="Application.Frm_TraCuuVe" />
-        <item itemvalue="Application.QR_Scan" />
-=======
-<<<<<<< HEAD
-        <item itemvalue="Application.Frm_DoiVe" />
-        <item itemvalue="Application.FrmNhanVien" />
-        <item itemvalue="Application.FrmLichLamViec" />
-        <item itemvalue="Application.FrmBanVe" />
-        <item itemvalue="Application.FrmBanVe (3)" />
-=======
-        <item itemvalue="Application.Frm_TraCuuVe (1)" />
-        <item itemvalue="Application.Frm_TraCuuVe" />
-        <item itemvalue="Application.QR_Scan" />
-        <item itemvalue="Application.Loading" />
-        <item itemvalue="Application.FrmBanVe" />
->>>>>>> c1ea22ec806efe9c030f305b0e1e92b4f968259f
->>>>>>> 745f5835ffe06922785c4f14b46eac265a399573
       </list>
     </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-<<<<<<< HEAD
-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
-        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
-=======
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
-        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
->>>>>>> 745f5835ffe06922785c4f14b46eac265a399573
-      </set>
-    </attachedChunks>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-<<<<<<< HEAD
-      <changelist id="769ee6b4-7e35-41b4-b6a2-7dabe084eb36" name="Changes" comment="" />
-      <created>1733803760833</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1733803760833</updated>
-      <workItem from="1733803762458" duration="393000" />
-=======
-      <changelist id="3178ac1e-c3fe-46b6-8018-f01fd237a9ef" name="Changes" comment="" />
-      <created>1733768185334</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1733768185334</updated>
-      <workItem from="1733768186387" duration="355000" />
-      <workItem from="1733794725677" duration="451000" />
-      <workItem from="1733795200671" duration="657000" />
-      <workItem from="1733799200293" duration="2585000" />
->>>>>>> 745f5835ffe06922785c4f14b46eac265a399573
-    </task>
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
   </component>
 </project>

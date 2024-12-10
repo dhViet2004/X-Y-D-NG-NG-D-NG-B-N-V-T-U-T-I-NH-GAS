@@ -829,6 +829,21 @@ public void actionPerformed(ActionEvent e) {
                                             } catch (SQLException ex) {
                                                 throw new RuntimeException(ex);
                                             }
+                                            // Thêm bước sắp xếp trước khi hiển thị
+                                            danhSachChoNgoi.sort((c1, c2) -> {
+                                                String ten1 = c1.getTenCho();
+                                                String ten2 = c2.getTenCho();
+                                                int so1 = Integer.parseInt(ten1.replaceAll("\\D+", ""));
+                                                int so2 = Integer.parseInt(ten2.replaceAll("\\D+", ""));
+                                                char kyTu1 = ten1.replaceAll("\\d+", "").charAt(0);
+                                                char kyTu2 = ten2.replaceAll("\\d+", "").charAt(0);
+                                                if (so1 != so2) {
+                                                    return Integer.compare(so1, so2);
+                                                } else {
+                                                    return Character.compare(kyTu1, kyTu2);
+                                                }
+                                            });
+
                                             // Hiển thị chỗ ngồi trong JPanel_ChoNgoi
                                             JPanel_ChoNgoi_A.removeAll();
                                             JPanel_ChoNgoi_A.setLayout(new FlowLayout());
