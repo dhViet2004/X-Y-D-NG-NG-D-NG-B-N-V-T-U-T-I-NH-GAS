@@ -662,7 +662,7 @@ public class FrmNhanVien extends JFrame {
                 if (filePath != null && !filePath.isEmpty()) {
                     avatar = new File(fileName).getName();
                 } else {
-                    avatar = "default-avatar.jpg";
+                    avatar = "avataMacDinh.png";
                 }
 
                 NhanVien nv = new NhanVien(maNV, tenNV, sdt, trangThai, cmnd, diaChi, ngayVaoLam, chucVu, avatar);

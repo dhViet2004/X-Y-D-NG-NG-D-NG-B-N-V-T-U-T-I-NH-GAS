@@ -14,7 +14,11 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class Frm_TraCuuVe extends JFrame {
@@ -64,6 +68,7 @@ public class Frm_TraCuuVe extends JFrame {
 
         // Cấu hình layout cho panel bên phải (vẫn giữ BorderLayout)
         JPanel_Right.setLayout(new BorderLayout());
+        JLabel lblTitle = new JLabel("Tra cứu vé");
 
         // Khởi tạo panel TraCuuVe và cấu hình layout
         JPanel panel_TraCuuVe = new JPanel();
@@ -80,7 +85,6 @@ public class Frm_TraCuuVe extends JFrame {
         panelChiTietVe = new JPanel();
         panelChiTietVe.setLayout(new BorderLayout());
         panelTimVe.setLayout(new BorderLayout());
-
         // Cấu hình các panel con với BorderLayout cho panelTimVe và panelChiTietVe
         panel_TraCuuVe.add(panelTimVe);
         panel_TraCuuVe.add(createPanelChiTietVe());
@@ -373,7 +377,42 @@ public class Frm_TraCuuVe extends JFrame {
         gbc.gridheight = 2; // Chiếm cả hai hàng
         gbc.fill = GridBagConstraints.VERTICAL; // Đặt fill theo chiều dọc
         panelTimTheoThoiGian.add(btnLoc, gbc);
+// Thêm sự kiện cho nút "Lọc"
+        btnLoc.addActionListener(e -> {
+            // Lấy giá trị từ các trường nhập liệu
+            String hoTen = txtHoTen.getText().trim(); // Lấy tên khách hàng
+            Date ngayDiFrom = dateChooserFrom.getDate(); // Lấy ngày bắt đầu
+            Date ngayDiTo = dateChooserTo.getDate(); // Lấy ngày kết thúc
 
+            // Kiểm tra dữ liệu nhập vào
+            if (hoTen.isEmpty() || ngayDiFrom == null || ngayDiTo == null) {
+                JOptionPane.showMessageDialog(panelTimTheoThoiGian, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Chuyển ngày sang định dạng chuẩn nếu cần thiết
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String strNgayDiFrom = sdf.format(ngayDiFrom);
+            String strNgayDiTo = sdf.format(ngayDiTo);
+
+            try {
+                DAO_TraCuuVe daoTraCuuVe = new DAO_TraCuuVe();
+                // Gọi phương thức tìm vé tàu theo thời gian (sử dụng strNgayDiFrom và strNgayDiTo)
+                veTauList = daoTraCuuVe.timVeTauTheoTenKHVaThoiGian(hoTen, strNgayDiFrom, strNgayDiTo);
+
+                // Kiểm tra nếu có kết quả
+                if (!veTauList.isEmpty()) {
+                    // Cập nhật bảng với danh sách vé tìm được
+                    updateTableWithVeTau(veTauList);
+                } else {
+                    // Nếu không tìm thấy vé
+                    JOptionPane.showMessageDialog(panelTimTheoThoiGian, "Không tìm thấy vé với thông tin này!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (SQLException ex) {
+                // Xử lý lỗi khi truy vấn cơ sở dữ liệu
+                JOptionPane.showMessageDialog(panelTimTheoThoiGian, "Lỗi khi tìm vé tàu: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        });
         return panelTimTheoThoiGian;
     }
 
@@ -466,7 +505,38 @@ public class Frm_TraCuuVe extends JFrame {
         gbc.gridy = 5;
         gbc.anchor = GridBagConstraints.EAST;
         panelTimChitiet.add(btnTimVe, gbc);
+        // Thêm sự kiện cho nút "Tìm vé"
+        btnTimVe.addActionListener(e -> {
+            // Lấy giá trị từ các trường nhập liệu
+            String tenKhachHang = txtTenKhachHang.getText().trim();
+            String giayTo = txtGiayTo.getText().trim();
+            String ngayDi = txtNgayDi.getText().trim();
+            String maChoNgoi = txtMaChoNgoi.getText().trim();
+            String doiTuong = (String) comboDoiTuong.getSelectedItem();
 
+            // Kiểm tra dữ liệu nhập vào
+            if (tenKhachHang.isEmpty() || giayTo.isEmpty() || ngayDi.isEmpty() || maChoNgoi.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            try {
+                DAO_TraCuuVe daoTraCuuVe = new DAO_TraCuuVe();
+                // Gọi phương thức tìm vé theo các tiêu chí từ DAO
+                veTauList = daoTraCuuVe.timVeTauTheoChitiet(tenKhachHang, giayTo, ngayDi, maChoNgoi, doiTuong);
+
+                if (!veTauList.isEmpty()) {
+                    // Cập nhật bảng với danh sách vé tìm được
+                    updateTableWithVeTau(veTauList);
+                } else {
+                    // Nếu không tìm thấy vé
+                    JOptionPane.showMessageDialog(null, "Không tìm thấy vé với thông tin này!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (SQLException ex) {
+                // Xử lý lỗi khi truy vấn cơ sở dữ liệu
+                JOptionPane.showMessageDialog(null, "Lỗi khi tìm vé: " + ex.getMessage(), "Thông báo", JOptionPane.ERROR_MESSAGE);
+            }
+        });
         return panelTimChitiet;
     }
 
@@ -519,7 +589,23 @@ public class Frm_TraCuuVe extends JFrame {
         gbc.gridx = 2;  // Cột 2
         gbc.gridy = 0;  // Dòng 0
         gbc.gridheight = 3;  // Chiếm 3 dòng, giống như các radio button
+        btnQuetQR.addActionListener(e -> {
+            // Khởi tạo cửa sổ quét mã QR
+            QR_Scan qrScan = new QR_Scan();
 
+            // Thêm WindowListener để nhận kết quả từ QR_Scan khi đóng
+            qrScan.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    // Lấy chuỗi kết quả từ mã QR và hiển thị trong txtHoTen
+                    String qrResult = qrScan.getQrResult(); // Phương thức này cần được thêm trong lớp QR_Scan
+                    if (qrResult != null && !qrResult.isEmpty()) {
+                        txtHoTen.setText(qrResult); // Gán kết quả vào JTextField
+                    }
+                }
+            });
+            qrScan.setVisible(true); // Hiển thị cửa sổ QR_Scan
+        });
         return panel;
     }
 
@@ -552,7 +638,6 @@ public class Frm_TraCuuVe extends JFrame {
         return radioPanel;
     }
 
-    // Thêm sự kiện cho nút "Tìm vé"
     private void addSearchButtonListener() {
         btnTimVe.addActionListener(e -> {
             // Lấy tiêu chí tìm kiếm từ radio button
@@ -601,12 +686,33 @@ public class Frm_TraCuuVe extends JFrame {
                     JOptionPane.showMessageDialog(null, "Vui lòng nhập giấy tờ!", "Thông báo", JOptionPane.WARNING_MESSAGE);
                 }
             } else if (radioHoTen.isSelected()) {
-                JOptionPane.showMessageDialog(null, "Tìm kiếm theo họ tên chưa được triển khai!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                String tenKhachHang = txtHoTen.getText().trim();  // Giả sử txtHoTen là ô nhập liệu cho tên khách hàng
+                if (!tenKhachHang.isEmpty()) {
+                    try {
+                        DAO_TraCuuVe daoTraCuuVe = new DAO_TraCuuVe();
+                        // Gọi phương thức timVeTauTheoTenKH từ DAO để tìm vé theo tên khách hàng
+                        veTauList = daoTraCuuVe.timVeTauTheoTenKH(tenKhachHang);
+
+                        if (!veTauList.isEmpty()) {
+                            // Cập nhật bảng với danh sách vé tìm được
+                            updateTableWithVeTau(veTauList);
+                        } else {
+                            // Nếu không tìm thấy vé
+                            JOptionPane.showMessageDialog(null, "Không tìm thấy vé với tên khách hàng này!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    } catch (SQLException ex) {
+                        // Xử lý lỗi khi truy vấn cơ sở dữ liệu
+                        JOptionPane.showMessageDialog(null, "Lỗi khi tìm vé: " + ex.getMessage(), "Thông báo", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Vui lòng nhập tên khách hàng!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn một tiêu chí tìm kiếm!", "Thông báo", JOptionPane.WARNING_MESSAGE);
             }
         });
     }
+
 
 
     private void updateTableWithVeTau(List<VeTau> veTauList) {

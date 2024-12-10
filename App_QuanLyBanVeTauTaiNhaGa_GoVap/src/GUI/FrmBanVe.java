@@ -108,7 +108,7 @@ private double tongThanhTien = 0.0; // Biến để lưu tổng thành tiền
 private static int ticketCount = 0; // Số vé đã tạo trong ngày
 private static LocalDate lastDate = LocalDate.now(); // Ngày cuối cùng đã tạo vé
 private Component temp; // Khai báo biến toàn cục
-    Component traVePanel= new TraVe_GUI(new NhanVien() ).getTrave();
+
 Component chuyenTauPanel = new ChuyenTau().getjPanelMain();
 Component khuyenMaiPanel = new FrmKhuyenMai().getKMPanel();
 Component khachHangPanel = new Frm_KhachHang(new NhanVien()).getKHPanel();
@@ -119,7 +119,6 @@ Component traCuuKMPanel = new Frm_TraCuuKhuyenMai().getTraCuuKM_Panel();
 Component llvPanel = new FrmLichLamViec().getPanel_LLV();
 Component traCuuVePanel = new Frm_TraCuuVe().get_TraCuuVe_Panel();
 Component thongKeSLVe = new Frm_ThongKeSoLuongVeTheoThoiGian().getTKSLV();
-
 private List<LoaiKhachHang> danhSachLoaiKH = new ArrayList<>();
 private KhuyenMai khuyenMai = null;
 private Double chietKhau = 0.0;
@@ -146,14 +145,11 @@ private HoaDon hoaDonDaThanhToan = null;
 private double diemTichLuy = 0;
 private KhachHang khachHang = null;
 private LocalDate ngayHienTai = LocalDate.now();
-
     private int tongVe = 0; // Biến đếm số vé trong ngày
 private KhachHang khachHangDeInHoaDon = null;
     private VeTau thongTinVeDoi;
     public FrmBanVe(NhanVien nv) {
     nhanVien = nv;
-    System.out.println("Mã nhân viên: " + nhanVien.getMaNhanVien());
-
     setTitle("Bán Vé");
     temp = Jpanel_Main;
     setExtendedState(JFrame.MAXIMIZED_BOTH);

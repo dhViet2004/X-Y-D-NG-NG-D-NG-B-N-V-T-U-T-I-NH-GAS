@@ -2,12 +2,8 @@ package GUI;
 
 import DAO.DAO_HoaDon;
 import Entity.RoundedButton;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
+import com.raven.chart.Chart;
+import com.raven.chart.ModelChart;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -18,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Frm_ThongKeKhachHang extends JFrame implements ActionListener {
@@ -47,9 +44,11 @@ public class Frm_ThongKeKhachHang extends JFrame implements ActionListener {
     private final JLabel lbl_1;
     private final JLabel lbl_2;
     private JPanel body_chart;
-    public Component getTKKHPanel(){
+
+    public Component getTKKHPanel() {
         return JPanel_Main;
     }
+
     public Frm_ThongKeKhachHang() {
         setTitle("Form Khuyến Mãi");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -181,21 +180,12 @@ public class Frm_ThongKeKhachHang extends JFrame implements ActionListener {
         lbl_2.setIconTextGap(10); // Khoảng cách giữa text và icon
         lbl_2.setAlignmentX(Component.LEFT_ALIGNMENT); // Đặt căn lề sát trái
         pnl_two_lbl.add(lbl_2);
-
         body_header.add(pnl_two_lbl);
 
         //body_chart
         body_chart = new JPanel(new BorderLayout());
 
         body.add(body_chart, BorderLayout.CENTER);
-        LocalDate today = LocalDate.now();
-        DAO_HoaDon dao = new DAO_HoaDon();
-        try {
-            ChartPanel tmp = creatChart_day_chiTiet(today);
-            body_chart.add(tmp);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
 
         // đăng kí sự kiện
@@ -204,94 +194,158 @@ public class Frm_ThongKeKhachHang extends JFrame implements ActionListener {
         btn_chiTiet.addActionListener(this);
     }
 
-//    public ChartPanel creatChart_year_tongQuan(int year) throws SQLException {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object o = e.getSource();
+        String day = select_day.getSelectedItem().toString();  // Lấy giá trị được chọn trong JComboBox
+        int year = LocalDate.now().getYear();                  // Năm hiện tại để làm mặc định
+        LocalDate currentDate = LocalDate.now(); // Ngày hiện tại
+        LocalDate yesterday = currentDate.minusDays(1); // Ngày hôm qua
+        LocalDate startOfWeek = currentDate.with(DayOfWeek.MONDAY); // Bắt đầu tuần này
+        LocalDate endOfWeek = currentDate.with(DayOfWeek.SUNDAY); // Kết thúc tuần này
+        LocalDate startOfMonth = currentDate.withDayOfMonth(1); // Ngày đầu tháng
+        LocalDate endOfMonth = currentDate.withDayOfMonth(currentDate.lengthOfMonth()); // Ngày cuối tháng
 
-    public ChartPanel creatChart_year_tongQuan(int year) throws SQLException {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        DAO_HoaDon dao = new DAO_HoaDon();
-        List<Object[]> list = dao.SLKH_MONTH_YEAR_TOTAL(year);
-        int sum_customer = 0;
 
-        // Tạo mảng để lưu số lượng khách hàng cho mỗi tháng
-        int[] customerCounts = new int[12]; // Có 12 tháng trong năm
-        for (Object[] row : list) {
-            String monthString = (String) row[0]; // row[0] là tên tháng
-            // Lấy số tháng từ chuỗi "Tháng x"
-            int monthIndex = Integer.parseInt(monthString.replace("Tháng ", "")) - 1; // Chuyển đổi sang chỉ số mảng
-            int customerCount = (int) row[1]; // row[1] là số lượng khách hàng
-            customerCounts[monthIndex] = customerCount; // Gán số lượng khách hàng cho tháng tương ứng
+        try {
+            if (o == btn_tongQuan) {
+                switch (day) {
+                    case "Hôm nay": {
+                        List<Object[]> list;
+                        list = dao.SLKH_TODAY_TOTAL(currentDate);
+                        if(list!=null){
+                            System.out.println(list.size());
+                        }
+                        updateChartPanel_Day_TongQuan(list);
+                        break;
+                    }
+                    case "Hôm qua": {
+                        List<Object[]> list;
+                        list = dao.SLKH_TODAY_TOTAL(currentDate.minusDays(1));
+                        updateChartPanel_Day_TongQuan(list);
+                        break;
+                    }
+                    case "Tuần này": {
+                        List<Object[]> list;
+                        list = dao.SLKH_WEEK_TOTAL(currentDate);
+                        updateChartPanel_Week_TongQuan(list);
+                        break;
+                    }
+                    case "Tháng này": {
+                        LocalDate thang = LocalDate.now().withDayOfMonth(1); // Ngày đầu tháng
+//                        LocalDate thang = LocalDate.of(LocalDate.now().getYear(), 10, 1); // Ngày đầu tháng
+                        List<Object[]> list;
+                        try {
+                            list = dao.SLKH_MONTH_TOTAL(thang);
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        updateChartPanel_Month_TongQuan(list);
+                        break;
+                    }
+                    case "Tháng trước": {
+                        LocalDate thang = LocalDate.now().minusMonths(1).withDayOfMonth(1); // Ngày đầu tháng
+                        List<Object[]> list;
+                        try {
+                            list = dao.SLKH_MONTH_TOTAL(thang);
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        updateChartPanel_Month_TongQuan(list);
+                        break;
+                    }
+                    case "Năm nay": {
+                        List<Object[]> list;
+                        list = dao.SLKH_MONTH_YEAR_TOTAL(year);
+                        if (list != null) {
+                            System.out.println(list.size());
+                        }
+                        updateChartPanel_Year_TongQuan(list);
+                        break;
+                    }
+                    case "Năm trước": {
+                        List<Object[]> list;
+                        list = dao.SLKH_MONTH_YEAR_TOTAL(year - 1);
+                        updateChartPanel_Year_TongQuan(list);
+                        break;
+                    }
+                }
+            } else if (o == btn_chiTiet) {
+                switch (day) {
+                    case "Hôm nay": {
+                        List<Object[]> list;
+                        list = dao.SLKH_TODAY_DETAIL(currentDate);
+                        updateChartPanel_Day_ChiTiet(list);
+                        break;
+                    }
+                    case "Hôm qua": {
+                        List<Object[]> list;
+                        list = dao.SLKH_TODAY_DETAIL(currentDate.minusDays(1));
+                        updateChartPanel_Day_ChiTiet(list);
+                        break;
+                    }
+                    case "Tuần này": {
+                        List<Object[]> list;
+                        list = dao.SLKH_WEEK_DETAIL(currentDate);
+                        updateChartPanel_Week_ChiTiet(list);
+                        break;
+                    }
+                    case "Tháng này": {
+                        LocalDate thang = LocalDate.now().withDayOfMonth(1); // Ngày đầu tháng
+//                        LocalDate thang = LocalDate.of(LocalDate.now().getYear(), 10, 1); // Ngày đầu tháng
+                        List<Object[]> list;
+                        try {
+                            list = dao.SLKH_MONTH_DETAIL(thang);
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        updateChartPanel_Month_ChiTiet(list);
+                        break;
+                    }
+                    case "Tháng trước": {
+                        LocalDate thang = LocalDate.now().minusMonths(1).withDayOfMonth(1); // Ngày đầu tháng
+//                        LocalDate thang = LocalDate.of(LocalDate.now().getYear(), 10, 1); // Ngày đầu tháng
+                        List<Object[]> list;
+                        try {
+                            list = dao.SLKH_MONTH_DETAIL(thang);
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        updateChartPanel_Month_ChiTiet(list);
+                        break;
+                    }
+                    case "Năm nay": {
+                        List<Object[]> list;
+                        list = dao.SLKH_MONTH_YEAR_DETAIL(year);
+                        updateChartPanel_Year_ChiTiet(list);
+                        break;
+                    }
+                    case "Năm trước": {
+                        List<Object[]> list;
+                        list = dao.SLKH_MONTH_YEAR_DETAIL(year - 1);
+                        updateChartPanel_Year_ChiTiet(list);
+                        break;
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
-
-        // Thêm dữ liệu vào dataset
-        for (int i = 0; i < customerCounts.length; i++) {
-            dataset.addValue(customerCounts[i], "Số lượng khách hàng", "Tháng " + (i + 1));
-            sum_customer += customerCounts[i]; // Cộng dồn số lượng khách hàng
-        }
-
-        JFreeChart barChart = ChartFactory.createBarChart(
-                "Số lượng khách hàng trong năm",       // Tiêu đề biểu đồ
-                "",                // Tên trục X
-                "Số lượng",                   // Tên trục Y
-                dataset,                   // Dữ liệu
-                PlotOrientation.VERTICAL,  // Hướng biểu đồ
-                true,                      // Hiển thị legend
-                true,                      // Hiển thị tooltips
-                false                      // Không sử dụng URL
-        );
-
-        ChartPanel chartPanel = new ChartPanel(barChart);
-        NumberAxis yAxis = (NumberAxis) barChart.getCategoryPlot().getRangeAxis();
-        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        lbl_1.setText(": " + sum_customer);
-
-        return chartPanel;
     }
 
-//    public ChartPanel creatChart_year_chiTiet(int year) throws SQLException {
-//        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-//        DAO_HoaDon dao = new DAO_HoaDon();
-//        List<Object[]> list = dao.SLKH_MONTH_YEAR_DETAIL(year);
-//        int sum_customer = 0;
-//        int sum_invoice = 0;
-//        // Thêm dữ liệu từ list với nhãn tháng đúng
-//        for (Object[] row : list) {
-//            String month = "" + row[0];    // row[0] là tháng
-//            int customerCount = (int) row[1];    // row[1] là số lượng khách hàng
-//            int invoiceCount = (int) row[2];
-//            sum_customer += customerCount;
-//            sum_invoice += invoiceCount;
-//            dataset.addValue(customerCount, "Số lượng khách hàng", month);
-//            dataset.addValue(invoiceCount, "Số lượng hóa đơn", month);
-//        }
-//
-//
-//        JFreeChart barChart = ChartFactory.createBarChart(
-//                "Số lượng khách hàng trong năm",       // Tiêu đề biểu đồ
-//                "",                // Tên trục X
-//                "Số lượng",                   // Tên trục Y
-//                dataset,                   // Dữ liệu
-//                PlotOrientation.VERTICAL,  // Hướng biểu đồ
-//                true,                      // Hiển thị legend
-//                true,                      // Hiển thị tooltips
-//                false                      // Không sử dụng URL
-//        );
-//
-//        ChartPanel chartPanel = new ChartPanel(barChart);
-//        NumberAxis yAxis = (NumberAxis) barChart.getCategoryPlot().getRangeAxis();
-//        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-//        lbl_1.setText(": " + sum_customer);
-//        lbl_2.setText(": " + sum_invoice);
-//
-//        return chartPanel;
-//
-//    }
+    private void updateChartPanel_Year_ChiTiet(List<Object[]> list) {
+        // Xóa bỏ các thành phần cũ trong panel (nếu cần)
+        body_chart.removeAll();
 
-    public ChartPanel creatChart_year_chiTiet(int year) throws SQLException {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        DAO_HoaDon dao = new DAO_HoaDon();
-        List<Object[]> list = dao.SLKH_MONTH_YEAR_DETAIL(year);
+        // Tạo một đối tượng Chart mới
+        Chart chart = new Chart();
+
         int sum_customer = 0;
         int sum_invoice = 0;
+
+        // Thêm các biểu tượng legend cho chart
+        chart.addLegend("Số lượng hóa đơn", new Color(245, 189, 135));  // Màu cho hóa đơn
+        chart.addLegend("Số lượng khách hàng", new Color(135, 189, 245));  // Màu cho khách hàng
 
         // Tạo mảng để lưu số lượng khách hàng và hóa đơn cho mỗi tháng
         int[] customerCounts = new int[12]; // Có 12 tháng
@@ -309,367 +363,352 @@ public class Frm_ThongKeKhachHang extends JFrame implements ActionListener {
             invoiceCounts[monthIndex] = invoiceCount;   // Gán số lượng hóa đơn cho tháng
         }
 
-        // Thêm dữ liệu vào dataset
+        // Thêm dữ liệu vào biểu đồ
         for (int i = 0; i < customerCounts.length; i++) {
-            dataset.addValue(customerCounts[i], "Số lượng khách hàng", "Tháng " + (i + 1));
-            dataset.addValue(invoiceCounts[i], "Số lượng hóa đơn", "Tháng " + (i + 1));
-            sum_customer += customerCounts[i]; // Cộng dồn số lượng khách hàng
-            sum_invoice += invoiceCounts[i]; // Cộng dồn số lượng hóa đơn
+            // Nhãn tháng
+            String monthLabel = "Tháng " + (i + 1);
+
+            // Thêm dữ liệu vào chart
+            chart.addData(new ModelChart(monthLabel, new double[]{invoiceCounts[i], customerCounts[i]}));
+
+            // Cộng dồn tổng số lượng khách hàng và hóa đơn
+            sum_customer += customerCounts[i];
+            sum_invoice += invoiceCounts[i];
         }
 
-        JFreeChart barChart = ChartFactory.createBarChart(
-                "Số lượng khách hàng và hóa đơn trong năm",       // Tiêu đề biểu đồ
-                "",                // Tên trục X
-                "Số lượng",                   // Tên trục Y
-                dataset,                   // Dữ liệu
-                PlotOrientation.VERTICAL,  // Hướng biểu đồ
-                true,                      // Hiển thị legend
-                true,                      // Hiển thị tooltips
-                false                      // Không sử dụng URL
-        );
+        // Hiển thị tổng số lượng khách hàng và hóa đơn
+        lbl_1.setText(": " + sum_customer + " khách hàng");
+        lbl_2.setText(": " + sum_invoice + " hóa đơn");
 
-        ChartPanel chartPanel = new ChartPanel(barChart);
-        NumberAxis yAxis = (NumberAxis) barChart.getCategoryPlot().getRangeAxis();
-        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        lbl_1.setText(": " + sum_customer);
-        lbl_2.setText(": " + sum_invoice);
+        // Thêm chart vào panel hoặc container
+        body_chart.add(chart);
 
-        return chartPanel;
+        // Cập nhật giao diện (revalidate và repaint)
+        body_chart.revalidate();
+        body_chart.repaint();
+
+        // Bắt đầu animation nếu cần
+        chart.start();
     }
 
-    public ChartPanel creatChart_day_tongQuan(LocalDate localDate) throws SQLException {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        DAO_HoaDon dao = new DAO_HoaDon();
-        List<Object[]> list = dao.SLKH_TODAY_TOTAL(localDate);
-        int sum_customer = 0;
-        // Thêm dữ liệu từ list với nhãn tháng đúng
-        for (Object[] row : list) {
-            String ngay = "" + row[0];    // row[0] là tháng
-            int customerCount = (int) row[1];    // row[1] là số lượng khách hàng
-            sum_customer += customerCount;
-            dataset.addValue(customerCount, "Số lượng khách hàng", ngay);
-        }
+    private void updateChartPanel_Year_TongQuan(List<Object[]> list) {
+        // Xóa bỏ các thành phần cũ trong panel (nếu cần)
+        body_chart.removeAll();
 
+        // Tạo một đối tượng Chart mới
+        Chart chart = new Chart();
 
-        JFreeChart barChart = ChartFactory.createBarChart(
-                "Số lượng khách hàng trong ngày",       // Tiêu đề biểu đồ
-                "",                // Tên trục X
-                "Số lượng",                   // Tên trục Y
-                dataset,                   // Dữ liệu
-                PlotOrientation.VERTICAL,  // Hướng biểu đồ
-                true,                      // Hiển thị legend
-                true,                      // Hiển thị tooltips
-                false                      // Không sử dụng URL
-        );
-
-        ChartPanel chartPanel = new ChartPanel(barChart);
-        NumberAxis yAxis = (NumberAxis) barChart.getCategoryPlot().getRangeAxis();
-        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        lbl_1.setText(": " + sum_customer);
-
-        return chartPanel;
-    }
-
-    public ChartPanel creatChart_day_chiTiet(LocalDate localDate) throws SQLException {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        DAO_HoaDon dao = new DAO_HoaDon();
-        List<Object[]> list = dao.SLKH_TODAY_DETAIL(localDate);
         int sum_customer = 0;
         int sum_invoice = 0;
+
+        // Thêm các biểu tượng legend cho chart
+        chart.addLegend("Số lượng hóa đơn", new Color(245, 189, 135));  // Màu cho hóa đơn
+        chart.addLegend("Số lượng khách hàng", new Color(135, 189, 245));  // Màu cho khách hàng
+
+        // Tạo mảng để lưu số lượng khách hàng và hóa đơn cho mỗi tháng
+        int[] customerCounts = new int[12]; // Có 12 tháng
+        int[] invoiceCounts = new int[12]; // Có 12 tháng
+
         // Thêm dữ liệu từ list với nhãn tháng đúng
         for (Object[] row : list) {
-            String ngay = "" + row[0];    // row[0] là tháng
+            String monthString = (String) row[0]; // row[0] là tên tháng
+            // Lấy số tháng từ chuỗi "Tháng x"
+            int monthIndex = Integer.parseInt(monthString.replace("Tháng ", "")) - 1; // Chuyển đổi sang chỉ số mảng
             int customerCount = (int) row[1];    // row[1] là số lượng khách hàng
-            int invoiceCount = (int) row[2];
-            sum_customer += customerCount;
-            sum_invoice += invoiceCount;
-            dataset.addValue(customerCount, "Số lượng khách hàng", ngay);
-            dataset.addValue(invoiceCount, "Số lượng hóa đơn", ngay);
+            // row[2] là số lượng hóa đơn
+
+            customerCounts[monthIndex] = customerCount; // Gán số lượng khách hàng cho tháng
         }
 
+        // Thêm dữ liệu vào biểu đồ
+        for (int i = 0; i < customerCounts.length; i++) {
+            // Nhãn tháng
+            String monthLabel = "Tháng " + (i + 1);
 
-        JFreeChart barChart = ChartFactory.createBarChart(
-                "Số lượng khách hàng trong ngày",       // Tiêu đề biểu đồ
-                "",                // Tên trục X
-                "Số lượng",                   // Tên trục Y
-                dataset,                   // Dữ liệu
-                PlotOrientation.VERTICAL,  // Hướng biểu đồ
-                true,                      // Hiển thị legend
-                true,                      // Hiển thị tooltips
-                false                      // Không sử dụng URL
-        );
+            // Thêm dữ liệu vào chart
+            chart.addData(new ModelChart(monthLabel, new double[]{0, customerCounts[i]}));
 
-        ChartPanel chartPanel = new ChartPanel(barChart);
-        NumberAxis yAxis = (NumberAxis) barChart.getCategoryPlot().getRangeAxis();
-        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        lbl_1.setText(": " + sum_customer);
-        lbl_2.setText(": " + sum_invoice);
+            // Cộng dồn tổng số lượng khách hàng và hóa đơn
+            sum_customer += customerCounts[i];
+        }
 
-        return chartPanel;
+        // Hiển thị tổng số lượng khách hàng và hóa đơn
+        lbl_1.setText(": " + sum_customer + " khách hàng");
+
+        // Thêm chart vào panel hoặc container
+        body_chart.add(chart);
+
+        // Cập nhật giao diện (revalidate và repaint)
+        body_chart.revalidate();
+        body_chart.repaint();
+
+        // Bắt đầu animation nếu cần
+        chart.start();
     }
 
-    //     Tạo biểu đồ cho một tuần tổng quan
-    public ChartPanel creatChart_week_total(LocalDate date) throws SQLException {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        DAO_HoaDon dao = new DAO_HoaDon();
-        List<Object[]> list = dao.SLKH_WEEK_TOTAL(date);
+    private void updateChartPanel_Week_TongQuan(List<Object[]> list) {
+        // Xóa bỏ các thành phần cũ trong panel (nếu cần)
+        body_chart.removeAll();
+
+        // Tạo một đối tượng Chart mới
+        Chart chart = new Chart();
+
+        // Khởi tạo biến tổng số lượng khách hàng
         int sum_customer = 0;
+
+        // Thêm các biểu tượng legend cho chart
+        chart.addLegend("Số lượng hóa đơn", new Color(245, 189, 135));
+        chart.addLegend("Số lượng khách hàng", new Color(135, 189, 245));
+
         for (Object[] row : list) {
             String ngay = "" + row[0];
             int customerCount = (int) row[1];
             sum_customer += customerCount;
-            dataset.addValue(customerCount, "Số lượng khách hàng", ngay);
+            chart.addData(new ModelChart(ngay, new double[]{0, customerCount}));
         }
+        // Hiển thị tổng số lượng khách hàng
+        lbl_1.setText(": " + sum_customer + " khách hàng");
 
-        JFreeChart barChart = ChartFactory.createBarChart(
-                "Số lượng khách hàng trong tuần",
-                "",
-                "Số lượng",
-                dataset,
-                PlotOrientation.VERTICAL,
-                true,
-                true,
-                false
-        );
+        // Thêm chart vào panel hoặc container
+        body_chart.add(chart);
 
-        NumberAxis yAxis = (NumberAxis) barChart.getCategoryPlot().getRangeAxis();
-        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        lbl_1.setText(": " + sum_customer);
-        return new ChartPanel(barChart);
+        // Cập nhật giao diện (revalidate và repaint)
+        body_chart.revalidate();
+        body_chart.repaint();
+
+        // Bắt đầu animation nếu cần
+        chart.start();
     }
 
+    private void updateChartPanel_Week_ChiTiet(List<Object[]> list) {
+        // Xóa bỏ các thành phần cũ trong panel (nếu cần)
+        body_chart.removeAll();
 
-    //     Tạo biểu đồ cho một tuần chi tiết
-    public ChartPanel creatChart_week_detail(LocalDate date) throws SQLException {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        DAO_HoaDon dao = new DAO_HoaDon();
-        List<Object[]> list = dao.SLKH_WEEK_DETAIL(date);
+        // Tạo một đối tượng Chart mới
+        Chart chart = new Chart();
+
+        // Khởi tạo biến tổng số lượng khách hàng
         int sum_customer = 0;
         int sum_invoice = 0;
+
+        // Thêm các biểu tượng legend cho chart
+        chart.addLegend("Số lượng hóa đơn", new Color(245, 189, 135));
+        chart.addLegend("Số lượng khách hàng", new Color(135, 189, 245));
+
         for (Object[] row : list) {
             String ngay = "" + row[0];
             int customerCount = (int) row[1];
             int invoiceCount = (int) row[2];
             sum_customer += customerCount;
             sum_invoice += invoiceCount;
-            dataset.addValue(customerCount, "Số lượng khách hàng", ngay);
-            dataset.addValue(invoiceCount, "Số lượng hóa đơn", ngay);
+            chart.addData(new ModelChart(ngay, new double[]{invoiceCount, customerCount}));
         }
+        // Hiển thị tổng số lượng khách hàng
+        lbl_1.setText(": " + sum_customer + " khách hàng");
+        lbl_2.setText(": " + sum_invoice + " hóa đơn");
 
-        JFreeChart barChart = ChartFactory.createBarChart(
-                "Số lượng khách hàng trong tuần",
-                "",
-                "Số lượng",
-                dataset,
-                PlotOrientation.VERTICAL,
-                true,
-                true,
-                false
-        );
+        // Thêm chart vào panel hoặc container
+        body_chart.add(chart);
 
-        NumberAxis yAxis = (NumberAxis) barChart.getCategoryPlot().getRangeAxis();
-        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        lbl_1.setText(": " + sum_customer);
-        lbl_2.setText(": " + sum_invoice);
-        return new ChartPanel(barChart);
+        // Cập nhật giao diện (revalidate và repaint)
+        body_chart.revalidate();
+        body_chart.repaint();
+
+        // Bắt đầu animation nếu cần
+        chart.start();
     }
 
-    // Tạo biểu đồ cho một tháng
-    public ChartPanel creatChart_month_detail(LocalDate monthStart) throws SQLException {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        DAO_HoaDon dao = new DAO_HoaDon();
+    private void updateChartPanel_Day_TongQuan(List<Object[]> list) {
+        // Xóa bỏ các thành phần cũ trong panel (nếu cần)
+        body_chart.removeAll();
 
-        // Lấy danh sách số lượng khách hàng theo từng ngày trong tháng
-        List<Object[]> list = dao.SLKH_MONTH_DETAIL(monthStart);
+        // Tạo một đối tượng Chart mới
+        Chart chart = new Chart();
+
+        // Khởi tạo biến tổng số lượng khách hàng
+        int sum_customer = 0;
+
+        // Thêm các biểu tượng legend cho chart
+        chart.addLegend("Số lượng hóa đơn", new Color(245, 189, 135));
+        chart.addLegend("Số lượng khách hàng", new Color(135, 189, 245));
+
+        // Lặp qua danh sách dữ liệu
+        for (Object[] row : list) {
+            // Giả sử row[0] chứa dữ liệu kiểu LocalDate, nếu không thì cần điều chỉnh lại
+            LocalDate ngay = (LocalDate) row[0];
+
+            // Định dạng ngày chỉ lấy ngày và tháng (DD-MM)
+            String formattedDate = ngay.format(DateTimeFormatter.ofPattern("dd-MM"));
+
+            int customerCount = (int) row[1];  // Số lượng khách hàng
+
+            // Cộng dồn số lượng khách hàng
+            sum_customer += customerCount;
+
+            // Thêm dữ liệu vào chart: ngày và số lượng khách hàng (SLKH)
+            // Lấy ngày đã định dạng (ngày-tháng) từ đối tượng `ngay`, và số lượng khách hàng từ `customerCount`
+            chart.addData(new ModelChart(formattedDate, new double[]{0, customerCount})); // 0 là placeholder cho SLHD
+        }
+
+        // Hiển thị tổng số lượng khách hàng
+        lbl_1.setText(": " + sum_customer + " khách hàng");
+
+        // Thêm chart vào panel hoặc container
+        body_chart.add(chart);
+
+        // Cập nhật giao diện (revalidate và repaint)
+        body_chart.revalidate();
+        body_chart.repaint();
+
+        // Bắt đầu animation nếu cần
+        chart.start();
+    }
+
+    public void updateChartPanel_Day_ChiTiet(List<Object[]> list) {
+        // Xóa bỏ các thành phần cũ trong panel (nếu cần)
+        body_chart.removeAll();
+
+        // Tạo một đối tượng Chart mới
+        Chart chart = new Chart();
+
+        // Khởi tạo biến tổng số lượng khách hàng và hóa đơn
         int sum_customer = 0;
         int sum_invoice = 0;
 
-        for (Object[] row : list) {
-            // Chỉ lấy số ngày
-            int ngay = ((LocalDate) row[0]).getDayOfMonth();
-            int customerCount = (int) row[1]; // Số lượng khách hàng
-            int invoiceCount = (int) row[2]; // Số lượng hóa đơn
+        // Thêm các biểu tượng legend cho chart
+        chart.addLegend("Số lượng hóa đơn", new Color(245, 189, 135));  // Màu cho SLHD
+        chart.addLegend("Số lượng khách hàng", new Color(135, 189, 245));  // Màu cho SLKH
 
+        // Lặp qua danh sách dữ liệu
+        for (Object[] row : list) {
+            // Giả sử row[0] chứa dữ liệu kiểu LocalDate
+            LocalDate ngay = (LocalDate) row[0];
+
+            // Định dạng ngày chỉ lấy ngày và tháng (DD-MM)
+            String formattedDate = ngay.format(DateTimeFormatter.ofPattern("dd-MM"));
+
+            int customerCount = (int) row[1];  // Số lượng khách hàng
+            int invoiceCount = (int) row[2];   // Số lượng hóa đơn
+
+            // Cộng dồn số lượng khách hàng và hóa đơn
             sum_customer += customerCount;
             sum_invoice += invoiceCount;
 
-            // Thêm dữ liệu vào dataset
-            dataset.addValue(customerCount,"Số lượng khách hàng",String.valueOf(ngay));
-            dataset.addValue(invoiceCount, "Số lượng hóa đơn", String.valueOf(ngay));
+            // Thêm dữ liệu vào chart: ngày và số lượng khách hàng, số lượng hóa đơn
+            chart.addData(new ModelChart(formattedDate, new double[]{invoiceCount, customerCount}));
         }
 
-        // Tạo biểu đồ cột
-        JFreeChart barChart = ChartFactory.createBarChart(
-                "Số lượng khách hàng trong tháng", // Tiêu đề biểu đồ
-                "Ngày",                             // Tên trục X
-                "Số lượng",                        // Tên trục Y
-                dataset,                           // Dữ liệu
-                PlotOrientation.VERTICAL,          // Hướng biểu đồ
-                true,                              // Hiển thị legend
-                true,                              // Hiển thị tooltips
-                false                              // Không sử dụng URL
-        );
+        lbl_1.setText(": " + sum_customer + " khách hàng");
+        lbl_2.setText(": " + sum_invoice + " hóa đơn");
 
-        // Cấu hình trục Y
-        NumberAxis yAxis = (NumberAxis) barChart.getCategoryPlot().getRangeAxis();
-        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        // Thêm chart vào panel hoặc container
+        body_chart.add(chart);
 
-        // Cập nhật thông tin tổng số lượng khách hàng và hóa đơn
-        lbl_1.setText(": " + sum_customer);
-        lbl_2.setText(": " + sum_invoice);
+        // Cập nhật giao diện (revalidate và repaint)
+        body_chart.revalidate();
+        body_chart.repaint();
 
-        return new ChartPanel(barChart);
+        // Bắt đầu animation nếu cần
+        chart.start();
     }
 
-    public ChartPanel creatChart_month_total(LocalDate monthStart) throws SQLException {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        DAO_HoaDon dao = new DAO_HoaDon();
+    public void updateChartPanel_Month_TongQuan(List<Object[]> list) {
+        // Xóa bỏ các thành phần cũ trong panel (nếu cần)
+        body_chart.removeAll();
 
-        // Lấy danh sách số lượng khách hàng theo từng ngày trong tháng
-        List<Object[]> list = dao.SLKH_MONTH_TOTAL(monthStart); // Sử dụng hàm SLKH_MONTH_DETAIL
+        // Tạo một đối tượng Chart mới
+        Chart chart = new Chart();
+
+        // Khởi tạo biến tổng số lượng khách hàng
         int sum_customer = 0;
 
-        for (Object[] row : list) {
-            // Chỉ lấy số ngày
-            int ngay = ((LocalDate) row[0]).getDayOfMonth();
-            int customerCount = (int) row[1]; // Số lượng khách hàng
+        // Thêm các biểu tượng legend cho chart
+        chart.addLegend("Số lượng hóa đơn", new Color(245, 189, 135));
+        chart.addLegend("Số lượng khách hàng", new Color(135, 189, 245));
 
+        // Lặp qua danh sách dữ liệu
+        for (Object[] row : list) {
+            // Giả sử row[0] chứa dữ liệu kiểu LocalDate, nếu không thì cần điều chỉnh lại
+            LocalDate ngay = (LocalDate) row[0];
+
+            // Định dạng ngày chỉ lấy ngày và tháng (DD-MM)
+            String formattedDate = ngay.format(DateTimeFormatter.ofPattern("dd-MM"));
+
+            int customerCount = (int) row[1];  // Số lượng khách hàng
+
+            // Cộng dồn số lượng khách hàng
             sum_customer += customerCount;
 
-            // Thêm dữ liệu vào dataset
-            dataset.addValue(customerCount, "Số lượng khách hàng", String.valueOf(ngay));
+            // Thêm dữ liệu vào chart: ngày và số lượng khách hàng (SLKH)
+            // Lấy ngày đã định dạng (ngày-tháng) từ đối tượng `ngay`, và số lượng khách hàng từ `customerCount`
+            chart.addData(new ModelChart(formattedDate, new double[]{0, customerCount})); // 0 là placeholder cho SLHD
         }
 
-        // Tạo biểu đồ cột
-        JFreeChart barChart = ChartFactory.createBarChart(
-                "Số lượng khách hàng trong tháng", // Tiêu đề biểu đồ
-                "Ngày",                             // Tên trục X
-                "Số lượng",                        // Tên trục Y
-                dataset,                           // Dữ liệu
-                PlotOrientation.VERTICAL,          // Hướng biểu đồ
-                true,                              // Hiển thị legend
-                true,                              // Hiển thị tooltips
-                false                              // Không sử dụng URL
-        );
+        // Hiển thị tổng số lượng khách hàng
+        lbl_1.setText(": " + sum_customer + " khách hàng");
 
-        // Cấu hình trục Y
-        NumberAxis yAxis = (NumberAxis) barChart.getCategoryPlot().getRangeAxis();
-        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        // Thêm chart vào panel hoặc container
+        body_chart.add(chart);
 
-        // Cập nhật thông tin tổng số lượng khách hàng
-        lbl_1.setText(": " + sum_customer);
-        lbl_2.setText(": 0"); // Cập nhật lbl_2 nếu không cần hiển thị số lượng hóa đơn
+        // Cập nhật giao diện (revalidate và repaint)
+        body_chart.revalidate();
+        body_chart.repaint();
 
-        return new ChartPanel(barChart);
+        // Bắt đầu animation nếu cần
+        chart.start();
     }
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        Object o = e.getSource();
-        String day = select_day.getSelectedItem().toString();  // Lấy giá trị được chọn trong JComboBox
-        int year = LocalDate.now().getYear();                  // Năm hiện tại để làm mặc định
-        LocalDate currentDate = LocalDate.now(); // Ngày hiện tại
-        LocalDate yesterday = currentDate.minusDays(1); // Ngày hôm qua
-        LocalDate startOfWeek = currentDate.with(DayOfWeek.MONDAY); // Bắt đầu tuần này
-        LocalDate endOfWeek = currentDate.with(DayOfWeek.SUNDAY); // Kết thúc tuần này
-        LocalDate startOfMonth = currentDate.withDayOfMonth(1); // Ngày đầu tháng
-        LocalDate endOfMonth = currentDate.withDayOfMonth(currentDate.lengthOfMonth()); // Ngày cuối tháng
-        try {
-            if (o == btn_tongQuan) {
-                switch (day) {
-                    case "Hôm nay": {
-                        ChartPanel chart = creatChart_day_tongQuan(currentDate); // Tạo biểu đồ cho ngày hôm nay
-                        updateChartPanel(chart);
-                        break;
-                    }
-                    case "Hôm qua": {
-                        ChartPanel chart = creatChart_day_tongQuan(currentDate.minusDays(1)); // Tạo biểu đồ cho ngày hôm nay
-                        updateChartPanel(chart);
-                        break;
-                    }
-                    case "Tuần này": {
-                        ChartPanel chart = creatChart_week_total(currentDate); // Tạo biểu đồ cho ngày hôm nay
-                        updateChartPanel(chart);
-                        break;
-                    }
-                    case "Tháng này": {
-                        LocalDate thang = LocalDate.now().withDayOfMonth(1); // Ngày đầu tháng
-//                        LocalDate thang = LocalDate.of(LocalDate.now().getYear(), 10, 1); // Ngày đầu tháng
-                        ChartPanel chart = creatChart_month_total(thang); // Tạo biểu đồ cho tháng này
-                        updateChartPanel(chart);
-                        break;
-                    }
-                    case "Tháng trước": {
-                        LocalDate thang = LocalDate.now().minusMonths(1).withDayOfMonth(1); // Ngày đầu tháng
-//                        LocalDate thang = LocalDate.of(LocalDate.now().getYear(), 10, 1); // Ngày đầu tháng
-                        ChartPanel chart = creatChart_month_total(thang); // Tạo biểu đồ cho tháng này
-                        updateChartPanel(chart);
-                        break;
-                    }
-                    case "Năm nay": {
-                        ChartPanel chart = creatChart_year_tongQuan(year);
-                        updateChartPanel(chart);
-                        break;
-                    }
-                    case "Năm trước": {
-                        ChartPanel chart = creatChart_year_tongQuan(year - 1);
-                        updateChartPanel(chart);
-                        break;
-                    }
-                }
-            } else if (o == btn_chiTiet) {
-                switch (day) {
-                    case "Hôm nay": {
-                        ChartPanel chart = creatChart_day_chiTiet(currentDate); // Tạo biểu đồ cho ngày hôm nay
-                        updateChartPanel(chart);
-                        break;
-                    }
-                    case "Hôm qua": {
-                        ChartPanel chart = creatChart_day_chiTiet(currentDate.minusDays(1)); // Tạo biểu đồ cho ngày hôm nay
-                        updateChartPanel(chart);
-                        break;
-                    }
-                    case "Tuần này": {
-                        ChartPanel chart = creatChart_week_detail(currentDate); // Tạo biểu đồ cho ngày hôm nay
-                        updateChartPanel(chart);
-                        break;
-                    }
-                    case "Tháng này": {
-                        LocalDate thang = LocalDate.now().withDayOfMonth(1); // Ngày đầu tháng
-//                        LocalDate thang = LocalDate.of(LocalDate.now().getYear(), 10, 1); // Ngày đầu tháng
-                        ChartPanel chart = creatChart_month_detail(thang); // Tạo biểu đồ cho tháng này
-                        updateChartPanel(chart);
-                        break;
-                    }
-                    case "Tháng trước": {
-                        LocalDate thang = LocalDate.now().minusMonths(1).withDayOfMonth(1); // Ngày đầu tháng
-//                        LocalDate thang = LocalDate.of(LocalDate.now().getYear(), 10, 1); // Ngày đầu tháng
-                        ChartPanel chart = creatChart_month_detail(thang); // Tạo biểu đồ cho tháng này
-                        updateChartPanel(chart);
-                        break;
-                    }
-                    case "Năm nay": {
-                        ChartPanel chart = creatChart_year_chiTiet(year);
-                        updateChartPanel(chart);
-                        break;
-                    }
-                    case "Năm trước": {
-                        ChartPanel chart = creatChart_year_chiTiet(year - 1);
-                        updateChartPanel(chart);
-                        break;
-                    }
-                }
-            }
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+
+    public void updateChartPanel_Month_ChiTiet(List<Object[]> list) {
+        // Xóa bỏ các thành phần cũ trong panel (nếu cần)
+        body_chart.removeAll();
+
+        // Tạo một đối tượng Chart mới
+        Chart chart = new Chart();
+
+        // Khởi tạo biến tổng số lượng khách hàng và hóa đơn
+        int sum_customer = 0;
+        int sum_invoice = 0;
+
+        // Thêm các biểu tượng legend cho chart
+        chart.addLegend("Số lượng hóa đơn", new Color(245, 189, 135));  // Màu cho SLHD
+        chart.addLegend("Số lượng khách hàng", new Color(135, 189, 245));  // Màu cho SLKH
+
+        // Lặp qua danh sách dữ liệu
+        for (Object[] row : list) {
+            // Giả sử row[0] chứa dữ liệu kiểu LocalDate
+            LocalDate ngay = (LocalDate) row[0];
+
+            // Định dạng ngày chỉ lấy ngày và tháng (DD-MM)
+            String formattedDate = ngay.format(DateTimeFormatter.ofPattern("dd-MM"));
+
+            int customerCount = (int) row[1];  // Số lượng khách hàng
+            int invoiceCount = (int) row[2];   // Số lượng hóa đơn
+
+            // Cộng dồn số lượng khách hàng và hóa đơn
+            sum_customer += customerCount;
+            sum_invoice += invoiceCount;
+
+            // Thêm dữ liệu vào chart: ngày và số lượng khách hàng, số lượng hóa đơn
+            chart.addData(new ModelChart(formattedDate, new double[]{invoiceCount, customerCount}));
         }
+
+        lbl_1.setText(": " + sum_customer + " khách hàng");
+        lbl_2.setText(": " + sum_invoice + " hóa đơn");
+
+        // Thêm chart vào panel hoặc container
+        body_chart.add(chart);
+
+        // Cập nhật giao diện (revalidate và repaint)
+        body_chart.revalidate();
+        body_chart.repaint();
+
+        // Bắt đầu animation nếu cần
+        chart.start();
     }
 
-    private void updateChartPanel(ChartPanel chart) {
-        body_chart.removeAll(); // Xóa các thành phần cũ nếu có
-        body_chart.add(chart);  // Thêm biểu đồ mới vào
-        body_chart.revalidate(); // Cập nhật lại layout
-        body_chart.repaint();    // Vẽ lại thành phần
-    }
+
+    private com.raven.chart.Chart chart2 = new Chart();
+    DAO_HoaDon dao = new DAO_HoaDon();
 
     public static void main(String[] args) {
         Frm_ThongKeKhachHang frm = new Frm_ThongKeKhachHang();

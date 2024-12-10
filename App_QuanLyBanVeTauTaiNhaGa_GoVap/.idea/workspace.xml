@@ -5,18 +5,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3178ac1e-c3fe-46b6-8018-f01fd237a9ef" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/hoadonTra.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GUI/InHoaDonTra.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/libs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Anh_HeThong/iconDoiVe.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DAO/DAO_ThongKeTLDoiTraVe.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DAO/DAO_TraCuuHD.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/Frm_TraCuuHoaDon.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/QR_Scan.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Main/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/Chart.form" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/Chart.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/LabelColor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/LegendItem.form" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/LegendItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/ModelChart.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/ModelLegend.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/blankchart/BlankPlotChart.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/blankchart/BlankPlotChatRender.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/blankchart/NiceScale.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/blankchart/SeriesSize.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/AbsoluteLayout.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/TimingFramework-0.55.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/bridj-0.6.2-windows-only.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/core-3.3.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/javase-3.3.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/log4j-1.2.17.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/pie-chart.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/slf4j-api-1.6.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/libs/webcam-capture-0.3.12.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/danh_sach_ve.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/danh_sach_ve.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hoa_don.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hoa_don.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/DAO_TraVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DAO_TraVe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/ChiTietHoaDon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/ChiTietHoaDon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/HoaDon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/HoaDon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/KhachHang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/KhachHang.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/VeTau.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/VeTau.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App_QuanLyBanVeTauTaiNhaGa_GoVap.iml" beforeDir="false" afterPath="$PROJECT_DIR$/App_QuanLyBanVeTauTaiNhaGa_GoVap.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/DAO_DoiVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DAO_DoiVe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/DAO_HoaDon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DAO_HoaDon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/DAO_TraCuuVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DAO_TraCuuVe.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/TraVe_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/TraVe_GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/FrmLichLamViec.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmLichLamViec.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/FrmNhanVien.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmNhanVien.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/Frm_ThongKeKhachHang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_ThongKeKhachHang.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/Frm_ThongKeTiLeDoiTraVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_ThongKeTiLeDoiTraVe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/Frm_TraCuuVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_TraCuuVe.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,33 +83,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.DAO_TraVe.executor&quot;: &quot;Run&quot;,
-    &quot;Application.FrmBanVe (1).executor&quot;: &quot;Run&quot;,
-    &quot;Application.FrmBanVe (2).executor&quot;: &quot;Run&quot;,
-    &quot;Application.FrmBanVe (3).executor&quot;: &quot;Run&quot;,
-    &quot;Application.FrmBanVe.executor&quot;: &quot;Run&quot;,
-    &quot;Application.FrmDangNhap.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Frm_TraCuuVe (1).executor&quot;: &quot;Debug&quot;,
-    &quot;Application.Frm_TraCuuVe (2).executor&quot;: &quot;Run&quot;,
-    &quot;Application.Frm_TraCuuVe (3).executor&quot;: &quot;Run&quot;,
-    &quot;Application.Frm_TraCuuVe (4).executor&quot;: &quot;Run&quot;,
-    &quot;Application.Frm_TraCuuVe.executor&quot;: &quot;Run&quot;,
-    &quot;Application.InHoaDonTra.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Loading.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TraVe_GUI.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ASUS/Desktop/GITtest/QR-Code-em-Java&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.DAO_TraVe.executor": "Run",
+    "Application.FrmBanVe (1).executor": "Run",
+    "Application.FrmBanVe (2).executor": "Run",
+    "Application.FrmBanVe (3).executor": "Run",
+    "Application.FrmBanVe.executor": "Run",
+    "Application.FrmDangNhap.executor": "Run",
+    "Application.Frm_TraCuuVe (1).executor": "Debug",
+    "Application.Frm_TraCuuVe (2).executor": "Run",
+    "Application.Frm_TraCuuVe (3).executor": "Run",
+    "Application.Frm_TraCuuVe (4).executor": "Run",
+    "Application.Frm_TraCuuVe.executor": "Run",
+    "Application.InHoaDonTra.executor": "Run",
+    "Application.Loading.executor": "Run",
+    "Application.TraVe_GUI.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Merging master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/ASUS/Desktop/GITtest/QR-Code-em-Java",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Application.FrmBanVe">
     <configuration name="DAO_TraVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DAO.DAO_TraVe" />
