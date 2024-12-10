@@ -1007,9 +1007,9 @@ public void actionPerformed(ActionEvent e) {
             CustomPanel panel = new CustomPanel();
             //đổi
             if(thongTinVeDoi!= null){
-                panel.setHoTen("Nguyen Van A"); // Thiết lập các thuộc tính cần thiết
+                panel.setHoTen(thongTinVeDoi.getTenKhachHang()); // Thiết lập các thuộc tính cần thiết
                 panel.setTrangThai(thongTinVeDoi.getDoiTuong(),choNgoi.getGia());
-                panel.setCCCD("123456789");
+                panel.setCCCD(thongTinVeDoi.getGiayTo());
                 panel.setGiaVe(choNgoi.getGia());
             }
             //
@@ -1659,6 +1659,10 @@ public void actionPerformed(ActionEvent e) {
                         ct.setMaHD(maHD); // Gán mã hóa đơn cho chi tiết
                         daoBanVe.saveInvoiceDetail(ct); // Lưu từng chi tiết hóa đơn
                     }
+                    if(thongTinVeDoi!=null){
+                        ChiTietHoaDon chiTietVeDoi = new ChiTietHoaDon(thongTinVeDoi.getMaVe(), maHD, 1, VAT, thongTinVeDoi.getGiaVe()+thongTinVeDoi.getGiaVe()*0.1, thongTinVeDoi.getGiaVe()*0.1);
+                        daoBanVe.saveInvoiceDetail(chiTietVeDoi);
+                    }
 
                     JOptionPane.showMessageDialog(dialog, "Lưu vé và hóa đơn thành công!");
 
@@ -1679,6 +1683,7 @@ public void actionPerformed(ActionEvent e) {
                         choNgoiCanDoi.setEnabled(true);
                         choNgoiCanDoi.setText(choNgoiCanDoi.getText());
                         String maVeDoi = thongTinVeDoi.getMaVe();
+                        System.out.println("Mã vé đổi: "+ maVeDoi);
                         dao_DoiVe.capNhatTrangThaiVe(maVeDoi,"Đã đổi");
                         dao_DoiVe.CapNhatHoaDonDoi(thongTinVeDoi.getMaVe(),"LHD03");
                     }
