@@ -5,20 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="769ee6b4-7e35-41b4-b6a2-7dabe084eb36" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/libs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GUI/QR_Scan.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/AbsoluteLayout.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/bridj-0.6.2-windows-only.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/core-3.3.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/javase-3.3.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/log4j-1.2.17.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/slf4j-api-1.6.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/webcam-capture-0.3.12.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App_QuanLyBanVeTauTaiNhaGa_GoVap.iml" beforeDir="false" afterPath="$PROJECT_DIR$/App_QuanLyBanVeTauTaiNhaGa_GoVap.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/danh_sach_ve.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/danh_sach_ve.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hoa_don.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hoa_don.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Frm_TraCuuVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_TraCuuVe.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +18,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.FrmBanVe.executor": "Run",
+    "Application.Frm_TraCuuVe (1).executor": "Run",
+    "Application.Frm_TraCuuVe (2).executor": "Run",
     "Application.Frm_TraCuuVe.executor": "Run",
     "Application.Loading.executor": "Run",
     "Application.QR_Scan.executor": "Run",
@@ -48,7 +37,7 @@
       <recent name="GUI" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Frm_TraCuuVe (1)">
+  <component name="RunManager" selected="Application.FrmBanVe">
     <configuration name="FrmBanVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -75,7 +64,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Frm_TraCuuVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="Frm_TraCuuVe (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.Frm_TraCuuVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
@@ -88,8 +77,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Loading" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.Loading" />
+    <configuration name="Frm_TraCuuVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.Frm_TraCuuVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
         <pattern>
@@ -116,11 +105,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.FrmBanVe" />
+        <item itemvalue="Application.Frm_TraCuuVe (2)" />
         <item itemvalue="Application.Frm_TraCuuVe (1)" />
         <item itemvalue="Application.Frm_TraCuuVe" />
         <item itemvalue="Application.QR_Scan" />
-        <item itemvalue="Application.Loading" />
-        <item itemvalue="Application.FrmBanVe" />
       </list>
     </recent_temporary>
   </component>
