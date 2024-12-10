@@ -291,7 +291,7 @@ private KhachHang khachHangDeInHoaDon = null;
     // Định dạng thời gian thành NgàyThángNăm (yyyy-MM-dd)
     totalCustomerToday = daoBanVe.getTotalCustomersToday();
     System.out.println("Số lượng khách hàng: " + totalCustomerToday);
-    System.out.println("Số lượng vé"+ ticketCount);
+    System.out.println("Số lượng vé: "+ ticketCount);
 
 }
 
@@ -1535,7 +1535,7 @@ public void actionPerformed(ActionEvent e) {
         btnThanToan.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Số lượng vé"+ ticketCount);
+                System.out.println("Số lượng vé: "+ ticketCount);
                 // Lấy thông tin từ các trường nhập
                 String hoTenNguoiMua = txtHoTenNguoiMua.getText();
                 String cccdNguoiMua = txtCCCDNguoiMua.getText();

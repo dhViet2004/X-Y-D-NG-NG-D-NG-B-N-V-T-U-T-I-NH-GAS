@@ -21,14 +21,42 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.FrmBanVe (1).executor": "Run",
-    "Application.FrmBanVe.executor": "Run",
+    "Application.FrmBanVe (2).executor": "Run",
+    "Application.FrmBanVe (3).executor": "Run",
+    "Application.FrmBanVe.executor": "Debug",
     "Application.Frm_ThongKeTiLeDoiTraVe.executor": "Run",
     "git-widget-placeholder": "master",
     "node.js.selected.package.tslint": "(autodetect)"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.FrmBanVe (1)">
+  <component name="RunManager" selected="Application.FrmBanVe">
     <configuration name="FrmBanVe (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
+      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FrmBanVe (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
+      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FrmBanVe (3)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
@@ -69,8 +97,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.FrmBanVe (1)" />
         <item itemvalue="Application.FrmBanVe" />
+        <item itemvalue="Application.FrmBanVe (3)" />
+        <item itemvalue="Application.FrmBanVe (2)" />
+        <item itemvalue="Application.FrmBanVe (1)" />
         <item itemvalue="Application.Frm_ThongKeTiLeDoiTraVe" />
       </list>
     </recent_temporary>
