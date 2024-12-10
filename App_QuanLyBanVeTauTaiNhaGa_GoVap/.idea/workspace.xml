@@ -5,44 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3178ac1e-c3fe-46b6-8018-f01fd237a9ef" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/libs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Anh_HeThong/iconDoiVe.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DAO/DAO_ThongKeTLDoiTraVe.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DAO/DAO_TraCuuHD.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GUI/Frm_TraCuuHoaDon.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GUI/QR_Scan.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Main/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/Chart.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/Chart.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/LabelColor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/LegendItem.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/LegendItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/ModelChart.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/ModelLegend.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/blankchart/BlankPlotChart.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/blankchart/BlankPlotChatRender.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/blankchart/NiceScale.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/blankchart/SeriesSize.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/AbsoluteLayout.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/TimingFramework-0.55.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/bridj-0.6.2-windows-only.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/core-3.3.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/javase-3.3.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/log4j-1.2.17.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/pie-chart.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/slf4j-api-1.6.2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/webcam-capture-0.3.12.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App_QuanLyBanVeTauTaiNhaGa_GoVap.iml" beforeDir="false" afterPath="$PROJECT_DIR$/App_QuanLyBanVeTauTaiNhaGa_GoVap.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/DAO_DoiVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DAO_DoiVe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/DAO_HoaDon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DAO_HoaDon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/DAO_TraCuuVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DAO_TraCuuVe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/FrmLichLamViec.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmLichLamViec.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/FrmNhanVien.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmNhanVien.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Frm_ThongKeKhachHang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_ThongKeKhachHang.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Frm_ThongKeTiLeDoiTraVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_ThongKeTiLeDoiTraVe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Frm_TraCuuVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_TraCuuVe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/TraVe_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/TraVe_GUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,9 +62,10 @@
     "Application.Frm_TraCuuVe.executor": "Run",
     "Application.InHoaDonTra.executor": "Run",
     "Application.Loading.executor": "Run",
+    "Application.QR_Scan.executor": "Run",
     "Application.TraVe_GUI.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging master",
+    "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/ASUS/Desktop/GITtest/QR-Code-em-Java",
     "node.js.detected.package.eslint": "true",
@@ -110,20 +75,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.FrmBanVe">
-    <configuration name="DAO_TraVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="DAO.DAO_TraVe" />
-      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="DAO.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.TraVe_GUI">
     <configuration name="FrmBanVe (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -150,8 +102,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FrmDangNhap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.FrmDangNhap" />
+    <configuration name="Frm_TraCuuVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.Frm_TraCuuVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
         <pattern>
@@ -163,8 +115,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="InHoaDonTra" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.InHoaDonTra" />
+    <configuration name="QR_Scan" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.QR_Scan" />
+      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TraVe_GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.TraVe_GUI" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
         <pattern>
@@ -178,11 +143,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.TraVe_GUI" />
         <item itemvalue="Application.FrmBanVe" />
+        <item itemvalue="Application.Frm_TraCuuVe" />
+        <item itemvalue="Application.QR_Scan" />
         <item itemvalue="Application.FrmBanVe (1)" />
-        <item itemvalue="Application.FrmDangNhap" />
-        <item itemvalue="Application.InHoaDonTra" />
-        <item itemvalue="Application.DAO_TraVe" />
       </list>
     </recent_temporary>
   </component>
@@ -229,7 +194,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/GUI/TraVe_GUI.java</url>
-          <line>973</line>
+          <line>991</line>
           <properties class="GUI.TraVe_GUI" method="jButton3ActionPerformed">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
