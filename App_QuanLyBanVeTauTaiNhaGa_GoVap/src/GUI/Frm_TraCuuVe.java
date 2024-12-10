@@ -68,6 +68,7 @@ public class Frm_TraCuuVe extends JFrame {
 
         // Cấu hình layout cho panel bên phải (vẫn giữ BorderLayout)
         JPanel_Right.setLayout(new BorderLayout());
+        JLabel lblTitle = new JLabel("Tra cứu vé");
 
         // Khởi tạo panel TraCuuVe và cấu hình layout
         JPanel panel_TraCuuVe = new JPanel();
@@ -84,7 +85,6 @@ public class Frm_TraCuuVe extends JFrame {
         panelChiTietVe = new JPanel();
         panelChiTietVe.setLayout(new BorderLayout());
         panelTimVe.setLayout(new BorderLayout());
-
         // Cấu hình các panel con với BorderLayout cho panelTimVe và panelChiTietVe
         panel_TraCuuVe.add(panelTimVe);
         panel_TraCuuVe.add(createPanelChiTietVe());

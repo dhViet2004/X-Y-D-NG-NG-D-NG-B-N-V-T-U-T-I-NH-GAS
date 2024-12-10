@@ -119,6 +119,7 @@ Component traCuuKMPanel = new Frm_TraCuuKhuyenMai().getTraCuuKM_Panel();
 Component llvPanel = new FrmLichLamViec().getPanel_LLV();
 Component traCuuVePanel = new Frm_TraCuuVe().get_TraCuuVe_Panel();
 Component thongKeSLVe = new Frm_ThongKeSoLuongVeTheoThoiGian().getTKSLV();
+Component thongKeTiLeDoiTraVe = new Frm_ThongKeTiLeDoiTraVe().getTKTLDTV_Panel();
 private List<LoaiKhachHang> danhSachLoaiKH = new ArrayList<>();
 private KhuyenMai khuyenMai = null;
 private Double chietKhau = 0.0;
@@ -290,10 +291,9 @@ private KhachHang khachHangDeInHoaDon = null;
     // Định dạng thời gian thành NgàyThángNăm (yyyy-MM-dd)
     totalCustomerToday = daoBanVe.getTotalCustomersToday();
     System.out.println("Số lượng khách hàng: " + totalCustomerToday);
-    System.out.println("Số lượng vé"+ ticketCount);
+    System.out.println("Số lượng vé: "+ ticketCount);
 
 }
-
 
 public static void main(String[] args) {
     FrmBanVe frm = new FrmBanVe(new NhanVien());
@@ -1549,7 +1549,7 @@ public void actionPerformed(ActionEvent e) {
         btnThanToan.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Số lượng vé"+ ticketCount);
+                System.out.println("Số lượng vé: "+ ticketCount);
                 // Lấy thông tin từ các trường nhập
                 String hoTenNguoiMua = txtHoTenNguoiMua.getText();
                 String cccdNguoiMua = txtCCCDNguoiMua.getText();
@@ -1691,6 +1691,7 @@ public void actionPerformed(ActionEvent e) {
                     // Khóa nút thanh toán sau khi thanh toán thành công
                     btnThanToan.setEnabled(false);
                     khachHangMuaVe = null;
+
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(dialog, "Lỗi khi lưu vé và hóa đơn: " + ex.getMessage());
                 }
@@ -1889,11 +1890,11 @@ public void actionPerformed(ActionEvent e) {
     // 4. Thống kê tỉ lệ đổi trả vé
     else if (e.getSource() == tk_tl_DoiTraVe) {
         Jpanel_Main.removeAll();
-//            current = (JPanel) ;
+            current = (JPanel) thongKeTiLeDoiTraVe;
         JPanel_XacNhanCho.setVisible(false);
         lab_Title.setVisible(false);
         JPanel_BanVe.setVisible(false);
-//            Jpanel_Main.add();
+            Jpanel_Main.add(thongKeTiLeDoiTraVe);
         Jpanel_Main.setVisible(true);
 
         // Cập nhật lại giao diện người dùng
