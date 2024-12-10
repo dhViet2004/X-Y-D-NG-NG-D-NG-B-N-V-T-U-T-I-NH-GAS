@@ -18,6 +18,23 @@ public class DAO_TaiKhoan {
         }
         con = ConnectDatabase.getConnection();
     }
+    public String getPasswordByEmail(String email) throws Exception {
+        String sql = "SELECT tk.Password FROM TaiKhoan tk " +
+                "JOIN NhanVien nv ON tk.MaNV = nv.MaNV " +
+                "WHERE nv.DiaChi = ?";
+        try (PreparedStatement stm = con.prepareStatement(sql)) {
+            stm.setString(1, email); // Gán giá trị email vào câu truy vấn
+            try (ResultSet rs = stm.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("Password"); // Trả về mật khẩu nếu tìm thấy
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; // Trả về null nếu không tìm thấy
+    }
+
 
     public NhanVien checkLogin(String maNhanVien, String password) throws Exception {
         String sql = "SELECT nv.ChucVu, nv.TenNV " +

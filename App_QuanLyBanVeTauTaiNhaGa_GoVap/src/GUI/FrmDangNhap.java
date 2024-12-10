@@ -3,15 +3,14 @@ package GUI;
 import DAO.DAO_LichLamViec;
 import DAO.DAO_TaiKhoan;
 import Database.ConnectDatabase;
+import Entity.EmailSender;
 import Entity.LichLamViec;
 import Entity.NhanVien;
-import Entity.TaiKhoan;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,6 +27,7 @@ public class FrmDangNhap extends JFrame implements ActionListener {
         return maNV;
     }
     private JPasswordField txtMatKhau;
+    private JButton btnQuenMatKhau;
     private NhanVien nv;
     private DAO_LichLamViec llv_dao;
     private DAO_TaiKhoan dao;
@@ -45,8 +45,7 @@ public class FrmDangNhap extends JFrame implements ActionListener {
         llv_dao = new DAO_LichLamViec();
         dao = new DAO_TaiKhoan();
 
-//        txtMaNhanVien.setText("NV004");
-//        txtMatKhau.setText("1111111");
+        btnQuenMatKhau.addActionListener(this);
 
     }
 
@@ -123,8 +122,47 @@ public class FrmDangNhap extends JFrame implements ActionListener {
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
-        }
+        }else if (e.getSource() == btnQuenMatKhau) {
+            // Kiểm tra người dùng đã nhập tên đăng nhập chưa
+            String user = txtMaNhanVien.getText();
+            if (user == null || user.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập tên đăng nhập trước khi thực hiện quên mật khẩu.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                txtMaNhanVien.requestFocus(); // Đặt tiêu điểm vào trường tên đăng nhập
+                return;
+            }
 
+            // Hiển thị hộp thoại yêu cầu nhập email
+            String email = JOptionPane.showInputDialog(this, "Vui lòng nhập email để lấy lại mật khẩu:", "Quên mật khẩu", JOptionPane.INFORMATION_MESSAGE);
+
+            // Kiểm tra email nhập vào
+            if (email == null || email.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Email không được để trống", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            try {
+                // Hiển thị thông báo đang gửi email
+                JOptionPane.showMessageDialog(this, "Đang gửi email. Vui lòng chờ trong giây lát...", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+
+                // Kiểm tra email trong cơ sở dữ liệu
+                String password = dao.getPasswordByEmail(email); // Phương thức này phải được triển khai trong lớp DAO_TaiKhoan
+                if (password == null) {
+                    JOptionPane.showMessageDialog(this, "Email không tồn tại trong hệ thống", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    // Gửi email chứa mật khẩu
+                    boolean emailSent = EmailSender.sendPasswordEmail(email, password);
+
+                    if (emailSent) {
+                        JOptionPane.showMessageDialog(this, "Mật khẩu đã được gửi đến email của bạn.", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Gửi email thất bại. Vui lòng thử lại sau.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
+        }
 
     }
 }

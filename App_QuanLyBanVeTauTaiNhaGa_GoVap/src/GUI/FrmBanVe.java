@@ -7,6 +7,7 @@ import DAO.DAO_KhachHang;
 import DAO.DAO_NhanVien;
 import Database.ConnectDatabase;
 import Entity.*;
+import Entity.EmailSender;
 import com.itextpdf.io.exceptions.IOException;
 import com.toedter.calendar.JDateChooser;
 
@@ -1287,10 +1288,77 @@ public void actionPerformed(ActionEvent e) {
         btnInVe.setBackground(new Color(0, 131, 66));
         btnInVe.setForeground(Color.WHITE);
 
+        JButton btnGuiVeEmail = new JButton("Gửi vé Email");
+        btnGuiVeEmail.setPreferredSize(new Dimension(200, 50));
+        btnGuiVeEmail.setFont(new Font("Arial", Font.BOLD, 18));
+        btnGuiVeEmail.setBackground(new Color(0, 131, 66));
+        btnGuiVeEmail.setForeground(Color.WHITE);
+
+        Jpanel_NutThanhToan.add(btnGuiVeEmail);
         Jpanel_NutThanhToan.add(btnInVe);
         Jpanel_NutThanhToan.add(btnInHoaDon);
         Jpanel_NutThanhToan.add(btnChiTietHoaDon);
         Jpanel_NutThanhToan.add(btnThanToan, BorderLayout.CENTER);
+
+        btnGuiVeEmail.addActionListener(e3 -> {
+            // Kiểm tra nếu chi tiết hóa đơn và thanh toán chưa được hiển thị
+            if (!isChiTietHoaDonDisplayed || !isThanhToanDisplayed) {
+                JOptionPane.showMessageDialog(null, "Vui lòng xem chi tiết hóa đơn và thanh toán trước khi gửi email.",
+                        "Thông báo", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Hiển thị hộp thoại yêu cầu người dùng nhập email
+            String email = JOptionPane.showInputDialog(null, "Nhập email người nhận:",
+                    "Gửi vé qua email", JOptionPane.PLAIN_MESSAGE);
+
+            // Kiểm tra email nhập vào
+            if (email != null && !email.trim().isEmpty()) {
+                // Validate định dạng email (cơ bản)
+                if (!email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
+                    JOptionPane.showMessageDialog(null, "Địa chỉ email không hợp lệ. Vui lòng nhập lại!",
+                            "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                // Tạo một SwingWorker để gửi email trong background
+                SwingWorker<Void, Void> worker = new SwingWorker<>() {
+                    @Override
+                    protected Void doInBackground() throws Exception {
+                        // Hiển thị thông báo đang gửi
+                        JOptionPane.showMessageDialog(null, "Đang gửi email, vui lòng đợi...",
+                                "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+
+                        // Gửi vé qua email
+                        EmailSender.generateAndSendTicketEmail(danhSachVe, chiTietHoaDonList, email, "Thông tin vé tàu");
+                        return null;
+                    }
+
+                    @Override
+                    protected void done() {
+                        try {
+                            // Kiểm tra kết quả sau khi gửi email
+                            get();
+                            JOptionPane.showMessageDialog(null, "Vé đã được gửi thành công đến email: " + email,
+                                    "Thành công", JOptionPane.INFORMATION_MESSAGE);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi gửi email. Vui lòng thử lại.",
+                                    "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                };
+
+                // Bắt đầu thực thi SwingWorker
+                worker.execute();
+            } else {
+                JOptionPane.showMessageDialog(null, "Bạn chưa nhập email.",
+                        "Thông báo", JOptionPane.WARNING_MESSAGE);
+            }
+        });
+
+
+
 
         btnChiTietHoaDon.addActionListener(new ActionListener() {
             @Override
@@ -1420,7 +1488,7 @@ public void actionPerformed(ActionEvent e) {
                     // In danh sách vé ra file PDF
                     TicketPDFGenerator.generateTicketPdf(fileName, danhSachVe,chiTietHoaDonList);
                     JOptionPane.showMessageDialog(null, "In vé thành công! Nhấn OK để xem vé");
-                    // Mở file PDF sau khi in thành công
+                    btnChiTietHoaDon.setEnabled(false);
                     try {
                         // Tạo đối tượng File từ tên file
                         File pdfFile = new File(fileName);
@@ -1465,7 +1533,7 @@ public void actionPerformed(ActionEvent e) {
 
                     // Thông báo thành công
                     JOptionPane.showMessageDialog(null, "In hóa đơn thành công! Nhấn OK để xem hóa đơn.");
-
+                    btnChiTietHoaDon.setEnabled(false);
                     // Mở file PDF sau khi in thành công
                     openPdfFile(fileName);
                 } catch (Exception e2) {

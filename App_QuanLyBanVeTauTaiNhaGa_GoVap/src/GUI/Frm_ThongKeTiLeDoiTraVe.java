@@ -7,6 +7,10 @@ import com.raven.chart.ModelChart;
 import com.toedter.calendar.JDateChooser;
 import javaswingdev.chart.ModelPieChart;
 import javaswingdev.chart.PieChart;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -18,6 +22,9 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -490,8 +497,52 @@ public class Frm_ThongKeTiLeDoiTraVe extends JFrame {
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel);
         splitPane.setDividerLocation(300);  // Điều chỉnh vị trí chia tách
         panel.add(splitPane, BorderLayout.CENTER);
+        btnReport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               exportToExcel();
+            }
+        });
 
         return panel;
+    }
+    private void exportToExcel() {
+        Workbook workbook = new XSSFWorkbook(); // Tạo workbook Excel
+        Sheet sheet = workbook.createSheet("Báo cáo vé"); // Tạo sheet trong Excel
+
+        // Tạo hàng tiêu đề cho bảng Excel
+        Row headerRow = sheet.createRow(0);
+        headerRow.createCell(0).setCellValue("Loại vé");
+        headerRow.createCell(1).setCellValue("Thời gian");
+        headerRow.createCell(2).setCellValue("Số lượng");
+
+        // Lấy dữ liệu từ model (JTable)
+        for (int i = 0; i < model.getRowCount(); i++) {
+            Row row = sheet.createRow(i + 1);
+            for (int j = 0; j < model.getColumnCount(); j++) {
+                row.createCell(j).setCellValue(model.getValueAt(i, j).toString());
+            }
+        }
+
+        // Chọn vị trí lưu file Excel
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Chọn nơi lưu file Excel");
+        int userSelection = fileChooser.showSaveDialog(null);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            if (!fileToSave.getAbsolutePath().endsWith(".xlsx")) {
+                fileToSave = new File(fileToSave.getAbsolutePath() + ".xlsx"); // Đảm bảo là định dạng .xlsx
+            }
+
+            try (FileOutputStream fileOut = new FileOutputStream(fileToSave)) {
+                workbook.write(fileOut); // Ghi workbook vào file
+                JOptionPane.showMessageDialog(null, "Xuất báo cáo thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Lỗi khi xuất báo cáo!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
     // Getter để lấy model
     public DefaultTableModel getModel() {
