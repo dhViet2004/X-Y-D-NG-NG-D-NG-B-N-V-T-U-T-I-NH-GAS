@@ -5,18 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec75551-36f5-4819-99cd-a8b897b6e309" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Entity/EmailSender.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/TicketHTMLGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/activation-1.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/mail-1.5.0-b01.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/danh_sach_ve.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/danh_sach_ve.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hoa_don.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hoa_don.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/DAO_TaiKhoan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DAO_TaiKhoan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/CustomPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/CustomPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/FrmDangNhap.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmDangNhap.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/FrmDangNhap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmDangNhap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Frm_ThongKeTiLeDoiTraVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_ThongKeTiLeDoiTraVe.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +67,7 @@
       <recent name="Main" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.FrmDangNhap">
+  <component name="RunManager" selected="Application.FrmBanVe (2)">
     <configuration name="EmailSender" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Entity.EmailSender" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -89,6 +82,19 @@
       </method>
     </configuration>
     <configuration name="FrmBanVe (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
+      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FrmBanVe (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
@@ -127,26 +133,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Frm_ThongKeTiLeDoiTraVe (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.Frm_ThongKeTiLeDoiTraVe" />
-      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.FrmBanVe (2)" />
         <item itemvalue="Application.FrmDangNhap" />
         <item itemvalue="Application.FrmBanVe" />
         <item itemvalue="Application.FrmBanVe (1)" />
         <item itemvalue="Application.EmailSender" />
-        <item itemvalue="Application.Frm_ThongKeTiLeDoiTraVe (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -166,7 +159,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1733856744129</updated>
-      <workItem from="1733856745725" duration="6526000" />
+      <workItem from="1733856745725" duration="7837000" />
     </task>
     <servers />
   </component>

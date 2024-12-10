@@ -1,9 +1,14 @@
 package Entity;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.text.Normalizer;
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -136,6 +141,59 @@ public class CustomPanel extends JPanel {
                 txtCCCD.setEnabled(false);
             }
         }
+    }
+    // Phương thức validateInputs đã được sửa
+    public boolean validateInputs() {
+        // Kiểm tra họ tên
+        String hoTen = getHoTen();
+        if (hoTen.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Họ tên không được để trống!");
+            return false;
+        }
+
+        // Chuẩn hóa họ tên (loại bỏ dấu và chuẩn hóa chữ hoa chữ thường)
+        String hoTenChuanHoa = normalizeName(hoTen);
+
+        if (!hoTenChuanHoa.matches("[A-Za-z\\s]+")) { // Kiểm tra họ tên chỉ chứa chữ cái và khoảng trắng
+            JOptionPane.showMessageDialog(this, "Họ tên chỉ được chứa chữ cái và khoảng trắng!");
+            return false;
+        }
+
+        // Kiểm tra CCCD
+        String cccd = getCCCD();
+        if (cccd.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "CCCD không được để trống!");
+            return false;
+        }
+        if (!cccd.matches("\\d{12}")) { // Kiểm tra CCCD phải là dãy số 12 chữ số
+            JOptionPane.showMessageDialog(this, "CCCD phải gồm 12 chữ số!");
+            return false;
+        }
+
+        // Nếu tất cả các kiểm tra hợp lệ
+        return true;
+    }
+
+    // Phương thức chuẩn hóa họ tên
+    private String normalizeName(String name) {
+        // Loại bỏ dấu
+        name = Normalizer.normalize(name, Normalizer.Form.NFD);
+        name = name.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+
+        // Chuyển tên thành định dạng đúng (chữ hoa chữ đầu, còn lại chữ thường)
+        String[] words = name.split("\\s+"); // Tách tên thành các từ
+        StringBuilder normalized = new StringBuilder();
+
+        for (String word : words) {
+            if (!word.isEmpty()) {
+                normalized.append(word.substring(0, 1).toUpperCase()) // Chữ cái đầu viết hoa
+                        .append(word.substring(1).toLowerCase()) // Các chữ còn lại viết thường
+                        .append(" "); // Thêm khoảng cách giữa các từ
+            }
+        }
+
+        // Loại bỏ khoảng cách thừa ở cuối
+        return normalized.toString().trim();
     }
 
     // Phương thức tính tuổi

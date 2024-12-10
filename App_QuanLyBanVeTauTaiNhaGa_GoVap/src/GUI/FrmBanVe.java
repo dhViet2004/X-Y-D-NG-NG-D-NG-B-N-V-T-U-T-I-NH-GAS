@@ -1214,7 +1214,7 @@ public void actionPerformed(ActionEvent e) {
         buyerInfoPanel.add(JpanelThanhTien, BorderLayout.NORTH);
 
         JPanel thongTinNguoiMua = new JPanel(new GridLayout(4, 2, 5, 5));
-// Tạo các label và text field cho thông tin người mua
+        // Tạo các label và text field cho thông tin người mua
         JLabel lblHoTenNguoiMua = new JLabel("  Họ tên người mua:");
         lblHoTenNguoiMua.setFont(new Font("Arial", Font.BOLD, 16)); // Tăng cỡ chữ
 
@@ -1603,6 +1603,11 @@ public void actionPerformed(ActionEvent e) {
         btnThanToan.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                // Gọi hàm validate thông tin người mua
+                if (!validateThongTinNguoiMua()) {
+                    return; // Dừng xử lý nếu thông tin không hợp lệ
+                }
                 System.out.println("Số lượng vé: "+ ticketCount);
                 // Lấy thông tin từ các trường nhập
                 String hoTenNguoiMua = txtHoTenNguoiMua.getText();
@@ -2300,6 +2305,53 @@ private void phanQuyen(String maNV) throws Exception {
         }
     }
 }
+    private boolean validateThongTinNguoiMua() {
+        String hoTen = txtHoTenNguoiMua.getText().trim();
+        String cccd = txtCCCDNguoiMua.getText().trim();
+        String soDienThoai = txtSoDienThoai.getText().trim();
+        String diaChi = txtDiaChi.getText().trim();
+
+        // Kiểm tra Họ tên
+        if (hoTen.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Họ tên người mua không được để trống.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            txtHoTenNguoiMua.requestFocus();
+            return false;
+        }
+
+        // Kiểm tra CCCD
+        if (cccd.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "CCCD người mua không được để trống.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            txtCCCDNguoiMua.requestFocus();
+            return false;
+        }
+        if (!cccd.matches("\\d{12}")) { // Kiểm tra CCCD có đúng 12 chữ số
+            JOptionPane.showMessageDialog(this, "CCCD phải là 12 chữ số.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            txtCCCDNguoiMua.requestFocus();
+            return false;
+        }
+
+        // Kiểm tra số điện thoại
+        if (soDienThoai.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại không được để trống.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            txtSoDienThoai.requestFocus();
+            return false;
+        }
+        if (!soDienThoai.matches("\\d{10}")) { // Kiểm tra số điện thoại có đúng 10 chữ số
+            JOptionPane.showMessageDialog(this, "Số điện thoại phải là 10 chữ số.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            txtSoDienThoai.requestFocus();
+            return false;
+        }
+
+        // Kiểm tra Địa chỉ
+        if (diaChi.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Địa chỉ không được để trống.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            txtDiaChi.requestFocus();
+            return false;
+        }
+
+        // Nếu tất cả đều hợp lệ
+        return true;
+    }
 
     public void setThongTinVe(VeTau thongTinVeDoi) {
         this.thongTinVeDoi = thongTinVeDoi;
