@@ -114,6 +114,7 @@ Component khuyenMaiPanel = new FrmKhuyenMai().getKMPanel();
 Component khachHangPanel = new Frm_KhachHang(new NhanVien()).getKHPanel();
 Component nhanVienPanel = new FrmNhanVien().getJpannelNV();
 Component doiVePanel = new Frm_DoiVe().getJpannelDoiVe();
+Component traCuuHDPanel = new Frm_TraCuuHoaDon().getJpannelTraCuuHD();
 Component soLuongKHPanel = new Frm_ThongKeKhachHang().getTKKHPanel();
 Component traCuuKMPanel = new Frm_TraCuuKhuyenMai().getTraCuuKM_Panel();
 Component llvPanel = new FrmLichLamViec().getPanel_LLV();
@@ -1948,11 +1949,11 @@ public void actionPerformed(ActionEvent e) {
     // 3. Tra cứu hóa đơn
     else if (e.getSource() == traCuuHoaDon) {
         Jpanel_Main.removeAll();
-//            current = (JPanel) ;
+           current = (JPanel) traCuuHDPanel;
         JPanel_XacNhanCho.setVisible(false);
         lab_Title.setVisible(false);
         JPanel_BanVe.setVisible(false);
-//            Jpanel_Main.add();
+            Jpanel_Main.add(traCuuHDPanel);
         Jpanel_Main.setVisible(true);
 
         // Cập nhật lại giao diện người dùng
