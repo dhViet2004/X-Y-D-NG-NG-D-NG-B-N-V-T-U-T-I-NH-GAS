@@ -4,96 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-<<<<<<< HEAD
-    <list default="true" id="297356e5-4273-41ca-a778-eb48bf8dc037" name="Changes" comment="">
+    <list default="true" id="6ec75551-36f5-4819-99cd-a8b897b6e309" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/danh_sach_ve.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/danh_sach_ve.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hoa_don.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hoa_don.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/DAO_ThongKeTLDoiTraVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DAO_ThongKeTLDoiTraVe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Frm_ThongKeTiLeDoiTraVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_ThongKeTiLeDoiTraVe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main/Main.java" beforeDir="false" />
-=======
-    <list default="true" id="3178ac1e-c3fe-46b6-8018-f01fd237a9ef" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/TraVe_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/TraVe_GUI.java" afterDir="false" />
->>>>>>> 1eeae10b0c17e8b8b7de83b22edf6034449ee9a5
+      <change beforePath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
-  </component>
-<<<<<<< HEAD
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.FrmBanVe (1).executor": "Run",
     "Application.FrmBanVe.executor": "Run",
     "Application.Frm_ThongKeTiLeDoiTraVe.executor": "Run",
-    "Application.Main.executor": "Run",
     "git-widget-placeholder": "master",
     "node.js.selected.package.tslint": "(autodetect)"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.FrmBanVe">
-=======
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;luongtan204&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/dhViet2004/XaydungungdungBanVeTauTaiNhaGAS.git&quot;,
-    &quot;accountId&quot;: &quot;8c17338e-6384-4911-8989-827aa9ebfab4&quot;
-  }
-}</component>
-  <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 7
-}</component>
-  <component name="ProjectId" id="2pzNOwrCvRykguoB9V40qVZPHGt" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.DAO_TraVe.executor": "Run",
-    "Application.FrmBanVe (1).executor": "Run",
-    "Application.FrmBanVe (2).executor": "Run",
-    "Application.FrmBanVe (3).executor": "Run",
-    "Application.FrmBanVe.executor": "Run",
-    "Application.FrmDangNhap.executor": "Run",
-    "Application.Frm_TraCuuVe (1).executor": "Debug",
-    "Application.Frm_TraCuuVe (2).executor": "Run",
-    "Application.Frm_TraCuuVe (3).executor": "Run",
-    "Application.Frm_TraCuuVe (4).executor": "Run",
-    "Application.Frm_TraCuuVe.executor": "Run",
-    "Application.InHoaDonTra.executor": "Run",
-    "Application.Loading.executor": "Run",
-    "Application.QR_Scan.executor": "Run",
-    "Application.TraVe_GUI.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/ASUS/Desktop/GITtest/QR-Code-em-Java",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
-  }
-}]]></component>
-  <component name="RunManager" selected="Application.TraVe_GUI">
+  <component name="RunManager" selected="Application.FrmBanVe (1)">
     <configuration name="FrmBanVe (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -107,7 +41,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
->>>>>>> 1eeae10b0c17e8b8b7de83b22edf6034449ee9a5
     <configuration name="FrmBanVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -121,52 +54,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-<<<<<<< HEAD
     <configuration name="Frm_ThongKeTiLeDoiTraVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.Frm_ThongKeTiLeDoiTraVe" />
-=======
-    <configuration name="Frm_TraCuuVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.Frm_TraCuuVe" />
->>>>>>> 1eeae10b0c17e8b8b7de83b22edf6034449ee9a5
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="GUI.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-<<<<<<< HEAD
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main.Main" />
-      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Main.*" />
-=======
-    <configuration name="QR_Scan" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.QR_Scan" />
-      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TraVe_GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.TraVe_GUI" />
-      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.*" />
->>>>>>> 1eeae10b0c17e8b8b7de83b22edf6034449ee9a5
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -176,77 +69,13 @@
     </configuration>
     <recent_temporary>
       <list>
-<<<<<<< HEAD
+        <item itemvalue="Application.FrmBanVe (1)" />
         <item itemvalue="Application.FrmBanVe" />
         <item itemvalue="Application.Frm_ThongKeTiLeDoiTraVe" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
   <component name="TaskManager">
     <servers />
   </component>
-=======
-        <item itemvalue="Application.TraVe_GUI" />
-        <item itemvalue="Application.FrmBanVe" />
-        <item itemvalue="Application.Frm_TraCuuVe" />
-        <item itemvalue="Application.QR_Scan" />
-        <item itemvalue="Application.FrmBanVe (1)" />
-      </list>
-    </recent_temporary>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
-      </set>
-    </attachedChunks>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
-  <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="3178ac1e-c3fe-46b6-8018-f01fd237a9ef" name="Changes" comment="" />
-      <created>1733764916531</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1733764916531</updated>
-      <workItem from="1733764919003" duration="7702000" />
-      <workItem from="1733772961256" duration="493000" />
-      <workItem from="1733814815090" duration="31790000" />
-      <workItem from="1733852767986" duration="98000" />
-      <workItem from="1733852907603" duration="27000" />
-    </task>
-    <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/GUI/TraVe_GUI.java</url>
-          <line>991</line>
-          <properties class="GUI.TraVe_GUI" method="jButton3ActionPerformed">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
->>>>>>> 1eeae10b0c17e8b8b7de83b22edf6034449ee9a5
 </project>
