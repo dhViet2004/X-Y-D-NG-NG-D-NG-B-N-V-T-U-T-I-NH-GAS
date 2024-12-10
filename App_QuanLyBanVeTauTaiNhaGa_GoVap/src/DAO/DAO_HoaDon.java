@@ -44,14 +44,14 @@ public class DAO_HoaDon {
         try (Statement statement = con.createStatement(); ResultSet rs = statement.executeQuery(sql)) {
 
             while (rs.next()) {
-                 list.add(new Object[]{
-                         rs.getString("NgayHoaDon"),
-                         rs.getString("TenKH"),
-                         rs.getString("DoiTuongApDung"),
-                         rs.getString("NoiDungKM"),
-                         rs.getString("ChietKhau"),
-                         rs.getString("TienKhuyenMai")
-                 });
+                list.add(new Object[]{
+                        rs.getString("NgayHoaDon"),
+                        rs.getString("TenKH"),
+                        rs.getString("DoiTuongApDung"),
+                        rs.getString("NoiDungKM"),
+                        rs.getString("ChietKhau"),
+                        rs.getString("TienKhuyenMai")
+                });
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -142,17 +142,24 @@ public class DAO_HoaDon {
     // lấy số lượng khách hàng hôm nay tổng quan
     public List<Object[]> SLKH_TODAY_TOTAL(LocalDate localDate) throws SQLException {
         List<Object[]> list = new ArrayList<>();
-        String sql = "select  NgayHoaDon as 'Ngay', count(distinct MaKH) as 'SLKH'   from HoaDon where NgayHoaDon =?\n" +
-                "group by NgayHoaDon";
+        String sql = "SELECT CAST(NgayHoaDon AS DATE) AS 'Ngay', COUNT(DISTINCT MaKH) AS 'SLKH' " +
+                "FROM HoaDon " +
+                "WHERE CAST(NgayHoaDon AS DATE) = ? " +
+                "GROUP BY CAST(NgayHoaDon AS DATE)";
+
         PreparedStatement statement = con.prepareStatement(sql);
         statement.setDate(1, Date.valueOf(localDate)); // Truyền tham số year vào truy vấn
         ResultSet rs = statement.executeQuery();
         while (rs.next()) {
+            java.sql.Date sqlDate = rs.getDate("Ngay");  // Lấy giá trị ngày dưới dạng java.sql.Date
+            LocalDate dateCasr = sqlDate.toLocalDate();  // Chuyển đổi java.sql.Date thành LocalDate
+
             list.add(new Object[]{
-                    rs.getDate("Ngay"),
+                    dateCasr,    // Thêm LocalDate vào list
                     rs.getInt("SLKH")
             });
         }
+
         rs.close();           // Đóng ResultSet sau khi sử dụng
         statement.close();     // Đóng PreparedStatement sau khi sử dụng
         return list;
@@ -161,22 +168,31 @@ public class DAO_HoaDon {
     // lấy số lượng khách hàng hôm nay chi tiết
     public List<Object[]> SLKH_TODAY_DETAIL(LocalDate localDate) throws SQLException {
         List<Object[]> list = new ArrayList<>();
-        String sql = "select  NgayHoaDon as 'Ngay', count(distinct MaKH) as 'SLKH', count(distinct MaHD) as 'SLHD'   from HoaDon where NgayHoaDon =?\n" +
-                "group by NgayHoaDon";
+        String sql = "SELECT CAST(NgayHoaDon AS DATE) AS 'Ngay', COUNT(DISTINCT MaKH) AS 'SLKH', COUNT(DISTINCT MaHD) AS 'SLHD' " +
+                "FROM HoaDon " +
+                "WHERE CAST(NgayHoaDon AS DATE) = ? " +
+                "GROUP BY CAST(NgayHoaDon AS DATE)";
+
         PreparedStatement statement = con.prepareStatement(sql);
-        statement.setDate(1, Date.valueOf(localDate)); // Truyền tham số year vào truy vấn
+        statement.setDate(1, Date.valueOf(localDate)); // Truyền tham số ngày vào truy vấn
         ResultSet rs = statement.executeQuery();
+
         while (rs.next()) {
+            java.sql.Date sqlDate = rs.getDate("Ngay");  // Lấy giá trị ngày dưới dạng java.sql.Date
+            LocalDate dateCast = sqlDate.toLocalDate();  // Chuyển đổi java.sql.Date thành LocalDate
+
             list.add(new Object[]{
-                    rs.getDate("Ngay"),
+                    dateCast,    // Thêm LocalDate vào list
                     rs.getInt("SLKH"),
                     rs.getInt("SLHD")
             });
         }
+
         rs.close();           // Đóng ResultSet sau khi sử dụng
         statement.close();     // Đóng PreparedStatement sau khi sử dụng
         return list;
     }
+
 
     public List<Object[]> SLKH_WEEK_TOTAL(LocalDate localDate) throws SQLException {
         List<Object[]> list = new ArrayList<>();

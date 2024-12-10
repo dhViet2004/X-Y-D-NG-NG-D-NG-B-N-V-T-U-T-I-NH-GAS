@@ -108,19 +108,17 @@ private double tongThanhTien = 0.0; // Biến để lưu tổng thành tiền
 private static int ticketCount = 0; // Số vé đã tạo trong ngày
 private static LocalDate lastDate = LocalDate.now(); // Ngày cuối cùng đã tạo vé
 private Component temp; // Khai báo biến toàn cục
-    Component traVePanel= new TraVe_GUI().getTrave();
+
 Component chuyenTauPanel = new ChuyenTau().getjPanelMain();
 Component khuyenMaiPanel = new FrmKhuyenMai().getKMPanel();
 Component khachHangPanel = new Frm_KhachHang(new NhanVien()).getKHPanel();
 Component nhanVienPanel = new FrmNhanVien().getJpannelNV();
 Component doiVePanel = new Frm_DoiVe().getJpannelDoiVe();
-Component traCuuHDPanel = new Frm_TraCuuHoaDon().getJpannelTraCuuHD();
 Component soLuongKHPanel = new Frm_ThongKeKhachHang().getTKKHPanel();
 Component traCuuKMPanel = new Frm_TraCuuKhuyenMai().getTraCuuKM_Panel();
 Component llvPanel = new FrmLichLamViec().getPanel_LLV();
 Component traCuuVePanel = new Frm_TraCuuVe().get_TraCuuVe_Panel();
 Component thongKeSLVe = new Frm_ThongKeSoLuongVeTheoThoiGian().getTKSLV();
-Component thongKeTiLeDoiTraVe = new Frm_ThongKeTiLeDoiTraVe().getTKTLDTV_Panel();
 private List<LoaiKhachHang> danhSachLoaiKH = new ArrayList<>();
 private KhuyenMai khuyenMai = null;
 private Double chietKhau = 0.0;
@@ -292,9 +290,10 @@ private KhachHang khachHangDeInHoaDon = null;
     // Định dạng thời gian thành NgàyThángNăm (yyyy-MM-dd)
     totalCustomerToday = daoBanVe.getTotalCustomersToday();
     System.out.println("Số lượng khách hàng: " + totalCustomerToday);
-    System.out.println("Số lượng vé: "+ ticketCount);
+    System.out.println("Số lượng vé"+ ticketCount);
 
 }
+
 
 public static void main(String[] args) {
     FrmBanVe frm = new FrmBanVe(new NhanVien());
@@ -830,21 +829,6 @@ public void actionPerformed(ActionEvent e) {
                                             } catch (SQLException ex) {
                                                 throw new RuntimeException(ex);
                                             }
-                                            // Thêm bước sắp xếp trước khi hiển thị
-                                            danhSachChoNgoi.sort((c1, c2) -> {
-                                                String ten1 = c1.getTenCho();
-                                                String ten2 = c2.getTenCho();
-                                                int so1 = Integer.parseInt(ten1.replaceAll("\\D+", ""));
-                                                int so2 = Integer.parseInt(ten2.replaceAll("\\D+", ""));
-                                                char kyTu1 = ten1.replaceAll("\\d+", "").charAt(0);
-                                                char kyTu2 = ten2.replaceAll("\\d+", "").charAt(0);
-                                                if (so1 != so2) {
-                                                    return Integer.compare(so1, so2);
-                                                } else {
-                                                    return Character.compare(kyTu1, kyTu2);
-                                                }
-                                            });
-
                                             // Hiển thị chỗ ngồi trong JPanel_ChoNgoi
                                             JPanel_ChoNgoi_A.removeAll();
                                             JPanel_ChoNgoi_A.setLayout(new FlowLayout());
@@ -1550,7 +1534,7 @@ public void actionPerformed(ActionEvent e) {
         btnThanToan.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Số lượng vé: "+ ticketCount);
+                System.out.println("Số lượng vé"+ ticketCount);
                 // Lấy thông tin từ các trường nhập
                 String hoTenNguoiMua = txtHoTenNguoiMua.getText();
                 String cccdNguoiMua = txtCCCDNguoiMua.getText();
@@ -1631,11 +1615,6 @@ public void actionPerformed(ActionEvent e) {
 
                         ticketsToSave.add(ticket);
                         tongTien += thanhTien;
-                        if(thongTinVeDoi!= null){
-                            double giaVeDoi = thongTinVeDoi.getGiaVe();
-                            double phiDoi = 20000;
-                            tongTien = tongTien - giaVeDoi+ phiDoi;
-                        }
 
                         // Tạo chi tiết hóa đơn với mã vé tương ứng
                         ChiTietHoaDon chiTiet = new ChiTietHoaDon(maVe, "", 1, VAT, thanhTien, tienThue); // Mã hóa đơn sẽ thêm sau
@@ -1680,7 +1659,6 @@ public void actionPerformed(ActionEvent e) {
                         choNgoiCanDoi.setText(choNgoiCanDoi.getText());
                         String maVeDoi = thongTinVeDoi.getMaVe();
                         dao_DoiVe.capNhatTrangThaiVe(maVeDoi,"Đã đổi");
-                        dao_DoiVe.CapNhatHoaDonDoi(thongTinVeDoi.getMaVe(),"LHD03");
                     }
                     //
 
@@ -1692,7 +1670,6 @@ public void actionPerformed(ActionEvent e) {
                     // Khóa nút thanh toán sau khi thanh toán thành công
                     btnThanToan.setEnabled(false);
                     khachHangMuaVe = null;
-
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(dialog, "Lỗi khi lưu vé và hóa đơn: " + ex.getMessage());
                 }
@@ -1766,12 +1743,16 @@ public void actionPerformed(ActionEvent e) {
         Jpanel_Main.repaint();    //
     } else if (e.getSource() == traVe) {
 
+
+        TraVe_GUI traVe = new TraVe_GUI(nhanVien);
+
+        Component panel = traVe.getTrave();
         Jpanel_Main.removeAll();
-        current = (JPanel) traVePanel;
+
         JPanel_XacNhanCho.setVisible(false);
         lab_Title.setVisible(false);
         JPanel_BanVe.setVisible(false);
-        Jpanel_Main.add(traVePanel);
+        Jpanel_Main.add(panel);
         Jpanel_Main.setVisible(true);
 
         // Cập nhật lại giao diện người dùng
@@ -1891,11 +1872,11 @@ public void actionPerformed(ActionEvent e) {
     // 4. Thống kê tỉ lệ đổi trả vé
     else if (e.getSource() == tk_tl_DoiTraVe) {
         Jpanel_Main.removeAll();
-            current = (JPanel) thongKeTiLeDoiTraVe;
+//            current = (JPanel) ;
         JPanel_XacNhanCho.setVisible(false);
         lab_Title.setVisible(false);
         JPanel_BanVe.setVisible(false);
-            Jpanel_Main.add(thongKeTiLeDoiTraVe);
+//            Jpanel_Main.add();
         Jpanel_Main.setVisible(true);
 
         // Cập nhật lại giao diện người dùng
@@ -1950,11 +1931,11 @@ public void actionPerformed(ActionEvent e) {
     // 3. Tra cứu hóa đơn
     else if (e.getSource() == traCuuHoaDon) {
         Jpanel_Main.removeAll();
-           current = (JPanel) traCuuHDPanel;
+//            current = (JPanel) ;
         JPanel_XacNhanCho.setVisible(false);
         lab_Title.setVisible(false);
         JPanel_BanVe.setVisible(false);
-            Jpanel_Main.add(traCuuHDPanel);
+//            Jpanel_Main.add();
         Jpanel_Main.setVisible(true);
 
         // Cập nhật lại giao diện người dùng
@@ -2250,6 +2231,7 @@ private void phanQuyen(String maNV) throws Exception {
         }
     }
 }
+
     public void setThongTinVe(VeTau thongTinVeDoi) {
         this.thongTinVeDoi = thongTinVeDoi;
     }
