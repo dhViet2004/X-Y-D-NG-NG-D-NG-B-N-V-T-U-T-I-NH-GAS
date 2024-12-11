@@ -43,6 +43,8 @@ private final JButton btnQuanLyKhuyenMai;
 private final JButton btnQuanLyDoanhThu;
 private final JButton btnQuanLyNhanVien;
 private final JButton btnQuanLyLLV;
+private final JButton btnTroGiup;
+private final JButton btnDangXuat;
 
 
 // quản lý vé
@@ -53,7 +55,6 @@ private JMenuItem tk_tl_DoiTraVe = new JMenuItem();
 private JMenuItem tk_slkh = new JMenuItem();
 private JMenuItem tk_sl_Ve = new JMenuItem();
 private JMenuItem tk_DoanhThu_BanVe = new JMenuItem();
-private JMenuItem taoBaoCao = new JMenuItem();
 // tra cứu
 private JMenuItem traCuuVe = new JMenuItem();
 private JMenuItem traCuuKM = new JMenuItem();
@@ -205,13 +206,15 @@ private KhachHang khachHangDeInHoaDon = null;
     btnQuanLyDoanhThu = createButton("Quản lý doanh thu", iconArrowNew);
     btnQuanLyNhanVien = createButton("Quản lý nhân viên", null);
     btnQuanLyLLV = createButton("Quản lý lịch làm việc", null);
+    btnTroGiup = createButton("Trợ giúp", null);
+    btnDangXuat = createButton("Đăng xuất", null);
 
     // Format nút với cùng kích thước, phông chữ và căn chỉnh
     Dimension buttonSize = new Dimension(200, 60); // Tăng kích thước chiều cao của nút lên 60px
     fontMenu = new Font("Arial", Font.PLAIN, 16); // Đặt font chung cho tất cả các nút
 
     // Định dạng cho từng nút
-    JButton[] buttons = {btnBanVe, btnTraCuu, btnQuanLyVe, btnThongKeTheoCa, btnQuanLyChuyenTau, btnQuanLyKhachHang, btnQuanLyKhuyenMai, btnQuanLyDoanhThu, btnQuanLyNhanVien, btnQuanLyLLV};
+    JButton[] buttons = {btnBanVe, btnTraCuu, btnQuanLyVe, btnThongKeTheoCa, btnQuanLyChuyenTau, btnQuanLyKhachHang, btnQuanLyKhuyenMai, btnQuanLyDoanhThu, btnQuanLyNhanVien, btnQuanLyLLV,btnTroGiup,btnDangXuat};
     for (JButton btn : buttons) {
         btn.setPreferredSize(buttonSize); // Đặt kích thước cố định cho nút
         btn.setFont(fontMenu); // Đặt font
@@ -273,6 +276,8 @@ private KhachHang khachHangDeInHoaDon = null;
     });
     btnQuanLyNhanVien.addActionListener(this);
     btnQuanLyLLV.addActionListener(this);
+    btnTroGiup.addActionListener(this);
+    btnDangXuat.addActionListener(this);
 
     btnRadio_MotChieu.addItemListener((ItemListener) this);
     btnRadio_KhuHoi.addItemListener((ItemListener) this);
@@ -474,11 +479,6 @@ private void showPopupMenu_QLDT(ActionEvent e) {
     tk_tl_DoiTraVe.setBackground(colorXanhDam);
     tk_tl_DoiTraVe.addActionListener(this);
 
-    taoBaoCao = new JMenuItem("Tạo báo cáo doanh thu");
-    taoBaoCao.setFont(fontMenu);
-    taoBaoCao.setForeground(Color.white);
-    taoBaoCao.setBackground(colorXanhDam);
-    taoBaoCao.addActionListener(this);
 
 
     // Thêm các menu item vào JPopupMenu
@@ -487,8 +487,7 @@ private void showPopupMenu_QLDT(ActionEvent e) {
     popupMenu.add(tk_tl_DoiTraVe);
     popupMenu.add(tk_slkh);
     popupMenu.add(tk_DoanhThu_BanVe);
-    popupMenu.add(taoBaoCao);
-    popupMenu.setPreferredSize(new Dimension(200, 200));
+    popupMenu.setPreferredSize(new Dimension(200, 160));
     // Lấy đối tượng nguồn của sự kiện (nút "Tra cứu")
     JButton sourceButton = (JButton) e.getSource();
 
@@ -1968,20 +1967,7 @@ public void actionPerformed(ActionEvent e) {
         Jpanel_Main.revalidate(); // Cập nhật layout
         Jpanel_Main.repaint();    //
     }
-    // 5. Tạo báo cáo danh thu
-    else if (e.getSource() == taoBaoCao) {
-        Jpanel_Main.removeAll();
-//            current = (JPanel) ;
-        JPanel_XacNhanCho.setVisible(false);
-        lab_Title.setVisible(false);
-        JPanel_BanVe.setVisible(false);
-//            Jpanel_Main.add();
-        Jpanel_Main.setVisible(true);
 
-        // Cập nhật lại giao diện người dùng
-        Jpanel_Main.revalidate(); // Cập nhật layout
-        Jpanel_Main.repaint();    //
-    }
 
 
     // CÁC CHỨC NĂNG TRA CỨU NHỎ BÊN TRONG

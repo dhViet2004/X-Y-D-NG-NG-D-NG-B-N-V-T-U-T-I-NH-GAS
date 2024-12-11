@@ -410,12 +410,13 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
             Date join = java.sql.Date.valueOf(ngayThamGia);
             txtNgayThamGia.setDate(join);
 
-            String hangTV = kh.getHangThanhVien();
-            if (hangTV.equalsIgnoreCase("Silver")) {
+            // Cập nhật hạng thành viên dựa trên điểm tích lũy
+            double diemTichLuy = kh.getDiemTichLuy();
+            if (diemTichLuy <= 2000) {
                 txtHangThanhVien.setSelectedItem("Silver");
-            } else if (hangTV.equalsIgnoreCase("Gold")) {
+            } else if (diemTichLuy > 2000 && diemTichLuy <= 5000) {
                 txtHangThanhVien.setSelectedItem("Gold");
-            } else if (hangTV.equalsIgnoreCase("Diamond")) {
+            } else {
                 txtHangThanhVien.setSelectedItem("Diamond");
             }
 
