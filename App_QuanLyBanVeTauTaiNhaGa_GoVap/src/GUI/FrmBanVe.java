@@ -1753,7 +1753,7 @@ public void actionPerformed(ActionEvent e) {
                     JPanel_XacNhanCho.repaint();
                     // Khóa nút thanh toán sau khi thanh toán thành công
                     btnThanToan.setEnabled(false);
-                    khachHangMuaVe = null;
+
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(dialog, "Lỗi khi lưu vé và hóa đơn: " + ex.getMessage());
                 }
@@ -1768,6 +1768,7 @@ public void actionPerformed(ActionEvent e) {
             public void windowClosing(WindowEvent e) {
                 danhSachVe.clear();
                 chiTietHoaDonList.clear();
+                khachHangMuaVe = null;
                 System.out.println("Danh sách vé đã được xóa khi đóng cửa sổ.");
             }
         });
