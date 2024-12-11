@@ -89,6 +89,7 @@ public class FrmDangNhap extends JFrame implements ActionListener {
                 // Kiểm tra nếu không có ca làm việc nào được trả về
                 if (lichLamViecs == null || lichLamViecs.isEmpty()) {
                     JOptionPane.showMessageDialog(this, "Không có ca làm việc nào cho ngày hôm nay", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    return;
                 } else {
                     // Cập nhật trạng thái cho các ca làm việc
                     for (LichLamViec llv : lichLamViecs) {

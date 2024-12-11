@@ -5,13 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5280ff46-fc6b-462c-9fe9-dee94fb65858" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Main/Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Main/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/danh_sach_ve.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/danh_sach_ve.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hoa_don.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hoa_don.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/CustomPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/CustomPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/InvoicePDFGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/InvoicePDFGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/FrmDangNhap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmDangNhap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/Test.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +46,7 @@
     "Application.FrmBanVe (3).executor": "Run",
     "Application.FrmBanVe (4).executor": "Run",
     "Application.FrmBanVe.executor": "Run",
+    "Application.Main.executor": "Run",
     "Application.Test.executor": "Run",
     "Application.test.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -61,7 +61,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.FrmBanVe">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="FrmBanVe (3)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -101,8 +101,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main.Test" />
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main.Main" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
         <pattern>
@@ -129,8 +129,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.FrmBanVe" />
-        <item itemvalue="Application.Test" />
         <item itemvalue="Application.test" />
         <item itemvalue="Application.FrmBanVe (4)" />
         <item itemvalue="Application.FrmBanVe (3)" />
@@ -153,7 +153,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1733908767928</updated>
-      <workItem from="1733908769648" duration="678000" />
+      <workItem from="1733908769648" duration="1685000" />
     </task>
     <servers />
   </component>
