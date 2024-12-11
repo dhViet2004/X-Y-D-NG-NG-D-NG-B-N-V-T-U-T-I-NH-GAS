@@ -43,6 +43,8 @@ private final JButton btnQuanLyKhuyenMai;
 private final JButton btnQuanLyDoanhThu;
 private final JButton btnQuanLyNhanVien;
 private final JButton btnQuanLyLLV;
+private final JButton btnTroGiup;
+private final JButton btnDangXuat;
 
 
 // quản lý vé
@@ -205,13 +207,15 @@ private KhachHang khachHangDeInHoaDon = null;
     btnQuanLyDoanhThu = createButton("Quản lý doanh thu", iconArrowNew);
     btnQuanLyNhanVien = createButton("Quản lý nhân viên", null);
     btnQuanLyLLV = createButton("Quản lý lịch làm việc", null);
+    btnTroGiup = createButton("Trợ giúp", null);
+    btnDangXuat = createButton("Đăng xuất", null);
 
     // Format nút với cùng kích thước, phông chữ và căn chỉnh
     Dimension buttonSize = new Dimension(200, 60); // Tăng kích thước chiều cao của nút lên 60px
     fontMenu = new Font("Arial", Font.PLAIN, 16); // Đặt font chung cho tất cả các nút
 
     // Định dạng cho từng nút
-    JButton[] buttons = {btnBanVe, btnTraCuu, btnQuanLyVe, btnThongKeTheoCa, btnQuanLyChuyenTau, btnQuanLyKhachHang, btnQuanLyKhuyenMai, btnQuanLyDoanhThu, btnQuanLyNhanVien, btnQuanLyLLV};
+    JButton[] buttons = {btnBanVe, btnTraCuu, btnQuanLyVe, btnThongKeTheoCa, btnQuanLyChuyenTau, btnQuanLyKhachHang, btnQuanLyKhuyenMai, btnQuanLyDoanhThu, btnQuanLyNhanVien, btnQuanLyLLV,btnTroGiup,btnDangXuat};
     for (JButton btn : buttons) {
         btn.setPreferredSize(buttonSize); // Đặt kích thước cố định cho nút
         btn.setFont(fontMenu); // Đặt font
@@ -273,6 +277,8 @@ private KhachHang khachHangDeInHoaDon = null;
     });
     btnQuanLyNhanVien.addActionListener(this);
     btnQuanLyLLV.addActionListener(this);
+    btnTroGiup.addActionListener(this);
+    btnDangXuat.addActionListener(this);
 
     btnRadio_MotChieu.addItemListener((ItemListener) this);
     btnRadio_KhuHoi.addItemListener((ItemListener) this);
