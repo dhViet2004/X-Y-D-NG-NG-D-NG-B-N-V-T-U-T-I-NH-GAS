@@ -89,6 +89,43 @@ public class FrmSuaKhuyenMai extends JDialog implements ActionListener {
             String noiDung = txtNoiDungKM.getText();
             Double chietKhau = Double.parseDouble(txtChietKhau.getText());
             String doiTuong = txtDoiTuongApDung.getText();
+            // Kiểm tra dữ liệu đầu vào
+            if(txtChietKhau.getText().trim().isEmpty()){
+                JOptionPane.showMessageDialog(this, "Chiết khấu phải là một số hợp lệ!");
+                return;
+            }
+            if (ngayBatDau == null) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày bắt đầu!");
+                return;
+            }
+            if (ngayKetThuc == null) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày kết thúc!");
+                return;
+            }
+            if (ngayKetThuc.before(ngayBatDau)) {
+                JOptionPane.showMessageDialog(this, "Ngày kết thúc phải sau hoặc bằng ngày bắt đầu!");
+                return;
+            }
+            if (noiDung.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Nội dung khuyến mãi không được để trống!");
+                return;
+            }
+            if (doiTuong.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Đối tượng áp dụng không được để trống!");
+                return;
+            }
+
+            try {
+
+                if (chietKhau <= 0) {
+                    JOptionPane.showMessageDialog(this, "Chiết khấu phải lớn hơn 0!");
+                    return;
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Chiết khấu phải là một số hợp lệ!");
+                return;
+            }
+
             KhuyenMai km = new KhuyenMai(maKM, begin, end, noiDung, chietKhau, doiTuong);
             // thêm vào dbs, trước khi thêm, tìm và xóa km đó trong dbs trước
             // xóa km theo mã
