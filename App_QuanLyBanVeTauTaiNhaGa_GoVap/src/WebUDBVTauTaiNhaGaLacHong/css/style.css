@@ -1,0 +1,216 @@
+body {
+    background-color: white;
+    color: black;
+}
+
+.navbar-light-mode {
+    background-color: #f8f9fa; 
+    color: black;
+}
+
+.navbar-light-mode a {
+    color: black; 
+}
+
+
+body.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+.navbar-dark-mode {
+    background-color: #343a40; 
+    color: white;
+}
+
+.navbar-dark-mode a {
+    color: white; 
+}
+
+
+#themeToggle {
+    cursor: pointer;
+}
+
+
+.form-check-label {
+    color: black; 
+}
+
+body.dark-mode .form-check-label {
+    color: white; 
+}
+/* Hiển thị viền cho mục được chọn */
+.nav-link.active {
+    border-bottom: 2px solid #007bff; 
+    transition: border-bottom 0.3s ease-in-out;
+}
+
+.nav-link {
+    border-bottom: 2px solid transparent;
+}
+/* Nút navbar-toggler trong light mode */
+.navbar-light-mode .navbar-toggler {
+    background-color: #e9ecef; 
+    border: 1px solid #ced4da; 
+}
+
+.navbar-light-mode .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(0,0,0,0.7)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Nút navbar-toggler trong dark mode */
+.navbar-dark-mode .navbar-toggler {
+    background-color: #495057; 
+    border: 1px solid #6c757d; 
+}
+
+.navbar-dark-mode .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255,255,255,0.8)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.form-container {
+    border: 2px solid #ccc; 
+    border-radius: 10px; 
+    padding: 10px; 
+    background-color: #f9f9f9; 
+    max-width: 400px;
+    margin: auto; 
+    transition: all 0.3s ease-in-out; 
+}
+
+body.dark-mode .form-container {
+    border: 2px solid #555; 
+    background-color: #222; 
+}
+
+.form-container .form-label {
+    margin-bottom: 5px; 
+}
+
+.form-container .form-control {
+    margin-bottom: 10px; 
+}
+#emailError {
+    font-size: 0.9rem;
+    display: none; /* Hide initially */
+    transition: opacity 0.3s ease-in-out;
+}
+
+#emailError.show {
+    opacity: 1;
+}
+.otp-input {
+    width: 50px;
+    text-align: center;
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+.otp-input:last-child {
+    margin-right: 0;
+}
+/* Định nghĩa modal chế độ sáng */
+.modal-light-mode .modal-content {
+    background-color: #ffffff; /* Nền sáng */
+    color: black; /* Màu chữ sáng */
+}
+
+/* Định nghĩa modal chế độ tối */
+.modal-dark-mode .modal-content {
+    background-color: #333333; /* Nền tối */
+    color: white; /* Màu chữ sáng */
+}
+
+/* Nếu cần, bạn cũng có thể thay đổi màu nền cho phần header và footer */
+.modal-light-mode .modal-header,
+.modal-light-mode .modal-footer {
+    background-color: #f1f1f1; /* Nền sáng */
+}
+
+.modal-dark-mode .modal-header,
+.modal-dark-mode .modal-footer {
+    background-color: #212121; /* Nền tối */
+}
+/* Modal Light Mode */
+.modal-light-mode .modal-content {
+    background-color: #ffffff; /* Màu nền sáng */
+    color: #000; /* Màu chữ tối */
+}
+.modal-light-mode .modal-body {
+    background-color: #f9f9f9; /* Màu nền body sáng */
+    color: #000; /* Màu chữ tối */
+}
+
+/* Modal Dark Mode */
+.modal-dark-mode .modal-content {
+    background-color: #333333; /* Màu nền tối */
+    color: #ffffff; /* Màu chữ sáng */
+}
+.modal-dark-mode .modal-body {
+    background-color: #2b2b2b; /* Màu nền body tối */
+    color: #ffffff; /* Màu chữ sáng */
+}
+/* Bootstrap's is-invalid class will highlight the input field */
+input.is-invalid {
+    border-color: red;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.875rem;
+}
+/* Style for the table */
+.table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse; 
+}
+
+/* Table header styling */
+.table thead {
+    background-color: #007bff;
+    color: white;
+}
+
+.table th, .table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd; /* Light gray border */
+}
+
+/* Row hover effect */
+.table tr:hover {
+    background-color: #f1f1f1; /* Light gray hover effect */
+}
+
+/* Dark mode table styling */
+body.dark-mode .table {
+    background-color: #222; /* Dark background for table */
+}
+
+body.dark-mode .table thead {
+    background-color: #444; /* Darker background for header */
+}
+
+body.dark-mode .table th, body.dark-mode .table td {
+    border: 1px solid #555; /* Darker borders */
+    color: white; /* White text in dark mode */
+}
+
+body.dark-mode .table tr:hover {
+    background-color: #333; /* Dark hover effect */
+}
+
+/* Zebra-striping for table rows */
+.table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Light gray for even rows */
+}
+
+body.dark-mode .table tr:nth-child(even) {
+    background-color: #444; /* Darker gray for even rows in dark mode */
+}
+#navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Đảm bảo navbar không bị che khuất bởi các phần tử khác */
+}

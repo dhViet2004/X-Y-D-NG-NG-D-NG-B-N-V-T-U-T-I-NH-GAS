@@ -277,6 +277,7 @@ private KhachHang khachHangDeInHoaDon = null;
     btnQuanLyNhanVien.addActionListener(this);
     btnQuanLyLLV.addActionListener(this);
     btnTroGiup.addActionListener(this);
+
     btnDangXuat.addActionListener(this);
 
     btnRadio_MotChieu.addItemListener((ItemListener) this);
@@ -301,7 +302,24 @@ private KhachHang khachHangDeInHoaDon = null;
     System.out.println("Số lượng vé: "+ ticketCount);
 
 }
-
+    private void openHelpPage() {
+        try {
+            // Đảm bảo sử dụng đường dẫn chính xác đến file home.html trong thư mục dự án
+            File htmlFile = new File("src/WebUDBVTauTaiNhaGaLacHong/html/home.html");
+            if (htmlFile.exists()) {
+                try {
+                    Desktop.getDesktop().browse(htmlFile.toURI());
+                    System.out.println("Mở file thành công");// Mở trong trình duyệt
+                } catch (java.io.IOException e) {
+                    System.out.println("Mở file thất bại");// Mở trong trình duyệt
+                }
+            } else {
+                System.out.println("File không tồn tại.");
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
 public static void main(String[] args) {
     FrmBanVe frm = new FrmBanVe(new NhanVien());
@@ -2087,6 +2105,12 @@ public void actionPerformed(ActionEvent e) {
         // Cập nhật lại giao diện người dùng
         Jpanel_Main.revalidate(); // Cập nhật layout
         Jpanel_Main.repaint();    //
+    }else if(e.getSource() == btnTroGiup){
+        openHelpPage();
+    }else if (e.getSource() == btnDangXuat){
+        this.dispose();
+        FrmDangNhap dangNhap = new FrmDangNhap();
+        dangNhap.setVisible(true);
     }
 }
 

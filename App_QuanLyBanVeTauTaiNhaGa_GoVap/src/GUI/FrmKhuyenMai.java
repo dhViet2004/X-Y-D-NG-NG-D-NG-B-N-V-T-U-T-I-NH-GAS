@@ -62,7 +62,7 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
         add(JPanel_Menu, BorderLayout.WEST);
 
 //       tạo logo
-        ImageIcon iconLogo = new ImageIcon(getClass().getResource("/Anh_HeThong/logo.png")); //SRC LOGO
+        ImageIcon iconLogo = new ImageIcon(getClass().getResource("/Anh_HeThong/logo1.png")); //SRC LOGO
         Image imgUser = iconLogo.getImage();
         Image scaledLogo = imgUser.getScaledInstance(250, 350, Image.SCALE_SMOOTH);
         ImageIcon scaledIconLogo = new ImageIcon(scaledLogo);

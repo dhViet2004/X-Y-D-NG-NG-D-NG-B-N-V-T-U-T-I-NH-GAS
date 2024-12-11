@@ -5,10 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1e00f47f-dfb7-4952-9ba8-ed133c5f7a49" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Main/test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/DAO_TraCuuVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DAO_TraCuuVe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/Frm_TraCuuVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_TraCuuVe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/QR_SGNT100120241211154903-001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/QR_SGNT100120241211154903-002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/QR_SGNT100120241211162329-001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/QR_SGNT100120241211213837-001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/QR_SGNT100120241211213837-002.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Anh_HeThong/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/FrmKhuyenMai.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmKhuyenMai.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/Frm_KhachHang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_KhachHang.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,8 +31,16 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="2q5CuYz2v78f0ivnuxbzvq8fRjt" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
@@ -36,12 +50,19 @@
     "Application.Frm_TraCuuVe (1).executor": "Run",
     "Application.Frm_TraCuuVe.executor": "Run",
     "Application.test.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/XaydungungdungBanVeTauTaiNhaGAS/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.Frm_TraCuuVe (1)">
+  <component name="RunManager" selected="Application.FrmBanVe">
     <configuration name="FrmBanVe (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -109,15 +130,35 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.FrmBanVe" />
         <item itemvalue="Application.Frm_TraCuuVe (1)" />
         <item itemvalue="Application.Frm_TraCuuVe" />
         <item itemvalue="Application.test" />
-        <item itemvalue="Application.FrmBanVe" />
         <item itemvalue="Application.FrmBanVe (2)" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1e00f47f-dfb7-4952-9ba8-ed133c5f7a49" name="Changes" comment="" />
+      <created>1733943273583</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1733943273583</updated>
+      <workItem from="1733943275447" duration="1465000" />
+    </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>
