@@ -55,7 +55,6 @@ private JMenuItem tk_tl_DoiTraVe = new JMenuItem();
 private JMenuItem tk_slkh = new JMenuItem();
 private JMenuItem tk_sl_Ve = new JMenuItem();
 private JMenuItem tk_DoanhThu_BanVe = new JMenuItem();
-private JMenuItem taoBaoCao = new JMenuItem();
 // tra cứu
 private JMenuItem traCuuVe = new JMenuItem();
 private JMenuItem traCuuKM = new JMenuItem();
@@ -480,11 +479,6 @@ private void showPopupMenu_QLDT(ActionEvent e) {
     tk_tl_DoiTraVe.setBackground(colorXanhDam);
     tk_tl_DoiTraVe.addActionListener(this);
 
-    taoBaoCao = new JMenuItem("Tạo báo cáo doanh thu");
-    taoBaoCao.setFont(fontMenu);
-    taoBaoCao.setForeground(Color.white);
-    taoBaoCao.setBackground(colorXanhDam);
-    taoBaoCao.addActionListener(this);
 
 
     // Thêm các menu item vào JPopupMenu
@@ -493,8 +487,7 @@ private void showPopupMenu_QLDT(ActionEvent e) {
     popupMenu.add(tk_tl_DoiTraVe);
     popupMenu.add(tk_slkh);
     popupMenu.add(tk_DoanhThu_BanVe);
-    popupMenu.add(taoBaoCao);
-    popupMenu.setPreferredSize(new Dimension(200, 200));
+    popupMenu.setPreferredSize(new Dimension(200, 160));
     // Lấy đối tượng nguồn của sự kiện (nút "Tra cứu")
     JButton sourceButton = (JButton) e.getSource();
 
@@ -1974,20 +1967,7 @@ public void actionPerformed(ActionEvent e) {
         Jpanel_Main.revalidate(); // Cập nhật layout
         Jpanel_Main.repaint();    //
     }
-    // 5. Tạo báo cáo danh thu
-    else if (e.getSource() == taoBaoCao) {
-        Jpanel_Main.removeAll();
-//            current = (JPanel) ;
-        JPanel_XacNhanCho.setVisible(false);
-        lab_Title.setVisible(false);
-        JPanel_BanVe.setVisible(false);
-//            Jpanel_Main.add();
-        Jpanel_Main.setVisible(true);
 
-        // Cập nhật lại giao diện người dùng
-        Jpanel_Main.revalidate(); // Cập nhật layout
-        Jpanel_Main.repaint();    //
-    }
 
 
     // CÁC CHỨC NĂNG TRA CỨU NHỎ BÊN TRONG
