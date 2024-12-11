@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ec75551-36f5-4819-99cd-a8b897b6e309" name="Changes" comment="">
+    <list default="true" id="5280ff46-fc6b-462c-9fe9-dee94fb65858" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Main/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-<<<<<<< HEAD
-=======
+      <change beforePath="$PROJECT_DIR$/danh_sach_ve.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/danh_sach_ve.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hoa_don.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hoa_don.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/CustomPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/CustomPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/InvoicePDFGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/InvoicePDFGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" afterDir="false" />
->>>>>>> cc381c52df47cf5be7acaed5cd07e92235f6d4b1
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,25 +28,11 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-<<<<<<< HEAD
-=======
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "VoPhuocViet"
-  }
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 8
 }]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/dhViet2004/XaydungungdungBanVeTauTaiNhaGAS.git",
-    "accountId": "b97ccbad-a7ad-4afc-9329-a46fc2910326"
-  }
-}]]></component>
->>>>>>> cc381c52df47cf5be7acaed5cd07e92235f6d4b1
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 8
-}</component>
-  <component name="ProjectId" id="2q2NWEbJTkGE5KBXlxPPmgQLw0A" />
+  <component name="ProjectId" id="2q44yA3HltkyPuzwmKt2mm8PhLY" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -52,64 +40,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-<<<<<<< HEAD
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.EmailSender.executor&quot;: &quot;Run&quot;,
-    &quot;Application.FrmBanVe (1).executor&quot;: &quot;Run&quot;,
-    &quot;Application.FrmBanVe (2).executor&quot;: &quot;Run&quot;,
-    &quot;Application.FrmBanVe (3).executor&quot;: &quot;Run&quot;,
-    &quot;Application.FrmBanVe.executor&quot;: &quot;Run&quot;,
-    &quot;Application.FrmDangNhap.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Frm_ThongKeTiLeDoiTraVe (1).executor&quot;: &quot;Run&quot;,
-    &quot;Application.Frm_ThongKeTiLeDoiTraVe.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;T:/final/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap/src/libs&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-=======
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.EmailSender.executor": "Run",
     "Application.FrmBanVe (1).executor": "Run",
     "Application.FrmBanVe (2).executor": "Run",
     "Application.FrmBanVe (3).executor": "Run",
+    "Application.FrmBanVe (4).executor": "Run",
     "Application.FrmBanVe.executor": "Run",
-    "Application.FrmDangNhap.executor": "Run",
-    "Application.Frm_ThongKeTiLeDoiTraVe (1).executor": "Run",
-    "Application.Frm_ThongKeTiLeDoiTraVe.executor": "Run",
-    "Application.Frm_TraCuuHoaDon.executor": "Run",
+    "Application.Test.executor": "Run",
+    "Application.test.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/DoAn_PTUD5/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
->>>>>>> cc381c52df47cf5be7acaed5cd07e92235f6d4b1
   }
-}</component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="T:\final\XaydungungdungBanVeTauTaiNhaGAS\App_QuanLyBanVeTauTaiNhaGa_GoVap\src\libs" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="Main" />
-    </key>
-  </component>
+}]]></component>
   <component name="RunManager" selected="Application.FrmBanVe">
-<<<<<<< HEAD
-=======
-    <configuration name="FrmBanVe (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="FrmBanVe (3)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
@@ -122,7 +75,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FrmBanVe (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="FrmBanVe (4)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
@@ -135,7 +88,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
->>>>>>> cc381c52df47cf5be7acaed5cd07e92235f6d4b1
     <configuration name="FrmBanVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -149,12 +101,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FrmDangNhap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.FrmDangNhap" />
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main.Test" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="GUI.*" />
+          <option name="PATTERN" value="Main.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -162,12 +114,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Frm_TraCuuHoaDon" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.Frm_TraCuuHoaDon" />
+    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main.test" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="GUI.*" />
+          <option name="PATTERN" value="Main.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -178,40 +130,30 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.FrmBanVe" />
-<<<<<<< HEAD
-        <item itemvalue="Application.FrmDangNhap" />
-=======
-        <item itemvalue="Application.Frm_TraCuuHoaDon" />
-        <item itemvalue="Application.FrmBanVe (2)" />
-        <item itemvalue="Application.FrmDangNhap" />
-        <item itemvalue="Application.FrmBanVe (1)" />
->>>>>>> cc381c52df47cf5be7acaed5cd07e92235f6d4b1
+        <item itemvalue="Application.Test" />
+        <item itemvalue="Application.test" />
+        <item itemvalue="Application.FrmBanVe (4)" />
+        <item itemvalue="Application.FrmBanVe (3)" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
-        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="6ec75551-36f5-4819-99cd-a8b897b6e309" name="Changes" comment="" />
-      <created>1733856744129</created>
+      <changelist id="5280ff46-fc6b-462c-9fe9-dee94fb65858" name="Changes" comment="" />
+      <created>1733908767928</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1733856744129</updated>
-<<<<<<< HEAD
-      <workItem from="1733856745725" duration="8074000" />
-      <workItem from="1733880028408" duration="763000" />
-=======
-      <workItem from="1733856745725" duration="7837000" />
-      <workItem from="1733884061879" duration="299000" />
->>>>>>> cc381c52df47cf5be7acaed5cd07e92235f6d4b1
+      <updated>1733908767928</updated>
+      <workItem from="1733908769648" duration="678000" />
     </task>
     <servers />
   </component>

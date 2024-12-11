@@ -4,10 +4,7 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.*;
 import java.text.Normalizer;
 import java.time.LocalDate;
 import java.time.Period;
@@ -53,7 +50,7 @@ public class CustomPanel extends JPanel {
         add(hoTenPanel);
         add(trangThaiPanel);
         add(cccdPanel);
-
+        addFocusListeners();
         // Thêm sự kiện cho JComboBox đối tượng
         cbTrangThai.addActionListener(new ActionListener() {
             @Override
@@ -147,26 +144,21 @@ public class CustomPanel extends JPanel {
         // Kiểm tra họ tên
         String hoTen = getHoTen();
         if (hoTen.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Họ tên không được để trống!");
+            txtHoTen.requestFocus();
             return false;
         }
-
         // Chuẩn hóa họ tên (loại bỏ dấu và chuẩn hóa chữ hoa chữ thường)
         String hoTenChuanHoa = normalizeName(hoTen);
-
-        if (!hoTenChuanHoa.matches("[A-Za-z\\s]+")) { // Kiểm tra họ tên chỉ chứa chữ cái và khoảng trắng
-            JOptionPane.showMessageDialog(this, "Họ tên chỉ được chứa chữ cái và khoảng trắng!");
+        if (!hoTenChuanHoa.matches("^[A-Z][a-z]+(\\s[A-z][a-z]+)+$")) { // Kiểm tra họ tên với biểu thức chính quy
+            txtHoTen.requestFocus();
             return false;
         }
 
         // Kiểm tra CCCD
         String cccd = getCCCD();
-        if (cccd.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "CCCD không được để trống!");
-            return false;
-        }
-        if (!cccd.matches("\\d{12}")) { // Kiểm tra CCCD phải là dãy số 12 chữ số
-            JOptionPane.showMessageDialog(this, "CCCD phải gồm 12 chữ số!");
+        if (!cccd.isEmpty() && !cccd.matches("\\d{12}")) { // Nếu không rỗng, kiểm tra CCCD phải là dãy số 12 chữ số
+            JOptionPane.showMessageDialog(this, "CCCD phải gồm 12 chữ số.");
+            txtCCCD.requestFocus();
             return false;
         }
 
@@ -174,26 +166,39 @@ public class CustomPanel extends JPanel {
         return true;
     }
 
-    // Phương thức chuẩn hóa họ tên
-    private String normalizeName(String name) {
-        // Loại bỏ dấu
-        name = Normalizer.normalize(name, Normalizer.Form.NFD);
-        name = name.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
-
-        // Chuyển tên thành định dạng đúng (chữ hoa chữ đầu, còn lại chữ thường)
-        String[] words = name.split("\\s+"); // Tách tên thành các từ
-        StringBuilder normalized = new StringBuilder();
-
-        for (String word : words) {
-            if (!word.isEmpty()) {
-                normalized.append(word.substring(0, 1).toUpperCase()) // Chữ cái đầu viết hoa
-                        .append(word.substring(1).toLowerCase()) // Các chữ còn lại viết thường
-                        .append(" "); // Thêm khoảng cách giữa các từ
+    private void addFocusListeners() {
+        // Kiểm tra khi txtHoTen mất tiêu điểm
+        txtHoTen.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                validateInputs();
             }
+        });
+
+        // Kiểm tra khi txtCCCD mất tiêu điểm
+        txtCCCD.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                validateInputs();
+            }
+        });
+
+    }
+
+    // Phương thức chuẩn hóa họ tên
+    private String normalizeName(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
         }
 
-        // Loại bỏ khoảng cách thừa ở cuối
-        return normalized.toString().trim();
+        // Loại bỏ dấu
+        String result = Normalizer.normalize(input, Normalizer.Form.NFD)
+                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+
+        // Thay 'Đ' thành 'D'
+        result = result.replace('Đ', 'D').replace('đ', 'd');
+
+        return result;
     }
 
     // Phương thức tính tuổi

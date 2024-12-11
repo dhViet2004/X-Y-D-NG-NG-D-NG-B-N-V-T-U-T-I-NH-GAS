@@ -1132,7 +1132,11 @@ public void actionPerformed(ActionEvent e) {
                                     txtCCCDNguoiMua.setText(dao_khachHang.decryptAES(khachHangMuaVe.getCCCD()));
                                     txtSoDienThoai.setText(dao_khachHang.decryptAES(khachHangMuaVe.getSoDienThoai()));
                                     txtDiaChi.setText(dao_khachHang.decryptAES(khachHangMuaVe.getDiaChi()));
-
+                                    // Khóa các ô nhập
+                                    txtHoTenNguoiMua.setEditable(false);
+                                    txtCCCDNguoiMua.setEditable(false);
+                                    txtSoDienThoai.setEditable(false);
+                                    txtDiaChi.setEditable(false);
                                 } catch (Exception ex) {
                                     throw new RuntimeException(ex);
                                 }
@@ -1148,6 +1152,12 @@ public void actionPerformed(ActionEvent e) {
                         // Nếu không nhập, có thể thông báo lỗi hoặc làm gì đó tùy ý
                         JOptionPane.showMessageDialog(dialog, "Số điện thoại không được để trống.");
                     }
+                }else if("Khách hàng thường".equals(selectedLoaiKH)){
+                    // Khóa các ô nhập
+                    txtHoTenNguoiMua.setEditable(true);
+                    txtCCCDNguoiMua.setEditable(true);
+                    txtSoDienThoai.setEditable(true);
+                    txtDiaChi.setEditable(true);
                 }
             }
         });
@@ -1591,8 +1601,7 @@ public void actionPerformed(ActionEvent e) {
                     CustomPanel customPanel = (CustomPanel) table.getValueAt(0, 0); // Lấy đối tượng từ dòng đầu tiên
                     String hoTen = customPanel.getHoTen(); // Lấy họ tên
                     String cccd = customPanel.getCCCD(); // Lấy CCCD
-
-                   if(khachHangMuaVe==null){
+                   if(khachHangMuaVe==null&&!customPanel.getTrangThai().trim().equals("Trẻ nhỏ")){
                        // Cập nhật thông tin vào các trường text
                        txtHoTenNguoiMua.setText(hoTen);
                        txtCCCDNguoiMua.setText(cccd);
@@ -2318,6 +2327,12 @@ private void phanQuyen(String maNV) throws Exception {
             txtHoTenNguoiMua.requestFocus();
             return false;
         }
+        String hoTenChuanHoa = normalizeName(hoTen);
+        if (!hoTenChuanHoa.matches("^[A-Z][a-z]+(\\s[A-z][a-z]+)+$")) { // Kiểm tra họ tên có ít nhất hai từ, mỗi từ bắt đầu bằng chữ in hoa
+            JOptionPane.showMessageDialog(this, "Họ tên phải có ít nhất hai từ, mỗi từ bắt đầu bằng chữ in hoa và theo sau là chữ thường.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            txtHoTenNguoiMua.requestFocus();
+            return false;
+        }
 
         // Kiểm tra CCCD
         if (cccd.isEmpty()) {
@@ -2337,8 +2352,8 @@ private void phanQuyen(String maNV) throws Exception {
             txtSoDienThoai.requestFocus();
             return false;
         }
-        if (!soDienThoai.matches("\\d{10}")) { // Kiểm tra số điện thoại có đúng 10 chữ số
-            JOptionPane.showMessageDialog(this, "Số điện thoại phải là 10 chữ số.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        if (!soDienThoai.matches("0\\d{9}")) { // Kiểm tra số điện thoại có đúng 10 chữ số và bắt đầu bằng số 0
+            JOptionPane.showMessageDialog(this, "Số điện thoại phải có 10 chữ số và bắt đầu bằng số 0.", "Lỗi", JOptionPane.ERROR_MESSAGE);
             txtSoDienThoai.requestFocus();
             return false;
         }
@@ -2352,6 +2367,21 @@ private void phanQuyen(String maNV) throws Exception {
 
         // Nếu tất cả đều hợp lệ
         return true;
+    }
+    // Phương thức chuẩn hóa họ tên
+    private String normalizeName(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+
+        // Loại bỏ dấu
+        String result = Normalizer.normalize(input, Normalizer.Form.NFD)
+                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+
+        // Thay 'Đ' thành 'D'
+        result = result.replace('Đ', 'D').replace('đ', 'd');
+
+        return result;
     }
 
     public void setThongTinVe(VeTau thongTinVeDoi) {

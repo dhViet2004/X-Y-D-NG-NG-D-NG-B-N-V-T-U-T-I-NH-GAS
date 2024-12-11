@@ -139,7 +139,14 @@ public class InvoicePDFGenerator {
         if (input == null || input.isEmpty()) {
             return input;
         }
-        return Normalizer.normalize(input, Normalizer.Form.NFD)
+
+        // Loại bỏ dấu
+        String result = Normalizer.normalize(input, Normalizer.Form.NFD)
                 .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+
+        // Thay 'Đ' thành 'D'
+        result = result.replace('Đ', 'D').replace('đ', 'd');
+
+        return result;
     }
 }
