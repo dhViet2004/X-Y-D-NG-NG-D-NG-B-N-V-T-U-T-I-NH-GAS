@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5280ff46-fc6b-462c-9fe9-dee94fb65858" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/FrmDangNhap.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmDangNhap.form" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +57,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.FrmBanVe">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="FrmBanVe (3)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -125,8 +125,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.FrmBanVe" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.FrmBanVe" />
         <item itemvalue="Application.test" />
         <item itemvalue="Application.FrmBanVe (4)" />
         <item itemvalue="Application.FrmBanVe (3)" />
@@ -150,7 +150,9 @@
       <option name="presentableId" value="Default" />
       <updated>1733908767928</updated>
       <workItem from="1733908769648" duration="1685000" />
-      <workItem from="1733910665287" duration="906000" />
+      <workItem from="1733910665287" duration="2881000" />
+      <workItem from="1733917572111" duration="327000" />
+      <workItem from="1733922464896" duration="595000" />
     </task>
     <servers />
   </component>
