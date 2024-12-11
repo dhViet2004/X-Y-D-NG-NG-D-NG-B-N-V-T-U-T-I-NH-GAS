@@ -828,9 +828,25 @@ public void actionPerformed(ActionEvent e) {
                                             try {
                                                 // Gọi DAO để tìm các chỗ ngồi của toa
                                                 danhSachChoNgoi = daoBanVe.getSeatsByMaToa(toaTau.getMaToa());
+                                                // Sắp xếp danh sách chỗ ngồi trước khi hiển thị
+                                                danhSachChoNgoi.sort((cho1, cho2) -> {
+                                                    String tenCho1 = cho1.getTenCho();
+                                                    String tenCho2 = cho2.getTenCho();
+
+                                                    int number1 = Integer.parseInt(tenCho1.replaceAll("[^0-9]", ""));
+                                                    int number2 = Integer.parseInt(tenCho2.replaceAll("[^0-9]", ""));
+                                                    char letter1 = tenCho1.replaceAll("[0-9]", "").charAt(0);
+                                                    char letter2 = tenCho2.replaceAll("[0-9]", "").charAt(0);
+
+                                                    if (number1 != number2) {
+                                                        return Integer.compare(number1, number2);
+                                                    }
+                                                    return Character.compare(letter1, letter2);
+                                                });
                                             } catch (SQLException ex) {
                                                 throw new RuntimeException(ex);
                                             }
+
                                             // Hiển thị chỗ ngồi trong JPanel_ChoNgoi
                                             JPanel_ChoNgoi_A.removeAll();
                                             JPanel_ChoNgoi_A.setLayout(new FlowLayout());

@@ -91,7 +91,7 @@ public class TicketPDFGenerator {
                 document.add(new Paragraph("Ga di - Ga den: " + removeDiacritics(ticket.getGaDi()) + " - " + removeDiacritics(ticket.getGaDen())));
                 document.add(new Paragraph("Tau/Train: " + removeDiacritics(ticket.getTenTau())));
                 document.add(new Paragraph("Ngay di/Date: " + ticket.getNgayDi()));
-                document.add(new Paragraph("Gi di/Time: " + ticket.getGioDi()));
+                document.add(new Paragraph("Gio di/Time: " + ticket.getGioDi()));
                 document.add(new Paragraph("Toa/Coach: " + removeDiacritics(ticket.getToaTau())));
                 document.add(new Paragraph("Cho/Seat: " + removeDiacritics(ticket.getChoNgoi())));
 
