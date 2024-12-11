@@ -1,6 +1,7 @@
 package GUI;
 
 import DAO.DAO_HoaDon;
+import DAO.DAO_KhachHang;
 import DAO.DAO_KhuyenMai;
 import Entity.KhuyenMai;
 import Entity.NhanVien;
@@ -48,7 +49,7 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
     public  Component getKMPanel(){
         return  Jpanel_Right;
     }
-    public FrmKhuyenMai() {
+    public FrmKhuyenMai()  {
         setTitle("Form Khuyến Mãi");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -299,16 +300,29 @@ public class FrmKhuyenMai extends JFrame implements ActionListener, MouseListene
         // lấy danh sách hóa đơn lên bảng
         List<Object[]> list_hd = new ArrayList<>();
         DAO_HoaDon dao_hoadon = new DAO_HoaDon();
+        DAO_KhachHang dao = null;
+        try {
+            dao = new DAO_KhachHang();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         try {
             list_hd = dao_hoadon.layDSHD();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         for (int i = 0; i < list_hd.size(); i++) {
+            String ten = list_hd.get(i)[1].toString();
+            String name;
+            try {
+                name = dao.decryptAES(ten);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
             model.addRow(new Object[]{
                     i + 1,
                     list_hd.get(i)[0],
-                    list_hd.get(i)[1],
+                    name,
                     list_hd.get(i)[2],
                     list_hd.get(i)[3],
                     list_hd.get(i)[4],
