@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5280ff46-fc6b-462c-9fe9-dee94fb65858" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/FrmDangNhap.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmDangNhap.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/Frm_KhachHang.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_KhachHang.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,29 +35,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.FrmBanVe (1).executor&quot;: &quot;Run&quot;,
-    &quot;Application.FrmBanVe (2).executor&quot;: &quot;Run&quot;,
-    &quot;Application.FrmBanVe (3).executor&quot;: &quot;Run&quot;,
-    &quot;Application.FrmBanVe (4).executor&quot;: &quot;Run&quot;,
-    &quot;Application.FrmBanVe.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Test.executor&quot;: &quot;Run&quot;,
-    &quot;Application.test.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.FrmBanVe (1).executor": "Run",
+    "Application.FrmBanVe (2).executor": "Run",
+    "Application.FrmBanVe (3).executor": "Run",
+    "Application.FrmBanVe (4).executor": "Run",
+    "Application.FrmBanVe.executor": "Run",
+    "Application.Frm_KhachHang.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.Test.executor": "Run",
+    "Application.test.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/NAM_BA/HK1/PTUD/PROJECT/tmp/12_12/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="Application.Main">
+}]]></component>
+  <component name="RunManager" selected="Application.Frm_KhachHang">
     <configuration name="FrmBanVe (3)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -84,8 +86,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FrmBanVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
+    <configuration name="Frm_KhachHang" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.Frm_KhachHang" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
         <pattern>
@@ -125,8 +127,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Frm_KhachHang" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.FrmBanVe" />
         <item itemvalue="Application.test" />
         <item itemvalue="Application.FrmBanVe (4)" />
         <item itemvalue="Application.FrmBanVe (3)" />
@@ -136,8 +138,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
-        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
       </set>
     </attachedChunks>
   </component>
@@ -153,6 +155,8 @@
       <workItem from="1733910665287" duration="2881000" />
       <workItem from="1733917572111" duration="327000" />
       <workItem from="1733922464896" duration="595000" />
+      <workItem from="1733924367489" duration="321000" />
+      <workItem from="1733924705581" duration="1373000" />
     </task>
     <servers />
   </component>
