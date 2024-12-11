@@ -585,11 +585,54 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
 
     // Phương thức kiểm tra xem tất cả các trường cần thiết có dữ liệu không
     private boolean isInputValid() {
-        return !txtSDT.getText().trim().isEmpty() &&
-                !txtTenKH.getText().trim().isEmpty() &&
-                !txtDiaChi.getText().trim().isEmpty() &&
-                !txtCCCD.getText().trim().isEmpty();
+        String sdtPattern = "03\\d{8}"; // Bắt đầu bằng '03' và theo sau là 8 chữ số.
+        String cccdPattern = "\\d{12}"; // Gồm đúng 12 chữ số.
+
+        String sdt = txtSDT.getText().trim();
+        String tenKH = txtTenKH.getText().trim();
+        String diaChi = txtDiaChi.getText().trim();
+        String cccd = txtCCCD.getText().trim();
+        Date ngaysinh = txtNgaySinh.getDate();
+
+        // Kiểm tra số điện thoại
+        if (sdt.isEmpty() || !sdt.matches(sdtPattern)) {
+            JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ! Phải bắt đầu bằng '03' và gồm 10 chữ số.");
+            return false;
+        }
+
+        // Kiểm tra tên khách hàng
+        if (tenKH.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Tên khách hàng không được để trống!");
+            return false;
+        }
+
+        // Kiểm tra địa chỉ
+        if (diaChi.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Địa chỉ không được để trống!");
+            return false;
+        }
+
+        // Kiểm tra căn cước công dân
+        if (cccd.isEmpty() || !cccd.matches(cccdPattern)) {
+            JOptionPane.showMessageDialog(null, "Căn cước công dân không hợp lệ! Phải gồm đúng 12 chữ số.");
+            return false;
+        }
+
+        // Kiểm tra ngày sinh
+        if (ngaysinh == null) {
+            JOptionPane.showMessageDialog(null, "Ngày sinh không được để trống!");
+            return false;
+        }
+        Date currentDate = new Date();
+        if (!ngaysinh.before(currentDate)) {
+            JOptionPane.showMessageDialog(null, "Ngày sinh phải trước ngày hiện tại!");
+            return false;
+        }
+
+        return true;
     }
+
+
 
     private void xoaRongVaSetMaKH() throws SQLException {
         // set maKH

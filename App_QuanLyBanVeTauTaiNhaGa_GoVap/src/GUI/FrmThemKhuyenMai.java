@@ -70,40 +70,78 @@ public class FrmThemKhuyenMai extends JDialog implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnLuu) {
-            // Lấy thông tin từ form và xử lý (thêm vào database, ...)
+            // Lấy dữ liệu từ form
+            Date ngayBatDau = dateBatDau.getDate();
+            Date ngayKetThuc = dateKetThuc.getDate();
+            String noiDung = txtNoiDungKM.getText().trim();
+            String chietKhauText = txtChietKhau.getText().trim();
+            String doiTuong = txtDoiTuongApDung.getText().trim();
+
+            // Kiểm tra dữ liệu đầu vào
+            if (ngayBatDau == null) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày bắt đầu!");
+                return;
+            }
+            if (ngayKetThuc == null) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày kết thúc!");
+                return;
+            }
+            if (ngayKetThuc.before(ngayBatDau)) {
+                JOptionPane.showMessageDialog(this, "Ngày kết thúc phải sau hoặc bằng ngày bắt đầu!");
+                return;
+            }
+            if (noiDung.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Nội dung khuyến mãi không được để trống!");
+                return;
+            }
+            if (doiTuong.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Đối tượng áp dụng không được để trống!");
+                return;
+            }
+            double chietKhau;
+            try {
+                chietKhau = Double.parseDouble(chietKhauText);
+                if (chietKhau <= 0) {
+                    JOptionPane.showMessageDialog(this, "Chiết khấu phải lớn hơn 0!");
+                    return;
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Chiết khấu phải là một số hợp lệ!");
+                return;
+            }
+
+            // Nếu tất cả dữ liệu hợp lệ, tiến hành lưu
             DAO_KhuyenMai dao_km;
             String maKM;
             try {
-                dao_km  = new DAO_KhuyenMai();
-                List<KhuyenMai> list = new ArrayList<KhuyenMai>();
-                list = dao_km.getKhuyenMais();
-                int n = list.size()+1;
-                if(n<=9){
-                    maKM = "KM00"+n;
-                }else{
-                    maKM = "KM0"+n;
+                dao_km = new DAO_KhuyenMai();
+                List<KhuyenMai> list = dao_km.getKhuyenMais();
+                int n = list.size() + 1;
+                if (n <= 9) {
+                    maKM = "KM00" + n;
+                } else {
+                    maKM = "KM0" + n;
                 }
             } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+                JOptionPane.showMessageDialog(this, "Lỗi kết nối cơ sở dữ liệu!");
+                ex.printStackTrace();
+                return;
             }
-            // lấy dữ liệu từ textfield
-            Date ngayBatDau = dateBatDau.getDate();
-            Date ngayKetThuc = dateKetThuc.getDate();
+
+            // Chuyển đổi ngày sang LocalDate
             LocalDate begin = ngayBatDau.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate end = ngayKetThuc.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            String noiDung = txtNoiDungKM.getText();
-            Double chietKhau = Double.parseDouble(txtChietKhau.getText());
-            String doiTuong = txtDoiTuongApDung.getText();
-            KhuyenMai km = new KhuyenMai(maKM,begin,end,noiDung,chietKhau,doiTuong);
-            // thêm vào dbs
+
+            // Tạo đối tượng KhuyenMai và lưu vào cơ sở dữ liệu
+            KhuyenMai km = new KhuyenMai(maKM, begin, end, noiDung, chietKhau, doiTuong);
             try {
                 dao_km.themKhuyenMai(km);
+                JOptionPane.showMessageDialog(this, "Thêm thành công!");
+                dispose();
             } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+                JOptionPane.showMessageDialog(this, "Lỗi khi thêm khuyến mãi vào cơ sở dữ liệu!");
+                ex.printStackTrace();
             }
-            JOptionPane.showMessageDialog(this,"Thêm thành công");
-            // Đóng form sau khi lưu
-            dispose();
         } else if (e.getSource() == btnHuy) {
             // Đóng form khi nhấn Hủy
             int kq = JOptionPane.showConfirmDialog(this, "Hủy thay đổi", "Xác nhận hủy", JOptionPane.YES_NO_OPTION);
@@ -112,5 +150,6 @@ public class FrmThemKhuyenMai extends JDialog implements ActionListener {
             }
         }
     }
+
 }
 
