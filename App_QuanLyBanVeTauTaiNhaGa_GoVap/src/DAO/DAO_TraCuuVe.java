@@ -16,6 +16,137 @@ public class DAO_TraCuuVe {
     public DAO_TraCuuVe() {
         con = ConnectDatabase.getConnection();
     }
+    public ChiTietHoaDon timChiTietHoaDonTheoMaVe(String maVe) throws SQLException {
+        String query = """
+            SELECT 
+                MaVe,
+                MaHD,
+                SoLuong,
+                VAT,
+                ThanhTien,
+                TenThue
+            FROM ChiTietHoaDon
+            WHERE MaVe = ?;
+            """;
+
+        ChiTietHoaDon chiTietHoaDon = null;
+
+        try (PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, maVe);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    // Lấy thông tin từ ResultSet
+                    String maHD = rs.getString("MaHD");
+                    int soLuong = rs.getInt("SoLuong");
+                    double VAT = rs.getDouble("VAT");
+                    double thanhTien = rs.getDouble("ThanhTien");
+                    double tienThue = rs.getDouble("TenThue"); // Giá trị thuế có thể có tên khác trong cơ sở dữ liệu (như 'TienThue')
+
+                    // Tạo đối tượng ChiTietHoaDon
+                    chiTietHoaDon = new ChiTietHoaDon(maVe, maHD, soLuong, VAT, thanhTien, tienThue);
+                }
+            }
+        }
+
+        return chiTietHoaDon;
+    }
+
+    public VeTau timMotVeTauTheoMa(String maVe) throws SQLException {
+        String query = """
+        SELECT 
+            vt.MaVe,
+            lt.MaLich AS MaLichTrinh,
+            lt.GioDi,
+            lt.NgayDi,
+            tt.MaTau,
+            tt.TenTau,
+            tt.SoToa,
+            tn.MaTuyen,
+            tn.TenTuyen AS TuyenTau,
+            tn.GaDi,
+            tn.GaDen,
+            tn.DiaDiemDi,
+            tn.DiaDiemDen,
+            cn.MaCho,
+            cn.TenCho,
+            cn.GiaTien,
+            vt.TenKH,
+            vt.GiayTo,
+            vt.NgayDi AS NgayDiCuaVe,
+            vt.DoiTuong,
+            vt.GiaVe,
+            vt.TrangThai,
+            toa.MaToa,
+            toa.LoaiToaMaLoai,
+            toa.TenToa,
+            toa.SoGhe,
+            toa.ThuTu,
+            loaiToa.TenLoai AS LoaiToa
+        FROM VeTau vt
+        JOIN LichTrinhTau lt ON vt.LichTrinhTauMaLich = lt.MaLich
+        JOIN Tau tt ON lt.MaTau = tt.MaTau
+        JOIN TuyenTau tn ON tt.MaTuyen = tn.MaTuyen
+        JOIN ChoNgoi cn ON vt.ChoNgoiMaCho = cn.MaCho
+        JOIN ToaTau toa ON tt.MaTau = toa.TauMaTau
+        JOIN LoaiToa loaiToa ON toa.LoaiToaMaLoai = loaiToa.MaLoai
+        WHERE vt.MaVe = ?;
+    """;
+
+        VeTau veTau = null;
+
+        try (PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, maVe);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    // Lấy thông tin từ ResultSet
+                    String maLichTrinh = rs.getString("MaLichTrinh");
+                    LocalTime gioDi = rs.getTime("GioDi").toLocalTime();
+                    LocalDate ngayDiLichTrinh = rs.getDate("NgayDi").toLocalDate();
+                    String maTau = rs.getString("MaTau");
+                    String tenTau = rs.getString("TenTau");
+                    int soToa = rs.getInt("SoToa");
+                    String maTuyen = rs.getString("MaTuyen");
+                    String tenTuyen = rs.getString("TuyenTau");
+                    String gaDi = rs.getString("GaDi");
+                    String gaDen = rs.getString("GaDen");
+                    String diaDiemDi = rs.getString("DiaDiemDi");
+                    String diaDiemDen = rs.getString("DiaDiemDen");
+                    String maCho = rs.getString("MaCho");
+                    String tenCho = rs.getString("TenCho");
+                    float giaTien = rs.getFloat("GiaTien");
+                    String tenKhachHang = rs.getString("TenKH");
+                    String giayTo = rs.getString("GiayTo");
+                    LocalDate ngayDiVe = rs.getDate("NgayDiCuaVe").toLocalDate();
+                    String doiTuong = rs.getString("DoiTuong");
+                    double giaVe = rs.getDouble("GiaVe");
+                    String trangThai = rs.getString("TrangThai");
+
+                    // Lấy thông tin về toa tàu và loại toa
+                    String maToa = rs.getString("MaToa");
+                    String maLoaiToa = rs.getString("LoaiToaMaLoai");
+                    String tenToa = rs.getString("TenToa");
+                    int soGhe = rs.getInt("SoGhe");
+                    int thuTu = rs.getInt("ThuTu");
+                    String tenLoaiToa = rs.getString("LoaiToa");
+
+                    // Tạo các đối tượng liên quan
+                    TuyenTau tuyenTau = new TuyenTau(maTuyen, tenTuyen, gaDi, gaDen, diaDiemDi, diaDiemDen);
+                    Tau tau = new Tau(maTau, tuyenTau, tenTau, soToa);
+                    LichTrinhTau lichTrinhTau = new LichTrinhTau(maLichTrinh, gioDi, ngayDiLichTrinh, tau, null);
+
+                    LoaiToa loaiToa = new LoaiToa(maLoaiToa, tenLoaiToa);
+                    ToaTau toaTau = new ToaTau(maToa, loaiToa, tau, soGhe, tenToa, thuTu);
+                    ChoNgoi choNgoi = new ChoNgoi(maCho, null, toaTau, tenCho, null, giaTien);
+                    // Tạo đối tượng VeTau
+                    veTau = new VeTau(maVe, lichTrinhTau, choNgoi, tenKhachHang, giayTo, ngayDiVe, doiTuong, giaVe, trangThai);
+
+                }
+            }
+        }
+
+        return veTau;
+    }
+
 
     public List<VeTau> timVeTauTheoMa(String maVe) throws SQLException {
         String query = """

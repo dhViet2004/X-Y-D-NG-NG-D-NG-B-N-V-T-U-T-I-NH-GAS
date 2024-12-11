@@ -5,15 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1e00f47f-dfb7-4952-9ba8-ed133c5f7a49" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Main/test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/danh_sach_ve.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/danh_sach_ve.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hoa_don.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hoa_don.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAO/DAO_TraCuuVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DAO_TraCuuVe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/Frm_TraCuuVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Frm_TraCuuVe.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -26,25 +33,15 @@
     "Application.FrmBanVe (1).executor": "Run",
     "Application.FrmBanVe (2).executor": "Run",
     "Application.FrmBanVe.executor": "Run",
+    "Application.Frm_TraCuuVe (1).executor": "Run",
+    "Application.Frm_TraCuuVe.executor": "Run",
+    "Application.test.executor": "Run",
     "git-widget-placeholder": "master",
     "last_opened_file_path": "D:/XaydungungdungBanVeTauTaiNhaGAS/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap",
     "node.js.selected.package.tslint": "(autodetect)"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.FrmBanVe">
-    <configuration name="FrmBanVe (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
-      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.Frm_TraCuuVe (1)">
     <configuration name="FrmBanVe (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -71,11 +68,52 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Frm_TraCuuVe (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.Frm_TraCuuVe" />
+      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Frm_TraCuuVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.Frm_TraCuuVe" />
+      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main.test" />
+      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Frm_TraCuuVe (1)" />
+        <item itemvalue="Application.Frm_TraCuuVe" />
+        <item itemvalue="Application.test" />
         <item itemvalue="Application.FrmBanVe" />
         <item itemvalue="Application.FrmBanVe (2)" />
-        <item itemvalue="Application.FrmBanVe (1)" />
       </list>
     </recent_temporary>
   </component>

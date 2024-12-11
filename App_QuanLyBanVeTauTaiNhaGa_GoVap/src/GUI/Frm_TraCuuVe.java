@@ -2,6 +2,9 @@ package GUI;
 
 import DAO.DAO_TraCuuVe;
 import Database.ConnectDatabase;
+import Entity.ChiTietHoaDon;
+import Entity.TicketDetails;
+import Entity.TicketPDFGenerator;
 import Entity.VeTau;
 import com.toedter.calendar.JDateChooser;
 
@@ -12,12 +15,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -187,7 +190,6 @@ public class Frm_TraCuuVe extends JFrame {
         }
         return null; // Trả về null nếu không tìm thấy vé
     }
-    // Phương thức tạo panel chi tiết vé
     private JPanel createPanelChiTietVe() {
         JPanel panelChiTietVe = new JPanel();
         panelChiTietVe.setLayout(new GridBagLayout());
@@ -256,6 +258,14 @@ public class Frm_TraCuuVe extends JFrame {
         txtTrangThai.setFont(new Font("Arial", Font.PLAIN, 18));
         txtTrangThai.setPreferredSize(new Dimension(250, 35));
 
+        // Tạo button "In lại vé"
+        JButton btnInLaiVe = new JButton("In lại vé");
+        btnInLaiVe.setFont(new Font("Arial", Font.BOLD, 18));
+        btnInLaiVe.addActionListener(e -> {
+            // Xử lý in lại vé tại đây
+            System.out.println("In lại vé");
+        });
+
         // Sắp xếp các thành phần vào GridBagLayout
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -311,8 +321,77 @@ public class Frm_TraCuuVe extends JFrame {
         gbc.gridx = 1;
         panelChiTietVe.add(txtTrangThai, gbc);
 
+        // Đặt button "In lại vé" ở dưới cùng
+        gbc.gridx = 0;
+        gbc.gridy = 9;
+        gbc.gridwidth = 2; // Chiếm hết chiều ngang của panel
+        panelChiTietVe.add(btnInLaiVe, gbc);
+        btnInLaiVe.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Lấy mã vé từ txtMaVe
+                String maVe = txtMaVe.getText().trim();
+
+                // Kiểm tra nếu mã vé không rỗng
+                if (!maVe.isEmpty()) {
+                    DAO_TraCuuVe daoTraCuuVe = new DAO_TraCuuVe();
+                    try {
+                        // Tìm vé theo mã vé
+                        VeTau veTau = daoTraCuuVe.timMotVeTauTheoMa(maVe);
+                        ChiTietHoaDon chiTietHoaDon = daoTraCuuVe.timChiTietHoaDonTheoMaVe(maVe);
+                        List<ChiTietHoaDon> chiTietHoaDonList = new ArrayList<>();
+                        chiTietHoaDonList.add(chiTietHoaDon);
+
+                        // Tạo danh sách TicketDetails từ VeTau
+                        List<TicketDetails> ticketDetailsList = new ArrayList<>();
+                        TicketDetails ticketDetails = new TicketDetails(
+                                veTau.getTenKhachHang(),
+                                veTau.getDoiTuong(),
+                                veTau.getGiayTo(),
+                                veTau.getLichTrinhTau().getTau().getTuyenTau().getGaDi(),
+                                veTau.getLichTrinhTau().getTau().getTuyenTau().getGaDen(),
+                                veTau.getLichTrinhTau().getTau().getTenTau(),
+                                veTau.getLichTrinhTau().getNgayDi(),
+                                veTau.getLichTrinhTau().getGioDi(),
+                                veTau.getChoNgoi().getToaTau().getTenToa(),
+                                veTau.getChoNgoi().getTenCho(),
+                                veTau.getGiaVe(),
+                                chiTietHoaDon.getThanhTien()
+                        );
+                        ticketDetailsList.add(ticketDetails);
+
+                        // Gọi phương thức tạo PDF vé
+                        String fileName = "InLaiVe.pdf";
+                        TicketPDFGenerator.generateTicketPdf(fileName, ticketDetailsList, chiTietHoaDonList);
+
+                        // Hiển thị thông báo thành công
+                        JOptionPane.showMessageDialog(null, "Vé đã được in thành công!");
+
+                        // Mở file PDF sau khi tạo thành công
+                        File pdfFile = new File(fileName);
+                        if (pdfFile.exists()) {
+                            if (Desktop.isDesktopSupported()) {
+                                try {
+                                    Desktop.getDesktop().open(pdfFile);
+                                } catch (IOException ex) {
+                                    throw new RuntimeException(ex);
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Không thể mở file PDF. Vui lòng kiểm tra lại.");
+                            }
+                        }
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Lỗi khi tìm vé: " + ex.getMessage());
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Vui lòng nhập mã vé.");
+                }
+            }
+        });
+
         return panelChiTietVe;
     }
+
     private JPanel createPanelTimTheoThoiGian() {
         // Tạo panel chính với GridBagLayout
         JPanel panelTimTheoThoiGian = new JPanel();
