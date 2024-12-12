@@ -25,6 +25,7 @@ import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.*;
@@ -690,313 +691,319 @@ public void actionPerformed(ActionEvent e) {
         if (lichTrinhTaus.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Không tìm thấy chuyến tàu nào.");
         } else {
-
+            LocalDateTime currentDateTime = LocalDateTime.now().plusHours(1); // Thời gian hiện tại cộng 1 giờ
+            System.out.println("Ngày giờ hiện tại + 1 giờ: " + currentDateTime);
             for (LichTrinhTau lichTrinhTau : lichTrinhTaus) {
-                String tauInfo = "Tên tàu: " + lichTrinhTau.getTau().getTenTau() + ", Giờ chạy: " + lichTrinhTau.getGioDi();
-                JButton tauButton = new JButton(tauInfo);
+                // Kết hợp Ngày đi và Giờ đi để tạo LocalDateTime của lịch trình
+                LocalDateTime lichTrinhDateTime = LocalDateTime.of(lichTrinhTau.getNgayDi(), lichTrinhTau.getGioDi());
 
-                URL imageUrl = getClass().getResource("/Anh_HeThong/DauTauHoa.png");
-                if (imageUrl != null) {
-                    ImageIcon icon = new ImageIcon(imageUrl);
-                    Image image = icon.getImage(); // Lấy hình ảnh từ ImageIcon
-                    Image resizedImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Thay đổi kích thước
-                    icon = new ImageIcon(resizedImage); // Tạo lại ImageIcon với hình ảnh đã thay đổi kích thước
-                    tauButton.setIcon(icon);
-                } else {
-                    System.out.println("File ảnh không tồn tại hoặc đường dẫn không chính xác.");
-                }
-                // Thêm hiệu ứng hover cho nút tàu
-                Color hoverBackground = new Color(132, 255, 57); // Màu nền khi hover
-                tauButton.addMouseListener(new java.awt.event.MouseAdapter() {
-                    @Override
-                    public void mouseEntered(java.awt.event.MouseEvent evt) {
-                        tauButton.setBackground(hoverBackground); // Đổi màu khi hover
-                        tauButton.setOpaque(true); // Đảm bảo màu được hiển thị
+                if(lichTrinhTau.getTrangThai().equals("Hoạt động")&&lichTrinhDateTime.isAfter(currentDateTime)){
+                    String tauInfo = "Tên tàu: " + lichTrinhTau.getTau().getTenTau() + ", Giờ chạy: " + lichTrinhTau.getGioDi();
+                    JButton tauButton = new JButton(tauInfo);
+
+                    URL imageUrl = getClass().getResource("/Anh_HeThong/DauTauHoa.png");
+                    if (imageUrl != null) {
+                        ImageIcon icon = new ImageIcon(imageUrl);
+                        Image image = icon.getImage(); // Lấy hình ảnh từ ImageIcon
+                        Image resizedImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Thay đổi kích thước
+                        icon = new ImageIcon(resizedImage); // Tạo lại ImageIcon với hình ảnh đã thay đổi kích thước
+                        tauButton.setIcon(icon);
+                    } else {
+                        System.out.println("File ảnh không tồn tại hoặc đường dẫn không chính xác.");
                     }
-
-                });
-                // Xử lý cho sự kiện di chuyển chuột ra ngoài
-                tauButton.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-                        // Nếu nút này đang được chọn, giữ nguyên màu nền vàng
-                        if (tauButton == selectedTauButton[0]) {
-                            tauButton.setBackground(hoverBackground); // Giữ màu vàng
-                        } else {
-                            tauButton.setBackground(null); // Nếu không được chọn, khôi phục lại màu nền ban đầu
+                    // Thêm hiệu ứng hover cho nút tàu
+                    Color hoverBackground = new Color(132, 255, 57); // Màu nền khi hover
+                    tauButton.addMouseListener(new java.awt.event.MouseAdapter() {
+                        @Override
+                        public void mouseEntered(java.awt.event.MouseEvent evt) {
+                            tauButton.setBackground(hoverBackground); // Đổi màu khi hover
+                            tauButton.setOpaque(true); // Đảm bảo màu được hiển thị
                         }
-                    }
-                });
-                // Biến lưu trữ nút toa đã chọn
-                final JButton[] selectedToaButton = {null};
-                // Thêm ActionListener cho mỗi nút tàu
-                tauButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent event) {
-                        if (!danhSachChoDaChon.isEmpty()) {
-                            JOptionPane.showMessageDialog(tauButton, "Vui lòng xóa hết vé trong giỏ hàng để chọn tàu");
-                        } else {
 
-                            // Nếu có nút toa đã chọn, đổi lại màu ban đầu
-                            if (selectedTauButton[0] != null) {
-                                selectedTauButton[0].setBackground(null);  // Khôi phục màu nền ban đầu
-                            }
-                            tauButton.setBackground(hoverBackground); // Màu vàng khi chọn
-                            selectedTauButton[0] = tauButton;
-                            DAO_BanVe daoBanVe = new DAO_BanVe();
-                            // Gọi DAO để tìm các toa của tàu
-                            List<ToaTau> danhSachToa = null;
-                            try {
-                                danhSachToa = daoBanVe.getToaByMaTau(lichTrinhTau.getTau().getMaTau());
-                            } catch (SQLException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                            // Tạo container cho các nút toa
-                            JPanel toaContainerPanel = new JPanel();
-                            toaContainerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10)); // Sắp xếp các nút theo chiều ngang với khoảng cách 10px
-
-                            // Xóa các nút cũ
-                            JPanel_Toa.removeAll();
-                            JPanel_Toa.setLayout(new BorderLayout());  // Đặt BorderLayout để chứa JScrollPane
-
-                            if (danhSachToa.isEmpty()) {
-                                JOptionPane.showMessageDialog(null, "Không tìm thấy toa tàu.");
+                    });
+                    // Xử lý cho sự kiện di chuyển chuột ra ngoài
+                    tauButton.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseExited(MouseEvent e) {
+                            // Nếu nút này đang được chọn, giữ nguyên màu nền vàng
+                            if (tauButton == selectedTauButton[0]) {
+                                tauButton.setBackground(hoverBackground); // Giữ màu vàng
                             } else {
-                                // Kiểm tra thứ tự của toa để gán hình ảnh tương ứng
-                                URL imageDauTau = getClass().getResource("/Anh_HeThong/DauTauHoaMauVang.png");
-                                // Thêm hình ảnh cho nút
-                                if (imageDauTau != null) {
-                                    //Tao Đầu tau
-                                    ImageIcon icon = new ImageIcon(imageDauTau);
-                                    Image img = icon.getImage();
-                                    Image resizedImage = img.getScaledInstance(100, 50, Image.SCALE_SMOOTH); // Tăng kích thước hình ảnh
-                                    icon = new ImageIcon(resizedImage);
-                                    JButton DautoaButton = new JButton(lichTrinhTau.getTau().getMaTau());
-                                    DautoaButton.setIcon(icon);
-                                    toaContainerPanel.add(DautoaButton);
-                                    //Căng chỉnh btn
-                                    DautoaButton.setHorizontalTextPosition(SwingConstants.CENTER);
-                                    DautoaButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-                                    DautoaButton.setContentAreaFilled(false);
-                                    DautoaButton.setBorderPainted(false);
-                                    // Căn chỉnh biểu tượng với viền của nút
-                                    DautoaButton.setIconTextGap(0);  // Không có khoảng cách giữa biểu tượng và văn bản
-                                    DautoaButton.setMargin(new Insets(0, 0, 0, 0));  // Loại bỏ phần đệm của nút
-                                    DautoaButton.setContentAreaFilled(false);  // Loại bỏ vùng nội dung mặc định của nút
-                                    DautoaButton.setBorderPainted(false);  // Loại bỏ viền mặc định của nút
-                                } else {
-                                    System.out.println("Ảnh không tồn tại.");
+                                tauButton.setBackground(null); // Nếu không được chọn, khôi phục lại màu nền ban đầu
+                            }
+                        }
+                    });
+                    // Biến lưu trữ nút toa đã chọn
+                    final JButton[] selectedToaButton = {null};
+                    // Thêm ActionListener cho mỗi nút tàu
+                    tauButton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent event) {
+                            if (!danhSachChoDaChon.isEmpty()) {
+                                JOptionPane.showMessageDialog(tauButton, "Vui lòng xóa hết vé trong giỏ hàng để chọn tàu");
+                            } else {
+
+                                // Nếu có nút toa đã chọn, đổi lại màu ban đầu
+                                if (selectedTauButton[0] != null) {
+                                    selectedTauButton[0].setBackground(null);  // Khôi phục màu nền ban đầu
                                 }
-                                for (ToaTau toaTau : danhSachToa) {
-                                    URL image = getClass().getResource("/Anh_HeThong/ThanToaMauVang.png");
-                                    JButton toaButton = new JButton("Toa: " + toaTau.getThuTu()); // Hiển thị mã toa
+                                tauButton.setBackground(hoverBackground); // Màu vàng khi chọn
+                                selectedTauButton[0] = tauButton;
+                                DAO_BanVe daoBanVe = new DAO_BanVe();
+                                // Gọi DAO để tìm các toa của tàu
+                                List<ToaTau> danhSachToa = null;
+                                try {
+                                    danhSachToa = daoBanVe.getToaByMaTau(lichTrinhTau.getTau().getMaTau());
+                                } catch (SQLException ex) {
+                                    throw new RuntimeException(ex);
+                                }
+                                // Tạo container cho các nút toa
+                                JPanel toaContainerPanel = new JPanel();
+                                toaContainerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10)); // Sắp xếp các nút theo chiều ngang với khoảng cách 10px
+
+                                // Xóa các nút cũ
+                                JPanel_Toa.removeAll();
+                                JPanel_Toa.setLayout(new BorderLayout());  // Đặt BorderLayout để chứa JScrollPane
+
+                                if (danhSachToa.isEmpty()) {
+                                    JOptionPane.showMessageDialog(null, "Không tìm thấy toa tàu.");
+                                } else {
+                                    // Kiểm tra thứ tự của toa để gán hình ảnh tương ứng
+                                    URL imageDauTau = getClass().getResource("/Anh_HeThong/DauTauHoaMauVang.png");
                                     // Thêm hình ảnh cho nút
-                                    if (image != null) {
-                                        ImageIcon icon = new ImageIcon(image);
+                                    if (imageDauTau != null) {
+                                        //Tao Đầu tau
+                                        ImageIcon icon = new ImageIcon(imageDauTau);
                                         Image img = icon.getImage();
                                         Image resizedImage = img.getScaledInstance(100, 50, Image.SCALE_SMOOTH); // Tăng kích thước hình ảnh
                                         icon = new ImageIcon(resizedImage);
-                                        toaButton.setIcon(icon);
+                                        JButton DautoaButton = new JButton(lichTrinhTau.getTau().getMaTau());
+                                        DautoaButton.setIcon(icon);
+                                        toaContainerPanel.add(DautoaButton);
+                                        //Căng chỉnh btn
+                                        DautoaButton.setHorizontalTextPosition(SwingConstants.CENTER);
+                                        DautoaButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+                                        DautoaButton.setContentAreaFilled(false);
+                                        DautoaButton.setBorderPainted(false);
+                                        // Căn chỉnh biểu tượng với viền của nút
+                                        DautoaButton.setIconTextGap(0);  // Không có khoảng cách giữa biểu tượng và văn bản
+                                        DautoaButton.setMargin(new Insets(0, 0, 0, 0));  // Loại bỏ phần đệm của nút
+                                        DautoaButton.setContentAreaFilled(false);  // Loại bỏ vùng nội dung mặc định của nút
+                                        DautoaButton.setBorderPainted(false);  // Loại bỏ viền mặc định của nút
                                     } else {
                                         System.out.println("Ảnh không tồn tại.");
                                     }
-
-                                    // Thêm hiệu ứng hover
-                                    Color hoverBackground = new Color(132, 255, 57); // Màu nền khi hover
-                                    toaButton.setToolTipText(toaTau.getLoaiToa().getTenLoai()); // Đây là văn bản chú thích
-                                    toaButton.addMouseListener(new java.awt.event.MouseAdapter() {
-                                        @Override
-                                        public void mouseEntered(java.awt.event.MouseEvent evt) {
-                                            toaButton.setBackground(hoverBackground); // Đổi màu khi hover
-                                            toaButton.setOpaque(true); // Đảm bảo màu được hiển thị
+                                    for (ToaTau toaTau : danhSachToa) {
+                                        URL image = getClass().getResource("/Anh_HeThong/ThanToaMauVang.png");
+                                        JButton toaButton = new JButton("Toa: " + toaTau.getThuTu()); // Hiển thị mã toa
+                                        // Thêm hình ảnh cho nút
+                                        if (image != null) {
+                                            ImageIcon icon = new ImageIcon(image);
+                                            Image img = icon.getImage();
+                                            Image resizedImage = img.getScaledInstance(100, 50, Image.SCALE_SMOOTH); // Tăng kích thước hình ảnh
+                                            icon = new ImageIcon(resizedImage);
+                                            toaButton.setIcon(icon);
+                                        } else {
+                                            System.out.println("Ảnh không tồn tại.");
                                         }
 
-                                    });
-                                    // Xử lý cho sự kiện di chuyển chuột ra ngoài
-                                    toaButton.addMouseListener(new MouseAdapter() {
-                                        @Override
-                                        public void mouseExited(MouseEvent e) {
-                                            // Nếu nút này đang được chọn, giữ nguyên màu nền vàng
-                                            if (toaButton == selectedToaButton[0]) {
-                                                toaButton.setBackground(hoverBackground); // Giữ màu vàng
-                                            } else {
-                                                toaButton.setBackground(null); // Nếu không được chọn, khôi phục lại màu nền ban đầu
-                                            }
-                                        }
-                                    });
-                                    // Trong phần xử lý nút toa
-                                    toaButton.addActionListener(new ActionListener() {
-                                        @Override
-                                        public void actionPerformed(ActionEvent event) {
-                                            lab_TenToaTau.setText("Toa tàu số " + toaTau.getThuTu() + ": " + toaTau.getLoaiToa().getTenLoai());
-                                            toaKhiChon = toaTau;
-                                            // Nếu có nút toa đã chọn, đổi lại màu ban đầu
-                                            if (selectedToaButton[0] != null) {
-                                                selectedToaButton[0].setBackground(null);  // Khôi phục màu nền ban đầu
-                                            }
-                                            toaButton.setBackground(hoverBackground); // Màu vàng khi chọn
-                                            selectedToaButton[0] = toaButton;
-
-                                            DAO_BanVe daoBanVe = new DAO_BanVe();
-                                            List<ChoNgoi> danhSachChoNgoi = null;
-                                            lichKhiChonTau = lichTrinhTau;
-                                            try {
-                                                tauKhiChon = daoBanVe.getThongTin(lichKhiChonTau.getTau().getMaTau());
-                                            } catch (SQLException ex) {
-                                                throw new RuntimeException(ex);
-                                            }
-                                            try {
-                                                // Gọi DAO để tìm các chỗ ngồi của toa
-                                                danhSachChoNgoi = daoBanVe.getSeatsByMaToa(toaTau.getMaToa());
-                                                // Sắp xếp danh sách chỗ ngồi trước khi hiển thị
-                                                danhSachChoNgoi.sort((cho1, cho2) -> {
-                                                    String tenCho1 = cho1.getTenCho();
-                                                    String tenCho2 = cho2.getTenCho();
-
-                                                    int number1 = Integer.parseInt(tenCho1.replaceAll("[^0-9]", ""));
-                                                    int number2 = Integer.parseInt(tenCho2.replaceAll("[^0-9]", ""));
-                                                    char letter1 = tenCho1.replaceAll("[0-9]", "").charAt(0);
-                                                    char letter2 = tenCho2.replaceAll("[0-9]", "").charAt(0);
-
-                                                    if (number1 != number2) {
-                                                        return Integer.compare(number1, number2);
-                                                    }
-                                                    return Character.compare(letter1, letter2);
-                                                });
-                                            } catch (SQLException ex) {
-                                                throw new RuntimeException(ex);
+                                        // Thêm hiệu ứng hover
+                                        Color hoverBackground = new Color(132, 255, 57); // Màu nền khi hover
+                                        toaButton.setToolTipText(toaTau.getLoaiToa().getTenLoai()); // Đây là văn bản chú thích
+                                        toaButton.addMouseListener(new java.awt.event.MouseAdapter() {
+                                            @Override
+                                            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                                                toaButton.setBackground(hoverBackground); // Đổi màu khi hover
+                                                toaButton.setOpaque(true); // Đảm bảo màu được hiển thị
                                             }
 
-                                            // Hiển thị chỗ ngồi trong JPanel_ChoNgoi
-                                            JPanel_ChoNgoi_A.removeAll();
-                                            JPanel_ChoNgoi_A.setLayout(new FlowLayout());
-                                            JPanel_ChoNgoi_B.removeAll();
-                                            JPanel_ChoNgoi_B.setLayout(new FlowLayout());
-                                            JPanel_ChoNgoi_C.removeAll();
-                                            JPanel_ChoNgoi_C.setLayout(new FlowLayout());
-                                            JPanel_ChoNgoi_D.removeAll();
-                                            JPanel_ChoNgoi_D.setLayout(new FlowLayout());
-
-                                            if (danhSachChoNgoi.isEmpty()) {
-                                                JOptionPane.showMessageDialog(null, "Không tìm thấy chỗ ngồi.");
-                                            } else {
-                                                for (ChoNgoi choNgoi : danhSachChoNgoi) {
-                                                    JButton choButton = new JButton();
-                                                    choButton.setText(choNgoi.getTenCho()); // Gán tên chỗ
-
-                                                    // Lưu nút vào buttonMap để dễ dàng truy cập sau này
-                                                    buttonMap.put(choNgoi.getMaCho(), choButton); // Lưu nút vào map
-                                                    // Kiểm tra xem chỗ ngồi đã được chọn hay chưa
-                                                    if (danhSachChoDaChon.stream().anyMatch(c -> c.getMaCho().equals(choNgoi.getMaCho()))) {
-                                                        choButton.setBackground(Color.YELLOW); // Nếu đã chọn, đổi màu thành vàng
-                                                    } else {
-                                                        // Thay đổi màu nền dựa trên tình trạng chỗ ngồi
-                                                        if (choNgoi.getTinhTrang()) {
-                                                            choButton.setBackground(Color.WHITE); // Còn trống
-                                                        } else {
-                                                            choButton.setBackground(Color.PINK); // Đã đặt
-                                                        }
-                                                    }
-                                                    choButton.setPreferredSize(new Dimension(60, 60)); // Kích thước nút hình vuông
-                                                    choButton.setOpaque(true);
-                                                    // Kiểm tra vé cho mã chỗ ngồi
-                                                    VeTau veTau = daoBanVe.getVeTaubyLichTrinhTauandMaCho(lichTrinhTau.getMaLichTrinh(), choNgoi.getMaCho());
-                                                    if (veTau != null) {
-                                                        // Nếu có vé, khóa nút và đổi màu
-                                                        choButton.setEnabled(false); // Khóa nút
-                                                        choButton.setBackground(Color.pink); // Đổi màu nút thành đỏ
-                                                        choButton.setText("Đã có vé"); // Cập nhật văn bản để thể hiện trạng thái đã đặt
-                                                    } else {
-                                                        // Nếu không có vé, thêm ActionListener cho nút chỗ ngồi
-                                                        choButton.addActionListener(new ActionListener() {
-                                                            @Override
-                                                            public void actionPerformed(ActionEvent e) {
-                                                                // Kiểm tra xem chỗ ngồi đã được chọn hay chưa
-                                                                if (danhSachChoDaChon.stream().anyMatch(c -> c.getMaCho().equals(choNgoi.getMaCho()))) {
-                                                                    // Nếu chỗ ngồi đang được chọn, hủy chọn và đổi màu lại như ban đầu
-                                                                    choButton.setBackground(choNgoi.getTinhTrang() ? Color.WHITE : Color.PINK); // Màu nền dựa trên tình trạng
-                                                                    danhSachChoDaChon.removeIf(c -> c.getMaCho().equals(choNgoi.getMaCho())); // Xóa khỏi danh sách đã chọn
-                                                                } else {
-                                                                    //đổi
-                                                                    if (thongTinVeDoi != null) { // Kiểm tra điều kiện
-                                                                        if (!danhSachChoDaChon.isEmpty()) { // Nếu đã có chỗ ngồi trong danh sách
-                                                                            JOptionPane.showMessageDialog(null,
-                                                                                    "Bạn đã chọn một chỗ ngồi rồi. Vui lòng xóa vé khỏi giỏ hàng trước khi chọn chỗ mới.",
-                                                                                    "Thông báo",
-                                                                                    JOptionPane.WARNING_MESSAGE);
-                                                                            return; // Dừng thực hiện thêm chỗ ngồi mới
-                                                                        }
-                                                                    }
-                                                                    //
-                                                                    choButton.setBackground(Color.YELLOW); // Màu vàng khi được chọn
-                                                                    danhSachChoDaChon.add(choNgoi); // Thêm vào danh sách đã chọn
-                                                                }
-                                                                try {
-                                                                    updateConfirmationPanel(lichTrinhTau); // Cập nhật panel xác nhận chỗ
-                                                                } catch (SQLException ex) {
-                                                                    throw new RuntimeException(ex);
-                                                                }
-                                                            }
-                                                        });
-                                                    }
-                                                    String tenCho = choNgoi.getTenCho(); // Lấy tên chỗ
-                                                    if (tenCho != null && !tenCho.isEmpty()) {
-                                                        char cuoi = tenCho.charAt(tenCho.length() - 1); // Lấy ký tự cuối cùng
-                                                        switch (cuoi) {
-                                                            case 'A':
-                                                                JPanel_ChoNgoi_A.add(choButton);
-                                                                break;
-                                                            case 'B':
-                                                                JPanel_ChoNgoi_B.add(choButton);
-                                                                break;
-                                                            case 'C':
-                                                                JPanel_ChoNgoi_C.add(choButton);
-                                                                break;
-                                                            case 'D':
-                                                                JPanel_ChoNgoi_D.add(choButton);
-                                                                break;
-                                                            default:
-                                                                break;
-                                                        }
-                                                    }
+                                        });
+                                        // Xử lý cho sự kiện di chuyển chuột ra ngoài
+                                        toaButton.addMouseListener(new MouseAdapter() {
+                                            @Override
+                                            public void mouseExited(MouseEvent e) {
+                                                // Nếu nút này đang được chọn, giữ nguyên màu nền vàng
+                                                if (toaButton == selectedToaButton[0]) {
+                                                    toaButton.setBackground(hoverBackground); // Giữ màu vàng
+                                                } else {
+                                                    toaButton.setBackground(null); // Nếu không được chọn, khôi phục lại màu nền ban đầu
                                                 }
-                                                // Cập nhật giao diện cho các JPanel
-                                                JPanel_ChoNgoi_A.revalidate();
-                                                JPanel_ChoNgoi_A.repaint();
-                                                JPanel_ChoNgoi_B.revalidate();
-                                                JPanel_ChoNgoi_B.repaint();
-                                                JPanel_ChoNgoi_C.revalidate();
-                                                JPanel_ChoNgoi_C.repaint();
-                                                JPanel_ChoNgoi_D.revalidate();
-                                                JPanel_ChoNgoi_D.repaint();
                                             }
-                                        }
-                                    });
-                                    toaContainerPanel.add(toaButton);
-                                    toaButton.setHorizontalTextPosition(SwingConstants.CENTER);
-                                    toaButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-                                    toaButton.setContentAreaFilled(false);
-                                    toaButton.setBorderPainted(false);
-                                    toaButton.setIconTextGap(0);  // Không có khoảng cách giữa biểu tượng và văn bản
-                                    toaButton.setMargin(new Insets(0, 0, 0, 0));  // Loại bỏ phần đệm của nút
-                                    toaButton.setContentAreaFilled(false);  // Loại bỏ vùng nội dung mặc định của nút
-                                    toaButton.setBorderPainted(false);  // Loại bỏ viền mặc định của nút
+                                        });
+                                        // Trong phần xử lý nút toa
+                                        toaButton.addActionListener(new ActionListener() {
+                                            @Override
+                                            public void actionPerformed(ActionEvent event) {
+                                                lab_TenToaTau.setText("Toa tàu số " + toaTau.getThuTu() + ": " + toaTau.getLoaiToa().getTenLoai());
+                                                toaKhiChon = toaTau;
+                                                // Nếu có nút toa đã chọn, đổi lại màu ban đầu
+                                                if (selectedToaButton[0] != null) {
+                                                    selectedToaButton[0].setBackground(null);  // Khôi phục màu nền ban đầu
+                                                }
+                                                toaButton.setBackground(hoverBackground); // Màu vàng khi chọn
+                                                selectedToaButton[0] = toaButton;
+
+                                                DAO_BanVe daoBanVe = new DAO_BanVe();
+                                                List<ChoNgoi> danhSachChoNgoi = null;
+                                                lichKhiChonTau = lichTrinhTau;
+                                                try {
+                                                    tauKhiChon = daoBanVe.getThongTin(lichKhiChonTau.getTau().getMaTau());
+                                                } catch (SQLException ex) {
+                                                    throw new RuntimeException(ex);
+                                                }
+                                                try {
+                                                    // Gọi DAO để tìm các chỗ ngồi của toa
+                                                    danhSachChoNgoi = daoBanVe.getSeatsByMaToa(toaTau.getMaToa());
+                                                    // Sắp xếp danh sách chỗ ngồi trước khi hiển thị
+                                                    danhSachChoNgoi.sort((cho1, cho2) -> {
+                                                        String tenCho1 = cho1.getTenCho();
+                                                        String tenCho2 = cho2.getTenCho();
+
+                                                        int number1 = Integer.parseInt(tenCho1.replaceAll("[^0-9]", ""));
+                                                        int number2 = Integer.parseInt(tenCho2.replaceAll("[^0-9]", ""));
+                                                        char letter1 = tenCho1.replaceAll("[0-9]", "").charAt(0);
+                                                        char letter2 = tenCho2.replaceAll("[0-9]", "").charAt(0);
+
+                                                        if (number1 != number2) {
+                                                            return Integer.compare(number1, number2);
+                                                        }
+                                                        return Character.compare(letter1, letter2);
+                                                    });
+                                                } catch (SQLException ex) {
+                                                    throw new RuntimeException(ex);
+                                                }
+
+                                                // Hiển thị chỗ ngồi trong JPanel_ChoNgoi
+                                                JPanel_ChoNgoi_A.removeAll();
+                                                JPanel_ChoNgoi_A.setLayout(new FlowLayout());
+                                                JPanel_ChoNgoi_B.removeAll();
+                                                JPanel_ChoNgoi_B.setLayout(new FlowLayout());
+                                                JPanel_ChoNgoi_C.removeAll();
+                                                JPanel_ChoNgoi_C.setLayout(new FlowLayout());
+                                                JPanel_ChoNgoi_D.removeAll();
+                                                JPanel_ChoNgoi_D.setLayout(new FlowLayout());
+
+                                                if (danhSachChoNgoi.isEmpty()) {
+                                                    JOptionPane.showMessageDialog(null, "Không tìm thấy chỗ ngồi.");
+                                                } else {
+                                                    for (ChoNgoi choNgoi : danhSachChoNgoi) {
+                                                        JButton choButton = new JButton();
+                                                        choButton.setText(choNgoi.getTenCho()); // Gán tên chỗ
+
+                                                        // Lưu nút vào buttonMap để dễ dàng truy cập sau này
+                                                        buttonMap.put(choNgoi.getMaCho(), choButton); // Lưu nút vào map
+                                                        // Kiểm tra xem chỗ ngồi đã được chọn hay chưa
+                                                        if (danhSachChoDaChon.stream().anyMatch(c -> c.getMaCho().equals(choNgoi.getMaCho()))) {
+                                                            choButton.setBackground(Color.YELLOW); // Nếu đã chọn, đổi màu thành vàng
+                                                        } else {
+                                                            // Thay đổi màu nền dựa trên tình trạng chỗ ngồi
+                                                            if (choNgoi.getTinhTrang()) {
+                                                                choButton.setBackground(Color.WHITE); // Còn trống
+                                                            } else {
+                                                                choButton.setBackground(Color.PINK); // Đã đặt
+                                                            }
+                                                        }
+                                                        choButton.setPreferredSize(new Dimension(60, 60)); // Kích thước nút hình vuông
+                                                        choButton.setOpaque(true);
+                                                        // Kiểm tra vé cho mã chỗ ngồi
+                                                        VeTau veTau = daoBanVe.getVeTaubyLichTrinhTauandMaCho(lichTrinhTau.getMaLichTrinh(), choNgoi.getMaCho());
+                                                        if (veTau != null) {
+                                                            // Nếu có vé, khóa nút và đổi màu
+                                                            choButton.setEnabled(false); // Khóa nút
+                                                            choButton.setBackground(Color.pink); // Đổi màu nút thành đỏ
+                                                            choButton.setText("Đã có vé"); // Cập nhật văn bản để thể hiện trạng thái đã đặt
+                                                        } else {
+                                                            // Nếu không có vé, thêm ActionListener cho nút chỗ ngồi
+                                                            choButton.addActionListener(new ActionListener() {
+                                                                @Override
+                                                                public void actionPerformed(ActionEvent e) {
+                                                                    // Kiểm tra xem chỗ ngồi đã được chọn hay chưa
+                                                                    if (danhSachChoDaChon.stream().anyMatch(c -> c.getMaCho().equals(choNgoi.getMaCho()))) {
+                                                                        // Nếu chỗ ngồi đang được chọn, hủy chọn và đổi màu lại như ban đầu
+                                                                        choButton.setBackground(choNgoi.getTinhTrang() ? Color.WHITE : Color.PINK); // Màu nền dựa trên tình trạng
+                                                                        danhSachChoDaChon.removeIf(c -> c.getMaCho().equals(choNgoi.getMaCho())); // Xóa khỏi danh sách đã chọn
+                                                                    } else {
+                                                                        //đổi
+                                                                        if (thongTinVeDoi != null) { // Kiểm tra điều kiện
+                                                                            if (!danhSachChoDaChon.isEmpty()) { // Nếu đã có chỗ ngồi trong danh sách
+                                                                                JOptionPane.showMessageDialog(null,
+                                                                                        "Bạn đã chọn một chỗ ngồi rồi. Vui lòng xóa vé khỏi giỏ hàng trước khi chọn chỗ mới.",
+                                                                                        "Thông báo",
+                                                                                        JOptionPane.WARNING_MESSAGE);
+                                                                                return; // Dừng thực hiện thêm chỗ ngồi mới
+                                                                            }
+                                                                        }
+                                                                        //
+                                                                        choButton.setBackground(Color.YELLOW); // Màu vàng khi được chọn
+                                                                        danhSachChoDaChon.add(choNgoi); // Thêm vào danh sách đã chọn
+                                                                    }
+                                                                    try {
+                                                                        updateConfirmationPanel(lichTrinhTau); // Cập nhật panel xác nhận chỗ
+                                                                    } catch (SQLException ex) {
+                                                                        throw new RuntimeException(ex);
+                                                                    }
+                                                                }
+                                                            });
+                                                        }
+                                                        String tenCho = choNgoi.getTenCho(); // Lấy tên chỗ
+                                                        if (tenCho != null && !tenCho.isEmpty()) {
+                                                            char cuoi = tenCho.charAt(tenCho.length() - 1); // Lấy ký tự cuối cùng
+                                                            switch (cuoi) {
+                                                                case 'A':
+                                                                    JPanel_ChoNgoi_A.add(choButton);
+                                                                    break;
+                                                                case 'B':
+                                                                    JPanel_ChoNgoi_B.add(choButton);
+                                                                    break;
+                                                                case 'C':
+                                                                    JPanel_ChoNgoi_C.add(choButton);
+                                                                    break;
+                                                                case 'D':
+                                                                    JPanel_ChoNgoi_D.add(choButton);
+                                                                    break;
+                                                                default:
+                                                                    break;
+                                                            }
+                                                        }
+                                                    }
+                                                    // Cập nhật giao diện cho các JPanel
+                                                    JPanel_ChoNgoi_A.revalidate();
+                                                    JPanel_ChoNgoi_A.repaint();
+                                                    JPanel_ChoNgoi_B.revalidate();
+                                                    JPanel_ChoNgoi_B.repaint();
+                                                    JPanel_ChoNgoi_C.revalidate();
+                                                    JPanel_ChoNgoi_C.repaint();
+                                                    JPanel_ChoNgoi_D.revalidate();
+                                                    JPanel_ChoNgoi_D.repaint();
+                                                }
+                                            }
+                                        });
+                                        toaContainerPanel.add(toaButton);
+                                        toaButton.setHorizontalTextPosition(SwingConstants.CENTER);
+                                        toaButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+                                        toaButton.setContentAreaFilled(false);
+                                        toaButton.setBorderPainted(false);
+                                        toaButton.setIconTextGap(0);  // Không có khoảng cách giữa biểu tượng và văn bản
+                                        toaButton.setMargin(new Insets(0, 0, 0, 0));  // Loại bỏ phần đệm của nút
+                                        toaButton.setContentAreaFilled(false);  // Loại bỏ vùng nội dung mặc định của nút
+                                        toaButton.setBorderPainted(false);  // Loại bỏ viền mặc định của nút
+                                    }
+                                    JScrollPane scrollPane = new JScrollPane(toaContainerPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+                                    JPanel_Toa.add(scrollPane, BorderLayout.CENTER);
+                                    JPanel_Toa.revalidate();
+                                    JPanel_Toa.repaint();
                                 }
-                                JScrollPane scrollPane = new JScrollPane(toaContainerPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-                                JPanel_Toa.add(scrollPane, BorderLayout.CENTER);
-                                JPanel_Toa.revalidate();
-                                JPanel_Toa.repaint();
                             }
                         }
-                    }
-                });
+                    });
 
-                // Thêm nút vào JPanelTau
-                tauContainerPanel.add(tauButton);
-                tauButton.setHorizontalTextPosition(SwingConstants.CENTER);
-                tauButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-                tauButton.setContentAreaFilled(false);
-                tauButton.setBorderPainted(false);
+                    // Thêm nút vào JPanelTau
+                    tauContainerPanel.add(tauButton);
+                    tauButton.setHorizontalTextPosition(SwingConstants.CENTER);
+                    tauButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+                    tauButton.setContentAreaFilled(false);
+                    tauButton.setBorderPainted(false);
+                }
             }
             // Thêm container vào JScrollPane để có thanh cuộn nằm ngang
             JScrollPane scrollPane = new JScrollPane(tauContainerPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);

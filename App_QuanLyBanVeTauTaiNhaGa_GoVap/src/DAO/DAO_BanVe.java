@@ -551,8 +551,8 @@ public class DAO_BanVe {
     public List<LichTrinhTau> getTrainsByDateAndDestination(String destination, String date) throws SQLException {
         List<LichTrinhTau> lichTrinhList = new ArrayList<>();
 
-        // Câu truy vấn SQL
-        String sql = "SELECT lt.MaLich, t.MaTau, lt.GioDi, lt.NgayDi, t.TenTau, t.SoToa, tt.MaTuyen, tt.TenTuyen, tt.GaDi, tt.GaDen, tt.DiaDiemDi, tt.DiaDiemDen " +
+        // Câu truy vấn SQL (thêm trường TrangThai)
+        String sql = "SELECT lt.MaLich, t.MaTau, lt.GioDi, lt.NgayDi, t.TenTau, t.SoToa, tt.MaTuyen, tt.TenTuyen, tt.GaDi, tt.GaDen, tt.DiaDiemDi, tt.DiaDiemDen, lt.TrangThai " +
                 "FROM Tau t " +
                 "JOIN TuyenTau tt ON t.MaTuyen = tt.MaTuyen " +
                 "JOIN LichTrinhTau lt ON t.MaTau = lt.MaTau " +
@@ -573,9 +573,10 @@ public class DAO_BanVe {
                 String maTau = rs.getString("MaTau");
                 LocalTime gioDi = rs.getTimestamp("GioDi").toLocalDateTime().toLocalTime();
                 LocalDate ngayDi = rs.getDate("NgayDi").toLocalDate(); // Chuyển đổi từ java.sql.Date sang java.time.LocalDate
+                String trangThai = rs.getString("TrangThai"); // Lấy thông tin trạng thái
 
-                // Tạo đối tượng LichTrinhTau
-                LichTrinhTau lichTrinhTau = new LichTrinhTau(maLich,gioDi, ngayDi,new Tau(maTau,null,tenTau,0),null );
+                // Tạo đối tượng LichTrinhTau (cập nhật thêm trạng thái)
+                LichTrinhTau lichTrinhTau = new LichTrinhTau(maLich, gioDi, ngayDi, new Tau(maTau, null, tenTau, 0), trangThai);
 
                 // Thêm đối tượng LichTrinhTau vào danh sách
                 lichTrinhList.add(lichTrinhTau);
