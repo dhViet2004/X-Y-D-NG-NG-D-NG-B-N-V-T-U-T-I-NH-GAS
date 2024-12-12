@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="6c5b856b-fc64-425e-bfe5-c660a42569cd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/danh_sach_ve.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/danh_sach_ve.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hoa_don.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hoa_don.pdf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,9 +17,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2q7PXELO6lbwxaPoEeXsibmgS34" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -35,6 +37,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "T:/TestJAR",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -43,7 +46,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.FrmBanVe">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="FrmBanVe (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
@@ -85,9 +88,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.FrmBanVe" />
         <item itemvalue="Application.FrmBanVe (1)" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -107,7 +110,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1734010678299</updated>
-      <workItem from="1734010679898" duration="7279000" />
+      <workItem from="1734010679898" duration="7926000" />
+      <workItem from="1734021601081" duration="1950000" />
     </task>
     <servers />
   </component>
