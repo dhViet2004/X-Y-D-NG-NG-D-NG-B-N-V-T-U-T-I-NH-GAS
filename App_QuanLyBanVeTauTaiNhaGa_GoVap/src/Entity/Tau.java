@@ -14,6 +14,10 @@ public class Tau {
         this.soToa = soToa;
     }
 
+    public Tau() {
+
+    }
+
     // Getters và Setters
     public String getMaTau() {
         return maTau;

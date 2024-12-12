@@ -19,6 +19,10 @@ public class TuyenTau {
         this.diaDiemDen = diaDiemDen;
     }
 
+    public TuyenTau() {
+
+    }
+
     public String getMaTuyen() {
         return maTuyen;
     }

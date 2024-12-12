@@ -36,6 +36,10 @@ public class LichTrinhTau {
         this.ngayDi = ngayDi;
     }
 
+    public LichTrinhTau() {
+
+    }
+
     // Getter và setter cho maLichTrinh
     public String getMaLichTrinh() {
         return maLichTrinh;

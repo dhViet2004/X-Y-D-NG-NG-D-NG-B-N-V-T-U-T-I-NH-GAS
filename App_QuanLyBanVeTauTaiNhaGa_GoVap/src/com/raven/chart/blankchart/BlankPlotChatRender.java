@@ -1,7 +1,7 @@
 package com.raven.chart.blankchart;
 
 import java.awt.*;
-
+import java.awt.Graphics2D;
 public abstract class BlankPlotChatRender {
 
     public abstract String getLabelText(int index);

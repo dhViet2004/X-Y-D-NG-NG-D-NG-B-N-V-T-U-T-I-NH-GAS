@@ -443,6 +443,7 @@ private void showPopupMenu_TraCuu(ActionEvent e) {
     traCuuTuyen.setFont(fontMenu);
     traCuuTuyen.setForeground(Color.white);
     traCuuTuyen.setBackground(colorXanhDam);
+    traCuuTuyen.addActionListener(this);
 
     traCuuLTT = new JMenuItem("Tra cứu lịch trình tàu");
     traCuuLTT.setFont(fontMenu);
@@ -2049,31 +2050,40 @@ public void actionPerformed(ActionEvent e) {
     }
     // 4. Tra cứu theo tuyến
     else if (e.getSource() == traCuuTuyen) {
+        System.out.println("Tra cứu tuyến");
+        TraCuuTuyenTau tracuuTuyen = new TraCuuTuyenTau();
+
+        JPanel panel123 = tracuuTuyen.getPanel();
         Jpanel_Main.removeAll();
-//            current = (JPanel) ;
+
         JPanel_XacNhanCho.setVisible(false);
         lab_Title.setVisible(false);
         JPanel_BanVe.setVisible(false);
-//            Jpanel_Main.add();
+        Jpanel_Main.add(panel123);
         Jpanel_Main.setVisible(true);
 
         // Cập nhật lại giao diện người dùng
         Jpanel_Main.revalidate(); // Cập nhật layout
-        Jpanel_Main.repaint();    //
+        Jpanel_Main.repaint();
+
     }
     // 5. Tra cứu theo lịch trình tàu
     else if (e.getSource() == traCuuLTT) {
+        System.out.println("Tra cứu lịch trình tàu");
+        TraCuuLichTrinh tracuuLT = new TraCuuLichTrinh();
+
+        JPanel panel = tracuuLT.getTracuuLT();
         Jpanel_Main.removeAll();
-//            current = (JPanel) ;
+
         JPanel_XacNhanCho.setVisible(false);
         lab_Title.setVisible(false);
         JPanel_BanVe.setVisible(false);
-//            Jpanel_Main.add();
+        Jpanel_Main.add(panel);
         Jpanel_Main.setVisible(true);
 
         // Cập nhật lại giao diện người dùng
         Jpanel_Main.revalidate(); // Cập nhật layout
-        Jpanel_Main.repaint();    //
+        Jpanel_Main.repaint();
     }
 
     //CÁC CHỨC NĂNG CON CỦA QUẢN LÝ VÉ

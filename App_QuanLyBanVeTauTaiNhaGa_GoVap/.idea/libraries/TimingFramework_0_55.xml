@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="TimingFramework-0.55">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/jar Libraries/TimingFramework-0.55.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/libs/TimingFramework-0.55.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
