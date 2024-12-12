@@ -1973,17 +1973,22 @@ public void actionPerformed(ActionEvent e) {
     }
     // 2. Thống kê doanh thu bán vé
     else if (e.getSource() == tk_DoanhThu_BanVe) {
+        System.out.println("Tra cứu tuyến");
+      ThongKeDoanhThu thongKeDoanhThu = new ThongKeDoanhThu();
+
+        JPanel panel123 = thongKeDoanhThu.getPanelThongKe();
         Jpanel_Main.removeAll();
-//            current = (JPanel) ;
+
         JPanel_XacNhanCho.setVisible(false);
         lab_Title.setVisible(false);
         JPanel_BanVe.setVisible(false);
-//            Jpanel_Main.add();
+        Jpanel_Main.add(panel123);
         Jpanel_Main.setVisible(true);
 
         // Cập nhật lại giao diện người dùng
         Jpanel_Main.revalidate(); // Cập nhật layout
-        Jpanel_Main.repaint();    //
+        Jpanel_Main.repaint();
+
     }
     // 3. Thống kê số lượng vé theo thời gian
     else if (e.getSource() == tk_sl_Ve) {
