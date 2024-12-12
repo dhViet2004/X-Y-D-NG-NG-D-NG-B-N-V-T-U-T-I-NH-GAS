@@ -1804,6 +1804,8 @@ public void actionPerformed(ActionEvent e) {
                 danhSachVe.clear();
                 chiTietHoaDonList.clear();
                 khachHangMuaVe = null;
+                isChiTietHoaDonDisplayed = false;
+                isThanhToanDisplayed = false;
                 System.out.println("Danh sách vé đã được xóa khi đóng cửa sổ.");
             }
         });

@@ -4,49 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e00f47f-dfb7-4952-9ba8-ed133c5f7a49" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Anh_HeThong/money.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/ThongKeCa.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GUI/Frm_TKDTTheoCa.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/TestTK/ModelPieChart.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/TestTK/PieChart.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/raven/chart/Chart1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/libs/jcalendar-1.2.2.jar" afterDir="false" />
+    <list default="true" id="f055dd7d-0904-4ff2-9963-ef18d6736436" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/DAO_TraCuuHD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DAO_TraCuuHD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InLaiVe.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/InLaiVe.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/danh_sach_ve.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/danh_sach_ve.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hoa_don.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hoa_don.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WebUDBVTauTaiNhaGaLacHong/css/bootstrap.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/WebUDBVTauTaiNhaGaLacHong/css/bootstrap.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WebUDBVTauTaiNhaGaLacHong/css/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/WebUDBVTauTaiNhaGaLacHong/css/bootstrap.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WebUDBVTauTaiNhaGaLacHong/html/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/WebUDBVTauTaiNhaGaLacHong/html/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WebUDBVTauTaiNhaGaLacHong/html/huongDanSuDung.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/WebUDBVTauTaiNhaGaLacHong/html/huongDanSuDung.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WebUDBVTauTaiNhaGaLacHong/html/thongTinLienHe.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WebUDBVTauTaiNhaGaLacHong/js/bootstrap.bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/WebUDBVTauTaiNhaGaLacHong/js/bootstrap.bundle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WebUDBVTauTaiNhaGaLacHong/js/bootstrap.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/WebUDBVTauTaiNhaGaLacHong/js/bootstrap.min.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;luongtan204&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/dhViet2004/XaydungungdungBanVeTauTaiNhaGAS.git",
-    "accountId": "b97ccbad-a7ad-4afc-9329-a46fc2910326"
-  }
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
 }]]></component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 1
-}</component>
-  <component name="ProjectId" id="2q5CuYz2v78f0ivnuxbzvq8fRjt" />
+  <component name="ProjectId" id="2q7AXOpwyxRhc96pYhhQfiQh6F2" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -56,103 +39,26 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.FrmBanVe (1).executor": "Run",
-    "Application.FrmBanVe (2).executor": "Run",
-    "Application.FrmBanVe.executor": "Run",
-    "Application.Frm_TKDTTheoCa.executor": "Run",
-    "Application.Frm_ThongKeTiLeDoiTraVe.executor": "Run",
-    "Application.Frm_TraCuuVe (1).executor": "Run",
-    "Application.Frm_TraCuuVe.executor": "Run",
-    "Application.TraCuuLichTrinh.executor": "Run",
-    "Application.TraCuuTuyenTau.executor": "Run",
-    "Application.test.executor": "Run",
+    "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/DoAn_PTUD7/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap/src/libs",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.14648438",
-    "project.structure.side.proportion": "0.2",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\DoAn_PTUD7\XaydungungdungBanVeTauTaiNhaGAS\App_QuanLyBanVeTauTaiNhaGa_GoVap\src\libs" />
-      <recent name="D:\DoAn_PTUD7\XaydungungdungBanVeTauTaiNhaGAS\App_QuanLyBanVeTauTaiNhaGa_GoVap\src" />
-      <recent name="D:\DoAn_PTUD7\XaydungungdungBanVeTauTaiNhaGAS\App_QuanLyBanVeTauTaiNhaGa_GoVap\src\Anh_HeThong" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="GUI" />
-      <recent name="Entity" />
-      <recent name="com.raven.chart" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Application.FrmBanVe">
-    <configuration name="FrmBanVe (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main.Main" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="GUI.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FrmBanVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
-      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Frm_TKDTTheoCa" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.Frm_TKDTTheoCa" />
-      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TraCuuLichTrinh" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.TraCuuLichTrinh" />
-      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TraCuuTuyenTau" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.TraCuuTuyenTau" />
-      <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="GUI.*" />
+          <option name="PATTERN" value="Main.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -162,37 +68,27 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.FrmBanVe" />
-        <item itemvalue="Application.FrmBanVe (1)" />
-        <item itemvalue="Application.Frm_TKDTTheoCa" />
-        <item itemvalue="Application.TraCuuLichTrinh" />
-        <item itemvalue="Application.TraCuuTuyenTau" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
-        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="1e00f47f-dfb7-4952-9ba8-ed133c5f7a49" name="Changes" comment="" />
-      <created>1733943273583</created>
+      <changelist id="f055dd7d-0904-4ff2-9963-ef18d6736436" name="Changes" comment="" />
+      <created>1734003280760</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1733943273583</updated>
-      <workItem from="1733943275447" duration="1465000" />
-      <workItem from="1733974926676" duration="519000" />
-      <workItem from="1733975475240" duration="302000" />
-      <workItem from="1733975793709" duration="109000" />
-      <workItem from="1733981353998" duration="510000" />
-      <workItem from="1733981878342" duration="4924000" />
-      <workItem from="1733996774006" duration="1318000" />
+      <updated>1734003280760</updated>
+      <workItem from="1734003282153" duration="848000" />
     </task>
     <servers />
   </component>
