@@ -1409,7 +1409,8 @@ public void actionPerformed(ActionEvent e) {
         btnChiTietHoaDon.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                danhSachVe.clear();
+                System.out.println("Xóa danh sách vé");
 
                 // Tạo JPanel chứa thông tin chi tiết vé
                 JPanel panelChiTietVe = new JPanel();
