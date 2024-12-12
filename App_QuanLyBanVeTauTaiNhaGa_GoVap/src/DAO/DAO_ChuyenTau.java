@@ -27,7 +27,18 @@ public class DAO_ChuyenTau {
             System.out.println("Connection is null. Please check the database connection.");
         }
     }
+    public void capNhatTrangThaiTau() {
+        String sql = "UPDATE LichTrinhTau " +
+                "SET TrangThai = N'Đã hoàn thành' " +
+                "WHERE CONCAT(NgayDi, ' ', GioDi) < GETDATE() AND TrangThai != N'Đã hoàn thành'";
 
+        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+            int rowsUpdated = preparedStatement.executeUpdate();
+            System.out.println("Cập nhật trạng thái: " + rowsUpdated + " chuyến tàu đã được đánh dấu là 'Đã hoàn thành'.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public LichTrinhTau getTheoMa(String maChuyen) {
     LichTrinhTau lichTrinhTau = null;
      String sql = "SELECT lt.MaLich, lt.MaTau, lt.GioDi, lt.NgayDi, tau.MaTuyen, t.TenTuyen, lt.TrangThai, tau.TenTau " +

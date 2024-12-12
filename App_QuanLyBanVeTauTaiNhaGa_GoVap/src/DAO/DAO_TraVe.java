@@ -168,14 +168,16 @@ public class DAO_TraVe {
         if (rs.next()) {
             khachHang = new KhachHang("MaKH");
             khachHang.setMaKhachHang(rs.getString("MaKH")); // Lấy mã khách hàng
-            khachHang.setTenKhachHang(rs.getString("TenKH"));
+
             if(!Pattern.matches("([0-9]{12})", rs.getString("CCCD"))){
                 DAO_KhachHang dao_khachHang = new DAO_KhachHang();
                String cccd = dao_khachHang.decryptAES(rs.getString("CCCD"));
+               String tenKH = dao_khachHang.decryptAES(rs.getString("TenKH"));
                 khachHang.setCCCD(cccd);
-
+                khachHang.setTenKhachHang(tenKH);
             }else {
                 khachHang.setCCCD(rs.getString("CCCD"));
+                khachHang.setTenKhachHang(rs.getString("TenKH"));
             }
 
         }

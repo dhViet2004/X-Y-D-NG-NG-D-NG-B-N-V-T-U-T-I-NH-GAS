@@ -1,5 +1,6 @@
 package Entity;
 
+import DAO.DAO_TraVe;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -115,4 +116,84 @@ public class TicketHTMLGenerator {
 
         return result;
     }
+    public static void generateInvoiceHtml(String fileName, HoaDon hoaDon, KhachHang khachHang,
+                                           List<ChiTietHoaDon> chiTietHoaDonList, List<VeTau> danhSachVe,
+                                           double[] tienvegoc, String[] tau) {
+        try (FileWriter writer = new FileWriter(fileName)) {
+            // Đưa thông tin HTML cơ bản vào file
+            writer.write("<html><head><style>");
+            writer.write("body {font-family: Arial, sans-serif; padding: 20px;}");
+            writer.write(".title {text-align: center; font-size: 24px; font-weight: bold;}");
+            writer.write(".sub-title {text-align: center; font-size: 18px; font-weight: bold;}");
+            writer.write(".section-title {font-size: 16px; font-weight: bold; margin-top: 10px;}");
+            writer.write(".content {font-size: 14px; margin-left: 20px;}");
+            writer.write(".table {width: 100%; border-collapse: collapse; margin-top: 10px;}");
+            writer.write(".table, .table th, .table td {border: 1px solid black; padding: 8px;}");
+            writer.write(".table th {text-align: left;}");
+            writer.write("</style></head><body>");
+
+            // Tiêu đề hóa đơn
+            writer.write("<div class=\"title\">CONG TY CO PHAN VAN TAI DUONG SAT LAC HONG</div>");
+            writer.write("<div class=\"sub-title\">HOA DON TRA VE TAU</div>");
+
+            // Thông tin khách hàng
+            writer.write("<div class=\"section-title\">Thông Tin Khách Hàng</div>");
+            writer.write("<div class=\"content\">Khách hàng: " + removeDiacritics(khachHang.getTenKhachHang()) + "</div>");
+            writer.write("<div class=\"content\">Số điện thoại: " + removeDiacritics(khachHang.getSoDienThoai()) + "</div>");
+            writer.write("<div class=\"content\">Địa chỉ: " + removeDiacritics(khachHang.getDiaChi()) + "</div>");
+
+            // Thông tin hóa đơn
+            writer.write("<div class=\"section-title\">Thông Tin Hóa Đơn</div>");
+            writer.write("<div class=\"content\">Mã hóa đơn: " + hoaDon.getMaHD() + "</div>");
+            writer.write("<div class=\"content\">Mã nhân viên: " + hoaDon.getNv().getMaNhanVien()+ "</div>");
+            writer.write("<div class=\"content\">Ngày lập: " + hoaDon.getNgayLap().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")) + "</div>");
+
+            // Tạo bảng chi tiết vé
+            writer.write("<div class=\"section-title\">Chi Tiết Vé</div>");
+            writer.write("<table class=\"table\">");
+            writer.write("<tr><th>STT</th><th>Tên Vé</th><th>Đơn Vị Tính</th><th>Số Lượng</th><th>Tiền Gốc</th><th>Tiền Phí</th><th>Thành Tiền</th></tr>");
+
+            double totalAmount = 0.0; // Biến tính tổng tiền
+            int stt = 1;
+            DAO_TraVe dao_traVe = new DAO_TraVe();
+            for (ChiTietHoaDon chiTiet : chiTietHoaDonList) {
+                VeTau ticket = danhSachVe.get(stt - 1);
+
+                writer.write("<tr>");
+                writer.write("<td>" + stt + "</td>");
+                writer.write("<td>Chỗ: " + ticket.getChoNgoi().getTenCho() + " Tau " + tau[stt - 1] + "<br>Tuyến " + removeDiacritics(dao_traVe.getTenTuyenByMaVe(ticket.getMaVe())) + "<br>Ngày đi: " + ticket.getNgayDi() + "</td>");
+                writer.write("<td>Vé</td>");
+                writer.write("<td>" + chiTiet.getSoLuong() + "</td>");
+                writer.write("<td>" + String.format("%,.0f", tienvegoc[stt - 1]) + " VND</td>");
+                writer.write("<td>" + String.format("%,.0f", tienvegoc[stt - 1] - chiTiet.getThanhTien()) + " VND</td>");
+                writer.write("<td>" + String.format("%,.0f", 0 - chiTiet.getThanhTien()) + " VND</td>");
+                writer.write("</tr>");
+
+                totalAmount += chiTiet.getThanhTien();
+                stt++;
+            }
+
+            writer.write("</table>");
+
+            // Tổng tiền
+            writer.write("<div class=\"section-title\">Tổng Tiền</div>");
+            writer.write("<div class=\"content\">Tổng tiền vé: " + String.format("%,.0f", 0 - totalAmount) + " VND</div>");
+            writer.write("<div class=\"content\">Tiền khuyến mãi: " + String.format("%,.0f", totalAmount - hoaDon.getTongTien()) + " VND</div>");
+            writer.write("<div class=\"content\">Tổng tiền (sau khi trừ phí): " + String.format("%,.0f", 0 - hoaDon.getTongTien()) + " VND</div>");
+
+            // Định dạng ngày in
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss, dd/MM/yyyy");
+            String formattedDate = LocalDateTime.now().format(formatter);
+            writer.write("<div class=\"section-title\" style=\"text-align:center;\">Ngày in: " + formattedDate + "</div>");
+
+            writer.write("</body></html>");
+            System.out.println("Thông tin hóa đơn đã được tạo thành công: " + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
 }

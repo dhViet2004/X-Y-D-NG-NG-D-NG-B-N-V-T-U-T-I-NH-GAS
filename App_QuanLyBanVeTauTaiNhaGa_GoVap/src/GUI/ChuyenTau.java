@@ -42,6 +42,8 @@ public class ChuyenTau extends javax.swing.JFrame {
         fillComboBoxTau();
         fillComboBoxTuyenTau(); 
         fillComboBoxTrangThai();
+        DAO_ChuyenTau dao = new DAO_ChuyenTau();
+        dao.capNhatTrangThaiTau();
     }
 
     /**
@@ -762,13 +764,36 @@ public class ChuyenTau extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {                                       
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {
         String tenTau = cbb_Tau.getSelectedItem().toString();
         String gioDiText = txtGioDi.getText(); // Giả sử người dùng nhập "HH:mm"
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime gioDi = LocalTime.parse(gioDiText, formatter);
-    
-        LocalDate ngayDi = jDateChooserNgayDi.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate ngayDi = null;
+        LocalDate ngayKetThuc = null;
+
+        try {
+            ngayDi = jDateChooserNgayDi.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày đi!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Kiểm tra nếu jRadioButton9 được chọn, lấy ngày kết thúc
+        if (jRadioButton9.isSelected()) {
+            try {
+                ngayKetThuc = jDateChooser4.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày kết thúc!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (ngayKetThuc.isBefore(ngayDi)) {
+                JOptionPane.showMessageDialog(this, "Ngày kết thúc phải sau hoặc bằng ngày bắt đầu!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+
         String trangThai = cbbTrangThai.getSelectedItem().toString();
 
         // Kiểm tra các thông tin hợp lệ
@@ -777,29 +802,57 @@ public class ChuyenTau extends javax.swing.JFrame {
             return;
         }
 
-        // Tạo mã lịch trình tự động (theo định dạng XXXXXXXXyyMMddNN)
         DAO_ChuyenTau dao = new DAO_ChuyenTau();
-       
         String maTau = dao.getMaTauByTenTau(tenTau); // Lấy mã tàu từ tên tàu
-        int soThuTuChuyen = dao.laySoThuTuChuyenTrongNgay(ngayDi, maTau); // Lấy số thứ tự chuyến trong ngày của tàu
-        String maLichTrinh = maTau + ngayDi.format(DateTimeFormatter.ofPattern("yyMMdd")) + String.format("%02d", soThuTuChuyen + 1);
 
-        // Tạo đối tượng LichTrinhTau
-        Tau tau =new Tau(maTau, null, tenTau,0);
-        LichTrinhTau lichTrinh = new LichTrinhTau(maLichTrinh, gioDi, ngayDi, tau, trangThai);
-        System.out.println(lichTrinh+maTau);
-        // Thêm vào cơ sở dữ liệu
-        boolean isSuccess = dao.themLichTrinh(lichTrinh);
+        // Nếu thêm lịch hàng ngày
+        if (jRadioButton9.isSelected()) {
+            LocalDate currentNgayDi = ngayDi; // Bắt đầu từ ngày được chọn (ngayDi)
 
-        // Hiển thị thông báo
-        if (isSuccess) {
-            JOptionPane.showMessageDialog(this, "Thêm lịch trình tàu thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            fillTableWithNewLichTrinh(lichTrinh.getMaLichTrinh()); // Cập nhật lại bảng hiển thị lịch trình tàu
-             resetInputFields();
+            while (!currentNgayDi.isAfter(ngayKetThuc)) {
+                int soThuTuChuyen = dao.laySoThuTuChuyenTrongNgay(currentNgayDi, maTau); // Lấy số thứ tự chuyến trong ngày của tàu
+                String maLichTrinh = maTau + currentNgayDi.format(DateTimeFormatter.ofPattern("yyMMdd")) + String.format("%02d", soThuTuChuyen + 1);
+
+                // Tạo đối tượng LichTrinhTau
+                Tau tau = new Tau(maTau, null, tenTau, 0);
+                LichTrinhTau lichTrinh = new LichTrinhTau(maLichTrinh, gioDi, currentNgayDi, tau, trangThai);
+
+                // Thêm vào cơ sở dữ liệu
+                boolean isSuccess = dao.themLichTrinh(lichTrinh);
+
+                // Hiển thị thông báo cho từng lần thêm
+                if (!isSuccess) {
+                    JOptionPane.showMessageDialog(this, "Thêm lịch trình thất bại cho ngày: " + currentNgayDi, "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    return; // Dừng nếu gặp lỗi
+                }
+
+                // Chuyển sang ngày tiếp theo
+                currentNgayDi = currentNgayDi.plusDays(1);
+            }
+
+            JOptionPane.showMessageDialog(this, "Thêm lịch trình tàu hàng ngày thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "Thêm lịch trình tàu thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            // Thêm lịch trình cho một ngày duy nhất
+            int soThuTuChuyen = dao.laySoThuTuChuyenTrongNgay(ngayDi, maTau); // Lấy số thứ tự chuyến trong ngày của tàu
+            String maLichTrinh = maTau + ngayDi.format(DateTimeFormatter.ofPattern("yyMMdd")) + String.format("%02d", soThuTuChuyen + 1);
+
+            Tau tau = new Tau(maTau, null, tenTau, 0);
+            LichTrinhTau lichTrinh = new LichTrinhTau(maLichTrinh, gioDi, ngayDi, tau, trangThai);
+
+            boolean isSuccess = dao.themLichTrinh(lichTrinh);
+
+            if (isSuccess) {
+                JOptionPane.showMessageDialog(this, "Thêm lịch trình tàu thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm lịch trình tàu thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
         }
-    }                                      
+
+        // Cập nhật bảng và reset các trường nhập liệu
+        fillTableWithNewLichTrinh(maTau);
+        resetInputFields();
+    }
+
     private void resetInputFields() {
     txtGioDi.setText(""); // Xóa trường giờ đi
     // Xóa trường ngày đi
@@ -952,10 +1005,12 @@ public class ChuyenTau extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                             
 
-    private void jRadioButton9ActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
-    }                                             
+    private void jRadioButton9ActionPerformed(java.awt.event.ActionEvent evt) {
+        jDateChooser4.setEnabled(true);
+    }
+    private void jRadioButton9MouseClicked(java.awt.event.MouseEvent evt) {
 
+    }
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {                                         
          // Xóa các trường văn bản
         txtMa.setText("");           // Xóa mã lịch trình
@@ -1045,7 +1100,7 @@ jTable_LichTrinh.repaint(); // Vẽ lại bảng
             // Hiển thị dữ liệu lọc ra bảng hoặc xử lý khác
             
         } else {
-            System.out.println("Vui lòng chọn ngày bắt đầu và ngày kết thúc.");
+            JOptionPane.showMessageDialog(this,"Vui lòng chọn ngày bắt đầu và ngày kết thúc.");
         }
      
     }                                        
