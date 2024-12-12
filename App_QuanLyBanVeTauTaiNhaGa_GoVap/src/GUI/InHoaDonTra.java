@@ -41,17 +41,10 @@ public class InHoaDonTra {
                                           List<ChiTietHoaDon> chiTietHoaDonList, List<VeTau> danhSachVe,String maNV,double[] tienvegoc,String[] tau) {
         try {
 
-            if(khachHang.getLoaiKhachHang().getMaLoaiKhachHang().equals("KH002")){
-                DAO_KhachHang dao_khachHang = new DAO_KhachHang();
-                hotenKH = dao_khachHang.decryptAES(khachHang.getTenKhachHang());
-                soDienThoai = dao_khachHang.decryptAES(khachHang.getSoDienThoai());
-                diaChi = dao_khachHang.decryptAES(khachHang.getDiaChi());
 
-            }else{
                 hotenKH = khachHang.getTenKhachHang();
                 soDienThoai = khachHang.getSoDienThoai();
                 diaChi = khachHang.getDiaChi();
-            }
 
 
             // Tạo mã hóa đơn và tên file PDF
@@ -157,8 +150,8 @@ public class InHoaDonTra {
             document.close();
 
             System.out.println("Hóa đơn đã được tạo thành công: " + filePath);
-        } catch (IOException | SQLException e) {
-            e.printStackTrace();
+
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

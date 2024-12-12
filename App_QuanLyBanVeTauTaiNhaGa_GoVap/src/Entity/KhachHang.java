@@ -92,7 +92,8 @@ public class KhachHang {
     public void setCCCD(String CCCD) {
         // Kiểm tra định dạng CCCD
         if (!isValidCCCD(CCCD)) {
-            throw new IllegalArgumentException("CCCD không hợp lệ.");
+
+            throw new IllegalArgumentException("CCCD không hợp lệ."+CCCD);
         }
         this.CCCD = CCCD;
     }
@@ -152,7 +153,8 @@ public class KhachHang {
 
     private boolean isValidCCCD(String cccd) {
         // Định dạng CCCD (ví dụ: 12 số)
-        return Pattern.matches("[0-9]{12}", cccd);
+        return Pattern.matches("([0-9]{12})", cccd);
+
     }
 
     @Override

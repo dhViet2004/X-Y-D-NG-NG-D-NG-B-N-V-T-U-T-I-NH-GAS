@@ -684,6 +684,7 @@ public class TraVe_GUI extends JFrame {
                      JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin: Mã HD, CCCD, SĐT.", "Thông báo", JOptionPane.WARNING_MESSAGE);
                     return;
            }
+
         
         List<VeTau> veTauList = dao.getVeTauByMaHDAndCCCDAndSDT(maHD, cccd, sdt);
          DefaultTableModel model = (DefaultTableModel) tableHienThi.getModel();

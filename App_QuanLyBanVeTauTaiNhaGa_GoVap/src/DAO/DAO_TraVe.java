@@ -9,12 +9,14 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
-
+import DAO.DAO_KhachHang;
 public class DAO_TraVe {
     private Connection con;
 
     public DAO_TraVe() {
+
          this.con = ConnectDatabase.getConnection();
         if (this.con == null) {
             System.out.println("Connection is null. Please check the database connection.");
@@ -63,12 +65,13 @@ public class DAO_TraVe {
                     rs.getFloat("GiaVe")
                 );
 
+
                 ve = new VeTau(
                     rs.getString("MaVe"),
                     lichTrinh, // Gán LichTrinhTau vào Vé
                     choNgoi, // Gán ChoNgoi vào Vé
                     rs.getString("TenKH"),
-                    rs.getString("GiayTo"),
+                        (  rs.getString("GiayTo")),
                     rs.getDate("NgayDi").toLocalDate(),
                     rs.getString("DoiTuong"),
                     rs.getDouble("GiaVe"),
@@ -80,8 +83,42 @@ public class DAO_TraVe {
         }
         return ve; // Trả về đối tượng VeTau hoặc null nếu không tìm thấy
     }
-    public List<VeTau> getVeTauByMaHDAndCCCDAndSDT(String maHD, String cccd, String sdt) {
+    public boolean isLoaiKhachHangKH002ByMaHD(String maHD) {
+        String sql = "SELECT kh.LoaiKhachHangMaLoaiKH " +
+                "FROM HoaDon hd " +
+                "JOIN KhachHang kh ON hd.MaKH = kh.MaKH " +
+                "WHERE hd.MaHD = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, maHD);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String maLoaiKH = rs.getString("LoaiKhachHangMaLoaiKH");
+                return "KH002".equals(maLoaiKH);
+            }
+        } catch (SQLException e) {
+            System.err.println("Lỗi khi kiểm tra loại khách hàng: " + e.getMessage());
+        }
+        return false;
+    }
+    public List<VeTau> getVeTauByMaHDAndCCCDAndSDT(String maHD, String cccd, String sdt)  {
         List<VeTau> veTauList = new ArrayList<>();
+        if(isLoaiKhachHangKH002ByMaHD(maHD)){
+            DAO_KhachHang dao_khachHang = null;
+            try {
+                dao_khachHang = new DAO_KhachHang();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+            try {
+                cccd = dao_khachHang.encryptAES(cccd);
+                sdt = dao_khachHang.encryptAES(sdt);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+        }
         String sql = "SELECT vt.MaVe, hd.MaHD, kh.CCCD, kh.SoDT "
                    + "FROM HoaDon hd "
                    + "JOIN ChiTietHoaDon cthd ON hd.MaHD = cthd.MaHD "
@@ -131,14 +168,24 @@ public class DAO_TraVe {
         if (rs.next()) {
             khachHang = new KhachHang("MaKH");
             khachHang.setMaKhachHang(rs.getString("MaKH")); // Lấy mã khách hàng
-            khachHang.setTenKhachHang(rs.getString("TenKH")); // Lấy tên khách hàng
-            khachHang.setCCCD(rs.getString("CCCD"));          // Lấy CCCD
+            khachHang.setTenKhachHang(rs.getString("TenKH"));
+            if(!Pattern.matches("([0-9]{12})", rs.getString("CCCD"))){
+                DAO_KhachHang dao_khachHang = new DAO_KhachHang();
+               String cccd = dao_khachHang.decryptAES(rs.getString("CCCD"));
+                khachHang.setCCCD(cccd);
+
+            }else {
+                khachHang.setCCCD(rs.getString("CCCD"));
+            }
+
         }
     } catch (SQLException e) {
         e.printStackTrace(); // In ra lỗi nếu có
+    } catch (Exception e) {
+        throw new RuntimeException(e);
     }
 
-    return khachHang; // Trả về đối tượng KhachHang hoặc null nếu không tìm thấy
+        return khachHang; // Trả về đối tượng KhachHang hoặc null nếu không tìm thấy
 }
       public double getThanhTienByMaVe(String maVe) {
         double thanhTien = 0;
@@ -292,7 +339,7 @@ public class DAO_TraVe {
     public KhachHang getKhachHangByMaKH(String maKH) {
         String sql = "SELECT kh.[MaKH], kh.[LoaiKhachHangMaLoaiKH], kh.[SoDT], kh.[TenKH], " +
                 "kh.[CCCD], kh.[DiaChi], kh.[DiemTichLuy], kh.[NgaySinh], kh.[NgayThamGia], kh.[HangThanhVien], " +
-                "lk.[TenLoaiKH] " +
+                "lk.[TenLoaiKH] ,lk.[MaLoaiKH]" +
                 "FROM [UngDungQuanLyBanVeTaiGaGoVap].[dbo].[KhachHang] kh " +
                 "LEFT JOIN [UngDungQuanLyBanVeTaiGaGoVap].[dbo].[LoaiKhachHang] lk " +
                 "ON kh.[LoaiKhachHangMaLoaiKH] = lk.[MaLoaiKH] " +
@@ -310,16 +357,36 @@ public class DAO_TraVe {
                     KhachHang kh = new KhachHang();
                     kh.setMaKhachHang(rs.getString("MaKH"));
                     kh.setLoaiKhachHang(loaiKH);
-                    kh.setSoDienThoai(rs.getString("SoDT"));
-                    kh.setTenKhachHang(rs.getString("TenKH"));
-                    kh.setCCCD(rs.getString("CCCD"));
-                    kh.setDiaChi(rs.getString("DiaChi"));
+                   String hotenKH = null;
+                     String soDienThoai = null;
+                    String diaChi = null;
+                    String cccd = null;
+                    if(rs.getString("MaLoaiKH").equals("KH002")){
+                        DAO_KhachHang dao_khachHang = new DAO_KhachHang();
+                        hotenKH = dao_khachHang.decryptAES(rs.getString("TenKH"));
+                        soDienThoai = dao_khachHang.decryptAES(rs.getString("SoDT"));
+                        diaChi = dao_khachHang.decryptAES(rs.getString("DiaChi"));
+                        cccd = dao_khachHang.decryptAES(rs.getString("CCCD"));
+                        System.out.println(hotenKH);
+                        System.out.println(soDienThoai);
+                    }else{
+                        hotenKH = rs.getString("TenKH");
+                        soDienThoai = rs.getString("SoDT");
+                        diaChi = rs.getString("DiaChi");
+                        cccd= rs.getString("CCCD");
+                    }
+                    kh.setSoDienThoai(soDienThoai);
+                    kh.setTenKhachHang(hotenKH);
+                    kh.setCCCD(cccd);
+                    kh.setDiaChi(diaChi);
                     kh.setDiemTichLuy(rs.getInt("DiemTichLuy"));
                     kh.setNgaySinh(rs.getDate("NgaySinh").toLocalDate());
                     kh.setNgayThamgGia(rs.getDate("NgayThamGia").toLocalDate());
                     kh.setHangThanhVien(rs.getString("HangThanhVien"));
                     return kh;
                 }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -442,14 +509,19 @@ public class DAO_TraVe {
         return hoaDon;
     }
 
-
     public static void main(String[] args) {
         ConnectDatabase.getInstance().connect();
         DAO_TraVe dao = new DAO_TraVe();
-        Timestamp ngayHoaDon = new Timestamp(System.currentTimeMillis());
-        String ma=dao.addHoaDon("KH3011240004", "NV002", 1000000, ngayHoaDon);
-        System.out.println("NgayHoaDon: " + ngayHoaDon.toString());
-        System.out.println(ma);
+        // Test getVeByMaVe
+
+        // Test getVeTauByMaHDAndCCCDAndSDT
+
+        // Test getTenVaCCCDKhachHangByMaVe
+        KhachHang khachHang = dao.getKhachHangByMaKH("KH1112240001");
+        System.out.println(khachHang);
     }
+
+
+
 
 }
