@@ -6,11 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6c5b856b-fc64-425e-bfe5-c660a42569cd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/danh_sach_ve.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/danh_sach_ve.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hoa_don.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hoa_don.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hoadonTra.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hoadonTra.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAO/DAO_BanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAO/DAO_BanVe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +107,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1734010678299</updated>
-      <workItem from="1734010679898" duration="6060000" />
+      <workItem from="1734010679898" duration="7279000" />
     </task>
     <servers />
   </component>
