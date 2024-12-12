@@ -586,7 +586,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
 
     // Phương thức kiểm tra xem tất cả các trường cần thiết có dữ liệu không
     private boolean isInputValid() {
-        String sdtPattern = "03\\d{8}"; // Bắt đầu bằng '03' và theo sau là 8 chữ số.
+        String sdtPattern = "\\d{10}"; // Bắt đầu bằng '03' và theo sau là 8 chữ số.
         String cccdPattern = "\\d{12}"; // Gồm đúng 12 chữ số.
 
         String sdt = txtSDT.getText().trim();
@@ -597,7 +597,7 @@ public class Frm_KhachHang extends JFrame implements ActionListener, MouseListen
 
         // Kiểm tra số điện thoại
         if (sdt.isEmpty() || !sdt.matches(sdtPattern)) {
-            JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ! Phải bắt đầu bằng '03' và gồm 10 chữ số.");
+            JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ! Phải gồm 10 chữ số.");
             return false;
         }
 

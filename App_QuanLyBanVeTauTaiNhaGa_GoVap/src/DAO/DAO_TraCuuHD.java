@@ -3,10 +3,12 @@ package DAO;
 import Database.ConnectDatabase;
 import Entity.*;
 
+import javax.swing.*;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class DAO_TraCuuHD {
@@ -313,5 +315,163 @@ public List<HoaDon> timHoaDonTheoNgayHienTai() {
     return hoaDonList;
 }
 
+//thống kê
+
+    // Phương thức tìm kiếm hóa đơn theo khoảng thời gian
+    public List<ThongKeCa> getHoaDonByDateRange(Date jDateChooserNBD, Date jDateChooserNKT) {
+        // Chuyển đổi Date thành java.sql.Date
+        Date sqlStartDate = new Date(jDateChooserNBD.getTime());
+        Date sqlEndDate = new Date(jDateChooserNKT.getTime());
+
+        // In ra ngày bắt đầu và ngày kết thúc
+        System.out.println("Ngày bắt đầu: " + sqlStartDate);
+        System.out.println("Ngày kết thúc: " + sqlEndDate);
+
+        // Khởi tạo danh sách kết quả
+        List<ThongKeCa> danhSachHD = new ArrayList<>();
+        if (con == null) {
+            System.out.println("Kết nối cơ sở dữ liệu không thành công!");
+            return null; // Hoặc thông báo lỗi nếu cần
+        }
+
+        try {
+            // Câu lệnh SQL
+            String sql = "SELECT " +
+                    "CONVERT(DATE, H.NgayHoaDon) AS Ngay, " +
+                    "CASE " +
+                    "WHEN DATEPART(HOUR, H.NgayHoaDon) >= 6 AND DATEPART(HOUR, H.NgayHoaDon) < 14 THEN 'Ca 1 (6h-14h)' " +
+                    "WHEN DATEPART(HOUR, H.NgayHoaDon) >= 14 AND DATEPART(HOUR, H.NgayHoaDon) < 22 THEN 'Ca 2 (14h-22h)' " +
+                    "ELSE 'Ca 3 (22h-6h)' " +
+                    "END AS Ca, " +
+                    "SUM(H.TongTien) AS DoanhThu, " +
+                    "COUNT(V.MaVe) AS SoVeBan, " +
+                    "COUNT(DISTINCT H.MaHD) AS SoHoaDon " +
+                    "FROM HoaDon H " +
+                    "JOIN ChiTietHoaDon CT ON H.MaHD = CT.MaHD " +
+                    "JOIN VeTau V ON CT.MaVe = V.MaVe " +
+                    "WHERE  CAST(H.NgayHoaDon AS DATE) BETWEEN ? AND ? " + // Lọc theo ngày
+                    "GROUP BY CONVERT(DATE, H.NgayHoaDon), " +
+                    "CASE " +
+                    "WHEN DATEPART(HOUR, H.NgayHoaDon) >= 6 AND DATEPART(HOUR, H.NgayHoaDon) < 14 THEN 'Ca 1 (6h-14h)' " +
+                    "WHEN DATEPART(HOUR, H.NgayHoaDon) >= 14 AND DATEPART(HOUR, H.NgayHoaDon) < 22 THEN 'Ca 2 (14h-22h)' " +
+                    "ELSE 'Ca 3 (22h-6h)' " +
+                    "END " +
+                    "ORDER BY Ngay, Ca";
+
+            // Tạo PreparedStatement và thiết lập tham số
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setDate(1, sqlStartDate);  // Set ngày bắt đầu
+            pstmt.setDate(2, sqlEndDate);    // Set ngày kết thúc
+
+            // Thực thi truy vấn
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    // Lấy dữ liệu từ ResultSet
+                    Date ngay = rs.getDate("Ngay");
+                    String ca = rs.getString("Ca");
+                    double doanhThu = rs.getDouble("DoanhThu");
+                    int soVeBan = rs.getInt("SoVeBan");
+                    int soHoaDon = rs.getInt("SoHoaDon");
+
+                    // Tạo đối tượng ThongKeCa và thêm vào danh sách
+                    ThongKeCa thongKeCa = new ThongKeCa(ngay, ca, doanhThu, soVeBan, soHoaDon);
+                    danhSachHD.add(thongKeCa);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Lỗi SQL: " + e.getMessage());
+        }
+        // Trả về danh sách kết quả
+        return danhSachHD;
+    }
+
+    // Phương thức tìm kiếm hóa đơn theo tháng và năm
+    public List<ThongKeCa> getHoaDonByMonthYear(int month, int year) {
+        // In ra tháng và năm để kiểm tra
+        System.out.println("Tháng: " + month);
+        System.out.println("Năm: " + year);
+
+        // Khởi tạo danh sách kết quả
+        List<ThongKeCa> danhSachHD = new ArrayList<>();
+
+        if (con == null) {
+            System.out.println("Kết nối cơ sở dữ liệu không thành công!");
+            return null; // Hoặc thông báo lỗi nếu cần
+        }
+
+        try {
+            // Câu lệnh SQL
+            String sql = "SELECT " +
+                    "CONVERT(DATE, H.NgayHoaDon) AS Ngay, " +
+                    "CASE " +
+                    "WHEN DATEPART(HOUR, H.NgayHoaDon) >= 6 AND DATEPART(HOUR, H.NgayHoaDon) < 14 THEN 'Ca 1 (6h-14h)' " +
+                    "WHEN DATEPART(HOUR, H.NgayHoaDon) >= 14 AND DATEPART(HOUR, H.NgayHoaDon) < 22 THEN 'Ca 2 (14h-22h)' " +
+                    "ELSE 'Ca 3 (22h-6h)' " +
+                    "END AS Ca, " +
+                    "SUM(H.TongTien) AS DoanhThu, " +
+                    "COUNT(V.MaVe) AS SoVeBan, " +
+                    "COUNT(DISTINCT H.MaHD) AS SoHoaDon " +
+                    "FROM HoaDon H " +
+                    "JOIN ChiTietHoaDon CT ON H.MaHD = CT.MaHD " +
+                    "JOIN VeTau V ON CT.MaVe = V.MaVe " +
+                    "WHERE MONTH(H.NgayHoaDon) = ? AND YEAR(H.NgayHoaDon) = ? " + // Lọc theo tháng và năm
+                    "GROUP BY CONVERT(DATE, H.NgayHoaDon), " +
+                    "CASE " +
+                    "WHEN DATEPART(HOUR, H.NgayHoaDon) >= 6 AND DATEPART(HOUR, H.NgayHoaDon) < 14 THEN 'Ca 1 (6h-14h)' " +
+                    "WHEN DATEPART(HOUR, H.NgayHoaDon) >= 14 AND DATEPART(HOUR, H.NgayHoaDon) < 22 THEN 'Ca 2 (14h-22h)' " +
+                    "ELSE 'Ca 3 (22h-6h)' " +
+                    "END " +
+                    "ORDER BY Ngay, Ca";
+
+            // Tạo PreparedStatement và thiết lập tham số
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, month);  // Set tháng
+            pstmt.setInt(2, year);   // Set năm
+
+            // Thực thi truy vấn
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    // Lấy dữ liệu từ ResultSet
+                    Date ngay = rs.getDate("Ngay");
+                    String ca = rs.getString("Ca");
+                    double doanhThu = rs.getDouble("DoanhThu");
+                    int soVeBan = rs.getInt("SoVeBan");
+                    int soHoaDon = rs.getInt("SoHoaDon");
+
+                    // Tạo đối tượng ThongKeCa và thêm vào danh sách
+                    ThongKeCa thongKeCa = new ThongKeCa(ngay, ca, doanhThu, soVeBan, soHoaDon);
+                    danhSachHD.add(thongKeCa);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Lỗi SQL: " + e.getMessage());
+        }
+
+        // Trả về danh sách kết quả
+        return danhSachHD;
+    }
+    // Phương thức tìm kiếm hóa đơn cho hôm qua
+    public List<ThongKeCa> getHoaDonForYesterday() {
+        // Lấy ngày hôm qua
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, -1);  // Trừ đi 1 ngày
+        java.util.Date yesterday = calendar.getTime();
+        Date sqlYesterday = new Date(yesterday.getTime()); // Chuyển đổi thành java.sql.Date
+
+        // Gọi phương thức tìm kiếm hóa đơn theo ngày (hôm qua)
+        return getHoaDonByDateRange(sqlYesterday, sqlYesterday);
+    }
+
+    // Phương thức tìm kiếm hóa đơn cho hôm nay
+    public List<ThongKeCa> getHoaDonForToday() {
+        // Lấy ngày hôm nay
+        java.util.Date today = new java.util.Date();
+        Date sqlToday = new Date(today.getTime()); // Chuyển đổi thành java.sql.Date
+
+        // Gọi phương thức tìm kiếm hóa đơn theo ngày (hôm nay)
+        return getHoaDonByDateRange(sqlToday, sqlToday);
+    }
 
 }

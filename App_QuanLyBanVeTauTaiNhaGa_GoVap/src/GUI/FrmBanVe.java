@@ -123,6 +123,7 @@ Component llvPanel = new FrmLichLamViec().getPanel_LLV();
 Component traCuuVePanel = new Frm_TraCuuVe().get_TraCuuVe_Panel();
 Component thongKeSLVe = new Frm_ThongKeSoLuongVeTheoThoiGian().getTKSLV();
 Component thongKeTiLeDoiTraVe = new Frm_ThongKeTiLeDoiTraVe().getTKTLDTV_Panel();
+Component thongKeDTTheoCa = new Frm_TKDTTheoCa().getJpanneTKDTCa();
 private List<LoaiKhachHang> danhSachLoaiKH = new ArrayList<>();
 private KhuyenMai khuyenMai = null;
 private Double chietKhau = 0.0;
@@ -1934,11 +1935,11 @@ public void actionPerformed(ActionEvent e) {
     } else if (e.getSource() == btnThongKeTheoCa) {
         addButtonAction(btnThongKeTheoCa);
         Jpanel_Main.removeAll();
-//            current = (JPanel) nhanVienPanel;
+           current = (JPanel) thongKeDTTheoCa;
         JPanel_XacNhanCho.setVisible(false);
         lab_Title.setVisible(false);
         JPanel_BanVe.setVisible(false);
-//            Jpanel_Main.add(nhanVienPanel);
+            Jpanel_Main.add(thongKeDTTheoCa);
         Jpanel_Main.setVisible(true);
 
         // Cập nhật lại giao diện người dùng
