@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6c5b856b-fc64-425e-bfe5-c660a42569cd" name="Changes" comment="">
+    <list default="true" id="9f679164-a2ba-4a52-85ba-51f618cde843" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/danh_sach_ve.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/danh_sach_ve.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hoa_don.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hoa_don.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hoadonTra.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hoadonTra.pdf" afterDir="false" />
@@ -15,6 +16,13 @@
       <change beforePath="$PROJECT_DIR$/src/Entity/Tau.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Tau.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/TuyenTau.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/TuyenTau.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/TraVe_GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/TraVe_GUI.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/InLaiVe.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/InLaiVe.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/danh_sach_ve.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/danh_sach_ve.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hoa_don.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hoa_don.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hoadonTra.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hoadonTra.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" afterDir="false" />
+>>>>>>> 259b0429a02d12d5cde55c83fc40fdac6b0745e6
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,22 +32,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;luongtan204&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/dhViet2004/XaydungungdungBanVeTauTaiNhaGAS.git&quot;,
-    &quot;accountId&quot;: &quot;8c17338e-6384-4911-8989-827aa9ebfab4&quot;
-  }
-}</component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 4
+  &quot;associatedIndex&quot;: 6
 }</component>
-  <component name="ProjectId" id="2q7PXELO6lbwxaPoEeXsibmgS34" />
+  <component name="ProjectId" id="2q92Kaeis5orTqX2vx9wDOTLwuD" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -49,6 +45,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+<<<<<<< HEAD
     "Application.ChuyenTau.executor": "Run",
     "Application.DAO_TraVe.executor": "Run",
     "Application.Dao_ThongKeDoanhThu.executor": "Run",
@@ -58,11 +55,18 @@
     "Application.Main.executor": "Run",
     "Application.ThongKeDoanhThu.executor": "Run",
     "Application.TraVe_GUI.executor": "Run",
+=======
+    "Application.FrmBanVe.executor": "Run",
+    "Application.Main.executor": "Run",
+>>>>>>> 259b0429a02d12d5cde55c83fc40fdac6b0745e6
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
+<<<<<<< HEAD
     "last_opened_file_path": "C:/Users/ASUS/Desktop/nhom1/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap/src/thongKeDoanhThu",
+=======
+>>>>>>> 259b0429a02d12d5cde55c83fc40fdac6b0745e6
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -71,6 +75,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+<<<<<<< HEAD
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\ASUS\Desktop\nhom1\XaydungungdungBanVeTauTaiNhaGAS\App_QuanLyBanVeTauTaiNhaGa_GoVap\src\thongKeDoanhThu" />
@@ -81,6 +86,11 @@
   <component name="RunManager" selected="Application.DAO_TraVe">
     <configuration name="ChuyenTau" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.ChuyenTau" />
+=======
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="FrmBanVe (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
+>>>>>>> 259b0429a02d12d5cde55c83fc40fdac6b0745e6
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
         <pattern>
@@ -118,11 +128,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Loading" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.Loading" />
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main.Main" />
       <module name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
       <extension name="coverage">
         <pattern>
+<<<<<<< HEAD
           <option name="PATTERN" value="GUI.*" />
           <option name="ENABLED" value="true" />
         </pattern>
@@ -137,6 +148,9 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="GUI.*" />
+=======
+          <option name="PATTERN" value="Main.*" />
+>>>>>>> 259b0429a02d12d5cde55c83fc40fdac6b0745e6
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -146,29 +160,36 @@
     </configuration>
     <recent_temporary>
       <list>
+<<<<<<< HEAD
         <item itemvalue="Application.DAO_TraVe" />
         <item itemvalue="Application.TraVe_GUI" />
         <item itemvalue="Application.FrmBanVe" />
         <item itemvalue="Application.ChuyenTau" />
         <item itemvalue="Application.Loading" />
+=======
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.FrmBanVe (1)" />
+        <item itemvalue="Application.FrmBanVe" />
+>>>>>>> 259b0429a02d12d5cde55c83fc40fdac6b0745e6
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="6c5b856b-fc64-425e-bfe5-c660a42569cd" name="Changes" comment="" />
-      <created>1734010678299</created>
+      <changelist id="9f679164-a2ba-4a52-85ba-51f618cde843" name="Changes" comment="" />
+      <created>1734060408006</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
+<<<<<<< HEAD
       <updated>1734010678299</updated>
       <workItem from="1734010679898" duration="7926000" />
       <workItem from="1734021601081" duration="1950000" />
@@ -177,20 +198,15 @@
       <workItem from="1734039025474" duration="719000" />
       <workItem from="1734039767696" duration="2000" />
       <workItem from="1734058283723" duration="6280000" />
+=======
+      <updated>1734060408006</updated>
+      <workItem from="1734060409491" duration="449000" />
+      <workItem from="1734060865586" duration="1608000" />
+>>>>>>> 259b0429a02d12d5cde55c83fc40fdac6b0745e6
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.ArrayIndexOutOfBoundsException" package="java.lang" />
-          <option name="timeStamp" value="1" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
