@@ -907,7 +907,8 @@ public void actionPerformed(ActionEvent e) {
                                                         choButton.setOpaque(true);
                                                         // Kiểm tra vé cho mã chỗ ngồi
                                                         VeTau veTau = daoBanVe.getVeTaubyLichTrinhTauandMaCho(lichTrinhTau.getMaLichTrinh(), choNgoi.getMaCho());
-                                                        if (veTau != null) {
+                                                        if (veTau != null && veTau.getTrangThai().equals("Đã thanh toán"))
+                                                        {
                                                             // Nếu có vé, khóa nút và đổi màu
                                                             choButton.setEnabled(false); // Khóa nút
                                                             choButton.setBackground(Color.pink); // Đổi màu nút thành đỏ
