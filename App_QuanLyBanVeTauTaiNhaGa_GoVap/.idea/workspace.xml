@@ -1,5 +1,204 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="062a8f30-db46-451f-ba95-20dd66c948d5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/7-up.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/DauTauHoa.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/DauTauHoaMauVang.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/DauTauHoaMauXanh.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/DauTauHoa_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/DuoiTauHoaMauVang.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/DuoiToaMauXanh.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/Gif_TauIntro.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/Next.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/ThanToaMauVang.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/ThanToaMauXanh.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/avataMacDinh.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/avataNV1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/avataNV2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/avataNV3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/banner_700.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/circular-arrow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/clockNV.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/edit.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/filter.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/filterNV.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/findNV.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/mauHong.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/mauTrang.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/mauVang.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/pink.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/plus (1).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/plus.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/remove.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/rotate.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/search_Train.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/undo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/user.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Anh_HeThong/wall-clock (1).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/DAO/DAO_BanVe.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/DAO/DAO_ChuyenTau.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/DAO/DAO_HoaDon.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/DAO/DAO_KhachHang.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/DAO/DAO_KhuyenMai.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/DAO/DAO_LichLamViec.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/DAO/DAO_NhanVien.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/DAO/DAO_TaiKhoan.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Database/ConnectDatabase.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/ChiTietHoaDon.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/ChoNgoi.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/CustomCellEditor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/CustomCellRenderer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/CustomPanel$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/CustomPanel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/HoaDon.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/KhachHang.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/KhuyenMai.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/LichLamViec.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/LichTrinhTau.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/LoaiCho.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/LoaiHoaDon.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/LoaiKhachHang.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/LoaiToa.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/NhanVien.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/RoundedButton.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/TaiKhoan.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/Tau.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/ThongTinChoNgoi.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/ToaTau.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/TuyenTau.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Entity/VeTau.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$10.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$11.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$12.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$13.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$14.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$15.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$16.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$17.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$18.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$19.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$20.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$21.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$22.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$23.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$7.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$8.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau$9.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/ChuyenTau.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmBanVe$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmBanVe$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmBanVe$3$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmBanVe$3$2$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmBanVe$3$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmBanVe$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmBanVe$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmBanVe$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmBanVe$6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmBanVe$7.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmBanVe.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmDangNhap.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmKhuyenMai.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmLichLamViec$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmLichLamViec$10.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmLichLamViec$11.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmLichLamViec$12.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmLichLamViec$13.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmLichLamViec$14.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmLichLamViec$15.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmLichLamViec$16.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmLichLamViec$17.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmLichLamViec$18.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmLichLamViec$19.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmLichLamViec$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmLichLamViec$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmLichLamViec$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmLichLamViec$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmLichLamViec$6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmLichLamViec$7.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmLichLamViec$8.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmLichLamViec$9.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmLichLamViec.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmNhanVien$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmNhanVien$10.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmNhanVien$11.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmNhanVien$12.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmNhanVien$13.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmNhanVien$14.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmNhanVien$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmNhanVien$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmNhanVien$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmNhanVien$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmNhanVien$6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmNhanVien$7.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmNhanVien$8.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmNhanVien$9.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmNhanVien.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmSuaKhuyenMai.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/FrmThemKhuyenMai.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/Frm_KhachHang$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/Frm_KhachHang.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/Frm_QuanLy$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/Frm_QuanLy.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/Loading$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/Loading.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/GUI/TimePickerExample.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/Main/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/com/intellij/uiDesigner/core/AbstractLayout.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/com/intellij/uiDesigner/core/DimensionInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/com/intellij/uiDesigner/core/GridConstraints.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/com/intellij/uiDesigner/core/GridLayoutManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/com/intellij/uiDesigner/core/HorizontalInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/com/intellij/uiDesigner/core/LayoutState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/com/intellij/uiDesigner/core/Spacer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/com/intellij/uiDesigner/core/SupportCode$TextWithMnemonic.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/com/intellij/uiDesigner/core/SupportCode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/com/intellij/uiDesigner/core/Util.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/com/intellij/uiDesigner/core/VerticalInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/helper/DataVaildator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/helper/MessageDialogHelper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/production/App_QuanLyBanVeTauTaiNhaGa_GoVap/helper/SharedData.class" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2qAHCVmh0DhixDl2tiiaB3jnRdn" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.FrmBanVe.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "T:/Backup/XaydungungdungBanVeTauTaiNhaGAS/App_QuanLyBanVeTauTaiNhaGa_GoVap",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
   <component name="RunManager">
     <configuration name="FrmBanVe" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.FrmBanVe" />
@@ -19,5 +218,28 @@
         <item itemvalue="Application.FrmBanVe" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
+        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="062a8f30-db46-451f-ba95-20dd66c948d5" name="Changes" comment="" />
+      <created>1734098331711</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1734098331711</updated>
+      <workItem from="1734098332829" duration="313000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>
