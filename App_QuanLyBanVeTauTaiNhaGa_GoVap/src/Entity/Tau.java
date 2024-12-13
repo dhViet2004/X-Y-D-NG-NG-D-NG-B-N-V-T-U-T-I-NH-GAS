@@ -8,14 +8,13 @@ public class Tau {
 
     // Constructor
     public Tau(String maTau, TuyenTau tuyenTau, String tenTau, int soToa) {
-        this.maTau = maTau;
+       this.maTau = maTau;
         this.tuyenTau = tuyenTau;
-        this.tenTau = tenTau;
+         this.tenTau = tenTau;
         this.soToa = soToa;
     }
 
     public Tau() {
-
     }
 
     // Getters và Setters
@@ -24,6 +23,9 @@ public class Tau {
     }
 
     public void setMaTau(String maTau) {
+        if (maTau == null || !maTau.matches("[A-Z]{4}\\d{4}")) {
+            throw new IllegalArgumentException("Mã tàu không hợp lệ. Định dạng đúng: XXXXNNN (4 chữ cái + 3 chữ số).");
+        }
         this.maTau = maTau;
     }
 
@@ -40,6 +42,9 @@ public class Tau {
     }
 
     public void setTenTau(String tenTau) {
+        if (tenTau == null || tenTau.trim().isEmpty()) {
+            throw new IllegalArgumentException("Tên tàu không được để trống.");
+        }
         this.tenTau = tenTau;
     }
 
@@ -48,6 +53,9 @@ public class Tau {
     }
 
     public void setSoToa(int soToa) {
+        if (soToa < 0) {
+            throw new IllegalArgumentException("Số toa không được là số âm.");
+        }
         this.soToa = soToa;
     }
 

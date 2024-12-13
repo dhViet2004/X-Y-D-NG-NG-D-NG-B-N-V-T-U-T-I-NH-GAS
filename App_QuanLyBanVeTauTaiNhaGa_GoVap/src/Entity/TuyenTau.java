@@ -10,21 +10,31 @@ public class TuyenTau {
     private String diaDiemDi;
     private String diaDiemDen;
 
+
+    // Constructor
     public TuyenTau(String maTuyen, String tenTuyen, String gaDi, String gaDen, String diaDiemDi, String diaDiemDen) {
-        this.tenTuyen = tenTuyen;
-        this.maTuyen = maTuyen;
-        this.gaDi = gaDi;
-        this.gaDen = gaDen;
-        this.diaDiemDi = diaDiemDi;
+        setMaTuyen(maTuyen);
+        setTenTuyen(tenTuyen);
         this.diaDiemDen = diaDiemDen;
+        this.diaDiemDi = diaDiemDi;
+        this.gaDen = gaDen;
+        this.gaDi = gaDi;
+
     }
 
     public TuyenTau() {
-
     }
 
+    // Getters và Setters
     public String getMaTuyen() {
         return maTuyen;
+    }
+
+    public void setMaTuyen(String maTuyen) {
+        if (maTuyen == null || !maTuyen.matches("[A-Z]{2}-[A-Z]{2}-\\d")) {
+            throw new IllegalArgumentException("Mã tuyến không hợp lệ. Định dạng đúng: XX-yy-z (2 chữ cái viết hoa, 2 chữ cái thường, 1 chữ số).");
+        }
+        this.maTuyen = maTuyen;
     }
 
     public String getTenTuyen() {
@@ -32,6 +42,9 @@ public class TuyenTau {
     }
 
     public void setTenTuyen(String tenTuyen) {
+        if (tenTuyen == null || tenTuyen.trim().isEmpty()) {
+            throw new IllegalArgumentException("Tên tuyến không được để trống.");
+        }
         this.tenTuyen = tenTuyen;
     }
 
@@ -40,6 +53,9 @@ public class TuyenTau {
     }
 
     public void setGaDi(String gaDi) {
+        if (gaDi == null || gaDi.trim().isEmpty()) {
+            throw new IllegalArgumentException("Ga đi không được để trống.");
+        }
         this.gaDi = gaDi;
     }
 
@@ -48,6 +64,9 @@ public class TuyenTau {
     }
 
     public void setGaDen(String gaDen) {
+        if (gaDen == null || gaDen.trim().isEmpty()) {
+            throw new IllegalArgumentException("Ga đến không được để trống.");
+        }
         this.gaDen = gaDen;
     }
 
@@ -56,6 +75,9 @@ public class TuyenTau {
     }
 
     public void setDiaDiemDi(String diaDiemDi) {
+        if (diaDiemDi == null || diaDiemDi.trim().isEmpty()) {
+            throw new IllegalArgumentException("Địa điểm đi không được để trống.");
+        }
         this.diaDiemDi = diaDiemDi;
     }
 
@@ -64,6 +86,9 @@ public class TuyenTau {
     }
 
     public void setDiaDiemDen(String diaDiemDen) {
+        if (diaDiemDen == null || diaDiemDen.trim().isEmpty()) {
+            throw new IllegalArgumentException("Địa điểm đến không được để trống.");
+        }
         this.diaDiemDen = diaDiemDen;
     }
 

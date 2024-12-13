@@ -312,6 +312,44 @@ public class DAO_TraVe {
 
         return null;  // Trả về null nếu có lỗi
     }
+    public boolean truDiemTichLuy(String maKH, float soTien) {
+        // Tính số điểm cần trừ từ số tiền
+        int soDiemCanTru = (int) (soTien * 0.001);
+
+        String sqlSelect = "SELECT DiemTichLuy FROM KhachHang WHERE MaKH = ? AND LoaiKhachHangMaLoaiKH = 'KH002'";
+        String sqlUpdate = "UPDATE KhachHang SET DiemTichLuy = DiemTichLuy - ? WHERE MaKH = ? AND LoaiKhachHangMaLoaiKH = 'KH002'";
+
+        try (PreparedStatement pstmtSelect = con.prepareStatement(sqlSelect);
+             PreparedStatement pstmtUpdate = con.prepareStatement(sqlUpdate)) {
+
+            // Kiểm tra điểm tích lũy hiện tại
+            pstmtSelect.setString(1, maKH);
+            ResultSet rs = pstmtSelect.executeQuery();
+
+            if (rs.next()) {
+                int currentPoints = rs.getInt("DiemTichLuy");
+
+                // Kiểm tra nếu đủ điểm để trừ
+                if (currentPoints >= soDiemCanTru) {
+                    pstmtUpdate.setInt(1, soDiemCanTru); // Số điểm cần trừ
+                    pstmtUpdate.setString(2, maKH);     // Mã khách hàng
+
+                    int rowsAffected = pstmtUpdate.executeUpdate();
+                    return rowsAffected > 0; // Trả về true nếu trừ điểm thành công
+                } else {
+                    System.out.println("Không đủ điểm tích lũy để trừ.");
+                }
+            } else {
+                System.out.println("Khách hàng không tồn tại hoặc không thuộc loại KH002.");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return false; // Trả về false nếu có lỗi hoặc không đủ điều kiện
+    }
+
     public int addChiTietHoaDon(String maVe, String maHD, int soLuong, float vat, float thanhTien, String tenThue) {
         // SQL query để thêm chi tiết hóa đơn vào bảng ChiTietHoaDon
         String sql = "INSERT INTO [UngDungQuanLyBanVeTaiGaGoVap].[dbo].[ChiTietHoaDon] " +
@@ -519,8 +557,8 @@ public class DAO_TraVe {
         // Test getVeTauByMaHDAndCCCDAndSDT
 
         // Test getTenVaCCCDKhachHangByMaVe
-        KhachHang khachHang = dao.getKhachHangByMaKH("KH1112240001");
-        System.out.println(khachHang);
+        boolean truTienThanhVien= dao.truDiemTichLuy("KH1212240004",209000.0f);
+        System.out.println(truTienThanhVien);
     }
 
 
