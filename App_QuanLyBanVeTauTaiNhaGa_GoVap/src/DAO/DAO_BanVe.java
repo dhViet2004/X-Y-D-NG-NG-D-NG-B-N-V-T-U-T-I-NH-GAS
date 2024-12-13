@@ -486,7 +486,7 @@ public class DAO_BanVe {
                 String diaDiemDen = rs.getString("DiaDiemDen");
 
                 // Tạo đối tượng TuyenTau
-                TuyenTau tuyenTau = new TuyenTau(tenTuyen, maTuyen, gaDi, gaDen, diaDiemDi, diaDiemDen);
+                TuyenTau tuyenTau = new TuyenTau(maTuyen, tenTuyen, gaDi, gaDen, diaDiemDi, diaDiemDen);
 
                 // Tạo đối tượng Tau
                 tau = new Tau(maTau, tuyenTau, tenTau, soToa);
@@ -622,7 +622,8 @@ public class DAO_BanVe {
                 // Lấy thông tin tuyến tàu
                 String maTuyen = rs.getString("MaTuyen");
                 String tenTuyen = rs.getString("TenTuyen");
-                TuyenTau tuyenTau = new TuyenTau(tenTuyen, maTuyen, null, null, null, null); // Các thông tin khác của tuyến tàu có thể bỏ qua
+                System.out.println(maTuyen);
+                TuyenTau tuyenTau = new TuyenTau(maTuyen, tenTuyen, null, null, null, null); // Các thông tin khác của tuyến tàu có thể bỏ qua
 
                 // Tạo đối tượng Tau
                 Tau tau = new Tau(maTau,tuyenTau,tenTau, soToa);

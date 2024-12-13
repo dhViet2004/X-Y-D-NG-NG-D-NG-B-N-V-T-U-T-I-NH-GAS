@@ -795,7 +795,10 @@ public class TraVe_GUI extends JFrame {
     // Gọi phương thức để lấy dữ liệu từ cơ sở dữ liệu hoặc đối tượng
     VeTau ve = dao.getVeByMaVe(maVe);
     KhachHang kh = dao.getTenVaCCCDKhachHangByMaVe(maVe);
-
+    if (ve == null) {
+        JOptionPane.showMessageDialog(this, "Không tìm thấy vé!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        return;
+    }
     // Đảm bảo bạn đã thiết lập TableModel cho JTable
     DefaultTableModel model = (DefaultTableModel) tableHienThi.getModel();
    
@@ -1060,6 +1063,8 @@ if (hasNewTicket) {
                     String tongTienTra = txtTienTra.getText();// Tổng tiền trả từ textbox
                     DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
                     tongTienTra = tongTienTra.replace(",", "");
+                    String tongTienVe = txtTienVe.getText();
+                    tongTienVe = tongTienVe.replace(",", "");
                     Number number = null;
                     try {
                         number = decimalFormat.parse(tongTienTra);
@@ -1078,6 +1083,11 @@ if (hasNewTicket) {
                     }else {
                         System.out.println("có mã rồi không tạo nữa: " + maHD);
                         maHD = dao.addHoaDon(maNguoiDat, nhanVien, (0-tongTien),new Timestamp(System.currentTimeMillis()));
+                        boolean truTienThanhVien=dao.truDiemTichLuy(maNguoiDat, Float.parseFloat(tongTienVe));
+                        System.out.println("Đã trừ điểm thành viên"+Float.parseFloat(tongTienVe));
+                        if(truTienThanhVien){
+                            System.out.println("Đã trừ điểm thành viên");
+                        }
                     }
                     // Thêm chi tiết hóa đơn cho từng vé đã chọn
                     int addchitiet=dao.addChiTietHoaDon(maVe,maHD,1,0,(float) (0.0-(thanhTien)),"0");

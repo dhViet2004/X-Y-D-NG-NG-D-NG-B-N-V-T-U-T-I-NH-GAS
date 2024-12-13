@@ -61,10 +61,12 @@ public class DAO_ChuyenTau {
             String trangThai = resultSet.getString("TrangThai");
             String tenTau = resultSet.getString("TenTau");
             // Tạo đối tượng TuyenTau
-            TuyenTau tuyenTau = new TuyenTau( maTuyen,tenTuyen, null, null, null, null);
+            TuyenTau tuyenTau = new TuyenTau( );
+            tuyenTau.setMaTuyen(maTuyen);
+            tuyenTau.setTenTuyen(tenTuyen);
 
             // Tạo đối tượng Tau
-             Tau tau = new Tau(maTau, tuyenTau, tenTau, 0); 
+             Tau tau = new Tau(maTau, tuyenTau, tenTau, 0);
 
             // Tạo đối tượng LichTrinhTau
             lichTrinhTau = new LichTrinhTau(maLichTrinh, gioDi, ngayDi, tau, trangThai);
@@ -101,7 +103,9 @@ public class DAO_ChuyenTau {
         while (resultSet.next()) {
             String maTuyen = resultSet.getString("MaTuyen");
             String tenTuyen = resultSet.getString("TenTuyen");
-            TuyenTau tuyenTau = new TuyenTau(maTuyen, tenTuyen,null,null,null,null);
+            TuyenTau tuyenTau = new TuyenTau();
+            tuyenTau.setMaTuyen(maTuyen);
+            tuyenTau.setTenTuyen(tenTuyen);
             listTuyenTau.add(tuyenTau);
         }
     } catch (SQLException e) {
