@@ -6,11 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9f679164-a2ba-4a52-85ba-51f618cde843" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InLaiVe.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/InLaiVe.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/danh_sach_ve.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/danh_sach_ve.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hoa_don.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hoa_don.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hoadonTra.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hoadonTra.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/FrmBanVe.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +28,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.FrmBanVe (1).executor": "Run",
     "Application.FrmBanVe.executor": "Run",
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -112,7 +108,7 @@
       <option name="presentableId" value="Default" />
       <updated>1734060408006</updated>
       <workItem from="1734060409491" duration="449000" />
-      <workItem from="1734060865586" duration="1608000" />
+      <workItem from="1734060865586" duration="2001000" />
     </task>
     <servers />
   </component>
