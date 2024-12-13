@@ -941,7 +941,7 @@
                 // Gọi hàm thêm tất cả lịch làm việc từ DAO
                 for (LichLamViec lichLamViec : lichLamViecList) {
                     if (llv_dao.insert(lichLamViec)) {
-                        System.out.println("Them lich thanh cong");
+                        JOptionPane.showMessageDialog(this,"Them lich thanh cong");
                     } else {
                         MessageDialogHelper.showMessageDialog(this, "Thêm lịch thất bại", "Thông báo");
                         return;

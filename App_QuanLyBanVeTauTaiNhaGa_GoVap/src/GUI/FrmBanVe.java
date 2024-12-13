@@ -1037,9 +1037,9 @@ public void actionPerformed(ActionEvent e) {
             CustomPanel panel = new CustomPanel();
             //đổi
             if(thongTinVeDoi!= null){
-                panel.setHoTen("Nguyen Van A"); // Thiết lập các thuộc tính cần thiết
+                panel.setHoTen(thongTinVeDoi.getTenKhachHang()); // Thiết lập các thuộc tính cần thiết
                 panel.setTrangThai(thongTinVeDoi.getDoiTuong(),choNgoi.getGia());
-                panel.setCCCD("123456789");
+                panel.setCCCD(thongTinVeDoi.getGiayTo());
                 panel.setGiaVe(choNgoi.getGia());
             }
             //
@@ -2369,11 +2369,12 @@ private void phanQuyen(String maNV) throws Exception {
             btnQuanLyNhanVien.setEnabled(false);
             btnQuanLyChuyenTau.setEnabled(false);
             btnQuanLyLLV.setEnabled(false);
+            btnQuanLyDoanhThu.setEnabled(false);
+            btnQuanLyKhuyenMai.setEnabled(false);
+            btnQuanLyKhachHang.setEnabled(false);
         }if(nv.getMaNhanVien().equalsIgnoreCase(maNV) && nv.getChucVu().equalsIgnoreCase("Quan ly")){
             btnBanVe.setEnabled(false);
             btnQuanLyVe.setEnabled(false);
-            btnTraCuu.setEnabled(false);
-            btnQuanLyKhuyenMai.setEnabled(false);
             btnThongKeTheoCa.setEnabled(false);
         }
     }

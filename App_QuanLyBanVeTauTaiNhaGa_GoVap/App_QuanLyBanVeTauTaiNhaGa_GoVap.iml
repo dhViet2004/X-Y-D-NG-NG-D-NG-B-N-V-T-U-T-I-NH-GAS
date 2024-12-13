@@ -23,5 +23,6 @@
     <orderEntry type="library" name="javax.activation-api-1.2.0" level="project" />
     <orderEntry type="library" name="libs" level="project" />
     <orderEntry type="library" name="TimingFramework-0.55" level="project" />
+    <orderEntry type="library" name="jcalendar-1.4" level="project" />
   </component>
 </module>

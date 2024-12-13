@@ -2,6 +2,7 @@
 package GUI;
 
 import DAO.DAO_DoiVe;
+import DAO.DAO_KhachHang;
 import Database.ConnectDatabase;
 import Entity.KhachHang;
 import Entity.LichTrinhTau;
@@ -15,12 +16,14 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
 public class Frm_DoiVe extends JFrame {
 
     private final DAO_DoiVe dao_BanVe;
+    private final DAO_KhachHang dao_KH;
     private FrmBanVe frmBanVe;
     private final DefaultTableModel tableModel;
     private KhachHang thongTinKH;
@@ -35,6 +38,11 @@ public class Frm_DoiVe extends JFrame {
 
         }
         dao_BanVe = new DAO_DoiVe();
+        try {
+            dao_KH = new DAO_KhachHang();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         
         tableVeDoi.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -351,10 +359,15 @@ public class Frm_DoiVe extends JFrame {
         // Lấy thông tin khách hàng liên quan đến vé
         thongTinKH = dao_BanVe.timTTKHtheoMaVe(maDoi);
         if (thongTinKH != null) {
-            txtCccd.setText(thongTinKH.getCCCD());
-            txtDiaChi.setText(thongTinKH.getDiaChi());
-            txtSdt.setText(thongTinKH.getSoDienThoai());
-            txtTenKH.setText(thongTinKH.getTenKhachHang());
+            try {
+                txtCccd.setText(dao_KH.decryptAES(thongTinKH.getCCCD()));
+                txtDiaChi.setText(dao_KH.decryptAES(thongTinKH.getDiaChi()));
+                txtSdt.setText(dao_KH.decryptAES(thongTinKH.getSoDienThoai()));
+                txtTenKH.setText(dao_KH.decryptAES(thongTinKH.getTenKhachHang()));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
         } else {
             JOptionPane.showMessageDialog(null, "Không tìm thấy thông tin khách hàng cho mã vé: " + maDoi);
         }
@@ -386,10 +399,15 @@ public class Frm_DoiVe extends JFrame {
         }
         thongTinKH = dao_BanVe.timTTKHtheoMaHoaDon(maDoi);
         if (thongTinKH != null) {
-            txtCccd.setText(thongTinKH.getCCCD());
-            txtDiaChi.setText(thongTinKH.getDiaChi());
-            txtSdt.setText(thongTinKH.getSoDienThoai());
-            txtTenKH.setText(thongTinKH.getTenKhachHang());
+            try {
+                txtCccd.setText(dao_KH.decryptAES(thongTinKH.getCCCD()));
+                txtDiaChi.setText(dao_KH.decryptAES(thongTinKH.getDiaChi()));
+                txtSdt.setText(dao_KH.decryptAES(thongTinKH.getSoDienThoai()));
+                txtTenKH.setText(dao_KH.decryptAES(thongTinKH.getTenKhachHang()));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
         } else {
             JOptionPane.showMessageDialog(null, "Không tìm thấy thông tin khách hàng cho mã vé: " + maDoi);
         }

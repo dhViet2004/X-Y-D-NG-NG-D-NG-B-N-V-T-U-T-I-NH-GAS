@@ -401,7 +401,7 @@ public class TraCuuLichTrinh extends javax.swing.JFrame {
         String gioBatDau = null;
         String gioKetThuc = null;
         String tau = null;
-        String trangThai = (String) cbbTrangThai.getSelectedItem();
+        String trangThai = null;
 
         // Nếu các checkbox được chọn, lấy các giá trị từ chúng
         boolean isGioBatDauChecked = jCheckBox1.isSelected();

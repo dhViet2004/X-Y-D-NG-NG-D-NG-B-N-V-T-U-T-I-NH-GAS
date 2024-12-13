@@ -207,7 +207,7 @@ public class Dao_ThongKeDoanhThu {
     String sql = "SELECT COUNT(*) AS SoLuongLichTrinh " +
                  "FROM LichTrinhTau " +
                  "WHERE NgayDi BETWEEN ? AND ? " +
-                 "AND REPLACE(REPLACE(TrangThai, ' ', ''), N'đã hoàn thành', '') COLLATE SQL_Latin1_General_CP1_CI_AS = ''";  // Lọc theo trạng thái bỏ dấu và khoảng trắng
+                 "AND REPLACE(REPLACE(TrangThai, ' ', ''), N'Đã hoàn thành', '') COLLATE SQL_Latin1_General_CP1_CI_AS = ''";  // Lọc theo trạng thái bỏ dấu và khoảng trắng
 
     int soLuongLichTrinh = 0;
 

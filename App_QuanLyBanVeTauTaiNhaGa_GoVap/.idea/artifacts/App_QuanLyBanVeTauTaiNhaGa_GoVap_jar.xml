@@ -1,0 +1,64 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="App_QuanLyBanVeTauTaiNhaGa_GoVap:jar">
+    <output-path>D:/FileDongGoi3</output-path>
+    <root id="archive" name="App_QuanLyBanVeTauTaiNhaGa_GoVap.jar">
+      <element id="module-output" name="App_QuanLyBanVeTauTaiNhaGa_GoVap" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jar Libraries/sqljdbc4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jar Libraries/sqljdbc42.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jar Libraries/jsvg-1.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jar Libraries/flatlaf-3.2.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jar Libraries/jcalendar-1.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jar Libraries/AbsoluteLayout.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jar Libraries/miglayout-core.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jar Libraries/miglayout-swing.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jar Libraries/swingx-all-1.6.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jar Libraries/swing-time-picker.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jar Libraries/flatlaf-extras-3.2.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jar Libraries/TimingFramework-0.55.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/jar Libraries/swing-glasspane-popup-1.5.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/slf4j-api-2.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/thuvienpoi/poi-4.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/thuvienpoi/xmlbeans-3.0.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/thuvienpoi/poi-ooxml-4.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/thuvienpoi/jfreechart-1.5.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/thuvienpoi/commons-codec-1.11.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/thuvienpoi/commons-compress-1.18.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/thuvienpoi/poi-ooxml-schemas-4.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/thuvienpoi/commons-collections4-4.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/pie-chart.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/sqljdbc42.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/core-3.3.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/core-3.5.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/javax.mail.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/javase-3.3.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/javase-3.5.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/log4j-1.2.17.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/AbsoluteLayout.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/activation-1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/mail-1.5.0-b01.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/jcalendar-1.2.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/slf4j-api-1.6.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/TimingFramework-0.55.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/webcam-capture-0.3.12.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/bridj-0.6.2-windows-only.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/javax.activation-api-1.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/iText-Core-9.0.0-only-jars/io-9.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/iText-Core-9.0.0-only-jars/svg-9.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/iText-Core-9.0.0-only-jars/hyph-9.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/iText-Core-9.0.0-only-jars/pdfa-9.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/iText-Core-9.0.0-only-jars/sign-9.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/iText-Core-9.0.0-only-jars/forms-9.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/iText-Core-9.0.0-only-jars/pdfua-9.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/iText-Core-9.0.0-only-jars/kernel-9.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/iText-Core-9.0.0-only-jars/layout-9.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/iText-Core-9.0.0-only-jars/commons-9.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/iText-Core-9.0.0-only-jars/pdftest-9.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/iText-Core-9.0.0-only-jars/barcodes-9.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/iText-Core-9.0.0-only-jars/font-asian-9.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/iText-Core-9.0.0-only-jars/styled-xml-parser-9.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/iText-Core-9.0.0-only-jars/bouncy-castle-adapter-9.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/iText-Core-9.0.0-only-jars/bouncy-castle-connector-9.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/libs/iText-Core-9.0.0-only-jars/bouncy-castle-fips-adapter-9.0.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

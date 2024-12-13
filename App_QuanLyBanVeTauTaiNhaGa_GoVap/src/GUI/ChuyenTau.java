@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Set;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import com.toedter.calendar.JDateChooser;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
@@ -44,6 +46,8 @@ public class ChuyenTau extends javax.swing.JFrame {
         fillComboBoxTrangThai();
         DAO_ChuyenTau dao = new DAO_ChuyenTau();
         dao.capNhatTrangThaiTau();
+        jDateChooserNgayDi.setMinSelectableDate(new Date());
+        jDateChooser4.setMinSelectableDate(new Date());
     }
 
     /**
