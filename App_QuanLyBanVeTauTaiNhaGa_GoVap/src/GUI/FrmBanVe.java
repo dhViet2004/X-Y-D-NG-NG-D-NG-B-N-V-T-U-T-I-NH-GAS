@@ -2134,9 +2134,18 @@ public void actionPerformed(ActionEvent e) {
     }else if(e.getSource() == btnTroGiup){
         openHelpPage();
     }else if (e.getSource() == btnDangXuat){
-        this.dispose();
-        FrmDangNhap dangNhap = new FrmDangNhap();
-        dangNhap.setVisible(true);
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Bạn có chắc chắn muốn thoát chương trình không?",
+                "Xác nhận thoát",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            this.dispose(); // Đóng cửa sổ hiện tại
+            FrmDangNhap frmDangNhap = new FrmDangNhap(); // Khởi tạo lại form đăng nhập
+            frmDangNhap.setVisible(true); // Hiển thị form đăng nhập
+        }
     }
 }
 
